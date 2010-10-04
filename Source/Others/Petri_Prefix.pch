@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Petri' target in the 'Petri' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
