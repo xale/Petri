@@ -70,36 +70,85 @@
 <li>at least one of the cells in the piece must be horizontally or vertically adjacent to a cell in the dish already controlled by the player</li>
 </ol>
 
-<p>Placed pieces are added to the player’s territory, and when the piece is placed, the player’s turn ends. If the player cannot place the piece, he or she may choose to skip his or her turn.</p></li>
+<p><p>Placed pieces are added to the player’s territory, and when the piece is placed, the player’s turn ends. If the player cannot place the piece, he or she may choose to skip his or her turn.</p></li>
 </ol>
-The object of the game is to eliminate all opponents; elimination occurs, as stated before, when a player’s head is captured or killed. Captures are the primary means of gaining territory in the game, while kills provide a more direct means of attacking opponent, without personal gain:
+The object of the game is to eliminate all opponents; elimination occurs, as stated before, when a player’s head is captured or killed. Captures are the primary means of gaining territory in the game, while kills provide a more direct means of attacking opponent, without personal gain:</p>
 
+<ul>
+<li>Cells are captured by surrounding the cell, or a straight line of cells, on two sides, horizontally, vertically, or diagonally. Any cells surrounded this way are given to the capturing player. Captures are recursive: capturing a cell that would surround additional cells also captures the additional cells. Capturing a player’s head captures all of the player’s territory.</li>
+<li>Cells are killed when they are bitten, or when they are separated from a player’s head, (either via a bite or a capture) such that no contiguous region of cells connects the cell to a player’s head—diagonals are not considered connected. Killed cells are removed from the board, leaving the territory empty.</li>
+</ul>
 
-
-197ebcfc9913b0207ed74e82f96344ee
-
-
-![GUI Sketch](images/Petri_UI.jpg "GUI Sketch")
+<p><img src="images/Petri_UI.jpg" alt="GUI Sketch" title="GUI Sketch" /></p>
 
 <h3>Actors:</h3>
 
-
-
-b33a6162d3ba2322352835f51f86cce0
-
+<ul>
+<li>Human player: human players constitute all users: the primary entity that will interact with the software. Players can play in games i.e. make moves, leave games, and in networked multiplayer games, chat. Players can be on the host or on the client machine.
+<ul>
+<li>Host players can start networked games, set the maximum number of players in a game, kick players, and add AI players.</li>
+<li>Client players can join networked games.</li>
+</ul></li>
+<li>AI player: AI players serve as replacements for human players in games which require additional players to fill slots, such as single player games.  They can make moves but cannot chat in (or choose to leave) games.</li>
+</ul>
 
 <h3>Use-cases:</h3>
 
-
-
-b0d0cee098af4a43fe6dee1b5eebcc97
-
+<ul>
+<li>Player starting a single player game:
+<ul>
+<li>Open “Start game” dialog</li>
+<li>Select “Single player game”</li>
+<li>Select number of AI players</li>
+<li>Configure game rules</li>
+<li>Play game</li>
+</ul></li>
+<li>Player starting a offline multiplayer game:
+<ul>
+<li>Open “Start game” dialog</li>
+<li>Select “Multiplayer game”</li>
+<li>Select “Offline”</li>
+<li>Select number of AI/human players</li>
+<li>Configure game rules</li>
+<li>Play game</li>
+</ul></li>
+<li>Player starting a network multiplayer game:
+<ul>
+<li>Open “Start game” dialog</li>
+<li>Select “Multiplayer game”</li>
+<li>Select “Networked”</li>
+<li>Select maximum number of players</li>
+<li>Configure game rules</li>
+<li>Wait for players to join</li>
+<li>Play game</li>
+</ul></li>
+<li>Player joining a hosted game:
+<ul>
+<li>Open “Join game” dialog</li>
+<li>Select game to join</li>
+<li>Wait for game to start</li>
+<li>Play game</li>
+</ul></li>
+<li>Player on a client machine leaving a game:
+<ul>
+<li>Select “Leave game”</li>
+</ul></li>
+<li>Host ending a game:
+<ul>
+<li>Select “End game”</li>
+</ul></li>
+<li>Host kicking players:
+<ul>
+<li>Select player</li>
+<li>Select “Kick”</li>
+</ul></li>
+</ul>
 
 <h3>Architecture:</h3>
 
-_Model:_ Each game is represented by an encapsulated model object, which is attached to the controller and view via a listener pattern that uses Objective-C’s key-value observation patterns. During network games, the application acting as the game’s host holds the model objects, and presents them to the client applications via Cocoa’s Distributed Objects API.
+<p><em>Model:</em> Each game is represented by an encapsulated model object, which is attached to the controller and view via a listener pattern that uses Objective-C’s key-value observation patterns. During network games, the application acting as the game’s host holds the model objects, and presents them to the client applications via Cocoa’s Distributed Objects API.</p>
 
-_Controller/View:_ The view presents the model to the user via a board, pieces and player icons rendered as CoreAnimation layers, with Quartz Composer animations for the contents of the cells of the board, giving them a shifting organic appearance. Player input is handled with drag-and-drop actions.
+<p><em>Controller/View:</em> The view presents the model to the user via a board, pieces and player icons rendered as CoreAnimation layers, with Quartz Composer animations for the contents of the cells of the board, giving them a shifting organic appearance. Player input is handled with drag-and-drop actions.</p>
             </div>
             <div class="col2">
                 <h2>Navigation</h2>
