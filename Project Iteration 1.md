@@ -45,7 +45,7 @@ The object of the game is to eliminate all opponents; elimination occurs, as sta
 * Cells are captured by surrounding the cell, or a straight line of cells, on two sides, horizontally, vertically, or diagonally. Any cells surrounded this way are given to the capturing player. Captures are recursive: capturing a cell that would surround additional cells also captures the additional cells. Capturing a player’s head captures all of the player’s territory.
 * Cells are killed when they are bitten, or when they are separated from a player’s head, (either via a bite or a capture) such that no contiguous region of cells connects the cell to a player’s head—diagonals are not considered connected. Killed cells are removed from the board, leaving the territory empty.
 
-![GUI Sketch](images/Petri UI.jpg)
+![GUI Sketch](images/Petri_UI.jpg "GUI Sketch")
 
 ### Actors: ###
 
