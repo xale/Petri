@@ -4,7 +4,7 @@
 <head profile="http://www.w3.org/2005/10/profile">
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 	<title>The Petri Project</title>
-	<link rel="stylesheet" type="text/css" href="screen.css" />
+	<link rel="stylesheet" type="text/css" href="css/screen.css" />
 </head>
 <body>
 	<div id="header">
