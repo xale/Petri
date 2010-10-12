@@ -7,9 +7,13 @@ build/*
 # Shark profiling output
 *.mshark
 
+# Generated documentation
+doc/html/*
+
 # old skool
 .svn
 
 # OS X noise
 .DS_Store
 profile
+
