@@ -1,4 +1,4 @@
-## Project Overview: ##
+## Project Overview (Iteration 1): ##
 
 ### Vision Statement: ###
 Petri is a Mac OS X application based on the pen-and-paper game “fungus,” in which two or more fungus-like organisms vie for territory control in a grid-like petri dish. Players take turns placing randomly-generated one- to five-cell pieces in the dish, attempting to surround regions of the opponent’s fungus on two sides, to capture territory and, eventually, eliminate their opponents from the dish.
