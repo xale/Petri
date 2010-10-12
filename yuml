@@ -1,0 +1,7 @@
+[Host]-(Host game)
+(Set up server)>(Start application)
+(Host game)>(Set up server)
+(Host game)>(Wait for players to join)
+[Client]-(Join game)
+(Join game)>(Start application)
+(Join game)>(Find server)
