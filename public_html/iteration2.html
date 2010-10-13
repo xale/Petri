@@ -1,0 +1,195 @@
+<p>﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+    <title>The Petri Project</title>
+    <link rel="stylesheet" type="text/css" href="css/screen.css" />
+</head>
+<body>
+    <div id="header">
+        <h1>The Petri Project</h1>
+    </div>
+    <div class="colmask leftmenu">
+        <div class="colleft">
+            <div class="col1"></p>
+            
+<!-- ===================== BEGIN CONTENT ===================== -->
+<h2>Project Overview (Iteration 1):</h2>
+
+<h3>Vision Statement:</h3>
+
+<p>Petri is a Mac OS X application based on the pen-and-paper game “fungus,” in which two or more fungus-like organisms vie for territory control in a grid-like petri dish. Players take turns placing randomly-generated one- to five-cell pieces in the dish, attempting to surround regions of the opponent’s fungus on two sides, to capture territory and, eventually, eliminate their opponents from the dish.</p>
+
+<h4>Feature List:</h4>
+
+<ul>
+<li>One to four players
+<ul>
+<li>Computer AI Players for single- and multiplayer games</li>
+<li>Team games</li>
+<li>Networked and single-computer (hotseat) multiplayer</li>
+<li>Automatic local-network server discovery with Bonjour</li>
+</ul></li>
+<li>Animated graphics using CoreAnimation</li>
+<li>Rules variations (e.g., hexagonal game grid)</li>
+<li>Game recording and replays</li>
+</ul>
+
+<h3>Domain Model (Rules):</h3>
+
+<p>Fungus is typically played on a variable-sized square grid, called the “dish.” When the game begins, the dish is empty, save for one cell controlled by each of the players in the game, spread around the dish (usually near the corners.) The starting cell is known as the player’s “head,” and if it is captured or killed (see below) the corresponding player is eliminated from the game. Gameplay proceeds in turns; a typical turn is described below. Note that this description represents gameplay under normal fungus rules, and that variations may apply.</p>
+
+<ol>
+<li><p>When the player’s turn begins, he or she is given a “piece,” initially off the board, awaiting placement. Pieces consist of arrangements of cells, and can occupy any of the following:</p>
+
+<ol>
+<li>one cell</li>
+<li>two adjacent cells </li>
+<li>three cells in an L-shape or straight line</li>
+<li>any possible tetromino region (think Tetris pieces)</li>
+<li>five cells in a straight line</li>
+</ol></li>
+<li><p>Before placing the piece, if the player has any “bites,” he or she may use them to attack an opponent. Bites are accumulated over time, or can be picked up from certain, marked locations in the dish. Bites work as follows:</p>
+
+<ol>
+<li>the player selects a cell to bite, ensuring the cell meets the following requirements:
+<ol>
+<li>the cell is controlled by an opponent, and</li>
+<li>the cell is horizontally or vertically adjacent to a cell controlled by the player</li>
+</ol></li>
+<li>if the player has “big bites” or “monster bites,” the player may select additional cells controlled by the opponent: up to two for big bites, or three for monster bites, provided the selected cells all lie in a straight line—the size of a player’s bite is determined by the amount of territory the player currently controls</li>
+<li>all cells selected in this manner are killed (see “killed cells,” below)</li>
+</ol>
+
+<p>Players may use any number of bites in one turn, provided they have enough, but they may not bite after they have placed their piece.</p></li>
+<li><p>The player attempts to place the piece he or she has been given at a location in the dish. The player may rotate (but not flip) the piece before placing it, but the piece may only be placed at a location fitting the following requirements:</p>
+
+<ol>
+<li>the piece must lie entirely within the bounds of the dish, (i.e., all cells comprising the piece must correspond to a grid location)</li>
+<li>the piece cannot overlap any opponent’s cells, and</li>
+<li>at least one of the cells in the piece must be horizontally or vertically adjacent to a cell in the dish already controlled by the player</li>
+</ol>
+
+<p><p>Placed pieces are added to the player’s territory, and when the piece is placed, the player’s turn ends. If the player cannot place the piece, he or she may choose to skip his or her turn.</p></li>
+</ol>
+The object of the game is to eliminate all opponents; elimination occurs, as stated before, when a player’s head is captured or killed. Captures are the primary means of gaining territory in the game, while kills provide a more direct means of attacking opponent, without personal gain:</p>
+
+<ul>
+<li>Cells are captured by surrounding the cell, or a straight line of cells, on two sides, horizontally, vertically, or diagonally. Any cells surrounded this way are given to the capturing player. Captures are recursive: capturing a cell that would surround additional cells also captures the additional cells. Capturing a player’s head captures all of the player’s territory.</li>
+<li>Cells are killed when they are bitten, or when they are separated from a player’s head, (either via a bite or a capture) such that no contiguous region of cells connects the cell to a player’s head—diagonals are not considered connected. Killed cells are removed from the board, leaving the territory empty.</li>
+</ul>
+
+<p><img src="images/Petri_UI.jpg" alt="GUI Sketch" title="GUI Sketch" /></p>
+
+<h3>Actors:</h3>
+
+<ul>
+<li>Human player: human players constitute all users: the primary entity that will interact with the software. Players can play in games i.e. make moves, leave games, and in networked multiplayer games, chat. Players can be on the host or on the client machine.
+<ul>
+<li>Host players can start networked games, set the maximum number of players in a game, kick players, and add AI players.</li>
+<li>Client players can join networked games.</li>
+</ul></li>
+<li>AI player: AI players serve as replacements for human players in games which require additional players to fill slots, such as single player games.  They can make moves but cannot chat in (or choose to leave) games.</li>
+</ul>
+
+<h3>Use-cases:</h3>
+
+<ul>
+<li>Player starting a single player game:
+<ul>
+<li>Open “Start game” dialog</li>
+<li>Select “Single player game”</li>
+<li>Select number of AI players</li>
+<li>Configure game rules</li>
+<li>Play game</li>
+</ul></li>
+<li>Player starting a offline multiplayer game:
+<ul>
+<li>Open “Start game” dialog</li>
+<li>Select “Multiplayer game”</li>
+<li>Select “Offline”</li>
+<li>Select number of AI/human players</li>
+<li>Configure game rules</li>
+<li>Play game</li>
+</ul></li>
+<li>Player starting a network multiplayer game:
+<ul>
+<li>Open “Start game” dialog</li>
+<li>Select “Multiplayer game”</li>
+<li>Select “Networked”</li>
+<li>Select maximum number of players</li>
+<li>Configure game rules</li>
+<li>Wait for players to join</li>
+<li>Play game</li>
+</ul></li>
+<li>Player joining a hosted game:
+<ul>
+<li>Open “Join game” dialog</li>
+<li>Select game to join</li>
+<li>Wait for game to start</li>
+<li>Play game</li>
+</ul></li>
+<li>Player on a client machine leaving a game:
+<ul>
+<li>Select “Leave game”</li>
+</ul></li>
+<li>Host ending a game:
+<ul>
+<li>Select “End game”</li>
+</ul></li>
+<li>Host kicking players:
+<ul>
+<li>Select player</li>
+<li>Select “Kick”</li>
+</ul></li>
+<li>Player executing a "bite" action
+<ul>
+<li>Player satisfies requirements (above) to be able to bite</li>
+<li>Player chooses to bite (clicks a button)</li>
+<li>Player chooses which cell to bite (clicks the cell)</li>
+<li>Game verifies that the bite is legal</li>
+<li>Game provides visual feedback as to whether the bite succeeded.</li>
+<li>Bitten cells are killed.</li>
+<li>Board is updated, bite count is decreased</li>
+<li>Player may bite again if preconditions are still satisfied; otherwise, he/she may place a piece</li>
+</ul></li>
+<li>Player placing a piece
+<ul>
+<li>Player clicks on piece</li>
+<li>Player moves mouse to where he/she wants to drop it</li>
+<li>Player optionally rotates the piece (spacebar)</li>
+<li>Piece is displayed translucently where it would be placed, optionally differently if the move is illegal</li>
+<li>If the move is legal, the piece is placed and captures (if any) occur; turn ends</li>
+<li>If the move is illegal, an animation of the piece returning to the bank occurs and the player may attempt to make another move</li>
+</ul></li>
+</ul>
+
+<h3>Architecture:</h3>
+
+<p><em>Model:</em> Each game is represented by an encapsulated model object, which is attached to the controller and view via a listener pattern that uses Objective-C’s key-value observation patterns. During network games, the application acting as the game’s host holds the model objects, and presents them to the client applications via Cocoa’s Distributed Objects API.</p>
+
+<p><em>Controller/View:</em> The view presents the model to the user via a board, pieces and player icons rendered as CoreAnimation layers, with Quartz Composer animations for the contents of the cells of the board, giving them a shifting organic appearance. Player input is handled with drag-and-drop actions.</p>
+
+<!-- ======================= END CONTENT ======================= -->
+
+            </div>
+            <div class="col2">
+                <h2>Navigation</h2>
+                <ul>
+                    <li><a href="iteration1.html">Iteration One</a></li>
+                    <li><a href="iteration2.html">Iteration Two</a></li>
+                    <li><!-- <a href="iteration3.html"> -->Iteration Three<!-- </a> --></li>
+                    <li><!-- <a href="iteration4.html"> -->Iteration Four<!-- </a> --></li>
+                    <li><!-- <a href="iteration5.html"> -->Iteration Five<!-- </a> --></li>
+                    <li><!-- <a href="iteration6.html"> -->Iteration Six<!-- </a> --></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <p>This page uses the <a href="http://matthewjamestaylor.com/blog/perfect-2-column-left-menu.htm">Perfect 'Left Menu' 2 Column Liquid Layout</a> by <a href="http://matthewjamestaylor.com">Matthew James Taylor</a>.</p>
+
+<p></div>
+</body>
+</html></p>
