@@ -15,8 +15,7 @@
             <div class="col1"></p>
             
 <!-- ===================== BEGIN CONTENT ===================== -->
-
-<h2>Project Overview (Iteration 1):</h2>
+<h2>Project Overview (Iteration 2):</h2>
 
 <h3>Vision Statement:</h3>
 
@@ -29,13 +28,16 @@
 <ul>
 <li>Computer AI Players for single- and multiplayer games</li>
 <li>Team games</li>
-<li>Networked and single-computer (hotseat) multiplayer</li>
+<li>Networked multiplayer</li>
+<li>Hotseat multiplayer</li>
 <li>Automatic local-network server discovery with Bonjour</li>
 </ul></li>
 <li>Animated graphics using CoreAnimation</li>
 <li>Rules variations (e.g., hexagonal game grid)</li>
 <li>Game recording and replays</li>
 </ul>
+
+<p>Key features to be implemented first are hotseat multiplayer and CoreAnimation graphics</p>
 
 <h3>Domain Model (Rules):</h3>
 
@@ -144,6 +146,26 @@ The object of the game is to eliminate all opponents; elimination occurs, as sta
 <li>Select player</li>
 <li>Select “Kick”</li>
 </ul></li>
+<li>Player executing a "bite" action
+<ul>
+<li>Player satisfies requirements (above) to be able to bite</li>
+<li>Player chooses to bite (clicks a button)</li>
+<li>Player chooses which cell to bite (clicks the cell)</li>
+<li>Game verifies that the bite is legal</li>
+<li>Game provides visual feedback as to whether the bite succeeded.</li>
+<li>Bitten cells are killed.</li>
+<li>Board is updated, bite count is decreased</li>
+<li>Player may bite again if preconditions are still satisfied; otherwise, he/she may place a piece</li>
+</ul></li>
+<li>Player placing a piece
+<ul>
+<li>Player clicks on piece</li>
+<li>Player moves mouse to where he/she wants to drop it</li>
+<li>Player optionally rotates the piece (spacebar)</li>
+<li>Piece is displayed translucently where it would be placed, optionally differently if the move is illegal</li>
+<li>If the move is legal, the piece is placed and captures (if any) occur; turn ends</li>
+<li>If the move is illegal, an animation of the piece returning to the bank occurs and the player may attempt to make another move</li>
+</ul></li>
 </ul>
 
 <h3>Architecture:</h3>
@@ -151,7 +173,6 @@ The object of the game is to eliminate all opponents; elimination occurs, as sta
 <p><em>Model:</em> Each game is represented by an encapsulated model object, which is attached to the controller and view via a listener pattern that uses Objective-C’s key-value observation patterns. During network games, the application acting as the game’s host holds the model objects, and presents them to the client applications via Cocoa’s Distributed Objects API.</p>
 
 <p><em>Controller/View:</em> The view presents the model to the user via a board, pieces and player icons rendered as CoreAnimation layers, with Quartz Composer animations for the contents of the cells of the board, giving them a shifting organic appearance. Player input is handled with drag-and-drop actions.</p>
-
 
 <!-- ======================= END CONTENT ======================= -->
 
