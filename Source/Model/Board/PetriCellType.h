@@ -12,7 +12,8 @@
 */
 
 /*!
- \brief Enum type listing types of cells.
+ \brief Enum type listing kinds of cells.
+ 
  The PetriCellType enum type lists the various types of cells that may appear on a Petri game board. The four types are: invalidCell, unoccupiedCell, headCell, bodyCell.
  */
 typedef enum
