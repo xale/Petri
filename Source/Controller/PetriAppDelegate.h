@@ -8,11 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+/*!
+ \brief The Application Delegate object for the Petri application.
+ */
 @interface PetriAppDelegate : NSObject <NSApplicationDelegate>
 {
-    NSWindow *window;
+	IBOutlet NSWindow *window;	/*!< The main application window. */
 }
 
-@property (assign) IBOutlet NSWindow *window;
+@property (readwrite, assign) IBOutlet NSWindow *window;
 
 @end
