@@ -7,14 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A4A15A612662EA000429714 /* PetriGameGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A15A512662EA000429714 /* PetriGameGroup.m */; };
+		6A4A15CD1266351400429714 /* PetriUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A15CC1266351400429714 /* PetriUser.m */; };
+		6A4A15E312663B7900429714 /* PetriBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A15D812663B7800429714 /* PetriBoard.m */; };
+		6A4A15E412663B7900429714 /* PetriBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A15DA12663B7800429714 /* PetriBoardCell.m */; };
+		6A4A15E512663B7900429714 /* PetriAIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A15DE12663B7900429714 /* PetriAIPlayer.m */; };
+		6A4A15E612663B7900429714 /* PetriPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A15E012663B7900429714 /* PetriPlayer.m */; };
+		6A4A15E712663B7900429714 /* PetriUserPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A15E212663B7900429714 /* PetriUserPlayer.m */; };
+		6A4A15ED12663C1600429714 /* PetriGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A15EC12663C1600429714 /* PetriGame.m */; };
+		6A4A160312663EFD00429714 /* PetriItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A160212663EFD00429714 /* PetriItem.m */; };
+		6A4A161112663F4200429714 /* PetriPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A161012663F4100429714 /* PetriPiece.m */; };
+		6A4A161612663F8600429714 /* PetriGameRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A161512663F8500429714 /* PetriGameRules.m */; };
 		6AA738E51265FB97003ABB43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6AA738E01265FB97003ABB43 /* InfoPlist.strings */; };
 		6AA738E61265FB97003ABB43 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AA738E21265FB97003ABB43 /* MainMenu.xib */; };
 		6AA738F71265FBB7003ABB43 /* PetriAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA738EB1265FBB7003ABB43 /* PetriAppDelegate.m */; };
 		6AA738FA1265FBB7003ABB43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA738F31265FBB7003ABB43 /* main.m */; };
-		6AA7391912660270003ABB43 /* PetriPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA7391812660270003ABB43 /* PetriPlayer.m */; };
-		6AA7391F126602FD003ABB43 /* PetriUserPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA7391E126602FD003ABB43 /* PetriUserPlayer.m */; };
-		6AA7392212660740003ABB43 /* PetriAIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA7392112660740003ABB43 /* PetriAIPlayer.m */; };
-		6AA7392712660851003ABB43 /* PetriBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA7392512660851003ABB43 /* PetriBoardCell.m */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +30,29 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		6A4A15A412662EA000429714 /* PetriGameGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PetriGameGroup.h; path = Users/PetriGameGroup.h; sourceTree = "<group>"; };
+		6A4A15A512662EA000429714 /* PetriGameGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PetriGameGroup.m; path = Users/PetriGameGroup.m; sourceTree = "<group>"; };
+		6A4A15CB1266351400429714 /* PetriUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PetriUser.h; path = Users/PetriUser.h; sourceTree = "<group>"; };
+		6A4A15CC1266351400429714 /* PetriUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PetriUser.m; path = Users/PetriUser.m; sourceTree = "<group>"; };
+		6A4A15D712663B7800429714 /* PetriBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoard.h; sourceTree = "<group>"; };
+		6A4A15D812663B7800429714 /* PetriBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoard.m; sourceTree = "<group>"; };
+		6A4A15D912663B7800429714 /* PetriBoardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardCell.h; sourceTree = "<group>"; };
+		6A4A15DA12663B7800429714 /* PetriBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardCell.m; sourceTree = "<group>"; };
+		6A4A15DB12663B7800429714 /* PetriCellType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriCellType.h; sourceTree = "<group>"; };
+		6A4A15DD12663B7900429714 /* PetriAIPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriAIPlayer.h; sourceTree = "<group>"; };
+		6A4A15DE12663B7900429714 /* PetriAIPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriAIPlayer.m; sourceTree = "<group>"; };
+		6A4A15DF12663B7900429714 /* PetriPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPlayer.h; sourceTree = "<group>"; };
+		6A4A15E012663B7900429714 /* PetriPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPlayer.m; sourceTree = "<group>"; };
+		6A4A15E112663B7900429714 /* PetriUserPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriUserPlayer.h; sourceTree = "<group>"; };
+		6A4A15E212663B7900429714 /* PetriUserPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriUserPlayer.m; sourceTree = "<group>"; };
+		6A4A15EB12663C1500429714 /* PetriGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGame.h; sourceTree = "<group>"; };
+		6A4A15EC12663C1600429714 /* PetriGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGame.m; sourceTree = "<group>"; };
+		6A4A160112663EFC00429714 /* PetriItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriItem.h; sourceTree = "<group>"; };
+		6A4A160212663EFD00429714 /* PetriItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriItem.m; sourceTree = "<group>"; };
+		6A4A160F12663F4100429714 /* PetriPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPiece.h; sourceTree = "<group>"; };
+		6A4A161012663F4100429714 /* PetriPiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPiece.m; sourceTree = "<group>"; };
+		6A4A161412663F8500429714 /* PetriGameRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameRules.h; sourceTree = "<group>"; };
+		6A4A161512663F8500429714 /* PetriGameRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameRules.m; sourceTree = "<group>"; };
 		6AA738E11265FB97003ABB43 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6AA738E31265FB97003ABB43 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		6AA738E41265FB97003ABB43 /* Petri-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Petri-Info.plist"; sourceTree = "<group>"; };
@@ -30,15 +60,6 @@
 		6AA738EB1265FBB7003ABB43 /* PetriAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriAppDelegate.m; sourceTree = "<group>"; };
 		6AA738F31265FBB7003ABB43 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6AA738F41265FBB7003ABB43 /* Petri_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Petri_Prefix.pch; sourceTree = "<group>"; };
-		6AA7391712660270003ABB43 /* PetriPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPlayer.h; sourceTree = "<group>"; };
-		6AA7391812660270003ABB43 /* PetriPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPlayer.m; sourceTree = "<group>"; };
-		6AA7391D126602FD003ABB43 /* PetriUserPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriUserPlayer.h; sourceTree = "<group>"; };
-		6AA7391E126602FD003ABB43 /* PetriUserPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriUserPlayer.m; sourceTree = "<group>"; };
-		6AA7392012660740003ABB43 /* PetriAIPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriAIPlayer.h; sourceTree = "<group>"; };
-		6AA7392112660740003ABB43 /* PetriAIPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriAIPlayer.m; sourceTree = "<group>"; };
-		6AA7392412660851003ABB43 /* PetriBoardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardCell.h; sourceTree = "<group>"; };
-		6AA7392512660851003ABB43 /* PetriBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardCell.m; sourceTree = "<group>"; };
-		6AA7392612660851003ABB43 /* PetriCellType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriCellType.h; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Petri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Petri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -100,6 +121,83 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6A4A15A712662EA500429714 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				6A4A15CB1266351400429714 /* PetriUser.h */,
+				6A4A15CC1266351400429714 /* PetriUser.m */,
+				6A4A15A412662EA000429714 /* PetriGameGroup.h */,
+				6A4A15A512662EA000429714 /* PetriGameGroup.m */,
+			);
+			name = Users;
+			sourceTree = "<group>";
+		};
+		6A4A15D512663B7800429714 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				6A4A15EB12663C1500429714 /* PetriGame.h */,
+				6A4A15EC12663C1600429714 /* PetriGame.m */,
+				6A4A15DC12663B7900429714 /* Players */,
+				6A4A161312663F8500429714 /* Rules */,
+				6A4A15D612663B7800429714 /* Board */,
+				6A4A160E12663F4100429714 /* Pieces */,
+				6A4A160012663EFC00429714 /* Items */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		6A4A15D612663B7800429714 /* Board */ = {
+			isa = PBXGroup;
+			children = (
+				6A4A15D712663B7800429714 /* PetriBoard.h */,
+				6A4A15D812663B7800429714 /* PetriBoard.m */,
+				6A4A15D912663B7800429714 /* PetriBoardCell.h */,
+				6A4A15DA12663B7800429714 /* PetriBoardCell.m */,
+				6A4A15DB12663B7800429714 /* PetriCellType.h */,
+			);
+			path = Board;
+			sourceTree = "<group>";
+		};
+		6A4A15DC12663B7900429714 /* Players */ = {
+			isa = PBXGroup;
+			children = (
+				6A4A15DF12663B7900429714 /* PetriPlayer.h */,
+				6A4A15E012663B7900429714 /* PetriPlayer.m */,
+				6A4A15DD12663B7900429714 /* PetriAIPlayer.h */,
+				6A4A15DE12663B7900429714 /* PetriAIPlayer.m */,
+				6A4A15E112663B7900429714 /* PetriUserPlayer.h */,
+				6A4A15E212663B7900429714 /* PetriUserPlayer.m */,
+			);
+			path = Players;
+			sourceTree = "<group>";
+		};
+		6A4A160012663EFC00429714 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				6A4A160112663EFC00429714 /* PetriItem.h */,
+				6A4A160212663EFD00429714 /* PetriItem.m */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		6A4A160E12663F4100429714 /* Pieces */ = {
+			isa = PBXGroup;
+			children = (
+				6A4A160F12663F4100429714 /* PetriPiece.h */,
+				6A4A161012663F4100429714 /* PetriPiece.m */,
+			);
+			path = Pieces;
+			sourceTree = "<group>";
+		};
+		6A4A161312663F8500429714 /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				6A4A161412663F8500429714 /* PetriGameRules.h */,
+				6A4A161512663F8500429714 /* PetriGameRules.m */,
+			);
+			path = Rules;
+			sourceTree = "<group>";
+		};
 		6AA738DF1265FB97003ABB43 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,8 +232,8 @@
 		6AA738EC1265FBB7003ABB43 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6AA7391612660270003ABB43 /* Players */,
-				6AA7392312660851003ABB43 /* Board */,
+				6A4A15A712662EA500429714 /* Users */,
+				6A4A15D512663B7800429714 /* Game */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -161,29 +259,6 @@
 			children = (
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		6AA7391612660270003ABB43 /* Players */ = {
-			isa = PBXGroup;
-			children = (
-				6AA7391712660270003ABB43 /* PetriPlayer.h */,
-				6AA7391812660270003ABB43 /* PetriPlayer.m */,
-				6AA7391D126602FD003ABB43 /* PetriUserPlayer.h */,
-				6AA7391E126602FD003ABB43 /* PetriUserPlayer.m */,
-				6AA7392012660740003ABB43 /* PetriAIPlayer.h */,
-				6AA7392112660740003ABB43 /* PetriAIPlayer.m */,
-			);
-			path = Players;
-			sourceTree = "<group>";
-		};
-		6AA7392312660851003ABB43 /* Board */ = {
-			isa = PBXGroup;
-			children = (
-				6AA7392412660851003ABB43 /* PetriBoardCell.h */,
-				6AA7392512660851003ABB43 /* PetriBoardCell.m */,
-				6AA7392612660851003ABB43 /* PetriCellType.h */,
-			);
-			path = Board;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,10 +345,17 @@
 			files = (
 				6AA738F71265FBB7003ABB43 /* PetriAppDelegate.m in Sources */,
 				6AA738FA1265FBB7003ABB43 /* main.m in Sources */,
-				6AA7391912660270003ABB43 /* PetriPlayer.m in Sources */,
-				6AA7391F126602FD003ABB43 /* PetriUserPlayer.m in Sources */,
-				6AA7392212660740003ABB43 /* PetriAIPlayer.m in Sources */,
-				6AA7392712660851003ABB43 /* PetriBoardCell.m in Sources */,
+				6A4A15A612662EA000429714 /* PetriGameGroup.m in Sources */,
+				6A4A15CD1266351400429714 /* PetriUser.m in Sources */,
+				6A4A15E312663B7900429714 /* PetriBoard.m in Sources */,
+				6A4A15E412663B7900429714 /* PetriBoardCell.m in Sources */,
+				6A4A15E512663B7900429714 /* PetriAIPlayer.m in Sources */,
+				6A4A15E612663B7900429714 /* PetriPlayer.m in Sources */,
+				6A4A15E712663B7900429714 /* PetriUserPlayer.m in Sources */,
+				6A4A15ED12663C1600429714 /* PetriGame.m in Sources */,
+				6A4A160312663EFD00429714 /* PetriItem.m in Sources */,
+				6A4A161112663F4200429714 /* PetriPiece.m in Sources */,
+				6A4A161612663F8600429714 /* PetriGameRules.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
