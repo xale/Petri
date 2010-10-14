@@ -168,6 +168,12 @@ The object of the game is to eliminate all opponents; elimination occurs, as sta
 </ul></li>
 </ul>
 
+<h4>Activity diagram of a host starting a game and a client joining it</h4>
+<p><img src="images/Activity Diagram.png" alt="UML Activity diagram" title="UML Activity diagram" /></p>
+
+<h4>Sequence diagram of a host starting a game and a client joining it</h4>
+<p><img src="images/Sequence Diagram.png" alt="UML Sequence diagram" title="UML Sequence diagram" /></p>
+
 <h3>Architecture:</h3>
 
 <p><em>Model:</em> Each game is represented by an encapsulated model object, which is attached to the controller and view via a listener pattern that uses Objective-C’s key-value observation patterns. During network games, the application acting as the game’s host holds the model objects, and presents them to the client applications via Cocoa’s Distributed Objects API.</p>
