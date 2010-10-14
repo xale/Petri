@@ -11,4 +11,11 @@
 
 @implementation PetriGameRules
 
+#pragma mark -
+#pragma mark Accessors
+
+@synthesize minPlayers;
+@synthesize maxPlayers;
+@synthesize pieceFrequencies;
+
 @end
