@@ -179,7 +179,7 @@ The object of the game is to eliminate all opponents; elimination occurs, as sta
 
 <p><em>Model:</em> Each game is represented by an encapsulated model object, which is attached to the controller and view via a listener pattern that uses Objective-C’s key-value observation patterns. During network games, the application acting as the game’s host holds the model objects, and presents them to the client applications via Cocoa’s Distributed Objects API.</p>
 
-<p><img src="images/Petri_Model_Class_Diagram.jpg" alt="Model Class Diagram" title="Model Class Diagram" /></p>
+<p><img src="images/Petri_Model_Class_Diagram.png" alt="Model Class Diagram" title="Model Class Diagram" /></p>
 
 <p>Note: "Petri" prefixes on the class names are an Objective-C convention resulting from a lack of namespace or package constructs in the language.</p>
 <p>The top-level objects in the model are instances of the <a href="doc/interface_petri_user.html">PetriUser</a> and <a href="doc/interface_petri_game_group.html">PetriGameGroup</a> classes. PetriUser objects represent human users of the program, and while they are primarily important in multiplayer games, a single instance is also created in single-player games. PetriGameGroup objects serve as "staging areas" before, between, and after games; an instance is created when a user chooses to start a new game, and additional users (remote, in the case of network multiplayer games, or local, in the case of hotseat multiplayer games) can join or be added to the group. The host may also configure the <a href="doc/interface_petri_game_rules.html">game rules</a> via the game group object.</p>
