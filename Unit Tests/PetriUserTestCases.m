@@ -21,7 +21,6 @@ NSString* const PetriUserTestNickname =	@"test nickname";
 	
 	// Test setting nickname
 	[testUser setNickname:PetriUserTestNickname];
-	STAssertNotNil([testUser nickname], @"Could not set user nickname");
 	STAssertEqualObjects([testUser nickname], PetriUserTestNickname, @"User nickname did not set correctly");
 }
 
