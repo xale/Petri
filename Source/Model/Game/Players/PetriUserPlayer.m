@@ -11,6 +11,11 @@
 
 @implementation PetriUserPlayer
 
+- (id)init
+{
+	return self;
+}
+
 #pragma mark -
 #pragma mark Accessors
 
