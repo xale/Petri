@@ -8,7 +8,6 @@
 
 #import "PetriUserPlayer.h"
 
-
 @implementation PetriUserPlayer
 
 - (id)init
@@ -19,6 +18,6 @@
 #pragma mark -
 #pragma mark Accessors
 
-@synthesize user;
+@synthesize controllingUser;
 
 @end

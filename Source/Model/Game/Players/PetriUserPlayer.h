@@ -17,9 +17,9 @@
  */
 @interface PetriUserPlayer : PetriPlayer
 {
-	PetriUser* user;	/*!< The human user controlling this player. */
+	PetriUser* controllingUser;	/*!< The human user controlling this player. */
 }
 
-@property (readonly) PetriUser* user;
+@property (readonly) PetriUser* controllingUser;
 
 @end
