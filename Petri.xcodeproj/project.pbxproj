@@ -310,7 +310,7 @@
 				6A9DE8831275EF7400020AB9 /* Resources */,
 				6A9DE8841275EF7400020AB9 /* Sources */,
 				6A9DE8851275EF7400020AB9 /* Frameworks */,
-				6A9DE8861275EF7400020AB9 /* ShellScript */,
+				6A9DE8861275EF7400020AB9 /* Run Unit Tests */,
 			);
 			buildRules = (
 			);
@@ -326,7 +326,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Petri" */;
 			buildPhases = (
-				6AA7393B12661531003ABB43 /* ShellScript */,
+				6AA7393B12661531003ABB43 /* Generate Doxygen Documentation */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
@@ -389,26 +389,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6A9DE8861275EF7400020AB9 /* ShellScript */ = {
+		6A9DE8861275EF7400020AB9 /* Run Unit Tests */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
+			comments = "Run Unit Tests";
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Unit Tests";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-		6AA7393B12661531003ABB43 /* ShellScript */ = {
+		6AA7393B12661531003ABB43 /* Generate Doxygen Documentation */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
+			comments = "Generate Doxygen Documentation";
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Generate Doxygen Documentation";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
