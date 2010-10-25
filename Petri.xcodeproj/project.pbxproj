@@ -24,6 +24,7 @@
 		6AA738F71265FBB7003ABB43 /* PetriAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA738EB1265FBB7003ABB43 /* PetriAppDelegate.m */; };
 		6AA738FA1265FBB7003ABB43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA738F31265FBB7003ABB43 /* main.m */; };
 		6AEF227812763160008D8828 /* PetriAIPlayerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */; };
+		6AEF22C71276397A008D8828 /* PetriUserPlayerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,8 @@
 		6AA738F41265FBB7003ABB43 /* Petri_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Petri_Prefix.pch; sourceTree = "<group>"; };
 		6AEF227612763160008D8828 /* PetriAIPlayerTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriAIPlayerTestCases.h; sourceTree = "<group>"; };
 		6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriAIPlayerTestCases.m; sourceTree = "<group>"; };
+		6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriUserPlayerTestCases.h; sourceTree = "<group>"; };
+		6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriUserPlayerTestCases.m; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Petri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Petri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -232,6 +235,8 @@
 				6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */,
 				6AEF227612763160008D8828 /* PetriAIPlayerTestCases.h */,
 				6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */,
+				6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */,
+				6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -428,6 +433,7 @@
 			files = (
 				6A9DE8D31276020200020AB9 /* PetriUserTestCases.m in Sources */,
 				6AEF227812763160008D8828 /* PetriAIPlayerTestCases.m in Sources */,
+				6AEF22C71276397A008D8828 /* PetriUserPlayerTestCases.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
