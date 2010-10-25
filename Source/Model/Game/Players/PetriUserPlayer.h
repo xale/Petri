@@ -20,6 +20,12 @@
 	PetriUser* controllingUser;	/*!< The human user controlling this player. */
 }
 
+/*!
+ Creates a new PetriUserPlayer controlled by the specified PetriUser.
+ @param user the user controlling this player's actions. Must not be nil.
+ */
+- (id)initWithControllingUser:(PetriUser*)user;
+
 @property (readonly) PetriUser* controllingUser;
 
 @end

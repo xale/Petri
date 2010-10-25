@@ -8,16 +8,20 @@
 
 #import "PetriUserPlayerTestCases.h"
 #import "PetriUserPlayer.h"
+#import "PetriUser.h"
 
 @implementation PetriUserPlayerTestCases
 
 - (void)testCreatePetriUserPlayer
 {
 	// Create a test instance
-	PetriUserPlayer* testPlayer = [[PetriUserPlayer alloc] init];
+	PetriUser* testUser = [[PetriUser alloc] init];
+	PetriUserPlayer* testPlayer = [[PetriUserPlayer alloc] initWithControllingUser:testUser];
 	STAssertNotNil(testPlayer, @"PetriUserPlayer object creation unsuccessful");
 	
 	// Test accessors
+	STAssertEqualObjects([testPlayer controllingUser], testUser, @"PetriUserPlayer controllingUser not set correctly");
+	
 	[testPlayer setCellsControlled:50];
 	STAssertEquals([testPlayer cellsControlled], (NSInteger)50, @"PetriUserPlayer cellsControlled not set correctly");
 	

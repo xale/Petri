@@ -10,8 +10,13 @@
 
 @implementation PetriUserPlayer
 
-- (id)init
+- (id)initWithControllingUser:(PetriUser*)user
 {
+	if (user == nil)
+		[NSException raise:@"user must not be nil" format:@""];
+	
+	controllingUser = user;
+	
 	return self;
 }
 
