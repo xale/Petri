@@ -17,11 +17,11 @@ NSString* const PetriUserTestNickname =	@"test nickname";
 {
 	// Create an instance
 	PetriUser* testUser = [[PetriUser alloc] init];
-	STAssertNotNil(testUser, @"User object not created successfully");
+	STAssertNotNil(testUser, @"PetriUser object not created successfully");
 	
 	// Test setting nickname
 	[testUser setNickname:PetriUserTestNickname];
-	STAssertEqualObjects([testUser nickname], PetriUserTestNickname, @"User nickname did not set correctly");
+	STAssertEqualObjects([testUser nickname], PetriUserTestNickname, @"PetriUser nickname not set correctly");
 }
 
 @end

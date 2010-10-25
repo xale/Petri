@@ -15,15 +15,15 @@
 {
 	// Create a test instance
 	PetriAIPlayer* testPlayer = [[PetriAIPlayer alloc] init];
-	STAssertNotNil(testPlayer, @"AI player object creation unsuccessful");
+	STAssertNotNil(testPlayer, @"PetriAIPlayer object creation unsuccessful");
 	
 	// Test accessors
 	[testPlayer setCellsControlled:50];
-	STAssertEquals([testPlayer cellsControlled], (NSInteger)50, @"AI Player cellsControlled not set correctly");
+	STAssertEquals([testPlayer cellsControlled], (NSInteger)50, @"PetriAIPlayer cellsControlled not set correctly");
 	
 	NSMutableDictionary* testItemDict = [NSMutableDictionary dictionary];
 	[testPlayer setItems:testItemDict];
-	STAssertEqualObjects([testPlayer items], testItemDict, @"AI Player items not set correctly");
+	STAssertEqualObjects([testPlayer items], testItemDict, @"PetriAIPlayer items not set correctly");
 }
 
 @end
