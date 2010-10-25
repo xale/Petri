@@ -19,7 +19,7 @@
 	NSMutableDictionary* items;	/*!< The items currently possessed by the player. Maps PetriItem to NSNumber; i.e., item type to quantity. */
 }
 
-@property (readwrite) NSInteger cellsControlled;
+@property (readwrite, assign) NSInteger cellsControlled;
 @property (readwrite, copy) NSMutableDictionary* items;
 
 @end
