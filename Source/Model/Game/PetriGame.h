@@ -25,6 +25,15 @@
 	PetriGameRules* gameRules;	/*!< The rules for the game. */
 }
 
+/*!
+ Creates a new game with the specified players and rules.
+ 
+ @param playersInGame NSArray of player objects
+ @param rules PetriGameRules object
+ */
+- (id)initWithPlayers:(NSArray*)playersInGame
+			gameRules:(PetriGameRules*)rules;
+
 @property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readonly) PetriBoard* board;

@@ -8,16 +8,18 @@
 
 #import "PetriGameTestCases.h"
 #import "PetriGame.h"
+#import "PetriAIPlayer.h"
+#import "PetriGameRules.h"
 
 @implementation PetriGameTestCases
 
 - (void)testCreatePetriGame
 {
-	PetriGame* testGame = [[PetriGame alloc] init];
+	PetriPlayer* testPlayer = [[PetriAIPlayer alloc] init];
+	PetriGameRules* testGameRules = [[PetriGameRules alloc] init];
+	PetriGame* testGame = [[PetriGame alloc] initWithPlayers:[NSArray arrayWithObject:testPlayer]
+												   gameRules:testGameRules];
 	STAssertNotNil(testGame, @"Game object not created successfully");
-//	PetriPlayer* testPlayer = [[PetriPlayer alloc] init];
-//	PetriBoard* testBoard = [[PetriBoard alloc] init];
-//	PetriGameRules* testGameRules [[PetriGameRules alloc] init];
 }
 
 @end
