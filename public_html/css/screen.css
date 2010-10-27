@@ -125,16 +125,16 @@ img {
 	background:#fff;		/* right column background colour */
 }
 .leftmenu .colleft {
-	right:75%;			/* right column width */
+	right:80%;			/* right column width */
 	background:#f4f4f4;	/* left column background colour */
 }
 .leftmenu .col1 {
 	width:71%;			/* right column content width */
-	left:102%;			/* 100% plus left column left padding */
+	left:103%;			/* 100% plus left column left padding */
 }
 .leftmenu .col2 {
 	width:21%;			/* left column content width (column width minus left and right padding) */
-	left:6%;			/* (right column left and right padding) plus (left column left padding) */
+	left:11%;			/* (right column left and right padding) plus (left column left padding) */
 }
 /* Footer styles */
 #footer {
