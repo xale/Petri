@@ -19,11 +19,11 @@
 	
 	// Test accessors
 	[testPlayer setCellsControlled:50];
-	STAssertEquals([testPlayer cellsControlled], (NSInteger)50, @"PetriAIPlayer cellsControlled not set correctly");
+	STAssertEquals([testPlayer cellsControlled], (NSInteger)50, @"PetriAIPlayer cellsControlled not set correctly by accessor");
 	
 	NSMutableDictionary* testItemDict = [NSMutableDictionary dictionary];
 	[testPlayer setItems:testItemDict];
-	STAssertEqualObjects([testPlayer items], testItemDict, @"PetriAIPlayer items not set correctly");
+	STAssertEqualObjects([testPlayer items], testItemDict, @"PetriAIPlayer items not set correctly by accessor");
 }
 
 @end
