@@ -27,6 +27,7 @@
 		6AEF22C71276397A008D8828 /* PetriUserPlayerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		FAB0331212788BBB00DC01F0 /* PetriGameTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */; };
+		FAB033321278D71500DC01F0 /* PetriBoardTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB033311278D71500DC01F0 /* PetriBoardTestCases.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,8 @@
 		8D1107320486CEB800E47090 /* Petri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Petri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB0331012788BBB00DC01F0 /* PetriGameTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameTestCases.h; sourceTree = "<group>"; };
 		FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameTestCases.m; sourceTree = "<group>"; };
+		FAB033301278D71500DC01F0 /* PetriBoardTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardTestCases.h; sourceTree = "<group>"; };
+		FAB033311278D71500DC01F0 /* PetriBoardTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardTestCases.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +245,8 @@
 				6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */,
 				6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */,
 				6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */,
+				FAB033301278D71500DC01F0 /* PetriBoardTestCases.h */,
+				FAB033311278D71500DC01F0 /* PetriBoardTestCases.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -440,6 +445,7 @@
 				6AEF227812763160008D8828 /* PetriAIPlayerTestCases.m in Sources */,
 				6AEF22C71276397A008D8828 /* PetriUserPlayerTestCases.m in Sources */,
 				FAB0331212788BBB00DC01F0 /* PetriGameTestCases.m in Sources */,
+				FAB033321278D71500DC01F0 /* PetriBoardTestCases.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
