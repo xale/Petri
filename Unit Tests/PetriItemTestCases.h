@@ -13,6 +13,6 @@
 
 }
 
-- (id)testCreatePetriItem
+- (id)testCreatePetriItem;
 
 @end

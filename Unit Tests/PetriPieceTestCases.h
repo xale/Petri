@@ -13,6 +13,6 @@
 
 }
 
-- (id)testCreatePetriPiece
+- (id)testCreatePetriPiece;
 
 @end

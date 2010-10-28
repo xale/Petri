@@ -7,7 +7,7 @@
 //
 
 #import "PetriItemTestCases.h"
-
+#import "PetriItem.h"
 
 @implementation PetriItemTestCases
 

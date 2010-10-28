@@ -7,7 +7,7 @@
 //
 
 #import "PetriPieceTestCases.h"
-
+#import "PetriPiece.h"
 
 @implementation PetriPieceTestCases
 
@@ -16,6 +16,5 @@
 	PetriPiece* testPetriPiece = [[PetriPiece alloc] init];
 	STAssertNotNil(testPetriPiece, @"PetriPiece object creation unsuccessful");
 }
-
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "PetriBoardCellTestCases.h"
-
+#import "PetriBoardCell.h"
 
 @implementation PetriBoardCellTestCases
 
