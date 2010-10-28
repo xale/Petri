@@ -9,7 +9,8 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 
-@interface PetriBoardCellTestCases : SenTestCase {
+@interface PetriBoardCellTestCases : SenTestCase
+{
 
 }
 

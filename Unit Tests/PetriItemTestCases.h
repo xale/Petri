@@ -9,7 +9,8 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 
-@interface PetriItemTestCases : SenTestCase {
+@interface PetriItemTestCases : SenTestCase
+{
 
 }
 
