@@ -249,22 +249,22 @@
 		6A9DE8CE127601B500020AB9 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				FAB0331012788BBB00DC01F0 /* PetriGameTestCases.h */,
-				FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */,
 				6A9DE8D11276020200020AB9 /* PetriUserTestCases.h */,
 				6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */,
 				6AEF227612763160008D8828 /* PetriAIPlayerTestCases.h */,
 				6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */,
 				6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */,
 				6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */,
-				FAB033301278D71500DC01F0 /* PetriBoardTestCases.h */,
-				FAB033311278D71500DC01F0 /* PetriBoardTestCases.m */,
+				FAB0331012788BBB00DC01F0 /* PetriGameTestCases.h */,
+				FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */,
 				FAB033371278D9E600DC01F0 /* PetriGameRulesTestCases.h */,
 				FAB033381278D9E600DC01F0 /* PetriGameRulesTestCases.m */,
+				FAB033301278D71500DC01F0 /* PetriBoardTestCases.h */,
+				FAB033311278D71500DC01F0 /* PetriBoardTestCases.m */,
 				64C7E6691278F1F800B040F8 /* PetriBoardCellTestCases.h */,
+				64C7E66A1278F1F800B040F8 /* PetriBoardCellTestCases.m */,
 				64C7E6721278F2D600B040F8 /* PetriItemTestCases.h */,
 				64C7E6731278F2D600B040F8 /* PetriItemTestCases.m */,
-				64C7E66A1278F1F800B040F8 /* PetriBoardCellTestCases.m */,
 				64C7E66C1278F24200B040F8 /* PetriPieceTestCases.h */,
 				64C7E66D1278F24200B040F8 /* PetriPieceTestCases.m */,
 			);
