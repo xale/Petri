@@ -8,9 +8,23 @@
 
 #import <Cocoa/Cocoa.h>
 
+/*!
+ \defgroup viewKeyConstants View Keys
+ @{
+ */
+/*!
+ The Title view, displayed when the app starts.
+ */
 extern NSString* const PetriTitleViewControllerKey;
+/*!
+ The Game Group view, displayed when configuring players and options before a game.
+ */
 extern NSString* const PetriGameGroupViewControllerKey;
+/*!
+ The Gameplay view, displayed when a game is in progress.
+ */
 extern NSString* const PetriGameplayViewControllerKey;
+//! @}
 
 /*!
  \brief The controller for the main window of the Petri application.
@@ -25,6 +39,13 @@ extern NSString* const PetriGameplayViewControllerKey;
 	NSDictionary* viewControllers;	/*!< The collection of views that can be displayed on the main window. */
 	NSViewController* currentViewController;	/*!< The view currently displayed on the main window. */
 }
+
+/*!
+ \brief Changes the view displayed on the main window.
+ 
+ @param viewControllerKey the key corresponding to the view to display; see \ref viewKeyConstants.
+ */
+- (void)displayViewControllerForKey:(NSString*)viewControllerKey;
 
 @property (readwrite, assign) IBOutlet NSWindow* window;
 @property (readwrite, assign) NSViewController* currentViewController;

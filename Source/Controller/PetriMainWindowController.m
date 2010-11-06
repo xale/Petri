@@ -7,6 +7,9 @@
 //
 
 #import "PetriMainWindowController.h"
+#import "PetriTitleViewController.h"
+#import "PetriGameGroupViewController.h"
+#import "PetriGameplayViewController.h"
 
 NSString* const PetriTitleViewControllerKey	=		@"PetriTitleViewController";
 NSString* const PetriGameGroupViewControllerKey =	@"PetriGameGroupViewController";
@@ -22,12 +25,14 @@ NSString* const PetriGameplayViewControllerKey =	@"PetriGameplayViewController";
 					   [[PetriGameGroupViewController alloc] init], PetriGameGroupViewControllerKey,
 					   [[PetriGameplayViewController alloc] init], PetriGameplayViewControllerKey,
 					   nil];
+	
+	return self;
 }
 
 - (void)awakeFromNib
 {
 	// Display the title view controller
-	[self displayViewController:titleViewController];
+	[self displayViewControllerForKey:PetriTitleViewControllerKey];
 }
 
 #pragma mark -
@@ -71,6 +76,11 @@ NSString* const PetriGameplayViewControllerKey =	@"PetriGameplayViewController";
 	
 	// Change the current view controller
 	[self setCurrentViewController:newViewController];
+}
+
+- (void)displayViewControllerForKey:(NSString*)viewControllerKey
+{
+	[self displayViewController:[viewControllers objectForKey:viewControllerKey]];
 }
 
 #pragma mark -
