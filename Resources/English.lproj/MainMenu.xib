@@ -1367,7 +1367,6 @@
 							<int key="NSBoxType">0</int>
 							<int key="NSTitlePosition">0</int>
 							<bool key="NSTransparent">NO</bool>
-							<real value="0.0" key="NSBorderWidth2"/>
 						</object>
 					</object>
 					<string key="NSFrameSize">{480, 360}</string>
