@@ -43,7 +43,6 @@
 				<int key="NSvFlags">274</int>
 				<string key="NSFrameSize">{640, 480}</string>
 				<reference key="NSSuperview"/>
-				<bool key="NSViewIsLayerTreeHost">YES</bool>
 				<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				<string key="NSClassName">NSView</string>
 			</object>
