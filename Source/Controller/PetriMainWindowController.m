@@ -15,6 +15,9 @@ NSString* const PetriTitleViewControllerKey	=		@"PetriTitleViewController";
 NSString* const PetriGameGroupViewControllerKey =	@"PetriGameGroupViewController";
 NSString* const PetriGameplayViewControllerKey =	@"PetriGameplayViewController";
 
+NSString* const PetriMainWindowDidDisplayViewControllerNotification =	@"PetriMainWindowDidDisplayViewControllerNotification";
+NSString* const PetriViewControllerKeyNotificationKey =					@"PetriViewControllerKey";
+
 @implementation PetriMainWindowController
 
 - (id)init
@@ -93,6 +96,12 @@ NSString* const PetriInvalidViewControllerKeyExceptionDescriptionFormat =	@"No v
 	
 	// Change the current view controller
 	[self setCurrentViewController:newViewController];
+	
+	// Post a notification
+	[[NSNotificationCenter defaultCenter] postNotificationName:PetriMainWindowDidDisplayViewControllerNotification
+														object:self
+													  userInfo:[NSDictionary dictionaryWithObject:viewControllerKey
+																						   forKey:PetriViewControllerKeyNotificationKey]];
 }
 
 #pragma mark -
