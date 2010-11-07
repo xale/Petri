@@ -38,8 +38,25 @@ NSString* const PetriGameplayViewControllerKey =	@"PetriGameplayViewController";
 #pragma mark -
 #pragma mark View Swapping
 
-- (void)displayViewController:(NSViewController*)newViewController
+NSString* const PetriInvalidViewControllerKeyExceptionName =	@"invalidViewControllerKeyException";
+NSString* const PetriInvalidViewControllerKeyExceptionDescriptionFormat =	@"No view controller found for key %@";
+
+- (void)displayViewControllerForKey:(NSString*)viewControllerKey
 {
+	// Find the view controller for the specified key
+	NSViewController* newViewController = [viewControllers objectForKey:viewControllerKey];
+	
+	// Check that the controller exists
+	if (newViewController == nil)
+	{
+		// No controller for specified key: throw an exception
+		NSString* exceptionDesc = [NSString stringWithFormat:PetriInvalidViewControllerKeyExceptionDescriptionFormat, viewControllerKey];
+		NSException* invalidKeyException = [NSException exceptionWithName:PetriInvalidViewControllerKeyExceptionName
+																   reason:exceptionDesc
+																 userInfo:nil];
+		@throw invalidKeyException;
+	}
+	
 	// Attempt to move first-responder status to the window
 	if (![[self window] makeFirstResponder:[self window]])
 	{
@@ -76,11 +93,6 @@ NSString* const PetriGameplayViewControllerKey =	@"PetriGameplayViewController";
 	
 	// Change the current view controller
 	[self setCurrentViewController:newViewController];
-}
-
-- (void)displayViewControllerForKey:(NSString*)viewControllerKey
-{
-	[self displayViewController:[viewControllers objectForKey:viewControllerKey]];
 }
 
 #pragma mark -
