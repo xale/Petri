@@ -1,5 +1,8 @@
 TODO:
 
+CODE:
+--------------------------------------------------------------------------------
+
 GameGroup:
 * Creating a GameGroup with a host User
 * Adding Users
@@ -20,7 +23,8 @@ UserPlayer:
 
 AIPlayer:
 * Creating an AIPlayer with a "difficulty/strategy"
-* Making a move using a given Piece/Board
+- Making a move using a given Piece/Board
+	* Making naive choices
 	- Making strategic choices
 	- Making choices about Items
 
@@ -48,3 +52,42 @@ PetriPiece:
 
 PetriItem:
 - Defining item attributes/behavior
+
+UI:
+--------------------------------------------------------------------------------
+
+* Finalize number/responibilities of main window views
+* Determine toolbar buttons
+	* When and where to display
+	
+Preferences window:
+
+Title view:
+	* Overall arrangement
+	* Title text
+	- Background animation
+	- Buttons	(names tentative)
+		* "New Local Game Group"
+		- "New Network Game Group"
+		- "Join Network Game Group"
+
+Game group view:
+	* Overall arrangement
+	- User "slots"
+		- Name
+		- AI-player indicator
+	- Chat (network only?)
+	- Rules configuration widgets
+		- Board shape
+		- Min/max players
+		- Piece configurations/probabilities
+	
+Game view:
+	* Overall arrangement (revision)
+	* Board
+	* Player "slots"
+		* Name
+		- Items
+		- Turn highlight
+	* Piece spawn location
+	- Chat (network only?)

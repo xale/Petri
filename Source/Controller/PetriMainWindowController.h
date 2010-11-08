@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 /*!
- \defgroup viewKeyConstants View Keys
+ \defgroup viewKeyConstants View Key Constants
  @{
  */
 /*!
@@ -27,6 +27,28 @@ extern NSString* const PetriGameplayViewControllerKey;
 //! @}
 
 /*!
+ \addtogroup notifications Notifications
+ @{
+ */
+/*!
+ Posted when the PetriMainWindowController swaps a new view controller into the main window.
+ */
+extern NSString* const PetriMainWindowDidDisplayViewControllerNotification;
+//! @}
+
+/*!
+ \addtogroup notificationKeys Notification User Info Keys
+ @{
+ */
+/*!
+ See \ref PetriMainWindowDidDisplayViewControllerNotification.
+ 
+ The view-controller key corresponding to the view controller now displayed on the main window.
+ */
+extern NSString* const PetriViewControllerKeyNotificationKey;
+//! @}
+
+/*!
  \brief The controller for the main window of the Petri application.
  
  The PetriMainWindow controller class serves as the management object for the main Petri application window, controlling the swapping of views on the window, as well as performing the functions of an NSApplication delegate object.
@@ -36,7 +58,7 @@ extern NSString* const PetriGameplayViewControllerKey;
 	IBOutlet NSWindow* window;	/*!< The main application window. */
 	IBOutlet NSBox* viewBox;	/*!< The box containing swapped views on the window. */
 	
-	NSDictionary* viewControllers;	/*!< The collection of views that can be displayed on the main window. */
+	NSDictionary* viewControllers;				/*!< The collection of views that can be displayed on the main window. */
 	NSViewController* currentViewController;	/*!< The view currently displayed on the main window. */
 }
 
