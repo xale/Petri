@@ -6,14 +6,14 @@
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "PetriMainWindowViewController.h"
 
 /*!
  \brief The controller for the Gameplay view.
  
  The PetriGameplayViewController is responsible for handling events from the view that displays displays and interacts with a game in progress.
  */
-@interface PetriGameplayViewController : NSViewController
+@interface PetriGameplayViewController : PetriMainWindowViewController
 {
 
 }
