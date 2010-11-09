@@ -7,7 +7,7 @@
 //
 
 #import "PetriGameGroupTestCases.h"
-
+#import "PetriGameGroup.h"
 
 @implementation PetriGameGroupTestCases
 

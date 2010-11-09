@@ -283,8 +283,6 @@
 		6A9DE8CE127601B500020AB9 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				FAB03384128885A000DC01F0 /* PetriGameGroupTestCases.h */,
-				FAB03385128885A000DC01F0 /* PetriGameGroupTestCases.m */,
 				6A9DE8D11276020200020AB9 /* PetriUserTestCases.h */,
 				6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */,
 				6AEF227612763160008D8828 /* PetriAIPlayerTestCases.h */,
@@ -295,6 +293,8 @@
 				FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */,
 				FAB033371278D9E600DC01F0 /* PetriGameRulesTestCases.h */,
 				FAB033381278D9E600DC01F0 /* PetriGameRulesTestCases.m */,
+				FAB03384128885A000DC01F0 /* PetriGameGroupTestCases.h */,
+				FAB03385128885A000DC01F0 /* PetriGameGroupTestCases.m */,
 				FAB033301278D71500DC01F0 /* PetriBoardTestCases.h */,
 				FAB033311278D71500DC01F0 /* PetriBoardTestCases.m */,
 				64C7E6691278F1F800B040F8 /* PetriBoardCellTestCases.h */,

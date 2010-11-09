@@ -15,5 +15,8 @@
 }
 
 - (void)testCreatePetriGame;
+- (void)testGameBoardNotNil;
+- (void)testGameBoardHandlesEmptyPlayersArray;
+- (void)testGameBoardHandlesNilPlayersArray;
 
 @end
