@@ -18,4 +18,13 @@ NSString* const PetriTitleViewNibName =	@"TitleView";
 						   bundle:nil];
 }
 
+#pragma mark -
+#pragma mark Interface Actions
+
+- (IBAction)createLocalGameGroup:(id)sender
+{
+	// FIXME: testing code
+	[[self mainWindowController] displayViewControllerForKey:PetriGameGroupViewControllerKey];
+}
+
 @end

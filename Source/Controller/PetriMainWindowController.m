@@ -7,6 +7,8 @@
 //
 
 #import "PetriMainWindowController.h"
+
+#import "PetriMainWindowViewController.h"
 #import "PetriTitleViewController.h"
 #import "PetriGameGroupViewController.h"
 #import "PetriGameplayViewController.h"
@@ -28,6 +30,10 @@ NSString* const PetriViewControllerKeyNotificationKey =					@"PetriViewControlle
 					   [[PetriGameGroupViewController alloc] init], PetriGameGroupViewControllerKey,
 					   [[PetriGameplayViewController alloc] init], PetriGameplayViewControllerKey,
 					   nil];
+	
+	// Connect view controllers to the window controller
+	for (PetriMainWindowViewController* viewController in [viewControllers objectEnumerator])
+		[viewController setMainWindowController:self];
 	
 	return self;
 }

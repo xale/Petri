@@ -76,7 +76,7 @@ Game group view:
 	- User "slots"
 		- Name
 		- AI-player indicator
-	- Chat (network only?)
+	- Chat (network only)
 	- Rules configuration widgets
 		- Board shape
 		- Min/max players
@@ -90,4 +90,4 @@ Game view:
 		- Items
 		- Turn highlight
 	* Piece spawn location
-	- Chat (network only?)
+	- Chat (network only)
