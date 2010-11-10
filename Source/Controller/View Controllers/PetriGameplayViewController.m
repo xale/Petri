@@ -18,4 +18,19 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 						   bundle:nil];
 }
 
+#pragma mark -
+#pragma mark Interface Actions
+
+- (IBAction)endGame:(id)sender
+{
+	// FIXME: testing code; needs to prompt user, etc.
+	[[self mainWindowController] displayViewControllerForKey:PetriGameGroupViewControllerKey];
+}
+
+- (IBAction)returnToTitleView:(id)sender
+{
+	// FIXME: testing code; needs to prompt user, check if host, etc.
+	[[self mainWindowController] displayViewControllerForKey:PetriTitleViewControllerKey];
+}
+
 @end

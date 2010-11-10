@@ -18,4 +18,14 @@
 	
 }
 
+/*!
+ Leaves the game group and returns to the Title view.
+ */
+- (IBAction)returnToTitleView:(id)sender;
+
+/*!
+ Starts a game with the current players and rules from the current game group, and switches to the Gameplay view.
+ */
+- (IBAction)startGame:(id)sender;
+
 @end

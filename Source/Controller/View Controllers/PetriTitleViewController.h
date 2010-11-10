@@ -20,9 +20,17 @@
 
 /*!
  Creates a new game group for a local game, and switches to the Game Group view.
- 
- \warning This method is intended for testing purposes only; IBActions will not be used in the final interface.
  */
 - (IBAction)createLocalGameGroup:(id)sender;
+
+/*!
+ Creates a new game group for a network game, and switches to the Game Group view.
+ */
+- (IBAction)createNetworkGameGroup:(id)sender;
+
+/*!
+ Switches to the Join Game view.
+ */
+- (IBAction)joinNetworkGameGroup:(id)sender;
 
 @end
