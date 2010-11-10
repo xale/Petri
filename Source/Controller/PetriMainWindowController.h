@@ -12,17 +12,13 @@
  \defgroup viewKeyConstants View Key Constants
  @{
  */
-/*!
- The Title view, displayed when the app starts.
- */
+//! The Title view, displayed when the app starts.
 extern NSString* const PetriTitleViewControllerKey;
-/*!
- The Game Group view, displayed when configuring players and options before a game.
- */
+//! The Join Game (Group) view, displayed when searching for or specifying a remote network game group.
+extern NSString* const PetriJoinGameViewControllerKey;
+//! The Game Group view, displayed when configuring players and options before a game.
 extern NSString* const PetriGameGroupViewControllerKey;
-/*!
- The Gameplay view, displayed when a game is in progress.
- */
+//! The Gameplay view, displayed when a game is in progress.
 extern NSString* const PetriGameplayViewControllerKey;
 //! @}
 

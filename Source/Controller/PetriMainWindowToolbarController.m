@@ -32,6 +32,8 @@
  */
 //! Identifiers for toolbar items on the Title view
 - (NSArray*)titleViewToolbarItemIdentifiers;
+//! Identifiers for toolbar items on the Join Game view
+- (NSArray*)joinGameViewToolbarItemIdentifiers;
 //! Identifiers for toolbar items on the Game Group view
 - (NSArray*)gameGroupViewToolbarItemIdentifiers;
 //! Identifiers for toolbar items on the Gameplay view
@@ -41,6 +43,19 @@
 @end
 
 @implementation PetriMainWindowToolbarController
+
+- (id)init
+{
+	// Create a dictionary for the toolbar configurations
+	toolbarConfigurations = [NSDictionary dictionaryWithObjectsAndKeys:
+							 [self titleViewToolbarItemIdentifiers], PetriTitleViewControllerKey,
+							 [self joinGameViewToolbarItemIdentifiers], PetriJoinGameViewControllerKey,
+							 [self gameGroupViewToolbarItemIdentifiers], PetriGameGroupViewControllerKey,
+							 [self gameplayViewToolbarItemIdentifiers], PetriGameplayViewControllerKey,
+							 nil];
+	
+	return self;
+}
 
 - (void)awakeFromNib
 {
@@ -87,19 +102,17 @@
 #pragma mark -
 #pragma mark Toolbar Configurations
 
-NSString* const PetriNoToolbarForViewKeyExceptionName =	@"noToolbarForViewKeyException";
+NSString* const PetriNoToolbarForViewKeyExceptionName =					@"noToolbarForViewKeyException";
 NSString* const PetriNoToolbarForViewKeyExceptionDescriptionFormat =	@"No toolbar configuration for view-controller key %@";
 
 - (NSArray*)toolbarItemIdentifiersForViewKey:(NSString*)viewKey
 {
-	if ([viewKey isEqualToString:PetriTitleViewControllerKey])
-		return [self titleViewToolbarItemIdentifiers];
+	// Look up the toolbar configuration for this view
+	NSArray* toolbarItems = [toolbarConfigurations objectForKey:viewKey];
 	
-	if ([viewKey isEqualToString:PetriGameGroupViewControllerKey])
-		return [self gameGroupViewToolbarItemIdentifiers];
-	
-	if ([viewKey isEqualToString:PetriGameplayViewControllerKey])
-		return [self gameplayViewToolbarItemIdentifiers];
+	// If we found a configuration, return it
+	if (toolbarItems != nil)
+		return toolbarItems;
 	
 	// No toolbar configuration for specified view: throw an exception
 	NSString* exceptionDesc = [NSString stringWithFormat:PetriNoToolbarForViewKeyExceptionDescriptionFormat, viewKey];
@@ -110,6 +123,12 @@ NSString* const PetriNoToolbarForViewKeyExceptionDescriptionFormat =	@"No toolba
 }
 
 - (NSArray*)titleViewToolbarItemIdentifiers
+{
+	// FIXME: WRITEME
+	return [NSArray array];
+}
+
+- (NSArray*)joinGameViewToolbarItemIdentifiers
 {
 	// FIXME: WRITEME
 	return [NSArray array];

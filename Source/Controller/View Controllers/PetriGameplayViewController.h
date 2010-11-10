@@ -15,7 +15,17 @@
  */
 @interface PetriGameplayViewController : PetriMainWindowViewController
 {
-
+	
 }
+
+/*!
+ Ends the game and returns to the Game Group view.
+ */
+- (IBAction)endGame:(id)sender;
+
+/*!
+ Leaves the game and returns to the Title view.
+ */
+- (IBAction)returnToTitleView:(id)sender;
 
 @end

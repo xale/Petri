@@ -10,10 +10,12 @@
 
 #import "PetriMainWindowViewController.h"
 #import "PetriTitleViewController.h"
+#import "PetriJoinGameViewController.h"
 #import "PetriGameGroupViewController.h"
 #import "PetriGameplayViewController.h"
 
 NSString* const PetriTitleViewControllerKey	=		@"PetriTitleViewController";
+NSString* const PetriJoinGameViewControllerKey =	@"PetriJoinGameViewController";
 NSString* const PetriGameGroupViewControllerKey =	@"PetriGameGroupViewController";
 NSString* const PetriGameplayViewControllerKey =	@"PetriGameplayViewController";
 
@@ -27,6 +29,7 @@ NSString* const PetriViewControllerKeyNotificationKey =					@"PetriViewControlle
 	// Create view controllers
 	viewControllers = [NSDictionary dictionaryWithObjectsAndKeys:
 					   [[PetriTitleViewController alloc] init], PetriTitleViewControllerKey,
+					   [[PetriJoinGameViewController alloc] init], PetriJoinGameViewControllerKey,
 					   [[PetriGameGroupViewController alloc] init], PetriGameGroupViewControllerKey,
 					   [[PetriGameplayViewController alloc] init], PetriGameplayViewControllerKey,
 					   nil];
@@ -115,7 +118,7 @@ NSString* const PetriInvalidViewControllerKeyExceptionDescriptionFormat =	@"No v
 
 - (void)applicationDidFinishLaunching:(NSNotification*)aNotification
 {
-	// Insert code here to initialize your application 
+	// Insert code here to initialize your application
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)sender
