@@ -24,6 +24,12 @@
 	return self;
 }
 
+- (void)addPlayersObject:(PetriPlayer*)player
+{
+	//FIXME: Should probably handle case where player is already in array
+	players = [NSArray arrayWithArray:[[players mutableCopy] arrayByAddingObject:player]];
+}
+
 @synthesize players;
 @synthesize currentPlayer;
 @synthesize board;
