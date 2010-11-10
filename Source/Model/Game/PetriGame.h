@@ -34,6 +34,13 @@
 - (id)initWithPlayers:(NSArray*)playersInGame
 			gameRules:(PetriGameRules*)rules;
 
+/*!
+ Adds a player object to a game.
+ 
+ @param player PetriPlayer object
+ */
+- (void)addPlayersObject:(PetriPlayer*)player;
+
 @property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readonly) PetriBoard* board;
