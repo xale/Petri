@@ -17,7 +17,7 @@
 - (id)initWithPlayers:(NSArray*)playersInGame
 			gameRules:(PetriGameRules*)rules
 {
-	players = playersInGame;
+	players = [playersInGame mutableCopy];
 	currentPlayer = [players objectAtIndex:0];
 	gameRules = rules;
 	board = nil; // FIXME: generate board from game rules
@@ -27,11 +27,38 @@
 - (void)addPlayersObject:(PetriPlayer*)player
 {
 	//FIXME: Should probably handle case where player is already in array
-	//FIXME: Should players really be immutable?
-	players = [NSArray arrayWithArray:[[players mutableCopy] arrayByAddingObject:player]];
+	[self willChangeValueForKey:@"player"];
+	[players addObject:player];
+	[self didChangeValueForKey:@"player"];
 }
 
-@synthesize players;
+- (void)removePlayersObject:(PetriPlayer*)player
+{
+	[self willChangeValueForKey:@"player"];
+	[players removeObject:player];
+	[self didChangeValueForKey:@"player"];
+}
+
+- (NSUInteger)countOfPlayers
+{
+	return [players count];
+}
+
+- (NSEnumerator*)enumeratorOfPlayers
+{
+	return [players objectEnumerator];
+}
+
+- (PetriPlayer*)memberOfPlayers:(PertiPlayer*)player
+{
+	NSUInteger index = [players indexOfObject:player];
+	if (index == NSNotFound)
+	{
+		return nil;
+	}
+	return [players objectAtIndex:index];
+}
+
 @synthesize currentPlayer;
 @synthesize board;
 @synthesize gameRules;

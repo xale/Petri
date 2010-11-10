@@ -19,7 +19,7 @@
  */
 @interface PetriGame : NSObject
 {
-	NSArray* players;			/*!< The players participating in the game. Contains PetriPlayer objects. */
+	NSMutableArray* players;	/*!< The players participating in the game. Contains PetriPlayer objects. */
 	PetriPlayer* currentPlayer;	/*!< The player whose turn it is. */
 	PetriBoard* board;			/*!< The game board. */
 	PetriGameRules* gameRules;	/*!< The rules for the game. */
@@ -41,7 +41,6 @@
  */
 - (void)addPlayersObject:(PetriPlayer*)player;
 
-@property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readonly) PetriBoard* board;
 @property (readonly) PetriGameRules* gameRules;
