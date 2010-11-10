@@ -33,6 +33,9 @@
 	return [controlledCells count];
 }
 
-@synthesize items;
+- (NSDictionary*)items
+{
+	return [items copy];
+}
 
 @end

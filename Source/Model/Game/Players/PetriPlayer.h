@@ -22,17 +22,20 @@
 }
 
 /*!
- Adds a cell to the list of cells controlled by the player
+ Adds a cell to the list of cells controlled by the player.
 
  @param cell the PetriBoardCell that the player now controls
  */
 - (void)addControlledCellsObject:(PetriBoardCell*)cell;
 
 /*!
- Returns the number of cells controlled by player
+ Returns the number of cells controlled by player.
  */
 - (NSInteger)countOfControlledCells;
 
-@property (readwrite, copy) NSMutableDictionary* items;
+/*!
+ Returns immutable copy of items dictionary.
+ */
+@property (readonly, copy) NSDictionary* items;
 
 @end

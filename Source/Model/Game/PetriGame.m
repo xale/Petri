@@ -49,7 +49,7 @@
 	return [players objectEnumerator];
 }
 
-- (PetriPlayer*)memberOfPlayers:(PertiPlayer*)player
+- (PetriPlayer*)memberOfPlayers:(PetriPlayer*)player
 {
 	NSUInteger index = [players indexOfObject:player];
 	if (index == NSNotFound)
