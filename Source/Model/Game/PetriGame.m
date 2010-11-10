@@ -27,6 +27,7 @@
 - (void)addPlayersObject:(PetriPlayer*)player
 {
 	//FIXME: Should probably handle case where player is already in array
+	//FIXME: Should players really be immutable?
 	players = [NSArray arrayWithArray:[[players mutableCopy] arrayByAddingObject:player]];
 }
 

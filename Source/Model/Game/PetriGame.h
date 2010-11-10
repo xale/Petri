@@ -27,7 +27,7 @@
 
 /*!
  Creates a new game with the specified players and rules.
- 
+
  @param playersInGame NSArray of player objects
  @param rules PetriGameRules object
  */
@@ -36,7 +36,7 @@
 
 /*!
  Adds a player object to a game.
- 
+
  @param player PetriPlayer object
  */
 - (void)addPlayersObject:(PetriPlayer*)player;

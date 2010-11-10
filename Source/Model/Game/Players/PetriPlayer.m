@@ -23,7 +23,16 @@
 #pragma mark -
 #pragma mark Accessors
 
-@synthesize cellsControlled;
+- (void)addControlledCellsObject:(PetriBoardCell*)cell
+{
+	[controlledCells addObject:cell];
+}
+
+- (NSInteger)countOfControlledCells
+{
+	return [controlledCells count];
+}
+
 @synthesize items;
 
 @end
