@@ -15,5 +15,6 @@
 }
 
 - (id)testCreatePetriBoard;
+- (id)testPlacePiece
 
 @end
