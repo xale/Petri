@@ -39,6 +39,7 @@
 		6AE75E3F128B0A12009F6BC5 /* PetriJoinGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AE75E3E128B0A12009F6BC5 /* PetriJoinGameViewController.m */; };
 		6AE75E7E128B171C009F6BC5 /* JoinGameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AE75E7D128B171C009F6BC5 /* JoinGameView.xib */; };
 		6AE75FC0128B8D20009F6BC5 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE75FBF128B8D20009F6BC5 /* Quartz.framework */; };
+		6AE76035128BAB06009F6BC5 /* NSArray+Subranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AE76034128BAB06009F6BC5 /* NSArray+Subranges.m */; };
 		6AEF227812763160008D8828 /* PetriAIPlayerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */; };
 		6AEF22C71276397A008D8828 /* PetriUserPlayerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -124,6 +125,8 @@
 		6AE75E3E128B0A12009F6BC5 /* PetriJoinGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriJoinGameViewController.m; sourceTree = "<group>"; };
 		6AE75E7B128B1717009F6BC5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/JoinGameView.xib; sourceTree = "<group>"; };
 		6AE75FBF128B8D20009F6BC5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		6AE76033128BAB06009F6BC5 /* NSArray+Subranges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Subranges.h"; sourceTree = "<group>"; };
+		6AE76034128BAB06009F6BC5 /* NSArray+Subranges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Subranges.m"; sourceTree = "<group>"; };
 		6AEF227612763160008D8828 /* PetriAIPlayerTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriAIPlayerTestCases.h; sourceTree = "<group>"; };
 		6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriAIPlayerTestCases.m; sourceTree = "<group>"; };
 		6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriUserPlayerTestCases.h; sourceTree = "<group>"; };
@@ -392,6 +395,8 @@
 		6AA738F51265FBB7003ABB43 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				6AE76033128BAB06009F6BC5 /* NSArray+Subranges.h */,
+				6AE76034128BAB06009F6BC5 /* NSArray+Subranges.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -580,6 +585,7 @@
 				6ACA2E5D12888EEE002DEBE1 /* PetriMainWindowViewController.m in Sources */,
 				64C53263128B1374005B61D2 /* PetriBoardLocation.m in Sources */,
 				6AE75E3F128B0A12009F6BC5 /* PetriJoinGameViewController.m in Sources */,
+				6AE76035128BAB06009F6BC5 /* NSArray+Subranges.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
