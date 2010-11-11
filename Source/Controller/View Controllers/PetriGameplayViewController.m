@@ -33,4 +33,9 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	[[self mainWindowController] displayViewControllerForKey:PetriTitleViewControllerKey];
 }
 
+#pragma mark -
+#pragma mark Accessors
+
+@synthesize game;
+
 @end

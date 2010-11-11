@@ -8,6 +8,8 @@
 
 #import "PetriMainWindowViewController.h"
 
+@class PetriGame;
+
 /*!
  \brief The controller for the Gameplay view.
  
@@ -15,7 +17,7 @@
  */
 @interface PetriGameplayViewController : PetriMainWindowViewController
 {
-	
+	PetriGame* game;	/*!< A reference to the current game in progress, which is displayed on this view. */
 }
 
 /*!
@@ -27,5 +29,7 @@
  Leaves the game and returns to the Title view.
  */
 - (IBAction)returnToTitleView:(id)sender;
+
+@property (readwrite, assign) PetriGame* game;
 
 @end
