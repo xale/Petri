@@ -11,11 +11,21 @@
 
 @implementation PetriUserTestCases
 
+NSString* const PetriUserTestNicknameOne =	@"test nickname";
+NSString* const PetriUserTestNicknameTwo =	@"foobar #897";
+
 - (void)testCreatePetriUser
 {
-	PetriUser* testUser = [[PetriUser alloc] init];
+	// Test creating an instance
+	PetriUser* testUser = [[PetriUser alloc] initWithNickname:PetriUserTestNicknameOne];
+	STAssertNotNil(testUser, @"PetriUser object not created successfully");
 	
-	STAssertNotNil(testUser, @"User object not created successfully");
+	// Test initial nickname
+	STAssertEqualObjects([testUser nickname], PetriUserTestNicknameOne, @"PetriUser nickname not set correctly by initializer");
+	
+	// Test setting nickname
+	[testUser setNickname:PetriUserTestNicknameTwo];
+	STAssertEqualObjects([testUser nickname], PetriUserTestNicknameTwo, @"PetriUser nickname not set correctly by accessor");
 }
 
 @end

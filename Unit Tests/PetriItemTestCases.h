@@ -1,18 +1,19 @@
 //
-//  PetriUserTestCases.h
+//  PetriItemTestCases.h
 //  Petri
 //
-//  Created by Alex Heinz on 10/25/10.
+//  Created by Paul Martin on 10/10/27.
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface PetriUserTestCases : SenTestCase
+
+@interface PetriItemTestCases : SenTestCase
 {
-	
+
 }
 
-- (void)testCreatePetriUser;
+- (id)testCreatePetriItem;
 
 @end

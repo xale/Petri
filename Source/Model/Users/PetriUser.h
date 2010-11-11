@@ -18,6 +18,12 @@
 	NSString* nickname;	/*!< The user's name or nickname, visible to other users during a network game. */
 }
 
+/*!
+ Creates a new PetriUser object with the specified nickname.
+ @param userNickname the user's nickname, chosen (presumably) by the human being at the keyboard.
+ */
+- (id)initWithNickname:(NSString*)userNickname;
+
 @property (readwrite, copy) NSString* nickname;
 
 @end

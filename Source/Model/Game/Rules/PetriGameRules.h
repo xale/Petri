@@ -22,6 +22,7 @@
 
 @property (readwrite, assign) NSInteger minPlayers;
 @property (readwrite, assign) NSInteger maxPlayers;
+//FIXME: should this be readonly? it's immutable anyway.
 @property (readwrite, copy) NSDictionary* pieceFrequencies;
 
 @end

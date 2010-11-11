@@ -14,7 +14,56 @@
 #pragma mark -
 #pragma mark Accessors
 
-@synthesize players;
+- (id)initWithPlayers:(NSArray*)playersInGame
+			gameRules:(PetriGameRules*)rules
+{
+	players = [playersInGame mutableCopy];
+	currentPlayer = [players objectAtIndex:0];
+	gameRules = rules;
+	board = nil; // FIXME: generate board from game rules
+	return self;
+}
+
+- (void)addPlayersObject:(PetriPlayer*)player
+{
+	//FIXME: Should probably handle case where player is already in array
+	[self willChangeValueForKey:@"player"];
+	[players addObject:player];
+	[self didChangeValueForKey:@"player"];
+}
+
+- (void)removePlayersObject:(PetriPlayer*)player
+{
+	[self willChangeValueForKey:@"player"];
+	[players removeObject:player];
+	[self didChangeValueForKey:@"player"];
+}
+
+- (NSUInteger)countOfPlayers
+{
+	return [players count];
+}
+
+- (NSEnumerator*)enumeratorOfPlayers
+{
+	return [players objectEnumerator];
+}
+
+- (PetriPlayer*)memberOfPlayers:(PetriPlayer*)player
+{
+	NSUInteger index = [players indexOfObject:player];
+	if (index == NSNotFound)
+	{
+		return nil;
+	}
+	return [players objectAtIndex:index];
+}
+
+- (NSArray*)players
+{
+	return [players copy];
+}
+
 @synthesize currentPlayer;
 @synthesize board;
 @synthesize gameRules;

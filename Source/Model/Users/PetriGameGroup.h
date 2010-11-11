@@ -21,14 +21,25 @@
  */
 @interface PetriGameGroup : NSObject
 {
-	NSArray* users;				/*!< List of (human) users who will participate in the game; may be local or remote. Contains PetriUser objects. */
+	NSMutableArray* users;		/*!< List of (human) users who will participate in the game; may be local or remote. Contains PetriUser objects. */
 	PetriUser* host;			/*!< User that created and manages this group. */
 	PetriGameRules*	gameRules;	/*!< Rules used for games played by this group. May be changed by the host. */
 	PetriGame* game;			/*!< Game in progress, if any. */
 }
 
-@property (readwrite, assign) NSArray* users;
-@property (readwrite, assign) PetriUser* host;
+
+/*!
+ Initialize a group with a given host.
+
+ @param groupHost the host of the group
+ */
+- (id)initWithHost:(PetriUser*)groupHost;
+
+/*!
+ Returns a readonly copy of the users array.
+ */
+@property (readonly) NSArray* users;
+@property (readonly) PetriUser* host;
 @property (readwrite, assign) PetriGameRules* gameRules;
 @property (readwrite, assign) PetriGame* game;
 

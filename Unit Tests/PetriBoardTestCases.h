@@ -1,18 +1,19 @@
 //
-//  PetriUserTestCases.h
+//  PetriBoardTestCases.h
 //  Petri
 //
-//  Created by Alex Heinz on 10/25/10.
+//  Created by Alexander Rozenshteyn on 10/27/10.
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface PetriUserTestCases : SenTestCase
+
+@interface PetriBoardTestCases : SenTestCase
 {
-	
+
 }
 
-- (void)testCreatePetriUser;
+- (id)testCreatePetriBoard;
 
 @end

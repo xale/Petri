@@ -8,7 +8,11 @@
 
 #import "PetriAIPlayer.h"
 
-
 @implementation PetriAIPlayer
+
+- (id)init
+{
+	return self;
+}
 
 @end

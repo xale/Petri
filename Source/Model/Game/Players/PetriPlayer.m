@@ -7,7 +7,7 @@
 //
 
 #import "PetriPlayer.h"
-
+@class PetriItem;
 
 @implementation PetriPlayer
 
@@ -23,7 +23,57 @@
 #pragma mark -
 #pragma mark Accessors
 
-@synthesize cellsControlled;
-@synthesize items;
+- (void)addControlledCellsObject:(PetriBoardCell*)cell
+{
+	[controlledCells addObject:cell];
+}
+
+- (NSInteger)countOfControlledCells
+{
+	return [controlledCells count];
+}
+
+- (NSDictionary*)items
+{
+	return [items copy];
+}
+
+// TODO: write unit test for add/remove items
+
+- (void)addItemsObject:(PetriItem*)item
+{
+	[self willChangeValueForKey:@"item"];
+	
+	NSNumber* count = [items objectForKey:item];
+	if (count == nil)
+	{
+		[items setObject:item forKey:[NSNumber numberWithInt:1]];
+	}
+	[items setObject:item forKey:[NSNumber numberWithInt:([count intValue] + 1)]];
+	
+	[self didChangeValueForKey:@"item"];
+}
+
+- (void)removeItemsObject:(PetriItem*)item
+{
+	[self willChangeValueForKey:@"item"];
+	
+	NSNumber* count = [items objectForKey:item];
+	if (count == nil)
+	{
+		@throw [NSException exceptionWithName:@"ItemRemoveException"
+									   reason:@"Attempt to remove item not in dictionary."
+									 userInfo:nil];
+	}
+	
+	if ([count intValue] == 1)
+	{
+		[items removeObjectForKey:count];
+		return;
+	}
+	[items setObject:item forKey:[NSNumber numberWithInt:([count intValue] - 1)]];
+
+	[self didChangeValueForKey:@"item"];
+}
 
 @end

@@ -8,12 +8,21 @@
 
 #import "PetriUserPlayer.h"
 
-
 @implementation PetriUserPlayer
+
+- (id)initWithControllingUser:(PetriUser*)user
+{
+	if (user == nil)
+		[NSException raise:@"user must not be nil" format:@""];
+	
+	controllingUser = user;
+	
+	return self;
+}
 
 #pragma mark -
 #pragma mark Accessors
 
-@synthesize user;
+@synthesize controllingUser;
 
 @end

@@ -11,6 +11,13 @@
 
 @implementation PetriUser
 
+- (id)initWithNickname:(NSString*)userNickname
+{
+	nickname = [userNickname copy];
+	
+	return self;
+}
+
 #pragma mark -
 #pragma mark Accessors
 

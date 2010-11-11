@@ -1,5 +1,5 @@
 //
-//  PetriUserTestCases.h
+//  PetriAIPlayerTestCases.h
 //  Petri
 //
 //  Created by Alex Heinz on 10/25/10.
@@ -8,11 +8,11 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface PetriUserTestCases : SenTestCase
+@interface PetriAIPlayerTestCases : SenTestCase
 {
-	
+
 }
 
-- (void)testCreatePetriUser;
+- (void)testCreatePetriAIPlayer;
 
 @end
