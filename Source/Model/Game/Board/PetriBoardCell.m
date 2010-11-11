@@ -10,6 +10,25 @@
 
 @implementation PetriBoardCell
 
+- (id)init
+{
+	cellType = unoccupiedCell;
+	owner = nil;
+	pickUp = nil;
+	return self;
+}
+
+- (id)initWithCellType:(PetriCellType)type
+				 owner:(PetriPlayer*)player
+				pickUp:(PetriItem*)item
+{
+	cellType = type;
+	owner = player;
+	pickUp = item;
+	return self;
+}
+
+
 #pragma mark -
 #pragma mark Accessors
 

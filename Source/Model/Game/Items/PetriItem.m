@@ -8,7 +8,6 @@
 
 #import "PetriItem.h"
 
-
 @implementation PetriItem
 
 @end

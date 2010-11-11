@@ -18,4 +18,19 @@ NSString* const PetriGameGroupViewNibName =	@"GameGroupView";
 						   bundle:nil];
 }
 
+#pragma mark -
+#pragma mark Interface Actions
+
+- (IBAction)returnToTitleView:(id)sender
+{
+	// FIXME: testing code; should check if the player is the host of a network game before closing
+	[[self mainWindowController] displayViewControllerForKey:PetriTitleViewControllerKey];
+}
+
+- (IBAction)startGame:(id)sender
+{
+	// FIXME: testing code
+	[[self mainWindowController] displayViewControllerForKey:PetriGameplayViewControllerKey];
+}
+
 @end
