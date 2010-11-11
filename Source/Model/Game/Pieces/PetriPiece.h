@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PetriBoardLocation.h"
 
 /*!
  \brief The game pieces given to players to place on the board.
@@ -18,6 +17,34 @@
 {
 	NSSet* cellLocations;	/*!< The set of locations describing the positions of the cells in this piece. */
 }
+
+/**
+ * Default constructor
+ * Creates a set of four locations for a tetromino
+ * In this case it's an s-block for testing purposes
+ * We will work to extend this with more shapes later
+ */
+- (id)init;
+
+/**
+ * Constructor to initialize with a set of locations
+ * @param locations location set to initialize piece with
+ */
+- (id)initWithCellLocations:(NSSet*)locations;
+
+/**
+ * Returns the current piece, but rotated clockwise
+ * This is done by rotating all blocks in the set 90 degrees about the origin
+ * @return current piece rotated clockwise
+ */
+- (PetriPiece*)pieceRotatedClockwise;
+
+/**
+ * Returns the current piece, but rotated counterclockwise
+ * This is done by rotating all blocks in the set -90 degrees about the origin
+ * @return current piece rotated counterclockwise
+ */
+- (PetriPiece*)pieceRotatedCounterclockwise;
 
 @property (readonly) NSSet* cellLocations;
 

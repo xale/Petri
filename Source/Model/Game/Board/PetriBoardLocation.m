@@ -19,6 +19,21 @@
 	return self;
 }
 
++ (PetriBoardLocation*)locationWithX:(NSInteger)x
+								   Y:(NSInteger)y
+{
+	return [[self alloc] initWithX:x Y:y];
+}
+
+- (PetriBoardLocation*)locationRotatedClockwiseAboutOrigin
+{
+	return [[PetriBoardLocation alloc] initWithX:[self y] Y:-[self x]];
+}
+
+- (PetriBoardLocation*)locationRotatedCounterclockwiseAboutOrigin
+{
+	return [[PetriBoardLocation alloc] initWithX:-[self y] Y:[self x]];
+}
 
 @synthesize x;
 @synthesize y;
