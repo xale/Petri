@@ -438,10 +438,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Petri" */;
 			buildPhases = (
-				6AA7393B12661531003ABB43 /* Generate Doxygen Documentation */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				6AA7393B12661531003ABB43 /* Generate Doxygen Documentation */,
 			);
 			buildRules = (
 			);
