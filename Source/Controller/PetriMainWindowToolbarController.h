@@ -20,7 +20,7 @@
 	IBOutlet PetriMainWindowController* mainWindowController;	/*!< A reference to the main window controller. */
 	IBOutlet NSToolbar* toolbar;	/*!< The toolbar on the main window, for which this controller is responsible. */
 	
-	NSDictionary* toolbarConfigurations;	/*!< The toolbar configurations for each of the views. Maps NSString to NSArray; i.e., view-controller key to list of toolbar-item identifiers. */ 
+	NSDictionary* toolbarConfigurations;	/*!< The toolbar configurations for each of the views. Maps NSString to NSArray; i.e., view-controller key to list of toolbar-item identifiers. */
 }
 
 @end
