@@ -7,13 +7,19 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-
+@class PetriGameGroup;
+@class PetriUser;
 
 @interface PetriGameGroupTestCases : SenTestCase
 {
-
+	PetriGameGroup* testGameGroup;
+	PetriUser* user1;
+	PetriUser* user2;
+	PetriUser* user3;
 }
 
-- (id)testCreatePetriGameGroup;
-
+//- (id)testCreatePetriGameGroup;
+- (void)testIdempotentAddRemove;
+- (void)testAdd;
+- (void)testRemove;
 @end

@@ -36,6 +36,19 @@
 - (id)initWithHost:(PetriUser*)groupHost;
 
 /*!
+ Add user to users array in group
+
+ @param user user to add
+ */
+- (void)addUsersObject:(PetriUser*)user;
+/*!
+ Remove user from users array in group
+
+ @param user user to remove
+ */
+- (void)removeUsersObject:(PetriUser*)user;
+
+/*!
  Returns a readonly copy of the users array.
  */
 @property (readonly) NSArray* users;
