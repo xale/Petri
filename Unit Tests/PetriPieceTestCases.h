@@ -15,5 +15,6 @@
 }
 
 - (id)testCreatePetriPiece;
+- (id)testRotatePetriPiece
 
 @end

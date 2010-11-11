@@ -24,7 +24,23 @@
 	PetriItem* pickUp;		/*!< The item picked up when this cell is claimed, if any. Will be nil if cellType is not unoccupiedCell. */
 }
 
-@property (readonly) PetriCellType cellType;
+/**
+ * Default constructor
+ * Initializes owner and item to nil and type to unoccupied
+ */
+- (id)init;
+
+/**
+ * Returns an allocated location
+ * @param type The type of cell
+ * @param player The player currently controlling the cell
+ * @param item The item picked up when this cell is claimed
+ */
+- (id)initWithCellType:(PetriCellType)type
+				 owner:(PetriPlayer*)player
+				pickUp:(PetriItem*)item;
+
+@property (readwrite, assign) PetriCellType cellType;
 @property (readwrite, assign) PetriPlayer* owner;
 @property (readwrite, copy) PetriItem* pickUp;
 

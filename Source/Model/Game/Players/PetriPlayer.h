@@ -36,6 +36,6 @@
 /*!
  Returns immutable copy of items dictionary.
  */
-@property (readonly, copy) NSDictionary* items;
+@property (readonly) NSDictionary* items;
 
 @end

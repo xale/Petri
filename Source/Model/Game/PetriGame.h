@@ -41,6 +41,10 @@
  */
 - (void)addPlayersObject:(PetriPlayer*)player;
 
+/*!
+ Returns an immutable copy of players.
+ */
+@property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readonly) PetriBoard* board;
 @property (readonly) PetriGameRules* gameRules;

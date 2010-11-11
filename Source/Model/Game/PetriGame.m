@@ -59,6 +59,11 @@
 	return [players objectAtIndex:index];
 }
 
+- (NSArray*)players
+{
+	return [players copy];
+}
+
 @synthesize currentPlayer;
 @synthesize board;
 @synthesize gameRules;

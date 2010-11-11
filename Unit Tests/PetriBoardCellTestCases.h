@@ -15,5 +15,6 @@
 }
 
 - (id)testCreatePetriBoardCell;
+- (id)testCreatePetriBoardCellWithCellType
 
 @end
