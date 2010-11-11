@@ -11,6 +11,28 @@
 
 @implementation PetriPiece
 
+- (id)init
+{
+	cellLocations = [NSSet setWithObjects:
+					 [PetriBoardLocation locationWithX:0 Y:0],
+					 [PetriBoardLocation locationWithX:1 Y:0],
+					 [PetriBoardLocation locationWithX:2 Y:0],
+					 [PetriBoardLocation locationWithX:3 Y:0],
+					 nil];
+	return self;
+}
+
+- (id)initWithCellLocations:NSSet
+{
+	cellLocations = [NSSet setWithObjects:
+					 [PetriBoardLocation locationWithX:0 Y:0],
+					 [PetriBoardLocation locationWithX:1 Y:0],
+					 [PetriBoardLocation locationWithX:2 Y:0],
+					 [PetriBoardLocation locationWithX:3 Y:0],
+					 nil];
+	return self;
+}
+
 #pragma mark -
 #pragma mark Accessors
 

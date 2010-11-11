@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PetriBoardLocation.h"
 
 /*!
  \brief The game pieces given to players to place on the board.
