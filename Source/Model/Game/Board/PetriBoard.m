@@ -16,17 +16,17 @@
 - (id)init
 {
 	return [self initWithWidth:10
-				  Height:10];
+						height:10];
 }
 
-- (id)initWithWidth:(NSInteger)Width
-			 Height:(NSInteger)Height
+- (id)initWithWidth:(NSInteger)boardWidth
+			 height:(NSInteger)boardHeight
 {
-	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:Width];
-	for (int i = 0; i < Width; i++)
+	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:boardWidth];
+	for (int i = 0; i < boardWidth; i++)
 	{
-		NSMutableArray* column = [NSMutableArray arrayWithCapacity:Height];
-		for (int j = 0; j < Height; j++)
+		NSMutableArray* column = [NSMutableArray arrayWithCapacity:boardHeight];
+		for (int j = 0; j < boardHeight; j++)
 		{
 			[column addObject:[[PetriBoardCell alloc] init]];
 		}
@@ -45,7 +45,7 @@
 	for (PetriBoardLocation* pieceLocation in [piece cellLocations])
 	{
 		PetriBoardCell* cell = [self cellAtX:([pieceLocation x] + [cellLocation x])
-									 Y:([pieceLocation y] + [cellLocation y])];
+										   Y:([pieceLocation y] + [cellLocation y])];
 		[cell setOwner:player];
 		[cell setCellType:bodyCell];
 	}
@@ -54,7 +54,7 @@
 - (PetriBoardCell*)cellAtLocation:(PetriBoardLocation*)location
 {
 	return [self cellAtX:[location x]
-                 Y:[location y]];
+					   Y:[location y]];
 }
 
 - (PetriBoardCell*)cellAtX:(NSInteger)x

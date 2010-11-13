@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+
 @class PetriBoardLocation;
 @class PetriPiece;
 @class PetriPlayer;
@@ -20,8 +21,8 @@
 @interface PetriBoard : NSObject
 {
 	NSArray* cells;	/*!< Two-dimensional grid of PetriBoardCell objects representing the contents of the board. */
-	NSInteger width; /*!< Width of board */
-	NSInteger height; /*!< Height of board */
+	NSInteger width;	/*!< Width of board, as an integer number of columns */
+	NSInteger height;	/*!< Height of board, as an integer number of rows */
 }
 
 /**
@@ -31,11 +32,11 @@
 
 /**
  * Creates a board with a specified width and height
- * @param Width width to make the board
- * @param Height height to make the board
+ * @param boardWidth width to make the board
+ * @param boardHeight height to make the board
  */
-- (id)initWithWidth:(NSInteger)Width
-			 Height:(NSInteger)Height;
+- (id)initWithWidth:(NSInteger)boardWidth
+			 height:(NSInteger)boardHeight;
 
 /**
  * Places a piece with a given owner at a cell location
@@ -59,7 +60,8 @@
  * @param x x coordinate of desired cell on board
  * @param y y coordinate of desired cell on board
  * @return cell at given location
- */- (PetriBoardCell*)cellAtX:(NSInteger)x
+ */
+- (PetriBoardCell*)cellAtX:(NSInteger)x
 						 Y:(NSInteger)y;
 
 
