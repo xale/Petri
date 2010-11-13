@@ -8,14 +8,58 @@
 
 #import "PetriGameplayViewController.h"
 
+#import "PetriBoardLayer.h"
+
 NSString* const PetriGameplayViewNibName =	@"GameplayView";
 
 @implementation PetriGameplayViewController
 
 - (id)init
 {
-	return [super initWithNibName:PetriGameplayViewNibName
-						   bundle:nil];
+	return [super initWithNibName:PetriGameplayViewNibName bundle:nil];
+}
+
+- (void)awakeFromNib
+{
+	// Create a background layer for the view
+	CALayer* backgroundLayer = [CALayer layer];
+	[backgroundLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
+	
+	// Add a layout manager
+	[backgroundLayer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
+	
+	// Setup the view to be layer-hosting (see discussion under documentation of NSView setWantsLayer:)
+	[[self view] setLayer:backgroundLayer];
+	[[self view] setWantsLayer:YES];
+	
+	// Create a layer for the board
+	// FIXME: TESTING
+	PetriBoardLayer* boardLayer = [PetriBoardLayer layer];
+	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
+														 relativeTo:@"superlayer"
+														  attribute:kCAConstraintMinX
+															  scale:1.0
+															 offset:10.0]];
+	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
+														 relativeTo:@"superlayer"
+														  attribute:kCAConstraintMinY
+															  scale:1.0
+															 offset:10.0]];
+	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
+														 relativeTo:@"superlayer"
+														  attribute:kCAConstraintMaxX
+															  scale:1.0
+															 offset:-10.0]];
+	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY
+														 relativeTo:@"superlayer"
+														  attribute:kCAConstraintMaxY
+															  scale:1.0
+															 offset:-10.0]];
+	[boardLayer setBorderColor:CGColorGetConstantColor(kCGColorWhite)];
+	[boardLayer setBorderWidth:2.0];
+	
+	// Add the board layer as a sublayer of the background
+	[backgroundLayer addSublayer:boardLayer];
 }
 
 #pragma mark -

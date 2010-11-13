@@ -8,83 +8,155 @@
 
 #import "PetriBoardLayer.h"
 
-#import "PetriBoardCellLayer.h"
+#import "PetriBoard.h"
+#import "PetriBoardCell.h"
 
-#import "NSArray+Subranges.h"
+#import "PetriBoardCellLayer.h"
 
 /*!
  Private methods on PetriBoardLayer.
  */
 @interface PetriBoardLayer (Private)
 
-/*!
- Returns one of this layer's Cell sublayers, specified by a key of the form \c x\@y , where \c x and \c y are the coordinates of the layer.
- */
-- (PetriBoardCellLayer*)sublayerForCoordinateKey:(NSString*)key;
-
 @end
 
 @implementation PetriBoardLayer
 
++ (void)initialize
+{
+	// Expose a binding for the board property
+	[self exposeBinding:@"board"];
+}
+
+- (id)init
+{
+	if (![super init])
+		return nil;
+	
+	// Create a layout manager
+	[self setLayoutManager:[CAConstraintLayoutManager layoutManager]];
+	
+	// FIXME: TESTING
+	[self setBoard:nil];
+	
+	return self;
+}
+
 #pragma mark -
-#pragma mark KVC Accessors
+#pragma mark Accessors
 
-NSString* const PetriBoardLayerCellSublayersKey	=	@"cellSublayers";
+NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 
-- (id)valueForUndefinedKey:(NSString*)key
+#define PETRI_BOARD_LAYER_CELL_SPACING		5.0
+
+- (void)setBoard:(PetriBoard*)newBoard
 {
-	// Check if the key is referring to one of our cell sublayers
-	if (![key hasPrefix:PetriBoardLayerCellSublayersKey])
+	// Remove all current sublayers of the board
+	[self setSublayers:nil];
+	
+	// Create the new sublayers for the cells on the board
+	// FIXME: TESTING
+	//NSMutableArray* newCells = [NSMutableArray arrayWithCapacity:[newBoard width]];
+	NSMutableArray* newCells = [NSMutableArray array];
+	
+	// FIXME: TESTING
+	//for (NSInteger x = 0; x < [newBoard width]; x++)
+	for (NSInteger x = 0; x < 10; x++)
 	{
-		// Key isn't of interest to us; see if our superclass cares
-		return [super valueForUndefinedKey:key];
+		// FIXME: TESTING
+		//NSMutableArray* newColumn = [NSMutableArray arrayWithCapacity:[newBoard height]];
+		NSMutableArray* newColumn = [NSMutableArray array];
+		
+		// FIXME: TESTING
+		//for (NSInteger y = 0; y < [newBoard height]; y++)
+		for (NSInteger y = 0; y < 10; y++)
+		{	
+			// Create a new layer for each cell of the board, bound to properties of the appropriate cell of the board
+			// FIXME: TESTING
+			//PetriBoardCellLayer* newLayer = [PetriBoardCellLayer boardCellLayerBoundToCell:[newBoard cellAtX:x Y:y]];
+			CALayer* newLayer = [CALayer layer];
+			
+			// Name the layer based on its location, for reference by the layout manager
+			[newLayer setName:[NSString stringWithFormat:PetriBoardCellNameFormat, x, y]];
+			
+			// FIXME: add a border so we can see the layer during testing
+			[newLayer setBorderWidth:1.0];
+			[newLayer setBorderColor:CGColorGetConstantColor(kCGColorWhite)];
+			
+			// Add the layer to the collection of cell layers
+			[newColumn addObject:newLayer];
+			
+			// Add constraints on the layer's position and size
+			// Size: divide board layer equally, leaving space between cells
+			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
+															   relativeTo:@"superlayer"
+																attribute:kCAConstraintHeight
+																	//scale:(1.0 / [newBoard height]) // FIXME: SCALING ISSUE
+																	scale:(1.0 / 10) 
+																   offset:-PETRI_BOARD_LAYER_CELL_SPACING]];
+			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+															   relativeTo:@"superlayer"
+																attribute:kCAConstraintWidth
+																	//scale:(1.0 / [newBoard width]) // FIXME: SCALING ISSUE
+																	scale:(1.0 / 10)
+																   offset:-PETRI_BOARD_LAYER_CELL_SPACING]];
+			
+			// Position: relative to previous neighbor in each directly
+			if (x == 0)
+			{
+				// Leftmost cells constrained to follow left edge of board
+				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
+																   relativeTo:@"superlayer"
+																	attribute:kCAConstraintMinX
+																		scale:1.0
+																	   offset:(PETRI_BOARD_LAYER_CELL_SPACING / 2)]];
+			}
+			else
+			{
+				// All other cells are constrained by the edges of their neighbors
+				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
+																   relativeTo:[NSString stringWithFormat:PetriBoardCellNameFormat, (x - 1), y]
+																	attribute:kCAConstraintMaxX
+																		scale:1.0
+																	   offset:PETRI_BOARD_LAYER_CELL_SPACING]];
+			}
+			
+			if (y == 0)
+			{
+				// Bottom cells constrained to follow bottom edge of board
+				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
+																   relativeTo:@"superlayer"
+																	attribute:kCAConstraintMinY
+																		scale:1.0
+																	   offset:(PETRI_BOARD_LAYER_CELL_SPACING / 2)]];
+			}
+			else
+			{
+				// All other cells are constrained by the edges of their neighbors
+				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
+																   relativeTo:[NSString stringWithFormat:PetriBoardCellNameFormat, x, (y - 1)]
+																	attribute:kCAConstraintMaxY
+																		scale:1.0
+																	   offset:PETRI_BOARD_LAYER_CELL_SPACING]];
+			}
+			
+			// Add the layer to the board's sublayers
+			[self addSublayer:newLayer];
+		}
+		
+		// Add each column to the collection of cell layers
+		[newCells addObject:newColumn];
 	}
 	
-	// Split the key into path components
-	NSArray* pathComponents = [key componentsSeparatedByString:@"."];
+	// Hold a reference to the new cells
+	cellSublayers = newCells;
 	
-	// Get the cell sublayer corresponding to the "coordinates" key
-	PetriBoardCellLayer* sublayer = [self sublayerForCoordinateKey:[pathComponents objectAtIndex:1]];
-	
-	// Pass the rest of the path on to the sublayer
-	return [sublayer valueForKey:[[pathComponents subarrayFromIndex:2] componentsJoinedByString:@"."]];
+	// Mark the board layer for re-layout
+	[self setNeedsLayout];
+	 
+	// Hold a reference to the new board
+	board = newBoard;
 }
-
-- (void)setValue:(id)value
- forUndefinedKey:(NSString*)key
-{
-	// Check if the key is referring to one of our cell sublayers
-	if (![key hasPrefix:PetriBoardLayerCellSublayersKey])
-	{
-		// Key isn't of interest to us; see if our superclass cares
-		[super setValue:value
-		forUndefinedKey:key];
-		return;
-	}
-	
-	// Split the key into path components
-	NSArray* pathComponents = [key componentsSeparatedByString:@"."];
-	
-	// Get the cell sublayer corresponding to the "indices" key
-	PetriBoardCellLayer* sublayer = [self sublayerForCoordinateKey:[pathComponents objectAtIndex:1]];
-	
-	// Pass the rest of the path on to the sublayer
-	[sublayer setValue:value
-				forKey:[[pathComponents subarrayFromIndex:2] componentsJoinedByString:@"."]];
-}
-
-- (PetriBoardCellLayer*)sublayerForCoordinateKey:(NSString*)key
-{
-	// Determine the location of the cell sublayer
-	NSArray* locationComponents = [key componentsSeparatedByString:@"@"];
-	NSUInteger x = [[locationComponents objectAtIndex:0] integerValue];
-	NSUInteger y = [[locationComponents objectAtIndex:1] integerValue];
-	
-	// Return the cell, if it exists
-	if ((x < [cellSublayers count]) && (y < [[cellSublayers objectAtIndex:x] count]))
-		return [[cellSublayers objectAtIndex:x] objectAtIndex:y];
-	
-	return nil;
-}
+@synthesize board;
 
 @end
