@@ -64,5 +64,7 @@
 - (PetriBoardCell*)cellAtX:(NSInteger)x
 						 Y:(NSInteger)y;
 
+@property (readonly) NSInteger width;
+@property (readonly) NSInteger height;
 
 @end

@@ -35,6 +35,9 @@
 	
 	cells = [tempBoard copy];
 	
+	width = boardWidth;
+	height = boardHeight;
+	
 	return self;
 }
 
@@ -62,5 +65,8 @@
 {
 	return [[cells objectAtIndex:x] objectAtIndex:y];
 }
+
+@synthesize width;
+@synthesize height;
 
 @end
