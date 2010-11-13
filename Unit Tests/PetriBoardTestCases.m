@@ -17,4 +17,11 @@
 	STAssertNotNil(testBoard, @"PetriBoard object creation unsuccessful");
 }
 
+- (id) testCellAtLocation
+{
+	PetriBoard* testBoard = [[PetriBoard alloc] init];
+	STAssertNotNil([cellAtLocation:[[PetriBoardLocation alloc] initWithX:3 Y:2]], @"Could not retrieve a cell at location (3,2)";
+
+}
+
 @end

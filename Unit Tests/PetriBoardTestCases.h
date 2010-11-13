@@ -17,4 +17,7 @@
 - (id)testCreatePetriBoard;
 - (id)testPlacePiece
 
+- (id)testCellAtLocation;
+
+
 @end
