@@ -37,7 +37,8 @@
 	[self setLayoutManager:[CAConstraintLayoutManager layoutManager]];
 	
 	// FIXME: TESTING
-	[self setBoard:nil];
+	[self setBoard:[[PetriBoard alloc] initWithWidth:10
+											  height:10]];
 	
 	return self;
 }
@@ -55,21 +56,13 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 	[self setSublayers:nil];
 	
 	// Create the new sublayers for the cells on the board
-	// FIXME: TESTING
-	//NSMutableArray* newCells = [NSMutableArray arrayWithCapacity:[newBoard width]];
-	NSMutableArray* newCells = [NSMutableArray array];
+	NSMutableArray* newCells = [NSMutableArray arrayWithCapacity:[newBoard width]];
 	
-	// FIXME: TESTING
-	//for (NSInteger x = 0; x < [newBoard width]; x++)
-	for (NSInteger x = 0; x < 10; x++)
+	for (NSInteger x = 0; x < [newBoard width]; x++)
 	{
-		// FIXME: TESTING
-		//NSMutableArray* newColumn = [NSMutableArray arrayWithCapacity:[newBoard height]];
-		NSMutableArray* newColumn = [NSMutableArray array];
+		NSMutableArray* newColumn = [NSMutableArray arrayWithCapacity:[newBoard height]];
 		
-		// FIXME: TESTING
-		//for (NSInteger y = 0; y < [newBoard height]; y++)
-		for (NSInteger y = 0; y < 10; y++)
+		for (NSInteger y = 0; y < [newBoard height]; y++)
 		{	
 			// Create a new layer for each cell of the board, bound to properties of the appropriate cell of the board
 			// FIXME: TESTING
@@ -91,14 +84,12 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
 															   relativeTo:@"superlayer"
 																attribute:kCAConstraintHeight
-																	//scale:(1.0 / [newBoard height]) // FIXME: SCALING ISSUE
-																	scale:(1.0 / 10) 
+																	scale:(1.0 / [newBoard height])
 																   offset:-PETRI_BOARD_LAYER_CELL_SPACING]];
 			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
 															   relativeTo:@"superlayer"
 																attribute:kCAConstraintWidth
-																	//scale:(1.0 / [newBoard width]) // FIXME: SCALING ISSUE
-																	scale:(1.0 / 10)
+																	scale:(1.0 / [newBoard width])
 																   offset:-PETRI_BOARD_LAYER_CELL_SPACING]];
 			
 			// Position: relative to previous neighbor in each directly
