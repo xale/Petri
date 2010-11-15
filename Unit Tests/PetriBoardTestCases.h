@@ -14,10 +14,11 @@
 
 }
 
-- (id)testCreatePetriBoard;
-- (id)testPlacePiece
+- (void)testCreatePetriBoard;
 
-- (id)testCellAtLocation;
+- (void)testPlacePiece;
+
+- (void)testCellAtLocation;
 
 
 @end

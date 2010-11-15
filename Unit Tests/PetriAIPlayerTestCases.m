@@ -18,6 +18,7 @@
 	STAssertNotNil(testPlayer, @"PetriAIPlayer object creation unsuccessful");
 	
 	// Test accessors
+	// FIXME: out-of-date test cases
 	[testPlayer setCellsControlled:50];
 	STAssertEquals([testPlayer cellsControlled], (NSInteger)50, @"PetriAIPlayer cellsControlled not set correctly by accessor");
 	

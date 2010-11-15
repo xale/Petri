@@ -21,8 +21,8 @@
 {
 	PetriBoardCell* testBoardCell = [[PetriBoardCell alloc] 
 									 initWithCellType:unoccupiedCell
-												owner:[[PetriPlayer alloc] init]
-											   pickUp:[[PetriItem alloc] init]];
+												owner:nil
+											   pickUp:nil];
 	STAssertNotNil(testBoardCell, @"PetriBoardCell object creation unsuccessful");
 }
 

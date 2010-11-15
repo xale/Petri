@@ -7,21 +7,22 @@
 //
 
 #import "PetriBoardTestCases.h"
+
 #import "PetriBoard.h"
+#import "PetriBoardLocation.h"
 
 @implementation PetriBoardTestCases
 
-- (id)testCreatePetriBoard
+- (void)testCreatePetriBoard
 {
 	PetriBoard* testBoard = [[PetriBoard alloc] init];
 	STAssertNotNil(testBoard, @"PetriBoard object creation unsuccessful");
 }
 
-- (id) testCellAtLocation
+- (void)testCellAtLocation
 {
 	PetriBoard* testBoard = [[PetriBoard alloc] init];
-	STAssertNotNil([cellAtLocation:[[PetriBoardLocation alloc] initWithX:3 Y:2]], @"Could not retrieve a cell at location (3,2)";
-
+	STAssertNotNil([testBoard cellAtLocation:[PetriBoardLocation locationWithX:3 Y:2]], @"Could not retrieve a cell at location (3,2)");
 }
 
 @end

@@ -6,15 +6,14 @@
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <SenTestingKit/SenTestingKit.h>
 
-
-@interface PetriBoardLocationTestCases : NSObject
+@interface PetriBoardLocationTestCases : SenTestCase
 {
-
+	
 }
 
-- (id)testCreatePetriBoardLocation;
-- (id)testRotatePetriBoardLocation;
+- (void)testCreatePetriBoardLocation;
+- (void)testRotatePetriBoardLocation;
 
 @end

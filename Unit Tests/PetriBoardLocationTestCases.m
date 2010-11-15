@@ -11,13 +11,13 @@
 
 @implementation PetriBoardLocationTestCases
 
-- (id)testCreatePetriBoardLocation
+- (void)testCreatePetriBoardLocation
 {
 	PetriBoardLocation* testPetriBoardLocation = [[PetriBoardLocation alloc] init];
 	STAssertNotNil(testPetriBoardLocation, @"PetriBoardLocation object creation unsuccessful");
 }
 
-- (id)testRotatePetriPiece
+- (void)testRotatePetriBoardLocation
 {
 	PetriBoardLocation* testPetriBoardLocation = [[PetriBoardLocation alloc] init];
 	PetriBoardLocation* testPetriBoardLocation2 = [[PetriBoardLocation alloc] init];
