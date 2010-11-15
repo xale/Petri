@@ -16,6 +16,30 @@
 	return nil;
 }
 
+- (id)initWithNibName:(NSString*)nibNameOrNil
+			   bundle:(NSBundle*)nibBundleOrNil
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
+- (id)initWithWindowController:(PetriMainWindowController*)windowController
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
+- (id)initWithWindowController:(PetriMainWindowController*)windowController
+					   nibName:(NSString*)nibName
+{
+	if (![super initWithNibName:nibName bundle:nil])
+		return nil;
+	
+	mainWindowController = windowController;
+	
+	return self;
+}
+
 #pragma mark -
 #pragma mark Accessors
 

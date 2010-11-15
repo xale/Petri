@@ -28,15 +28,11 @@ NSString* const PetriViewControllerKeyNotificationKey =					@"PetriViewControlle
 {
 	// Create view controllers
 	viewControllers = [NSDictionary dictionaryWithObjectsAndKeys:
-					   [[PetriTitleViewController alloc] init], PetriTitleViewControllerKey,
-					   [[PetriJoinGameViewController alloc] init], PetriJoinGameViewControllerKey,
-					   [[PetriGameGroupViewController alloc] init], PetriGameGroupViewControllerKey,
-					   [[PetriGameplayViewController alloc] init], PetriGameplayViewControllerKey,
+					   [[PetriTitleViewController alloc] initWithWindowController:self], PetriTitleViewControllerKey,
+					   [[PetriJoinGameViewController alloc] initWithWindowController:self], PetriJoinGameViewControllerKey,
+					   [[PetriGameGroupViewController alloc] initWithWindowController:self], PetriGameGroupViewControllerKey,
+					   [[PetriGameplayViewController alloc] initWithWindowController:self], PetriGameplayViewControllerKey,
 					   nil];
-	
-	// Connect view controllers to the window controller
-	for (PetriMainWindowViewController* viewController in [viewControllers objectEnumerator])
-		[viewController setMainWindowController:self];
 	
 	return self;
 }

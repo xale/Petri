@@ -12,10 +12,10 @@ NSString* const PetriJoinGameViewNibName =	@"JoinGameView";
 
 @implementation PetriJoinGameViewController
 
-- (id)init
+- (id)initWithWindowController:(PetriMainWindowController*)windowController
 {
-	return [super initWithNibName:PetriJoinGameViewNibName
-						   bundle:nil];
+	return [super initWithWindowController:windowController
+								   nibName:PetriJoinGameViewNibName];
 }
 
 #pragma mark -

@@ -12,10 +12,10 @@ NSString* const PetriTitleViewNibName =	@"TitleView";
 
 @implementation PetriTitleViewController
 
-- (id)init
+- (id)initWithWindowController:(PetriMainWindowController*)windowController
 {
-	return [super initWithNibName:PetriTitleViewNibName
-						   bundle:nil];
+	return [super initWithWindowController:windowController
+								   nibName:PetriTitleViewNibName];
 }
 
 #pragma mark -

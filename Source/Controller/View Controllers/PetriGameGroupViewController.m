@@ -12,10 +12,10 @@ NSString* const PetriGameGroupViewNibName =	@"GameGroupView";
 
 @implementation PetriGameGroupViewController
 
-- (id)init
+- (id)initWithWindowController:(PetriMainWindowController*)windowController
 {
-	return [super initWithNibName:PetriGameGroupViewNibName
-						   bundle:nil];
+	return [super initWithWindowController:windowController
+								   nibName:PetriGameGroupViewNibName];
 }
 
 #pragma mark -
