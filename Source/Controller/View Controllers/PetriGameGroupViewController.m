@@ -12,6 +12,11 @@ NSString* const PetriGameGroupViewNibName =	@"GameGroupView";
 
 @implementation PetriGameGroupViewController
 
++ (void)initialize
+{
+	[self exposeBinding:@"gameGroup"];
+}
+
 - (id)initWithWindowController:(PetriMainWindowController*)windowController
 {
 	return [super initWithWindowController:windowController
@@ -32,5 +37,10 @@ NSString* const PetriGameGroupViewNibName =	@"GameGroupView";
 	// FIXME: testing code
 	[[self mainWindowController] displayViewControllerForKey:PetriGameplayViewControllerKey];
 }
+
+#pragma mark -
+#pragma mark Accessors
+
+@synthesize gameGroup;
 
 @end

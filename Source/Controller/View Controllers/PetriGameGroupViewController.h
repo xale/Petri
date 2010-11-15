@@ -8,6 +8,8 @@
 
 #import "PetriMainWindowViewController.h"
 
+@class PetriGameGroup;
+
 /*!
  \brief The controller for the Game Group view.
  
@@ -15,7 +17,7 @@
  */
 @interface PetriGameGroupViewController : PetriMainWindowViewController
 {
-	
+	PetriGameGroup* gameGroup;	/*!< A reference to the game group whose state is reflected on this view. */
 }
 
 /*!
@@ -27,5 +29,7 @@
  Starts a game with the current players and rules from the current game group, and switches to the Gameplay view.
  */
 - (IBAction)startGame:(id)sender;
+
+@property (readwrite, assign) PetriGameGroup* gameGroup;
 
 @end
