@@ -14,6 +14,11 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 
 @implementation PetriGameplayViewController
 
++ (void)initialize
+{
+	[self exposeBinding:@"game"];
+}
+
 - (id)initWithWindowController:(PetriMainWindowController*)windowController
 {
 	return [super initWithWindowController:windowController
