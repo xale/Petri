@@ -8,17 +8,10 @@
 
 #import "PetriBoardLayer.h"
 
-#import "PetriBoard.h"
-#import "PetriBoardCell.h"
-
 #import "PetriBoardCellLayer.h"
 
-/*!
- Private methods on PetriBoardLayer.
- */
-@interface PetriBoardLayer (Private)
-
-@end
+#import "PetriBoard.h"
+#import "PetriBoardCell.h"
 
 @implementation PetriBoardLayer
 
