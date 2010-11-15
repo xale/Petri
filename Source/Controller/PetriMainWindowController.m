@@ -41,12 +41,6 @@ NSString* const PetriViewControllerKeyNotificationKey =					@"PetriViewControlle
 	return self;
 }
 
-- (void)awakeFromNib
-{
-	// Display the title view controller
-	[self displayViewControllerForKey:PetriTitleViewControllerKey];
-}
-
 #pragma mark -
 #pragma mark View Swapping
 
@@ -118,7 +112,8 @@ NSString* const PetriInvalidViewControllerKeyExceptionDescriptionFormat =	@"No v
 
 - (void)applicationDidFinishLaunching:(NSNotification*)aNotification
 {
-	// Insert code here to initialize your application
+	// Display the title view controller
+	[self displayViewControllerForKey:PetriTitleViewControllerKey];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)sender
