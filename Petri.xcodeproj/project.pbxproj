@@ -541,7 +541,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			shellScript = "# Check if unit tests should be run on this build\nif [ ${RUN_UNIT_TESTS} = \"NO\" ]\nthen\n\texit 0\nfi\n\n# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 		6AA7393B12661531003ABB43 /* Generate Doxygen Documentation */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -735,6 +735,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Petri Unit Tests";
+				RUN_UNIT_TESTS = YES;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Petri.app/Contents/MacOS/Petri";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -764,6 +765,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Petri Unit Tests";
+				RUN_UNIT_TESTS = YES;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Petri.app/Contents/MacOS/Petri";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -792,6 +794,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Petri Unit Tests";
+				RUN_UNIT_TESTS = YES;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Petri.app/Contents/MacOS/Petri";
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
