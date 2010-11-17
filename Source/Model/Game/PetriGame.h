@@ -9,8 +9,10 @@
 #import <Cocoa/Cocoa.h>
 
 @class PetriPlayer;
-@class PetriBoard;
+@class PetriGridBoard;
 @class PetriGameRules;
+
+@protocol PetriBoard;
 
 /*!
  \brief Top-level object encapusating a Petri game.
@@ -21,7 +23,7 @@
 {
 	NSMutableArray* players;	/*!< The players participating in the game. Contains PetriPlayer objects. */
 	PetriPlayer* currentPlayer;	/*!< The player whose turn it is. */
-	PetriBoard* board;			/*!< The game board. */
+	id<PetriBoard> board;			/*!< The game board. */
 	PetriGameRules* gameRules;	/*!< The rules for the game. */
 }
 
@@ -46,7 +48,7 @@
  */
 @property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
-@property (readonly) PetriBoard* board;
+@property (readonly) id<PetriBoard>  board;
 @property (readonly) PetriGameRules* gameRules;
 
 @end
