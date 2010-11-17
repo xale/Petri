@@ -7,7 +7,9 @@
 //
 
 #import "PetriGameGroup.h"
-
+#import "PetriGame.h"
+#import "PetriPlayer.h"
+#import "PetriUserPlayer.h"
 
 @implementation PetriGameGroup
 
@@ -41,6 +43,16 @@
 	[self willChangeValueForKey:@"users"];
 	[users removeObject:user];
 	[self didChangeValueForKey:@"users"];
+}
+
+- (void)newGame
+{
+	NSMutableArray* players = [NSMutableArray array];
+	for (PetriUser* user in users)
+	{
+		[players addObject:[[PetriUserPlayer alloc] initWithControllingUser:user]];
+	}
+	[self setGame:[[PetriGame alloc] initWithPlayers:[players copy] gameRules:gameRules];
 }
 
 @synthesize host;
