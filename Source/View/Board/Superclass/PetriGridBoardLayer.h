@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
-@class PetriBoard;
+@class PetriGridBoard;
 
 /*!
  \brief An abstract CALayer subclass used to display a PetriGridBoard.

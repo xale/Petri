@@ -10,7 +10,7 @@
 
 #import "PetriBoardCellLayer.h"
 
-#import "PetriBoard.h"
+#import "PetriGridBoard.h"
 #import "PetriBoardCell.h"
 
 @implementation PetriGridBoardLayer
