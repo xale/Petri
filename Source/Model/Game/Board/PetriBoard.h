@@ -8,6 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+/*!
+ \brief Protocol definining common behaviors for interacting with the state of the game board.
+ 
+ The PetriBoard protocol defines how the game interacts with the state of the board, such as placing pieces, checking for and making captures, using items, etc.
+ */
 @protocol PetriBoard
 
 @end
