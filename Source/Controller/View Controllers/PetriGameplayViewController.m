@@ -21,8 +21,16 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 
 - (id)initWithWindowController:(PetriMainWindowController*)windowController
 {
-	return [super initWithWindowController:windowController
-								   nibName:PetriGameplayViewNibName];
+	if (![super initWithWindowController:windowController nibName:PetriGameplayViewNibName])
+		return nil;
+	
+	// Bind to the model
+	[self bind:@"game"
+	  toObject:windowController
+   withKeyPath:@"model.gameGroup.game"
+	   options:nil];
+	
+	return self;
 }
 
 - (void)awakeFromNib
