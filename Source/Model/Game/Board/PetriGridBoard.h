@@ -7,13 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PetriBoard.h"
 
 @class PetriBoardLocation;
 @class PetriPiece;
 @class PetriPlayer;
 @class PetriBoardCell;
 
-@protocol PetriBoard;
 /*!
  \brief Object representing a Petri game board.
  
