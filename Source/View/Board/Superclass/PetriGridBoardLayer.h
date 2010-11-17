@@ -1,5 +1,5 @@
 //
-//  PetriBoardLayer.h
+//  PetriGridBoardLayer.h
 //  Petri
 //
 //  Created by Alex Heinz on 11/10/10.
@@ -12,16 +12,16 @@
 @class PetriBoard;
 
 /*!
- \brief a CALayer subclass used to display a PetriBoard.
+ \brief An abstract CALayer subclass used to display a PetriGridBoard.
  
- A PetriBoardLayer is resposible for the layout and display of a collection of PetriBoardCellLayer sublayers, which in turn display the state of cells on the board during a game.
+ A PetriGridBoardLayer is resposible for the layout and display of a grid-based PetriBoard implementation.
  */
-@interface PetriBoardLayer : CALayer
+@interface PetriGridBoardLayer : CALayer
 {
-	PetriBoard* board;	/*!< A reference to the board this layer displays. */
+	PetriGridBoard* board;	/*!< A reference to the board this layer displays. */
 	NSArray* cellSublayers;	/*!< A two-dimensional array used to organize the PetriBoardCellLayer sublayers which this object is resposible for laying out. Note that theser layers can also be accessed via the CALayer's \c sublayers property, but with less-useful positional information. */
 }
 
-@property (readwrite, assign) PetriBoard* board;
+@property (readwrite, assign) PetriGridBoard* board;
 
 @end
