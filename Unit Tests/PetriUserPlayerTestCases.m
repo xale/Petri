@@ -12,22 +12,25 @@
 
 @implementation PetriUserPlayerTestCases
 
+NSString* const nickname = @"Xale";
+
+- (void)setUp
+{
+	user = [[PetriUser alloc] initWithNickname:nickname];
+	STAssertNotNil(user, @"Failed in creation of a user");
+	player = [[PetriUserPlayer alloc] initWithControllingUser:user]
+	STAssertNotNil(player, @"Failed in creation of a player");
+}
+
+- (void)tearDown
+{
+	user = nil;
+	player = nil;
+}
+
 - (void)testCreatePetriUserPlayer
 {
-	// Create a test instance
-	PetriUser* testUser = [[PetriUser alloc] init];
-	PetriUserPlayer* testPlayer = [[PetriUserPlayer alloc] initWithControllingUser:testUser];
-	STAssertNotNil(testPlayer, @"PetriUserPlayer object creation unsuccessful");
-	
-	// Test accessors
-	STAssertEqualObjects([testPlayer controllingUser], testUser, @"PetriUserPlayer controllingUser not set correctly by initializer");
-	
-	[testPlayer setCellsControlled:50];
-	STAssertEquals([testPlayer cellsControlled], (NSInteger)50, @"PetriUserPlayer cellsControlled not set correctly by accessor");
-	
-	NSMutableDictionary* testItemDict = [NSMutableDictionary dictionary];
-	[testPlayer setItems:testItemDict];
-	STAssertEqualObjects([testPlayer items], testItemDict, @"PetriUserPlayer items not set correctly by accessor");
+	STAssertEquals(user, [player controllingUser], @"Creation of player with user misbehaved");
 }
 
 @end

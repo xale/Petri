@@ -7,10 +7,13 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+@class PetriUser;
+@class PetriUserPlayer;
 
 @interface PetriUserPlayerTestCases : SenTestCase
 {
-
+	PetriUser* user;
+	PetriUserPlayer* player;
 }
 
 - (void)testCreatePetriUserPlayer;
