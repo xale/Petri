@@ -52,7 +52,7 @@
 	{
 		[players addObject:[[PetriUserPlayer alloc] initWithControllingUser:user]];
 	}
-	[self setGame:[[PetriGame alloc] initWithPlayers:[players copy] gameRules:gameRules];
+	[self setGame:[[PetriGame alloc] initWithPlayers:[players copy] gameRules:gameRules]];
 }
 
 @synthesize host;

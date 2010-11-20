@@ -41,7 +41,7 @@
 	
 	//---
 	NSSet* innnerSet;
-	innnerSet = [NSSet setWithArray:[[testPlayer enumeratorOfControlledCells] allObjects]]
+	innnerSet = [NSSet setWithArray:[[testPlayer enumeratorOfControlledCells] allObjects]];
 	STAssertTrue([innnerSet isEqualToSet:cellSet], @"Cells not added correctly to player.");
 	
 	cell = [cellSet anyObject];

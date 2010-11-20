@@ -12,6 +12,7 @@
 @interface PetriPlayerTestCases : SenTestCase
 {
 	PetriMockPlayer* testPlayer;
+	NSMutableSet* cellSet;
 }
 /* Test cases it might be good to add:
  Check that we have exactly one head

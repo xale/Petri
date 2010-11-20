@@ -7,7 +7,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-@class PetriAIPlayer
+@class PetriAIPlayer;
 
 @interface PetriAIPlayerTestCases : SenTestCase
 {

@@ -7,13 +7,13 @@
 //
 
 #import "PetriGameRulesTestCases.h"
-#import "PetriGameRules.h"
+#import "PetriGameConfiguration.h"
 
 @implementation PetriGameRulesTestCases
 
 - (id)testCreatePetriGameRules
 {
-	PetriGameRules* testGameRules = [[PetriGameRules alloc] init];
+	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
 	STAssertNotNil(testGameRules, @"PetriGameRules object creation unsuccessful");
 }
 
