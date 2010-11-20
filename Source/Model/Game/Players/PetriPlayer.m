@@ -37,7 +37,7 @@
 	[self didChangeValueForKey:@"controlledCells"];
 }
 
-- (NSInteger)countOfControlledCells
+- (NSUInteger)countOfControlledCells
 {
 	return [controlledCells count];
 }

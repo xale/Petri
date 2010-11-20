@@ -51,7 +51,7 @@
 /*!
  Returns the number of cells controlled by player.
  */
-- (NSInteger)countOfControlledCells;
+- (NSUInteger)countOfControlledCells;
 
 /*!
  Returns immutable copy of items dictionary.
