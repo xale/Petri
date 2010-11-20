@@ -19,8 +19,16 @@ NSString* const PetriGameGroupViewNibName =	@"GameGroupView";
 
 - (id)initWithWindowController:(PetriMainWindowController*)windowController
 {
-	return [super initWithWindowController:windowController
-								   nibName:PetriGameGroupViewNibName];
+	if (![super initWithWindowController:windowController nibName:PetriGameGroupViewNibName])
+		return nil;
+	
+	// Bind the local gameGroup member to the model
+	[self bind:@"gameGroup"
+	  toObject:windowController
+   withKeyPath:@"model.gameGroup"
+	   options:nil];
+	
+	return self;
 }
 
 #pragma mark -

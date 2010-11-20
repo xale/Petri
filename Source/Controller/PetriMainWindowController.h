@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class PetriModel;
+
 /*!
  \defgroup viewKeyConstants View Key Constants
  @{
@@ -56,6 +58,8 @@ extern NSString* const PetriViewControllerKeyNotificationKey;
 	
 	NSDictionary* viewControllers;				/*!< The collection of views that can be displayed on the main window. */
 	NSViewController* currentViewController;	/*!< The view currently displayed on the main window. */
+	
+	PetriModel* model;	/*!< The backing model for the application. */
 }
 
 /*!
@@ -67,5 +71,7 @@ extern NSString* const PetriViewControllerKeyNotificationKey;
 
 @property (readwrite, assign) IBOutlet NSWindow* window;
 @property (readwrite, assign) NSViewController* currentViewController;
+
+@property (readonly) PetriModel* model;
 
 @end

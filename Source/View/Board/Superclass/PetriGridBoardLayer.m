@@ -1,19 +1,19 @@
 //
-//  PetriBoardLayer.m
+//  PetriGridBoardLayer.m
 //  Petri
 //
 //  Created by Alex Heinz on 11/10/10.
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
-#import "PetriBoardLayer.h"
+#import "PetriGridBoardLayer.h"
 
 #import "PetriBoardCellLayer.h"
 
-#import "PetriBoard.h"
+#import "PetriGridBoard.h"
 #import "PetriBoardCell.h"
 
-@implementation PetriBoardLayer
+@implementation PetriGridBoardLayer
 
 + (void)initialize
 {
@@ -30,8 +30,8 @@
 	[self setLayoutManager:[CAConstraintLayoutManager layoutManager]];
 	
 	// FIXME: TESTING
-	[self setBoard:[[PetriBoard alloc] initWithWidth:10
-											  height:10]];
+	[self setBoard:[[PetriGridBoard alloc] initWithWidth:10
+												  height:10]];
 	
 	return self;
 }
@@ -43,7 +43,7 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 
 #define PETRI_BOARD_LAYER_CELL_SPACING		5.0
 
-- (void)setBoard:(PetriBoard*)newBoard
+- (void)setBoard:(PetriGridBoard*)newBoard
 {
 	// Remove all current sublayers of the board
 	[self setSublayers:nil];

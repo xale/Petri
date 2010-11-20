@@ -14,6 +14,8 @@
 #import "PetriGameGroupViewController.h"
 #import "PetriGameplayViewController.h"
 
+#import "PetriModel.h"
+
 NSString* const PetriTitleViewControllerKey	=		@"PetriTitleViewController";
 NSString* const PetriJoinGameViewControllerKey =	@"PetriJoinGameViewController";
 NSString* const PetriGameGroupViewControllerKey =	@"PetriGameGroupViewController";
@@ -33,6 +35,9 @@ NSString* const PetriViewControllerKeyNotificationKey =					@"PetriViewControlle
 					   [[PetriGameGroupViewController alloc] initWithWindowController:self], PetriGameGroupViewControllerKey,
 					   [[PetriGameplayViewController alloc] initWithWindowController:self], PetriGameplayViewControllerKey,
 					   nil];
+	
+	// Create a new model
+	model = [[PetriModel alloc] init];
 	
 	return self;
 }
@@ -122,5 +127,7 @@ NSString* const PetriInvalidViewControllerKeyExceptionDescriptionFormat =	@"No v
 
 @synthesize window;
 @synthesize currentViewController;
+
+@synthesize model;
 
 @end

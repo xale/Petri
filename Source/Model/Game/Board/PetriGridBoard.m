@@ -1,17 +1,17 @@
 //
-//  PetriBoard.m
+//  PetriGridBoard.m
 //  Petri
 //
 //  Created by Alex Heinz on 10/13/10.
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
-#import "PetriBoard.h"
+#import "PetriGridBoard.h"
 #import "PetriBoardCell.h"
 #import "PetriBoardLocation.h"
 #import "PetriPiece.h"
 
-@implementation PetriBoard
+@implementation PetriGridBoard
 
 - (id)init
 {
