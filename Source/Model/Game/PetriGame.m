@@ -15,12 +15,12 @@
 #pragma mark Accessors
 
 - (id)initWithPlayers:(NSArray*)playersInGame
-			gameRules:(PetriGameRules*)rules
+			gameRules:(PetriGameConfiguration*)configuration
 {
 	players = [playersInGame mutableCopy];
 	currentPlayer = [players objectAtIndex:0];
-	gameRules = rules;
-	board = nil; // FIXME: generate board from game rules
+	gameConfiguration = configuration;
+	board = nil; // FIXME: generate board from game configuration
 	return self;
 }
 
@@ -66,6 +66,6 @@
 
 @synthesize currentPlayer;
 @synthesize board;
-@synthesize gameRules;
+@synthesize gameConfiguration;
 
 @end

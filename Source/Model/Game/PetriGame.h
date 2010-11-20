@@ -10,7 +10,7 @@
 
 @class PetriPlayer;
 @class PetriGridBoard;
-@class PetriGameRules;
+@class PetriGameConfiguration;
 
 @protocol PetriBoard;
 
@@ -24,7 +24,7 @@
 	NSMutableArray* players;	/*!< The players participating in the game. Contains PetriPlayer objects. */
 	PetriPlayer* currentPlayer;	/*!< The player whose turn it is. */
 	id<PetriBoard> board;			/*!< The game board. */
-	PetriGameRules* gameRules;	/*!< The rules for the game. */
+	PetriGameConfiguration* gameConfiguration;	/*!< The rules for the game. */
 }
 
 /*!
@@ -34,7 +34,7 @@
  @param rules PetriGameRules object
  */
 - (id)initWithPlayers:(NSArray*)playersInGame
-			gameRules:(PetriGameRules*)rules;
+			gameRules:(PetriGameConfiguration*)configuration;
 
 /*!
  Adds a player object to a game.
@@ -49,6 +49,6 @@
 @property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readonly) id<PetriBoard>  board;
-@property (readonly) PetriGameRules* gameRules;
+@property (readonly) PetriGameConfiguration* gameConfiguration;
 
 @end
