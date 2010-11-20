@@ -49,6 +49,11 @@
 - (void)removeUsersObject:(PetriUser*)user;
 
 /*!
+ Starts a game with current users and host
+ */
+- (void)newGame;
+
+/*!
  Returns a readonly copy of the users array.
  */
 @property (readonly) NSArray* users;
