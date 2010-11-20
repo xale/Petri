@@ -55,6 +55,16 @@
 #pragma mark -
 #pragma mark Accessors
 
+- (void)setBounds:(CGRect)newBounds
+{
+	// Keep the board square
+	CGFloat newSize = MIN(newBounds.size.width, newBounds.size.height);
+	newBounds.size.width = newSize;
+	newBounds.size.height = newSize;
+	
+	[super setBounds:newBounds];
+}
+
 @synthesize board;
 @synthesize cellSublayers;
 
