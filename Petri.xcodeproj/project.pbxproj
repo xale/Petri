@@ -27,7 +27,7 @@
 		6A4A160312663EFD00429714 /* PetriItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A160212663EFD00429714 /* PetriItem.m */; };
 		6A4A161112663F4200429714 /* PetriPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A161012663F4100429714 /* PetriPiece.m */; };
 		6A4A161612663F8600429714 /* PetriGameConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A161512663F8500429714 /* PetriGameConfiguration.m */; };
-		6A51CBD81298638E00D5ECDE /* PetriSquareLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A51CBD71298638E00D5ECDE /* PetriSquareLayer.m */; };
+		6A51CBD81298638E00D5ECDE /* PetriAspectRatioLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A51CBD71298638E00D5ECDE /* PetriAspectRatioLayer.m */; };
 		6A5615B81295CD5100A24500 /* PetriSquareGridBoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A5615B71295CD5100A24500 /* PetriSquareGridBoardLayer.m */; };
 		6A56903B1285ECB50002C128 /* TitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A5690391285ECAD0002C128 /* TitleView.xib */; };
 		6A56903C1285ECCA0002C128 /* PetriTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A5690351285DC9A0002C128 /* PetriTitleViewController.m */; };
@@ -114,8 +114,8 @@
 		6A4A161012663F4100429714 /* PetriPiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPiece.m; sourceTree = "<group>"; };
 		6A4A161412663F8500429714 /* PetriGameConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameConfiguration.h; sourceTree = "<group>"; };
 		6A4A161512663F8500429714 /* PetriGameConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameConfiguration.m; sourceTree = "<group>"; };
-		6A51CBD61298638E00D5ECDE /* PetriSquareLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriSquareLayer.h; sourceTree = "<group>"; };
-		6A51CBD71298638E00D5ECDE /* PetriSquareLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriSquareLayer.m; sourceTree = "<group>"; };
+		6A51CBD61298638E00D5ECDE /* PetriAspectRatioLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriAspectRatioLayer.h; sourceTree = "<group>"; };
+		6A51CBD71298638E00D5ECDE /* PetriAspectRatioLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriAspectRatioLayer.m; sourceTree = "<group>"; };
 		6A5615B61295CD5100A24500 /* PetriSquareGridBoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriSquareGridBoardLayer.h; sourceTree = "<group>"; };
 		6A5615B71295CD5100A24500 /* PetriSquareGridBoardLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriSquareGridBoardLayer.m; sourceTree = "<group>"; };
 		6A5690341285DC9A0002C128 /* PetriTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriTitleViewController.h; sourceTree = "<group>"; };
@@ -467,8 +467,8 @@
 				6A12DE8512946A6E007333FA /* Cells */,
 				6A8DBE021298548F00F49D4A /* PetriNoLayerResizeAnimationView.h */,
 				6A8DBE031298548F00F49D4A /* PetriNoLayerResizeAnimationView.m */,
-				6A51CBD61298638E00D5ECDE /* PetriSquareLayer.h */,
-				6A51CBD71298638E00D5ECDE /* PetriSquareLayer.m */,
+				6A51CBD61298638E00D5ECDE /* PetriAspectRatioLayer.h */,
+				6A51CBD71298638E00D5ECDE /* PetriAspectRatioLayer.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -667,7 +667,7 @@
 				6A12DE8812946A6E007333FA /* PetriBoardCellLayer.m in Sources */,
 				6A5615B81295CD5100A24500 /* PetriSquareGridBoardLayer.m in Sources */,
 				6A8DBE041298548F00F49D4A /* PetriNoLayerResizeAnimationView.m in Sources */,
-				6A51CBD81298638E00D5ECDE /* PetriSquareLayer.m in Sources */,
+				6A51CBD81298638E00D5ECDE /* PetriAspectRatioLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
