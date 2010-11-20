@@ -22,6 +22,11 @@
 - (id)initWithWidth:(NSInteger)boardWidth
 			 height:(NSInteger)boardHeight
 {
+	if ([self isMemberOfClass:[PetriGridBoard class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
 	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:boardWidth];
 	for (int i = 0; i < boardWidth; i++)
 	{
@@ -64,6 +69,80 @@
 						 Y:(NSInteger)y
 {
 	return [[cells objectAtIndex:x] objectAtIndex:y];
+}
+
+- (NSSet*)placementCellsAdjacentToLocation:(PetriBoardLocation*)location
+{
+	NSMutableSet* adjacentCells = [NSMutableSet set];
+	
+	//Add and subtract 1 to x and y
+	//Throw out negatives or things outside of bounds
+	NSInteger x = [location x];
+	NSInteger y = [location y];
+	
+	if ((x - 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:(x - 1) Y:y]];
+	}
+	if ((x + 1) < width)
+	{
+		[adjacentCells addObject:[self cellAtX:(x + 1) Y:y]];
+	}
+	if ((y - 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:x Y:(y - 1)]];
+	}
+	if ((y + 1) < height)
+	{
+		[adjacentCells addObject:[self cellAtX:x Y:(y + 1)]];
+	}
+	
+	return [adjacentCells copy];
+}
+
+- (NSSet*)captureCellsAdjacentToLocation:(PetriBoardLocation*)location
+{
+	NSMutableSet* adjacentCells = [NSMutableSet set];
+	
+	//Add and subtract 1 to x and y
+	//Throw out negatives or things outside of bounds
+	NSInteger x = [location x];
+	NSInteger y = [location y];
+	
+	if ((x - 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:(x - 1) Y:y]];
+	}
+	if ((x + 1) < width)
+	{
+		[adjacentCells addObject:[self cellAtX:(x + 1) Y:y]];
+	}
+	if ((y - 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:x Y:(y - 1)]];
+	}
+	if ((y + 1) < height)
+	{
+		[adjacentCells addObject:[self cellAtX:x Y:(y + 1)]];
+	}
+	if ((x - 1) >= 0 && (y - 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:(x - 1) Y:(y - 1)]];
+	}
+	if ((x - 1) >= 0 && (y + 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:(x - 1) Y:(y + 1)]];
+	}
+	if ((x + 1) >= 0 && (y - 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:(x + 1) Y:(y - 1)]];
+	}
+	if ((x + 1) >= 0 && (y + 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:(x - 1) Y:(y - 1)]];
+	}	
+	
+	return [adjacentCells copy];
 }
 
 @synthesize width;

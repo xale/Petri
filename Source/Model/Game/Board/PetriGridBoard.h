@@ -67,6 +67,21 @@
 						 Y:(NSInteger)y;
 
 
+- (void)capture;
+
+- (void)placePiece:(PetriPiece*)piece
+		atLocation:(PetriBoardLocation*)location
+		 withOwner:(PetriPlayer*)owner;
+
+
+- (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
+					  atLocation:(PetriBoardLocation*)location;
+
+
+- (NSSet*)placementCellsAdjacentToLocation:(PetriBoardLocation*)location;
+
+- (NSSet*)capturableCellsAdjacentToLocation:(PetriBoardLocation*)location;
+
 @property (readonly) NSInteger width;
 @property (readonly) NSInteger height;
 
