@@ -25,20 +25,37 @@
 
 - (void)addControlledCellsObject:(PetriBoardCell*)cell
 {
+	[self willChangeValueForKey:@"controlledCells"];
 	[controlledCells addObject:cell];
+	[self didChangeValueForKey:@"controlledCells"];
 }
 
-- (NSInteger)countOfControlledCells
+- (void)removeControlledCellsObject:(PetriBoardCell*)cell
+{
+	[self willChangeValueForKey:@"controlledCells"];
+	[controlledCells removeObject:cell];
+	[self didChangeValueForKey:@"controlledCells"];
+}
+
+- (NSUInteger)countOfControlledCells
 {
 	return [controlledCells count];
+}
+
+- (NSEnumerator*)enumeratorOfControlledCells
+{
+	return [controlledCells objectEnumerator];
+}
+
+- (PetriBoardCell*)memberOfControlledCells:(PetriBoardCell*)cell
+{
+    return [controlledCells member:cell];
 }
 
 - (NSDictionary*)items
 {
 	return [items copy];
 }
-
-// TODO: write unit test for add/remove items
 
 - (void)addItemsObject:(PetriItem*)item
 {

@@ -6,10 +6,10 @@
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
-#import "PetriGameRules.h"
+#import "PetriGameConfiguration.h"
 
 
-@implementation PetriGameRules
+@implementation PetriGameConfiguration
 
 #pragma mark -
 #pragma mark Accessors

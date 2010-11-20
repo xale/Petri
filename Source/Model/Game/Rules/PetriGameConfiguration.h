@@ -13,7 +13,7 @@
  
  A PetriGameRules object encapsulates all variables in the way Petri games are played, including the frequency at which different pieces appear, the type of board, etc.
  */
-@interface PetriGameRules : NSObject
+@interface PetriGameConfiguration : NSObject
 {
 	NSInteger minPlayers;			/*!< The minimum number of players to participate in the game. If the game begins with fewer than this number of human users in the game group, AI players will be added to the game. */
 	NSInteger maxPlayers;			/*!< The maximum number of players allowed in the game. If the game group contains this many players, new players will not be allowed to join. */
