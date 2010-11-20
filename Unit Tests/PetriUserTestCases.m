@@ -14,18 +14,28 @@
 NSString* const PetriUserTestNicknameOne =	@"test nickname";
 NSString* const PetriUserTestNicknameTwo =	@"foobar #897";
 
-- (void)testCreatePetriUser
+- (void)setUp
 {
 	// Test creating an instance
-	PetriUser* testUser = [[PetriUser alloc] initWithNickname:PetriUserTestNicknameOne];
+	testUser = [[PetriUser alloc] initWithNickname:PetriUserTestNicknameOne];
 	STAssertNotNil(testUser, @"PetriUser object not created successfully");
-	
+}
+
+- (void)tearDown
+{
+	testUser = nil;
+}
+
+- (void)testCreatePetriUserWithName
+{
 	// Test initial nickname
 	STAssertEqualObjects([testUser nickname], PetriUserTestNicknameOne, @"PetriUser nickname not set correctly by initializer");
-	
+}
+
+- (void)testSetUserName
+{
 	// Test setting nickname
 	[testUser setNickname:PetriUserTestNicknameTwo];
 	STAssertEqualObjects([testUser nickname], PetriUserTestNicknameTwo, @"PetriUser nickname not set correctly by accessor");
 }
-
 @end
