@@ -48,7 +48,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		FAB0331212788BBB00DC01F0 /* PetriGameTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */; };
 		FAB033321278D71500DC01F0 /* PetriBoardTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB033311278D71500DC01F0 /* PetriBoardTestCases.m */; };
-		FAB033391278D9E600DC01F0 /* PetriGameRulesTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB033381278D9E600DC01F0 /* PetriGameRulesTestCases.m */; };
+		FAB033391278D9E600DC01F0 /* PetriGameConfigurationTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB033381278D9E600DC01F0 /* PetriGameConfigurationTestCases.m */; };
 		FAB03386128885A000DC01F0 /* PetriGameGroupTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB03385128885A000DC01F0 /* PetriGameGroupTestCases.m */; };
 		FADBA25812985795001EA149 /* PetriMockPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FADBA25712985795001EA149 /* PetriMockPlayer.m */; };
 		FADBA25B12985812001EA149 /* PetriPlayerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FADBA25A12985812001EA149 /* PetriPlayerTestCases.m */; };
@@ -148,8 +148,8 @@
 		FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameTestCases.m; sourceTree = "<group>"; };
 		FAB033301278D71500DC01F0 /* PetriBoardTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardTestCases.h; sourceTree = "<group>"; };
 		FAB033311278D71500DC01F0 /* PetriBoardTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardTestCases.m; sourceTree = "<group>"; };
-		FAB033371278D9E600DC01F0 /* PetriGameRulesTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameRulesTestCases.h; sourceTree = "<group>"; };
-		FAB033381278D9E600DC01F0 /* PetriGameRulesTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameRulesTestCases.m; sourceTree = "<group>"; };
+		FAB033371278D9E600DC01F0 /* PetriGameConfigurationTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameConfigurationTestCases.h; sourceTree = "<group>"; };
+		FAB033381278D9E600DC01F0 /* PetriGameConfigurationTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameConfigurationTestCases.m; sourceTree = "<group>"; };
 		FAB03384128885A000DC01F0 /* PetriGameGroupTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameGroupTestCases.h; sourceTree = "<group>"; };
 		FAB03385128885A000DC01F0 /* PetriGameGroupTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameGroupTestCases.m; sourceTree = "<group>"; };
 		FADBA25612985795001EA149 /* PetriMockPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PetriMockPlayer.h; path = "Mock Classes/PetriMockPlayer.h"; sourceTree = "<group>"; };
@@ -363,8 +363,8 @@
 				6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */,
 				FAB0331012788BBB00DC01F0 /* PetriGameTestCases.h */,
 				FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */,
-				FAB033371278D9E600DC01F0 /* PetriGameRulesTestCases.h */,
-				FAB033381278D9E600DC01F0 /* PetriGameRulesTestCases.m */,
+				FAB033371278D9E600DC01F0 /* PetriGameConfigurationTestCases.h */,
+				FAB033381278D9E600DC01F0 /* PetriGameConfigurationTestCases.m */,
 				FAB03384128885A000DC01F0 /* PetriGameGroupTestCases.h */,
 				FAB03385128885A000DC01F0 /* PetriGameGroupTestCases.m */,
 				FAB033301278D71500DC01F0 /* PetriBoardTestCases.h */,
@@ -611,7 +611,7 @@
 				6AEF22C71276397A008D8828 /* PetriUserPlayerTestCases.m in Sources */,
 				FAB0331212788BBB00DC01F0 /* PetriGameTestCases.m in Sources */,
 				FAB033321278D71500DC01F0 /* PetriBoardTestCases.m in Sources */,
-				FAB033391278D9E600DC01F0 /* PetriGameRulesTestCases.m in Sources */,
+				FAB033391278D9E600DC01F0 /* PetriGameConfigurationTestCases.m in Sources */,
 				64C7E66E1278F24200B040F8 /* PetriPieceTestCases.m in Sources */,
 				64C7E6741278F2D600B040F8 /* PetriItemTestCases.m in Sources */,
 				6491819A1279228900A185C2 /* PetriBoardCellTestCases.m in Sources */,

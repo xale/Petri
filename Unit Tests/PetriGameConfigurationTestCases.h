@@ -9,11 +9,11 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 
-@interface PetriGameRulesTestCases : SenTestCase
+@interface PetriGameConfigurationTestCases : SenTestCase
 {
 
 }
 
-- (id)testCreatePetriGameRules;
+- (id)testCreatePetriGameConfiguration;
 
 @end
