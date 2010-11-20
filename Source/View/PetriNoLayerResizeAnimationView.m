@@ -11,6 +11,9 @@
 
 @implementation PetriNoLayerResizeAnimationView
 
+#pragma mark -
+#pragma mark Accessors
+
 - (void)setFrame:(NSRect)frameRect
 {
 	// Check if this resize is being performed while the view is visible
