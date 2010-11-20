@@ -57,5 +57,4 @@
  Returns immutable copy of items dictionary.
  */
 @property (readonly) NSDictionary* items;
-
 @end

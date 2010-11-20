@@ -11,13 +11,16 @@
 
 @implementation PetriPlayer
 
-/*!
- Throws an exception.
- */
 - (id)init
 {
-	[self doesNotRecognizeSelector:_cmd];
-	return nil;
+	if ([self isMemberOfClass:[PetriPlayer class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
+	items = [NSMutableDictionary dictionary];
+	controlledCells = [NSMutableSet set];
+	return self;
 }
 
 #pragma mark -

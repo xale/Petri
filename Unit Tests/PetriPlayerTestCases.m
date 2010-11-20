@@ -40,15 +40,15 @@
 	[testPlayer addControlledCellsObject:cell];
 	
 	//---
-	NSSet* innnerSet;
-	innnerSet = [NSSet setWithArray:[[testPlayer enumeratorOfControlledCells] allObjects]];
-	STAssertTrue([innnerSet isEqualToSet:cellSet], @"Cells not added correctly to player.");
+	NSSet* innerSet;
+	innerSet = [NSSet setWithArray:[[testPlayer enumeratorOfControlledCells] allObjects]];
+	STAssertTrue([innerSet isEqualToSet:cellSet], @"Cells not added correctly to player.");
 	
 	cell = [cellSet anyObject];
 	[cellSet removeObject:cell];
 	[testPlayer removeControlledCellsObject:cell];
-	innnerSet = [NSSet setWithArray:[[testPlayer enumeratorOfControlledCells] allObjects]];
-	STAssertTrue([innnerSet isEqualToSet:cellSet], @"Cells not removed correctly from player.");
+	innerSet = [NSSet setWithArray:[[testPlayer enumeratorOfControlledCells] allObjects]];
+	STAssertTrue([innerSet isEqualToSet:cellSet], @"Cells not removed correctly from player.");
 	
 	STAssertTrue([cellSet count] == [testPlayer countOfControlledCells], @"CountOfControlledCells misbehaving");
 }

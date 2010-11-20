@@ -12,6 +12,11 @@
 
 - (id)initWithControllingUser:(PetriUser*)user
 {
+	if (![super init])
+	{
+		return nil;
+	}
+
 	if (user == nil)
 		[NSException raise:@"user must not be nil" format:@""];
 	

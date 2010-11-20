@@ -12,6 +12,10 @@
 
 - (id)init
 {
+	if (![super init])
+	{
+		return nil;
+	}
 	return self;
 }
 
