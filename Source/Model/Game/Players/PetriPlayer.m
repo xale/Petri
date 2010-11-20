@@ -25,12 +25,31 @@
 
 - (void)addControlledCellsObject:(PetriBoardCell*)cell
 {
+	[self willChangeValueForKey:@"controlledCells"];
 	[controlledCells addObject:cell];
+	[self didChangeValueForKey:@"controlledCells"];
+}
+
+- (void)removeControlledCellsObject:(PetriBoardCell*)cell
+{
+	[self willChangeValueForKey:@"controlledCells"];
+	[controlledCells removeObject:cell];
+	[self didChangeValueForKey:@"controlledCells"];
 }
 
 - (NSInteger)countOfControlledCells
 {
 	return [controlledCells count];
+}
+
+- (NSEnumerator*)enumeratorOfControlledCells
+{
+	return [controlledCells objectEnumerator];
+}
+
+- (PetriBoardCell*)memberOfControlledCells:(PetriBoardCell*)cell
+{
+    return [controlledCells member:cell];
 }
 
 - (NSDictionary*)items

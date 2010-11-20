@@ -29,6 +29,26 @@
 - (void)addControlledCellsObject:(PetriBoardCell*)cell;
 
 /*!
+ Removes a cell from the list of cells controlled by the player.
+ 
+ @param cell the PetriBoardCell that the player no longer controls
+ */
+- (void)removeControlledCellsObject:(PetriBoardCell*)cell
+
+/*!
+ Returns an enumerator for the cells controlled by the player.
+ */
+- (NSEnumerator*)enumeratorOfControlledCells
+
+/*!
+ Checks whether the player controlls a given cell.
+ Returns the cell if s/he does and nil otherwise.
+ 
+ @param cell the cell to check membership of
+ */
+- (PetriBoardCell*)memberOfControlledCells:(PetriBoardCell*)cell
+
+/*!
  Returns the number of cells controlled by player.
  */
 - (NSInteger)countOfControlledCells;
