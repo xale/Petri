@@ -57,8 +57,6 @@
 	return [items copy];
 }
 
-// TODO: write unit test for add/remove items
-
 - (void)addItemsObject:(PetriItem*)item
 {
 	[self willChangeValueForKey:@"item"];

@@ -50,6 +50,8 @@
 		FAB033321278D71500DC01F0 /* PetriBoardTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB033311278D71500DC01F0 /* PetriBoardTestCases.m */; };
 		FAB033391278D9E600DC01F0 /* PetriGameRulesTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB033381278D9E600DC01F0 /* PetriGameRulesTestCases.m */; };
 		FAB03386128885A000DC01F0 /* PetriGameGroupTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB03385128885A000DC01F0 /* PetriGameGroupTestCases.m */; };
+		FADBA25812985795001EA149 /* PetriMockPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FADBA25712985795001EA149 /* PetriMockPlayer.m */; };
+		FADBA25B12985812001EA149 /* PetriPlayerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FADBA25A12985812001EA149 /* PetriPlayerTestCases.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +152,10 @@
 		FAB033381278D9E600DC01F0 /* PetriGameRulesTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameRulesTestCases.m; sourceTree = "<group>"; };
 		FAB03384128885A000DC01F0 /* PetriGameGroupTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameGroupTestCases.h; sourceTree = "<group>"; };
 		FAB03385128885A000DC01F0 /* PetriGameGroupTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameGroupTestCases.m; sourceTree = "<group>"; };
+		FADBA25612985795001EA149 /* PetriMockPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PetriMockPlayer.h; path = "Mock Classes/PetriMockPlayer.h"; sourceTree = "<group>"; };
+		FADBA25712985795001EA149 /* PetriMockPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PetriMockPlayer.m; path = "Mock Classes/PetriMockPlayer.m"; sourceTree = "<group>"; };
+		FADBA25912985812001EA149 /* PetriPlayerTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPlayerTestCases.h; sourceTree = "<group>"; };
+		FADBA25A12985812001EA149 /* PetriPlayerTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPlayerTestCases.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,10 +352,13 @@
 		6A9DE8CE127601B500020AB9 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				FADBA23E12985742001EA149 /* Mock Classes */,
 				6A9DE8D11276020200020AB9 /* PetriUserTestCases.h */,
 				6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */,
 				6AEF227612763160008D8828 /* PetriAIPlayerTestCases.h */,
 				6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */,
+				FADBA25912985812001EA149 /* PetriPlayerTestCases.h */,
+				FADBA25A12985812001EA149 /* PetriPlayerTestCases.m */,
 				6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */,
 				6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */,
 				FAB0331012788BBB00DC01F0 /* PetriGameTestCases.h */,
@@ -456,6 +465,15 @@
 				6ACA2E5C12888EEE002DEBE1 /* PetriMainWindowViewController.m */,
 			);
 			path = Superclass;
+			sourceTree = "<group>";
+		};
+		FADBA23E12985742001EA149 /* Mock Classes */ = {
+			isa = PBXGroup;
+			children = (
+				FADBA25612985795001EA149 /* PetriMockPlayer.h */,
+				FADBA25712985795001EA149 /* PetriMockPlayer.m */,
+			);
+			name = "Mock Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -599,6 +617,8 @@
 				6491819A1279228900A185C2 /* PetriBoardCellTestCases.m in Sources */,
 				FAB03386128885A000DC01F0 /* PetriGameGroupTestCases.m in Sources */,
 				64753E42128BA8FD00868EBB /* PetriBoardLocationTestCases.m in Sources */,
+				FADBA25812985795001EA149 /* PetriMockPlayer.m in Sources */,
+				FADBA25B12985812001EA149 /* PetriPlayerTestCases.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

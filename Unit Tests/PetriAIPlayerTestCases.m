@@ -11,20 +11,4 @@
 
 @implementation PetriAIPlayerTestCases
 
-- (void)testCreatePetriAIPlayer
-{
-	// Create a test instance
-	PetriAIPlayer* testPlayer = [[PetriAIPlayer alloc] init];
-	STAssertNotNil(testPlayer, @"PetriAIPlayer object creation unsuccessful");
-	
-	// Test accessors
-	// FIXME: out-of-date test cases
-	[testPlayer setCellsControlled:50];
-	STAssertEquals([testPlayer cellsControlled], (NSInteger)50, @"PetriAIPlayer cellsControlled not set correctly by accessor");
-	
-	NSMutableDictionary* testItemDict = [NSMutableDictionary dictionary];
-	[testPlayer setItems:testItemDict];
-	STAssertEqualObjects([testPlayer items], testItemDict, @"PetriAIPlayer items not set correctly by accessor");
-}
-
 @end
