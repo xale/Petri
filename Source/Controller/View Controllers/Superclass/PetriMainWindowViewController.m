@@ -32,6 +32,13 @@
 - (id)initWithWindowController:(PetriMainWindowController*)windowController
 					   nibName:(NSString*)nibName
 {
+	// Check that we're not attempting to instantiate an abstract class
+	if ([self isMemberOfClass:[PetriMainWindowViewController class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
+	
 	if (![super initWithNibName:nibName bundle:nil])
 		return nil;
 	
