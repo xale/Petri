@@ -31,6 +31,8 @@
 /*!
  Creates a new view controller managing the view loaded from the specified nib, and managed by the specified window controller.
  
+ \warning Do not invoke directly; instatiate a subclass instead.
+ 
  @param windowController The top-level main-window controller managing this view/controller pair.
  @param nibName The name of the nib file from which to load this controller's view.
  */
