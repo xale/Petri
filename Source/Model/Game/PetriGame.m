@@ -15,7 +15,7 @@
 #pragma mark Accessors
 
 - (id)initWithPlayers:(NSArray*)playersInGame
-			gameRules:(PetriGameConfiguration*)configuration
+			gameConfiguration:(PetriGameConfiguration*)configuration
 {
 	players = [playersInGame mutableCopy];
 	currentPlayer = [players objectAtIndex:0];

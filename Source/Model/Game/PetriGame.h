@@ -31,10 +31,10 @@
  Creates a new game with the specified players and rules.
 
  @param playersInGame NSArray of player objects
- @param rules PetriGameRules object
+ @param configuration PetriGameConfiguration object
  */
 - (id)initWithPlayers:(NSArray*)playersInGame
-			gameRules:(PetriGameConfiguration*)configuration;
+			gameConfiguration:(PetriGameConfiguration*)configuration;
 
 /*!
  Adds a player object to a game.

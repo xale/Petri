@@ -18,7 +18,7 @@
 	PetriPlayer* testPlayer = [[PetriAIPlayer alloc] init];
 	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
 	PetriGame* testGame = [[PetriGame alloc] initWithPlayers:[NSArray arrayWithObject:testPlayer]
-												   gameRules:testGameRules];
+												   gameConfiguration:testGameRules];
 	STAssertNotNil(testGame, @"Game object not created successfully");
 }
 
@@ -27,7 +27,7 @@
 	PetriPlayer* testPlayer = [[PetriAIPlayer alloc] init];
 	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
 	PetriGame* testGame = [[PetriGame alloc] initWithPlayers:[NSArray arrayWithObject:testPlayer]
-												   gameRules:testGameRules];
+												   gameConfiguration:testGameRules];
 	STAssertNotNil([testGame board], @"The board should never be nil");
 	
 }
@@ -36,7 +36,7 @@
 {
 	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
 	STAssertThrows([[PetriGame alloc] initWithPlayers:[NSArray array]
-											gameRules:testGameRules],
+											gameConfiguration:testGameRules],
 				   @"An exception was not thrown when PetriGame was initialized with an empty array");
 	
 }
@@ -45,7 +45,7 @@
 {
 	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
 	STAssertThrows([[PetriGame alloc] initWithPlayers:nil
-											gameRules:testGameRules],
+											gameConfiguration:testGameRules],
 				   @"An exception was not thrown when PetriGame was initialized with a nil array");
 	
 }

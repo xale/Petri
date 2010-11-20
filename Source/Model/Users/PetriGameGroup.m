@@ -19,7 +19,7 @@
 - (id)initWithHost:(PetriUser*)gameHost
 {
 	host = gameHost;
-	gameRules = nil; // FIXME: Should not be nil
+	gameConfiguration = nil; // FIXME: Should not be nil
 	users = [NSMutableArray arrayWithObject:gameHost];
 	game = nil;
 	return self;
@@ -52,11 +52,11 @@
 	{
 		[players addObject:[[PetriUserPlayer alloc] initWithControllingUser:user]];
 	}
-	[self setGame:[[PetriGame alloc] initWithPlayers:[players copy] gameRules:gameRules]];
+	[self setGame:[[PetriGame alloc] initWithPlayers:[players copy] gameConfiguration:gameConfiguration]];
 }
 
 @synthesize host;
-@synthesize gameRules;
+@synthesize gameConfiguration;
 @synthesize game;
 
 @end
