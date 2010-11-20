@@ -86,7 +86,6 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
 																   relativeTo:@"superlayer"
 																	attribute:kCAConstraintMinX
-																		scale:1.0
 																	   offset:(PETRI_SQUARE_BOARD_LAYER_CELL_SPACING / 2)]];
 			}
 			else
@@ -95,7 +94,6 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
 																   relativeTo:[NSString stringWithFormat:PetriBoardCellNameFormat, (x - 1), y]
 																	attribute:kCAConstraintMaxX
-																		scale:1.0
 																	   offset:PETRI_SQUARE_BOARD_LAYER_CELL_SPACING]];
 			}
 			
@@ -105,7 +103,6 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
 																   relativeTo:@"superlayer"
 																	attribute:kCAConstraintMinY
-																		scale:1.0
 																	   offset:(PETRI_SQUARE_BOARD_LAYER_CELL_SPACING / 2)]];
 			}
 			else
@@ -114,7 +111,6 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
 																   relativeTo:[NSString stringWithFormat:PetriBoardCellNameFormat, x, (y - 1)]
 																	attribute:kCAConstraintMaxY
-																		scale:1.0
 																	   offset:PETRI_SQUARE_BOARD_LAYER_CELL_SPACING]];
 			}
 		}
