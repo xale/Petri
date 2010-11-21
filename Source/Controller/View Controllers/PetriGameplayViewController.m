@@ -39,7 +39,6 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	
 	// Create a background layer for the view
 	CALayer* backgroundLayer = [CALayer layer];
-	[backgroundLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
 	
 	// Add a layout manager
 	[backgroundLayer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
