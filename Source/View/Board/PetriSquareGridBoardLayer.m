@@ -77,7 +77,7 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 																	scale:(0.9 / [boardForCells height])
 																   offset:0]];
 			
-			// Position: following the maximum edges of the board, proportionally
+			// Position: spaced evenly across the board's width and height
 			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX
 															   relativeTo:@"superlayer"
 																attribute:kCAConstraintWidth
