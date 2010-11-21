@@ -1332,11 +1332,11 @@
 								<object class="NSView" id="788875593">
 									<reference key="NSNextResponder" ref="821984820"/>
 									<int key="NSvFlags">256</int>
-									<string key="NSFrameSize">{646, 464}</string>
+									<string key="NSFrameSize">{640, 458}</string>
 									<reference key="NSSuperview" ref="821984820"/>
 								</object>
 							</object>
-							<string key="NSFrame">{{-3, 18}, {646, 464}}</string>
+							<string key="NSFrame">{{0, 22}, {640, 458}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<string key="NSOffsets">{0, 0}</string>
 							<object class="NSTextFieldCell" key="NSTitleCell">
@@ -1364,9 +1364,13 @@
 							</object>
 							<reference key="NSContentView" ref="788875593"/>
 							<int key="NSBorderType">0</int>
-							<int key="NSBoxType">0</int>
+							<int key="NSBoxType">4</int>
 							<int key="NSTitlePosition">0</int>
 							<bool key="NSTransparent">NO</bool>
+							<object class="NSColor" key="NSFillColor2">
+								<int key="NSColorSpace">1</int>
+								<bytes key="NSRGB">MCAwIDAAA</bytes>
+							</object>
 						</object>
 					</object>
 					<string key="NSFrameSize">{640, 480}</string>
@@ -3622,7 +3626,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">AcBAAABBkAAAA</bytes>
+						<bytes key="NSTransformStruct">AUOBAADAgAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
