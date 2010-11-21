@@ -26,7 +26,7 @@
 	PetriPlayer* currentPlayer;	/*!< The player whose turn it is. */
 	id<PetriBoard> board;			/*!< The game board. */
 	PetriGameConfiguration* gameConfiguration;	/*!< The rules for the game. */
-	PetriPiece* currentPiece; /*!< The piece available for use on the current player;s move. */
+	PetriPiece* currentPiece; /*!< The piece available for use on the current player's move. */
 }
 
 /*!
