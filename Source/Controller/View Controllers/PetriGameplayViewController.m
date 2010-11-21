@@ -25,20 +25,18 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 
 - (id)initWithWindowController:(PetriMainWindowController*)windowController
 {
-	if (![super initWithWindowController:windowController nibName:PetriGameplayViewNibName])
-		return nil;
-	
-	// Bind to the model
-	[self bind:@"game"
-	  toObject:windowController
-   withKeyPath:@"model.gameGroup.game"
-	   options:nil];
-	
-	return self;
+	return [super initWithWindowController:windowController
+								   nibName:PetriGameplayViewNibName];
 }
 
 - (void)awakeFromNib
 {
+	// Bind to the model
+	[self bind:@"game"
+	  toObject:[self mainWindowController]
+   withKeyPath:@"model.gameGroup.game"
+	   options:nil];
+	
 	// Create a background layer for the view
 	CALayer* backgroundLayer = [CALayer layer];
 	[backgroundLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
