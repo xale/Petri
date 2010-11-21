@@ -6,15 +6,22 @@
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
+#import "PetriGridBoard.h"
 
 @interface PetriSquareGridBoard : PetriGridBoard
-{
-}
 
-- (id)init;
-- (id)initWithWidth:(NSInteger)boardWidth
-			  Height:(NSInteger)boardHeight;
+/*!
+ Override. Returns the cells laterally adjacent to (i.e., above, below, and to the left and right of) the specified location.
+ 
+ @param location A location on the board around which to look for valid placement cells.
+ */
+- (NSSet*)placementCellsAdjacentToLocation:(PetriBoardLocation*)location;
+
+/*!
+ Override. Returns the cells laterally or diagonally adjacent to the specified location.
+ 
+ @param location A location on the board around which to look for capturable cells.
+ */
+- (NSSet*)capturableCellsAdjacentToLocation:(PetriBoardLocation*)location;
 
 @end

@@ -6,25 +6,12 @@
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
-#import "PetriBoardCell.h"
-#import "PetriCellType.h"
-#import "PetriGridBoard.h"
-#import "PetriPiece.h"
 #import "PetriSquareGridBoard.h"
 
+#import "PetriBoardCell.h"
+#import "PetriPiece.h"
 
 @implementation PetriSquareGridBoard
-
-- (id)init
-{
-	return [super init];
-}
-
-- (id)initWithWidth:(NSInteger)boardWidth
-			 Height:(NSInteger)boardHeight
-{
-	return [super initWithWidth:boardWidth height:boardHeight];
-}
 
 - (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
 					  atLocation:(PetriBoardLocation*)location
@@ -58,6 +45,68 @@
 	}
 	
 	return false;
+}
+
+- (NSSet*)placementCellsAdjacentToLocation:(PetriBoardLocation*)location
+{
+	NSMutableSet* adjacentCells = [NSMutableSet set];
+	
+	//Add and subtract 1 to x and y
+	//Throw out negatives or things outside of bounds
+	NSInteger x = [location x];
+	NSInteger y = [location y];
+	
+	if ((x - 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:(x - 1) Y:y]];
+	}
+	if ((x + 1) < width)
+	{
+		[adjacentCells addObject:[self cellAtX:(x + 1) Y:y]];
+	}
+	if ((y - 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:x Y:(y - 1)]];
+	}
+	if ((y + 1) < height)
+	{
+		[adjacentCells addObject:[self cellAtX:x Y:(y + 1)]];
+	}
+	
+	return [adjacentCells copy];
+}
+
+- (NSSet*)captureCellsAdjacentToLocation:(PetriBoardLocation*)location
+{
+	NSMutableSet* adjacentCells = [NSMutableSet set];
+	
+	//Add and subtract 1 to x and y
+	//Throw out negatives or things outside of bounds
+	NSInteger x = [location x];
+	NSInteger y = [location y];
+	
+	// Add laterally-adjacent cells
+	[adjacentCells unionSet:[self placementCellsAdjacentToLocation:location]];
+	
+	// Add diagonally-adjacent cells
+	if ((x - 1) >= 0 && (y - 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:(x - 1) Y:(y - 1)]];
+	}
+	if ((x - 1) >= 0 && (y + 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:(x - 1) Y:(y + 1)]];
+	}
+	if ((x + 1) >= 0 && (y - 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:(x + 1) Y:(y - 1)]];
+	}
+	if ((x + 1) >= 0 && (y + 1) >= 0)
+	{
+		[adjacentCells addObject:[self cellAtX:(x - 1) Y:(y - 1)]];
+	}	
+	
+	return [adjacentCells copy];
 }
 
 @end
