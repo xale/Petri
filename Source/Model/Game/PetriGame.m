@@ -9,6 +9,7 @@
 #import "PetriGame.h"
 
 #import "PetriGameConfiguration.h"
+#import "PetriSquareGridBoard.h"
 #import "PetriPiece.h"
 
 @implementation PetriGame
@@ -17,12 +18,12 @@
 #pragma mark Accessors
 
 - (id)initWithPlayers:(NSArray*)playersInGame
-			gameConfiguration:(PetriGameConfiguration*)configuration
+	gameConfiguration:(PetriGameConfiguration*)configuration
 {
 	players = [playersInGame mutableCopy];
 	currentPlayer = [players objectAtIndex:0];
 	gameConfiguration = configuration;
-	board = nil; // FIXME: generate board from game configuration
+	board = [[PetriSquareGridBoard alloc] init]; // FIXME: generate board from game configuration
 	return self;
 }
 
