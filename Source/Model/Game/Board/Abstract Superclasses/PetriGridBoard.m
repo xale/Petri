@@ -22,22 +22,29 @@
 - (id)initWithWidth:(NSInteger)boardWidth
 			 height:(NSInteger)boardHeight
 {
+	// Check that we aren't instantiating an abstract class
 	if ([self isMemberOfClass:[PetriGridBoard class]])
 	{
 		[self doesNotRecognizeSelector:_cmd];
 		return nil;
 	}
+	
+	// Create the two-dimensional array of board cells
 	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:boardWidth];
-	for (int i = 0; i < boardWidth; i++)
+	
+	for (NSInteger x = 0; x < boardWidth; x++)
 	{
 		NSMutableArray* column = [NSMutableArray arrayWithCapacity:boardHeight];
-		for (int j = 0; j < boardHeight; j++)
+		
+		for (NSInteger y = 0; y < boardHeight; y++)
 		{
 			[column addObject:[[PetriBoardCell alloc] init]];
 		}
+		
 		[tempBoard addObject:[column copy]];
 	}
 	
+	// Assign to local ivar
 	cells = [tempBoard copy];
 	
 	width = boardWidth;
@@ -50,10 +57,14 @@
 		atLocation:(PetriBoardLocation*)cellLocation
 		 withOwner:(PetriPlayer*)player
 {
+	// Iterate over location-offsets in the piece
 	for (PetriBoardLocation* pieceLocation in [piece cellLocations])
 	{
+		// Find the cell located at (piece origin) + (location offset)
 		PetriBoardCell* cell = [self cellAtX:([pieceLocation x] + [cellLocation x])
 										   Y:([pieceLocation y] + [cellLocation y])];
+		
+		// Create a body cell for the piece's owner
 		[cell setOwner:player];
 		[cell setCellType:bodyCell];
 	}
