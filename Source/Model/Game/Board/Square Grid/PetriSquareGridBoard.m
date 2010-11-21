@@ -10,6 +10,7 @@
 
 #import "PetriBoardCell.h"
 #import "PetriPiece.h"
+#import "PetriBoardLocation.h"
 
 @implementation PetriSquareGridBoard
 
