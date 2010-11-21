@@ -59,22 +59,22 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 			[newLayer setName:[NSString stringWithFormat:PetriBoardCellNameFormat, x, y]];
 			
 			// FIXME: TESTING: add a background for visibility
-			[newLayer setBackgroundColor:CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.8)];
+			[newLayer setBackgroundColor:CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0)];
 			
 			// Add the layer to the collection of cell layers
 			[newColumn addObject:newLayer];
 			
 			// Add constraints on the layer's position and size
-			// Size: divide board layer equally, leaving space between cells
+			// Size: divide board layer equally, leaving a small amount of space between cells
 			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
 															   relativeTo:@"superlayer"
 																attribute:kCAConstraintWidth
-																	scale:(0.9 / [boardForCells width])
+																	scale:(0.95 / [boardForCells width])
 																   offset:0]];
 			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
 															   relativeTo:@"superlayer"
 																attribute:kCAConstraintHeight
-																	scale:(0.9 / [boardForCells height])
+																	scale:(0.95 / [boardForCells height])
 																   offset:0]];
 			
 			// Position: spaced evenly across the board's width and height
