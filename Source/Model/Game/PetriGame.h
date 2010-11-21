@@ -33,7 +33,7 @@
  Creates a new game with the specified players and rules.
 
  @param playersInGame NSArray of player objects
- @param configuration PetriGameConfiguration object
+ @param configuration The configuration specifying the layout of the game board, piece frequencies, etc.
  */
 - (id)initWithPlayers:(NSArray*)playersInGame
 			gameConfiguration:(PetriGameConfiguration*)configuration;

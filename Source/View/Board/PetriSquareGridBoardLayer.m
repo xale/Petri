@@ -38,7 +38,6 @@
 #pragma mark Sublayer Layout
 
 NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
-#define PETRI_SQUARE_BOARD_LAYER_CELL_SPACING		5.0
 
 - (NSArray*)cellSublayersForSquareBoard:(PetriGridBoard*)boardForCells
 {
@@ -59,60 +58,36 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 			// Name the layer based on its location, for reference by the layout manager
 			[newLayer setName:[NSString stringWithFormat:PetriBoardCellNameFormat, x, y]];
 			
-			// FIXME: TESTING add a border so we can see the layer during testing
-			[newLayer setBorderWidth:1.0];
-			[newLayer setBorderColor:CGColorGetConstantColor(kCGColorWhite)];
+			// FIXME: TESTING: add a background for visibility
+			[newLayer setBackgroundColor:CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.8)];
 			
 			// Add the layer to the collection of cell layers
 			[newColumn addObject:newLayer];
 			
 			// Add constraints on the layer's position and size
 			// Size: divide board layer equally, leaving space between cells
-			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
-															   relativeTo:@"superlayer"
-																attribute:kCAConstraintHeight
-																	scale:(1.0 / [boardForCells height])
-																   offset:-PETRI_SQUARE_BOARD_LAYER_CELL_SPACING]];
 			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
 															   relativeTo:@"superlayer"
 																attribute:kCAConstraintWidth
-																	scale:(1.0 / [boardForCells width])
-																   offset:-PETRI_SQUARE_BOARD_LAYER_CELL_SPACING]];
+																	scale:(0.9 / [boardForCells width])
+																   offset:0]];
+			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
+															   relativeTo:@"superlayer"
+																attribute:kCAConstraintHeight
+																	scale:(0.9 / [boardForCells height])
+																   offset:0]];
 			
-			// Position: relative to previous neighbor in each direction
-			if (x == 0)
-			{
-				// Leftmost cells constrained to follow left edge of board
-				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
-																   relativeTo:@"superlayer"
-																	attribute:kCAConstraintMinX
-																	   offset:(PETRI_SQUARE_BOARD_LAYER_CELL_SPACING / 2)]];
-			}
-			else
-			{
-				// All other cells are constrained by the edges of their neighbors
-				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
-																   relativeTo:[NSString stringWithFormat:PetriBoardCellNameFormat, (x - 1), y]
-																	attribute:kCAConstraintMaxX
-																	   offset:PETRI_SQUARE_BOARD_LAYER_CELL_SPACING]];
-			}
-			
-			if (y == 0)
-			{
-				// Bottom cells constrained to follow bottom edge of board
-				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
-																   relativeTo:@"superlayer"
-																	attribute:kCAConstraintMinY
-																	   offset:(PETRI_SQUARE_BOARD_LAYER_CELL_SPACING / 2)]];
-			}
-			else
-			{
-				// All other cells are constrained by the edges of their neighbors
-				[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
-																   relativeTo:[NSString stringWithFormat:PetriBoardCellNameFormat, x, (y - 1)]
-																	attribute:kCAConstraintMaxY
-																	   offset:PETRI_SQUARE_BOARD_LAYER_CELL_SPACING]];
-			}
+			// Position: spaced evenly across the board's width and height
+			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX
+															   relativeTo:@"superlayer"
+																attribute:kCAConstraintWidth
+																	scale:((x + 0.5) / (CGFloat)[boardForCells width])
+																   offset:0]];
+			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
+															   relativeTo:@"superlayer"
+																attribute:kCAConstraintHeight
+																	scale:((y + 0.5) / (CGFloat)[boardForCells height])
+																   offset:0]];
 		}
 		
 		// Add each column to the collection of cell layers

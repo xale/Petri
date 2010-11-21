@@ -73,6 +73,8 @@
 {
 	// De-register for view-change notifications
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	[super finalize];
 }
 
 #pragma mark -
