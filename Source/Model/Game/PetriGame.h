@@ -11,6 +11,7 @@
 @class PetriPlayer;
 @class PetriGridBoard;
 @class PetriGameConfiguration;
+@class PetriPiece;
 
 @protocol PetriBoard;
 
@@ -25,6 +26,7 @@
 	PetriPlayer* currentPlayer;	/*!< The player whose turn it is. */
 	id<PetriBoard> board;			/*!< The game board. */
 	PetriGameConfiguration* gameConfiguration;	/*!< The rules for the game. */
+	PetriPiece* currentPiece; /*!< The piece available for use on the current player's move. */
 }
 
 /*!
@@ -34,7 +36,7 @@
  @param configuration The configuration specifying the layout of the game board, piece frequencies, etc.
  */
 - (id)initWithPlayers:(NSArray*)playersInGame
-			gameRules:(PetriGameConfiguration*)configuration;
+			gameConfiguration:(PetriGameConfiguration*)configuration;
 
 /*!
  Adds a player object to a game.
@@ -44,11 +46,17 @@
 - (void)addPlayersObject:(PetriPlayer*)player;
 
 /*!
+ Updates the value of current piece randomly based on the distribution provided at initialization.
+ */
+- (void)nextPiece;
+
+/*!
  Returns an immutable copy of players.
  */
 @property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readonly) id<PetriBoard>  board;
 @property (readonly) PetriGameConfiguration* gameConfiguration;
+@property (readonly) PetriPiece* currentPiece;
 
 @end

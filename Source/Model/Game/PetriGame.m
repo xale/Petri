@@ -7,7 +7,7 @@
 //
 
 #import "PetriGame.h"
-
+#import "PetriPiece.h"
 
 @implementation PetriGame
 
@@ -15,7 +15,7 @@
 #pragma mark Accessors
 
 - (id)initWithPlayers:(NSArray*)playersInGame
-			gameRules:(PetriGameConfiguration*)configuration
+			gameConfiguration:(PetriGameConfiguration*)configuration
 {
 	players = [playersInGame mutableCopy];
 	currentPlayer = [players objectAtIndex:0];
@@ -59,6 +59,25 @@
 	return [players objectAtIndex:index];
 }
 
+- (void)nextPiece
+{
+	NSDictionary* pieceFrequencies = [gameConfiguration pieceFrequencies];
+	long accum = 0;
+	for (NSNumber* num in [pieceFrequencies objectEnumerator])
+	{
+		accum += [num longValue];
+	}
+	NSMutableArray* pieces = [NSMutableArray arrayWithCapacity:accum]; // there is technically a signedness type error
+	for (PetriPiece* piece in pieceFrequencies)
+	{
+		for (int i = 0; i < [[pieceFrequencies objectForKey:piece] intValue]; i++)
+		{
+			[pieces addObject:piece];
+		}
+	}
+	currentPiece = [pieces objectAtIndex:(random() % accum)];
+}
+
 - (NSArray*)players
 {
 	return [players copy];
@@ -67,5 +86,6 @@
 @synthesize currentPlayer;
 @synthesize board;
 @synthesize gameConfiguration;
+@synthesize currentPiece;
 
 @end
