@@ -16,6 +16,7 @@
 		6A12DE5212945ACD007333FA /* PetriModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A12DE5112945ACD007333FA /* PetriModel.m */; };
 		6A12DE8412946A66007333FA /* PetriGridBoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A12DE8312946A66007333FA /* PetriGridBoardLayer.m */; };
 		6A12DE8812946A6E007333FA /* PetriBoardCellLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A12DE8712946A6E007333FA /* PetriBoardCellLayer.m */; };
+		6A21A80112999FBB0054B8F0 /* PetriSquareGridBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A21A80012999FBB0054B8F0 /* PetriSquareGridBoard.m */; };
 		6A2FF0FA1298BFD1007D827D /* BGHUDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A2FF0F91298BFD1007D827D /* BGHUDAppKit.framework */; };
 		6A2FF0FC1298BFD1007D827D /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A2FF0FB1298BFD1007D827D /* BWToolkitFramework.framework */; };
 		6A2FF1571298C1C6007D827D /* BGHUDAppKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 6A2FF0F91298BFD1007D827D /* BGHUDAppKit.framework */; };
@@ -110,6 +111,8 @@
 		6A12DE8312946A66007333FA /* PetriGridBoardLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGridBoardLayer.m; sourceTree = "<group>"; };
 		6A12DE8612946A6E007333FA /* PetriBoardCellLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardCellLayer.h; sourceTree = "<group>"; };
 		6A12DE8712946A6E007333FA /* PetriBoardCellLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardCellLayer.m; sourceTree = "<group>"; };
+		6A21A7FF12999FBB0054B8F0 /* PetriSquareGridBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriSquareGridBoard.h; sourceTree = "<group>"; };
+		6A21A80012999FBB0054B8F0 /* PetriSquareGridBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriSquareGridBoard.m; sourceTree = "<group>"; };
 		6A2FF0F91298BFD1007D827D /* BGHUDAppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BGHUDAppKit.framework; path = Frameworks/BGHUDAppKit.framework; sourceTree = "<group>"; };
 		6A2FF0FB1298BFD1007D827D /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = Frameworks/BWToolkitFramework.framework; sourceTree = "<group>"; };
 		6A4A15A412662EA000429714 /* PetriGameGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PetriGameGroup.h; path = Users/PetriGameGroup.h; sourceTree = "<group>"; };
@@ -319,6 +322,8 @@
 			children = (
 				6A4A15D712663B7800429714 /* PetriGridBoard.h */,
 				6A4A15D812663B7800429714 /* PetriGridBoard.m */,
+				6A21A7FF12999FBB0054B8F0 /* PetriSquareGridBoard.h */,
+				6A21A80012999FBB0054B8F0 /* PetriSquareGridBoard.m */,
 				6A4A15D912663B7800429714 /* PetriBoardCell.h */,
 				6A4A15DA12663B7800429714 /* PetriBoardCell.m */,
 				6A4A15DB12663B7800429714 /* PetriCellType.h */,
@@ -694,6 +699,7 @@
 				6A5615B81295CD5100A24500 /* PetriSquareGridBoardLayer.m in Sources */,
 				6A8DBE041298548F00F49D4A /* PetriNoLayerResizeAnimationView.m in Sources */,
 				6A51CBD81298638E00D5ECDE /* PetriAspectRatioLayer.m in Sources */,
+				6A21A80112999FBB0054B8F0 /* PetriSquareGridBoard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
