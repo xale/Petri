@@ -46,24 +46,6 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	// Setup the view to be layer-hosting (see discussion under documentation of NSView -setWantsLayer:)
 	[gameplayPane setLayer:backgroundLayer];
 	[gameplayPane setWantsLayer:YES];
-	
-	// Create a layer for the board
-	// FIXME: TESTING
-	PetriSquareGridBoardLayer* boardLayer = [[PetriSquareGridBoardLayer alloc] initWithBoard:[[PetriSquareGridBoard alloc] initWithWidth:10
-																																  height:10]];
-	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
-														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintMinX]];
-	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY
-														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintMaxY]];
-	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
-														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintWidth]];
-	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
-														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintHeight]];
-	[backgroundLayer addSublayer:boardLayer];
 }
 
 #pragma mark -
@@ -84,6 +66,34 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 #pragma mark -
 #pragma mark Accessors
 
+- (void)setGame:(PetriGame*)newGame
+{
+	// Retrieve the background layer from the view
+	CALayer* backgroundLayer = [gameplayPane layer];
+	
+	// Remove all current sublayers
+	[backgroundLayer setSublayers:nil];
+	
+	// Create a layer for the game board
+	// FIXME: TESTING
+	PetriSquareGridBoardLayer* boardLayer = [[PetriSquareGridBoardLayer alloc] initWithBoard:(PetriSquareGridBoard*)[newGame board]];
+	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
+														 relativeTo:@"superlayer"
+														  attribute:kCAConstraintMinX]];
+	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY
+														 relativeTo:@"superlayer"
+														  attribute:kCAConstraintMaxY]];
+	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+														 relativeTo:@"superlayer"
+														  attribute:kCAConstraintWidth]];
+	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
+														 relativeTo:@"superlayer"
+														  attribute:kCAConstraintHeight]];
+	[backgroundLayer addSublayer:boardLayer];
+	
+	// Hold a reference to the game object
+	game = newGame;
+}
 @synthesize game;
 
 @end
