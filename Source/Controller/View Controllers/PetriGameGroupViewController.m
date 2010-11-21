@@ -7,6 +7,7 @@
 //
 
 #import "PetriGameGroupViewController.h"
+#import "PetriGameGroup.h"
 
 NSString* const PetriGameGroupViewNibName =	@"GameGroupView";
 
@@ -45,6 +46,9 @@ NSString* const PetriGameGroupViewNibName =	@"GameGroupView";
 {
 	// FIXME: testing code
 	[[self mainWindowController] displayViewControllerForKey:PetriGameplayViewControllerKey];
+	
+	// Start a game
+	[[self gameGroup] newGame];
 }
 
 #pragma mark -

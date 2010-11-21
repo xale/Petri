@@ -8,6 +8,8 @@
 
 #import "PetriTitleViewController.h"
 
+#import "PetriModel.h"
+
 NSString* const PetriTitleViewNibName =	@"TitleView";
 
 @implementation PetriTitleViewController
@@ -25,6 +27,9 @@ NSString* const PetriTitleViewNibName =	@"TitleView";
 {
 	// FIXME: testing code
 	[[self mainWindowController] displayViewControllerForKey:PetriGameGroupViewControllerKey];
+	
+	// Create a game group
+	[[mainWindowController model] createLocalGameGroup];
 }
 
 - (IBAction)createNetworkGameGroup:(id)sender
