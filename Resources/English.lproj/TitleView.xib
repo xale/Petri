@@ -136,7 +136,7 @@
 										<reference key="NSSuperview" ref="37074041"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="BGHUDButtonCell" key="NSCell" id="498553993">
-											<int key="NSCellFlags">67239424</int>
+											<int key="NSCellFlags">604110336</int>
 											<int key="NSCellFlags2">134217728</int>
 											<string key="NSContents">New Network Game</string>
 											<reference key="NSSupport" ref="434189794"/>
@@ -158,7 +158,7 @@
 										<reference key="NSSuperview" ref="37074041"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="BGHUDButtonCell" key="NSCell" id="274934930">
-											<int key="NSCellFlags">67239424</int>
+											<int key="NSCellFlags">604110336</int>
 											<int key="NSCellFlags2">134217728</int>
 											<string key="NSContents">Join Network Game</string>
 											<reference key="NSSupport" ref="434189794"/>
