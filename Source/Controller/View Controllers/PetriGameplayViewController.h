@@ -17,6 +17,10 @@
  */
 @interface PetriGameplayViewController : PetriMainWindowViewController
 {
+	IBOutlet NSSplitView* panesSplitView;	/*!< The split view containing the gameplay and chat panes. */
+	IBOutlet NSView* gameplayPane;	/*!< The layer-hosting view containing the board, next piece, and player information layers. */
+	IBOutlet NSView* chatPane;		/*!< The (standard) view containing the chat box. */
+	
 	PetriGame* game;	/*!< A reference to the current game in progress, which is displayed on this view. */
 }
 

@@ -14,6 +14,8 @@
 
 NSString* const PetriGameplayViewNibName =	@"GameplayView";
 
+#define PetriGameplayViewBoardLayerScale	0.75
+
 @implementation PetriGameplayViewController
 
 + (void)initialize
@@ -44,9 +46,9 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	// Add a layout manager
 	[backgroundLayer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
 	
-	// Setup the view to be layer-hosting (see discussion under documentation of NSView setWantsLayer:)
-	[[self view] setLayer:backgroundLayer];
-	[[self view] setWantsLayer:YES];
+	// Setup the view to be layer-hosting (see discussion under documentation of NSView -setWantsLayer:)
+	[gameplayPane setLayer:backgroundLayer];
+	[gameplayPane setWantsLayer:YES];
 	
 	// Create a layer for the board
 	// FIXME: TESTING
@@ -54,28 +56,16 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 																															height:10]];
 	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
 														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintMinX
-															  scale:1.0
-															 offset:10.0]];
-	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
-														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintMinY
-															  scale:1.0
-															 offset:10.0]];
-	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
-														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintMaxX
-															  scale:1.0
-															 offset:-10.0]];
+														  attribute:kCAConstraintMinX]];
 	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY
 														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintMaxY
-															  scale:1.0
-															 offset:-10.0]];
-	[boardLayer setBorderColor:CGColorGetConstantColor(kCGColorWhite)];
-	[boardLayer setBorderWidth:2.0];
-	
-	// Add the board layer as a sublayer of the background
+														  attribute:kCAConstraintMaxY]];
+	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+														 relativeTo:@"superlayer"
+														  attribute:kCAConstraintWidth]];
+	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
+														 relativeTo:@"superlayer"
+														  attribute:kCAConstraintHeight]];
 	[backgroundLayer addSublayer:boardLayer];
 }
 
