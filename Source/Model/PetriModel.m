@@ -8,7 +8,20 @@
 
 #import "PetriModel.h"
 
+#import "PetriGameGroup.h"
+#import "PetriUser.h"
+
 @implementation PetriModel
+
+#pragma mark -
+#pragma mark Creating Game Groups
+
+- (void)createLocalGameGroup
+{
+	PetriUser* hostUser = [[PetriUser alloc] initWithNickname:NSUserName()];
+	
+	[self setGameGroup:[[PetriGameGroup alloc] initWithHost:hostUser]];
+}
 
 #pragma mark -
 #pragma mark Accessors

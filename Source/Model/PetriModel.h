@@ -20,6 +20,11 @@
 	PetriGameGroup* gameGroup;	/*!< The current game group at the top level of the model. May be nil. */
 }
 
+/*!
+ Instructs the model to generate a new Game Group, intended for play on the local machine.
+ */
+- (void)createLocalGameGroup;
+
 @property (readwrite, assign) PetriGameGroup* gameGroup;
 
 @end
