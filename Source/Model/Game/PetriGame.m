@@ -7,6 +7,8 @@
 //
 
 #import "PetriGame.h"
+
+#import "PetriGameConfiguration.h"
 #import "PetriPiece.h"
 
 @implementation PetriGame
