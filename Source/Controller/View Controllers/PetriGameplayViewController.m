@@ -10,7 +10,7 @@
 
 #import "PetriSquareGridBoardLayer.h"
 
-#import "PetriGridBoard.h"
+#import "PetriSquareGridBoard.h"
 
 NSString* const PetriGameplayViewNibName =	@"GameplayView";
 
@@ -52,8 +52,8 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	
 	// Create a layer for the board
 	// FIXME: TESTING
-	PetriSquareGridBoardLayer* boardLayer = [[PetriSquareGridBoardLayer alloc] initWithBoard:[[PetriGridBoard alloc] initWithWidth:10
-																															height:10]];
+	PetriSquareGridBoardLayer* boardLayer = [[PetriSquareGridBoardLayer alloc] initWithBoard:[[PetriSquareGridBoard alloc] initWithWidth:10
+																																  height:10]];
 	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
 														 relativeTo:@"superlayer"
 														  attribute:kCAConstraintMinX]];

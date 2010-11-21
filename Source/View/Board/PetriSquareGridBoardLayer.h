@@ -8,6 +8,8 @@
 
 #import "PetriGridBoardLayer.h"
 
+@class PetriSquareGridBoard;
+
 /*!
  \brief A concrete subclass of PetriGridBoardLayer for displaying a square-cell grid.
  
@@ -23,6 +25,6 @@
  
  @param boardToDisplay The PetriSquareGridBoard to display on this layer.
  */
-- (id)initWithBoard:(PetriGridBoard*)boardToDisplay;
+- (id)initWithBoard:(PetriSquareGridBoard*)boardToDisplay;
 
 @end

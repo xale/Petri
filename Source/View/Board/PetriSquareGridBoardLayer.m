@@ -8,7 +8,7 @@
 
 #import "PetriSquareGridBoardLayer.h"
 
-#import "PetriGridBoard.h"
+#import "PetriSquareGridBoard.h"
 
 /*!
  Private methods on PetriSquareGridBoardLayer.
@@ -20,13 +20,13 @@
  
  @param boardForCells The board whose cells will be represented by the generated sublayers; sublayers' appearances will be bound to properties of this board's cells.
  */
-- (NSArray*)cellSublayersForSquareBoard:(PetriGridBoard*)boardForCells;
+- (NSArray*)cellSublayersForSquareBoard:(PetriSquareGridBoard*)boardForCells;
 
 @end
 
 @implementation PetriSquareGridBoardLayer
 
-- (id)initWithBoard:(PetriGridBoard*)boardToDisplay
+- (id)initWithBoard:(PetriSquareGridBoard*)boardToDisplay
 {
 	if (![super initWithBoard:boardToDisplay cellSublayers:[self cellSublayersForSquareBoard:boardToDisplay]])
 		return nil;
@@ -39,7 +39,7 @@
 
 NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 
-- (NSArray*)cellSublayersForSquareBoard:(PetriGridBoard*)boardForCells
+- (NSArray*)cellSublayersForSquareBoard:(PetriSquareGridBoard*)boardForCells
 {
 	// Create a two-dimensional array of cell sublayers for the cells on the board
 	NSMutableArray* newCells = [NSMutableArray arrayWithCapacity:[boardForCells width]];
@@ -81,12 +81,12 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX
 															   relativeTo:@"superlayer"
 																attribute:kCAConstraintWidth
-																	scale:((x + 0.5) / (CGFloat)[boardForCells width])
+																	scale:((x + 0.5) / [boardForCells width])
 																   offset:0]];
 			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
 															   relativeTo:@"superlayer"
 																attribute:kCAConstraintHeight
-																	scale:((y + 0.5) / (CGFloat)[boardForCells height])
+																	scale:((y + 0.5) / [boardForCells height])
 																   offset:0]];
 		}
 		
