@@ -25,8 +25,8 @@
 		return nil;
 	}
 	
-	// Create the layer with an appropriate aspect ratio
-	if (![super initWithAspectRatio:((CGFloat)[boardToDisplay width] / (CGFloat)[boardToDisplay height])])
+	// Call CALayer -init
+	if (![super init])
 		return nil;
 	
 	// Create a layout manager
