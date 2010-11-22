@@ -34,7 +34,5 @@
 @property (readwrite, assign) NSInteger minPlayers;
 @property (readwrite, assign) NSInteger maxPlayers;
 @property (readwrite, copy) NSDictionary* pieceFrequencies;
-@property (readonly) NSInteger absoluteMinPlayers;	/*!< (Computed property) Specifies the minimum valid value for the minPlayers and maxPlayers properties. */
-@property (readonly) NSInteger absoluteMaxPlayers;	/*!< (Computed property) Specifies the maximum valid value for the minPlayers and maxPlayers properties. */
 
 @end

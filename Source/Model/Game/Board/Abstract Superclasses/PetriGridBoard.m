@@ -107,6 +107,24 @@
 	[self doesNotRecognizeSelector:_cmd];
 }
 
++ (NSString*)boardType
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
++ (NSInteger)absoluteMinPlayers
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return -1;
+}
+
++ (NSInteger)absoluteMaxPlayers
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return -1;
+}
+
 @synthesize width;
 @synthesize height;
 
