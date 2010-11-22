@@ -6,14 +6,14 @@
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
-#import "PetriBoardTestCases.h"
+#import "PetriGridBoardTestCases.h"
 
 #import "PetriGridBoard.h"
 #import "PetriBoardLocation.h"
 
-@implementation PetriBoardTestCases
+@implementation PetriGridBoardTestCases
 
-- (void)testCreatePetriBoard
+- (void)testCreatePetriGridBoard
 {
 	PetriGridBoard* testBoard = [[PetriGridBoard alloc] init];
 	STAssertNotNil(testBoard, @"PetriBoard object creation unsuccessful");
