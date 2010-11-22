@@ -15,6 +15,6 @@
 	PetriGameConfiguration* testGameConfiguration;
 }
 
-- (void)testCreateInvalidGameConfiguration;
+- (void)testCreateInvalidGameConfigurations;
 
 @end

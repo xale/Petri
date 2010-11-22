@@ -24,10 +24,16 @@
 	testGameConfiguration = nil;
 }
 
-- (void)testCreateInvalidGameConfiguration
+- (void)testCreateInvalidGameConfigurations
 {
+	// Attempt to create a game configuration with minPlayers too small
+	STAssertThrows([[PetriGameConfiguration alloc] initWithMinPlayers:0 maxPlayers:2 pieceFrequencies:nil], @"Expected exception when initializing game configuration with minPlayers too small");
+	
+	// Attempt to create a game configuration with maxPlayers too large
+	STAssertThrows([[PetriGameConfiguration alloc] initWithMinPlayers:2 maxPlayers:7 pieceFrequencies:nil], @"Expected exception when initializing game configuration with maxPlayers too large");
+	
 	// Attempt to create an invalid game configuration, with greater maxPlayers than minPlayers
-	STAssertThrows([[PetriGameConfiguration alloc] initWithMinPlayers:4 maxPlayers:3 pieceFrequencies:nil], @"Expected exception when creating game configuration with minPlayers > maxPlayers");	
+	STAssertThrows([[PetriGameConfiguration alloc] initWithMinPlayers:4 maxPlayers:3 pieceFrequencies:nil], @"Expected exception when initializing game configuration with minPlayers > maxPlayers");	
 }
 
 @end
