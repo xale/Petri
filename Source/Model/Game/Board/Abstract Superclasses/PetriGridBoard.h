@@ -66,17 +66,45 @@
 - (PetriBoardCell*)cellAtX:(NSInteger)x
 						 Y:(NSInteger)y;
 
+/**
+ * Runs every time a piece is placed and performs all captures that are possible
+ * recursively until no more captures are available
+ */
 - (void)capture;
 
+/**
+ * Place a given piece at a location naively
+ * Legal moves are checked with the isValidPlacement method
+ * @param piece piece to place
+ * @param location location to place the piece
+ * @param owner of the piece
+ */
 - (void)placePiece:(PetriPiece*)piece
 		atLocation:(PetriBoardLocation*)location
 		 withOwner:(PetriPlayer*)owner;
 
+/**
+ * Check if a location is a valid place to put a piece
+ * @param piece piece to place
+ * @param location location to place the piece
+ * @param owner of the piece
+ * @return true if the location is valid
+ */
 - (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
 					  atLocation:(PetriBoardLocation*)location;
 
+/**
+ * Get an immutable set of all cells that are adjacent to a given location for the purpose of placing a piece
+ * @param location location to get adjacent cells
+ * @return NSSet of cells that are adjacent to the location
+ */
 - (NSSet*)placementCellsAdjacentToLocation:(PetriBoardLocation*)location;
 
+/**
+ * Get an immutable set of all cells that are adjacent to a given location for the purpose of placing a piece
+ * @param location location to get adjacent cells
+ * @return NSSet of locations that are adjacent
+ */
 - (NSSet*)capturableCellsAdjacentToLocation:(PetriBoardLocation*)location;
 
 @property (readonly) NSInteger width;

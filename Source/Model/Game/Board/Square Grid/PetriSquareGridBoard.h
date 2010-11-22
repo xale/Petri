@@ -8,6 +8,9 @@
 
 #import "PetriGridBoard.h"
 
+/**
+ * Concrate implementation of PetriGridBoard for boards with square grid layouts
+ */
 @interface PetriSquareGridBoard : PetriGridBoard
 
 /*!
