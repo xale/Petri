@@ -9,6 +9,7 @@
 #import "PetriGameplayViewController.h"
 
 #import "PetriSquareGridBoardLayer.h"
+#import "PetriAspectRatioLayer.h"
 
 #import "PetriGame.h"
 #import "PetriSquareGridBoard.h"
