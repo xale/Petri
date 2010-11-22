@@ -23,7 +23,8 @@
 	players = [playersInGame mutableCopy];
 	currentPlayer = [players objectAtIndex:0];
 	gameConfiguration = configuration;
-	board = [[PetriSquareGridBoard alloc] init]; // FIXME: generate board from game configuration
+	board = [[PetriSquareGridBoard alloc] initWithWidth:20
+												 height:20]; // FIXME: generate board from game configuration
 	return self;
 }
 
