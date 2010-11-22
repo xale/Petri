@@ -87,11 +87,12 @@
  * Check if a location is a valid place to put a piece
  * @param piece piece to place
  * @param location location to place the piece
- * @param owner of the piece
+ * @param player of the piece
  * @return true if the location is valid
  */
 - (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
-					  atLocation:(PetriBoardLocation*)location;
+					  atLocation:(PetriBoardLocation*)location
+					  withPlayer:(PetriPlayer*)player;
 
 /**
  * Get an immutable set of all cells that are adjacent to a given location for the purpose of placing a piece

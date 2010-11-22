@@ -70,6 +70,14 @@
 	}
 }
 
+- (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
+					  atLocation:(PetriBoardLocation*)location
+					  withPlayer:(PetriPlayer*)player;
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return FALSE;
+}
+
 - (PetriBoardCell*)cellAtLocation:(PetriBoardLocation*)location
 {
 	return [self cellAtX:[location x]
@@ -92,6 +100,11 @@
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
+}
+
+- (void)capture
+{
+	[self doesNotRecognizeSelector:_cmd];
 }
 
 @synthesize width;

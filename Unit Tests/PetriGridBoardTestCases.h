@@ -14,9 +14,7 @@
 
 }
 
-- (void)testCreatePetriBoard;
-
-- (void)testPlacePiece;
+- (void)testCreatePetriGridBoard;
 
 - (void)testCellAtLocation;
 

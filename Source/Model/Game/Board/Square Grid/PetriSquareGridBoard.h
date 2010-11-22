@@ -9,7 +9,7 @@
 #import "PetriGridBoard.h"
 
 /**
- * Concrate implementation of PetriGridBoard for boards with square grid layouts
+ * Concrete implementation of PetriGridBoard for boards with square grid layouts
  */
 @interface PetriSquareGridBoard : PetriGridBoard
 
@@ -26,5 +26,23 @@
  @param location A location on the board around which to look for capturable cells.
  */
 - (NSSet*)capturableCellsAdjacentToLocation:(PetriBoardLocation*)location;
+
+/*!
+ Override. Check if a location is a valid place to put a piece
+ 
+ @param piece piece to place
+ @param location location to place the piece
+ @param player player placing the piece
+ @return true if the location is valid
+ */
+- (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
+					  atLocation:(PetriBoardLocation*)location
+					  withPlayer:(PetriPlayer*)player;
+
+/*!
+ Override. Runs every time a piece is placed and performs all captures that are possible
+ recursively until no more captures are available
+ */
+- (void)capture;
 
 @end
