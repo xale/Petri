@@ -77,7 +77,7 @@
 	return [adjacentCells copy];
 }
 
-- (NSSet*)captureCellsAdjacentToLocation:(PetriBoardLocation*)location
+- (NSSet*)capturableCellsAdjacentToLocation:(PetriBoardLocation*)location
 {
 	NSMutableSet* adjacentCells = [NSMutableSet set];
 	
@@ -108,6 +108,11 @@
 	}	
 	
 	return [adjacentCells copy];
+}
+
+- (void)capture
+{
+	//TODO: Implement this
 }
 
 @end
