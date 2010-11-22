@@ -51,6 +51,8 @@
 		6AE76035128BAB06009F6BC5 /* NSArray+Subranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AE76034128BAB06009F6BC5 /* NSArray+Subranges.m */; };
 		6AEF227812763160008D8828 /* PetriAIPlayerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */; };
 		6AEF22C71276397A008D8828 /* PetriUserPlayerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */; };
+		6AFFCC92129AFFB200C49D42 /* BGHUDAppKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FADBA43B129AF9DE001EA149 /* BGHUDAppKit.framework */; };
+		6AFFCC93129AFFB200C49D42 /* BWToolkitFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FADBA43D129AF9DE001EA149 /* BWToolkitFramework.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		FAB0331212788BBB00DC01F0 /* PetriGameTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */; };
 		FAB033321278D71500DC01F0 /* PetriGridBoardTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB033311278D71500DC01F0 /* PetriGridBoardTestCases.m */; };
@@ -78,6 +80,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				6AFFCC92129AFFB200C49D42 /* BGHUDAppKit.framework in Copy Frameworks */,
+				6AFFCC93129AFFB200C49D42 /* BWToolkitFramework.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
