@@ -8,8 +8,31 @@
 
 #import "PetriGameConfiguration.h"
 
-
 @implementation PetriGameConfiguration
+
+NSString* const PetriInvalidGameConfigurationExceptionName =			@"invalidGameConfigurationException";
+NSString* const PetriInvalidMinMaxPlayersExceptionDescriptionFormat =	@"Minimum players (%d) greater than maximum players (%d)";
+
+- (id)initWithMinPlayers:(NSInteger)minPlayerCount
+			  maxPlayers:(NSInteger)maxPlayerCount
+		pieceFrequencies:(NSDictionary*)pieces
+{
+	// Test that the min and max player counts are sane
+	if (minPlayerCount > maxPlayerCount)
+	{
+		NSString* exceptionDesc = [NSString stringWithFormat:PetriInvalidMinMaxPlayersExceptionDescriptionFormat, minPlayerCount, maxPlayerCount];
+		NSException* invalidMinMaxException = [NSException exceptionWithName:PetriInvalidGameConfigurationExceptionName
+																	  reason:exceptionDesc
+																	userInfo:nil];
+		@throw invalidMinMaxException;
+	}
+	
+	minPlayers = minPlayerCount;
+	maxPlayers = maxPlayerCount;
+	pieceFrequencies = pieces;
+	
+	return self;
+}
 
 #pragma mark -
 #pragma mark Accessors

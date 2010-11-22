@@ -53,6 +53,7 @@
 		6AEF22C71276397A008D8828 /* PetriUserPlayerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */; };
 		6AFFCC92129AFFB200C49D42 /* BGHUDAppKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FADBA43B129AF9DE001EA149 /* BGHUDAppKit.framework */; };
 		6AFFCC93129AFFB200C49D42 /* BWToolkitFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FADBA43D129AF9DE001EA149 /* BWToolkitFramework.framework */; };
+		6AFFCD9E129B1AA200C49D42 /* PetriGameConfigurationTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AFFCD9D129B1AA200C49D42 /* PetriGameConfigurationTestCases.m */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		FAB0331212788BBB00DC01F0 /* PetriGameTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */; };
 		FAB033321278D71500DC01F0 /* PetriGridBoardTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB033311278D71500DC01F0 /* PetriGridBoardTestCases.m */; };
@@ -179,6 +180,8 @@
 		6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriAIPlayerTestCases.m; sourceTree = "<group>"; };
 		6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriUserPlayerTestCases.h; sourceTree = "<group>"; };
 		6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriUserPlayerTestCases.m; sourceTree = "<group>"; };
+		6AFFCD9C129B1AA200C49D42 /* PetriGameConfigurationTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameConfigurationTestCases.h; sourceTree = "<group>"; };
+		6AFFCD9D129B1AA200C49D42 /* PetriGameConfigurationTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameConfigurationTestCases.m; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Petri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Petri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB0331012788BBB00DC01F0 /* PetriGameTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameTestCases.h; sourceTree = "<group>"; };
 		FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameTestCases.m; sourceTree = "<group>"; };
@@ -421,32 +424,34 @@
 			isa = PBXGroup;
 			children = (
 				FADBA23E12985742001EA149 /* Mock Classes */,
-				6A9DE8D11276020200020AB9 /* PetriUserTestCases.h */,
-				6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */,
 				6AEF227612763160008D8828 /* PetriAIPlayerTestCases.h */,
 				6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */,
-				FADBA25912985812001EA149 /* PetriPlayerTestCases.h */,
-				FADBA25A12985812001EA149 /* PetriPlayerTestCases.m */,
-				6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */,
-				6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */,
+				64C7E6691278F1F800B040F8 /* PetriBoardCellTestCases.h */,
+				64C7E66A1278F1F800B040F8 /* PetriBoardCellTestCases.m */,
+				64753E40128BA8FD00868EBB /* PetriBoardLocationTestCases.h */,
+				64753E41128BA8FD00868EBB /* PetriBoardLocationTestCases.m */,
 				FAB0331012788BBB00DC01F0 /* PetriGameTestCases.h */,
 				FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */,
+				6AFFCD9C129B1AA200C49D42 /* PetriGameConfigurationTestCases.h */,
+				6AFFCD9D129B1AA200C49D42 /* PetriGameConfigurationTestCases.m */,
 				FAB03384128885A000DC01F0 /* PetriGameGroupTestCases.h */,
 				FAB03385128885A000DC01F0 /* PetriGameGroupTestCases.m */,
 				FAB033301278D71500DC01F0 /* PetriGridBoardTestCases.h */,
 				FAB033311278D71500DC01F0 /* PetriGridBoardTestCases.m */,
-				64C7E6691278F1F800B040F8 /* PetriBoardCellTestCases.h */,
-				64C7E66A1278F1F800B040F8 /* PetriBoardCellTestCases.m */,
 				64C7E6721278F2D600B040F8 /* PetriItemTestCases.h */,
 				64C7E6731278F2D600B040F8 /* PetriItemTestCases.m */,
-				64C7E66C1278F24200B040F8 /* PetriPieceTestCases.h */,
-				64C7E66D1278F24200B040F8 /* PetriPieceTestCases.m */,
-				64753E40128BA8FD00868EBB /* PetriBoardLocationTestCases.h */,
-				64753E41128BA8FD00868EBB /* PetriBoardLocationTestCases.m */,
 				6A21A9F91299CF6B0054B8F0 /* PetriModelTestCases.h */,
 				6A21A9FA1299CF6B0054B8F0 /* PetriModelTestCases.m */,
+				64C7E66C1278F24200B040F8 /* PetriPieceTestCases.h */,
+				64C7E66D1278F24200B040F8 /* PetriPieceTestCases.m */,
+				FADBA25912985812001EA149 /* PetriPlayerTestCases.h */,
+				FADBA25A12985812001EA149 /* PetriPlayerTestCases.m */,
 				64397B62129AE77700DF044F /* PetriSquareGridBoardTestCases.h */,
 				64397B63129AE77700DF044F /* PetriSquareGridBoardTestCases.m */,
+				6A9DE8D11276020200020AB9 /* PetriUserTestCases.h */,
+				6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */,
+				6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */,
+				6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -695,6 +700,7 @@
 				FADBA25B12985812001EA149 /* PetriPlayerTestCases.m in Sources */,
 				6A21A9FB1299CF6B0054B8F0 /* PetriModelTestCases.m in Sources */,
 				64397B64129AE77700DF044F /* PetriSquareGridBoardTestCases.m in Sources */,
+				6AFFCD9E129B1AA200C49D42 /* PetriGameConfigurationTestCases.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

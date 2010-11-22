@@ -1,5 +1,5 @@
 //
-//  PetriGameRulesTestCases.h
+//  PetriGameConfigurationTestCases.h
 //  Petri
 //
 //  Created by Alexander Rozenshteyn on 10/27/10.
@@ -8,12 +8,13 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+@class PetriGameConfiguration;
 
 @interface PetriGameConfigurationTestCases : SenTestCase
 {
-
+	PetriGameConfiguration* testGameConfiguration;
 }
 
-- (id)testCreatePetriGameConfiguration;
+- (void)testCreateInvalidGameConfiguration;
 
 @end

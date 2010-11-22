@@ -20,6 +20,17 @@
 	NSDictionary* pieceFrequencies;	/*!< Stores probablilities used to choose a piece from the set of pieces at the beginning of each turn. Maps PetriPiece to NSNumber; i.e., piece to probability. */
 }
 
+/*!
+ Initializes a PetriGameConfiguration instance with the specified initial values.
+ 
+ @param minPlayerCount The minimum number of players in the game.
+ @param maxPlayerCount The maximum number of players in the game. Must satisfy (\c maxPlayerCount \c >= \c minPlayerCount).
+ @param pieces The set of pieces used in the game, and the probabilities of spawning each one on the next turn. See \ref pieceFrequencies.
+ */
+- (id)initWithMinPlayers:(NSInteger)minPlayerCount
+			  maxPlayers:(NSInteger)maxPlayerCount
+		pieceFrequencies:(NSDictionary*)pieces;
+
 @property (readwrite, assign) NSInteger minPlayers;
 @property (readwrite, assign) NSInteger maxPlayers;
 //FIXME: should this be readonly? it's immutable anyway.
