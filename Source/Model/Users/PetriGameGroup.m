@@ -7,9 +7,13 @@
 //
 
 #import "PetriGameGroup.h"
+
 #import "PetriGame.h"
+#import "PetriGameConfiguration.h"
+
 #import "PetriPlayer.h"
 #import "PetriUserPlayer.h"
+#import "PetriAIPlayer.h"
 
 @implementation PetriGameGroup
 
@@ -19,7 +23,12 @@
 - (id)initWithHost:(PetriUser*)gameHost
 {
 	host = gameHost;
-	gameConfiguration = nil; // FIXME: Should not be nil
+	
+	// FIXME: default values, for testing
+	gameConfiguration = [[PetriGameConfiguration alloc] initWithMinPlayers:4
+																maxPlayers:4
+														  pieceFrequencies:nil]; // FIXME: should not be nil
+	
 	users = [NSMutableArray arrayWithObject:gameHost];
 	game = nil;
 	return self;
@@ -51,6 +60,10 @@
 	for (PetriUser* user in users)
 	{
 		[players addObject:[[PetriUserPlayer alloc] initWithControllingUser:user]];
+	}
+	for (NSInteger numPlayers = [players count]; numPlayers < [gameConfiguration minPlayers]; numPlayers = [players count])
+	{
+		[players addObject:[[PetriAIPlayer alloc] init]];
 	}
 	[self setGame:[[PetriGame alloc] initWithPlayers:[players copy]
 								   gameConfiguration:gameConfiguration]];
