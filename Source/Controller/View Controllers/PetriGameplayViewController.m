@@ -10,7 +10,10 @@
 
 #import "PetriSquareGridBoardLayer.h"
 
+#import "PetriGame.h"
 #import "PetriSquareGridBoard.h"
+
+#import "CALayer+ConstraintSets.h"
 
 NSString* const PetriGameplayViewNibName =	@"GameplayView";
 
@@ -66,30 +69,82 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 #pragma mark -
 #pragma mark Accessors
 
+#define PetriGameplayViewNewPieceBoxScaleFactor	0.3
+#define PetriGameplayViewContainerLayersSpacing	0.1
+
 - (void)setGame:(PetriGame*)newGame
 {
-	// Retrieve the background layer from the view
+	// Retrieve the background layer for the gameplay pane of the view
 	CALayer* backgroundLayer = [gameplayPane layer];
 	
 	// Remove all current sublayers
 	[backgroundLayer setSublayers:nil];
 	
-	// Create a layer for the game board
+	// Determine the aspect ratio for the board layer (based on the board's dimensions)
 	// FIXME: TESTING
-	PetriSquareGridBoardLayer* boardLayer = [[PetriSquareGridBoardLayer alloc] initWithBoard:(PetriSquareGridBoard*)[newGame board]];
-	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
-														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintMinX]];
-	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY
-														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintMaxY]];
-	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
-														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintWidth]];
+	PetriSquareGridBoard* board = (PetriSquareGridBoard*)[newGame board];
+	CGFloat boardRatio = ((CGFloat)[board width] / (CGFloat)[board height]);
+	
+	// Add space for the "new piece box" and player-info layers
+	CGFloat containerRatio = (boardRatio + PetriGameplayViewNewPieceBoxScaleFactor);
+	
+	// Create a fixed-aspect-ratio layer to contain the game-related layers
+	CALayer* containerLayer = [PetriAspectRatioLayer layerWithAspectRatio:containerRatio];
+	[containerLayer setBorderColor:CGColorGetConstantColor(kCGColorWhite)];	// FIXME: debug
+	[containerLayer setBorderWidth:1.0];	// FIXME: debug
+	[containerLayer addConstraintsFromSet:[CAConstraint superlayerLowerLeftCornerConstraintSet]];
+	[containerLayer addConstraintsFromSet:[CAConstraint superlayerSizeConstraintSet]];
+	
+	// Add a layout manager
+	[containerLayer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
+	
+	// Add the container to the background
+	[backgroundLayer addSublayer:containerLayer];
+	
+	// Create a layer for the game board
+	PetriSquareGridBoardLayer* boardLayer = [[PetriSquareGridBoardLayer alloc] initWithBoard:board];
+	[boardLayer setName:@"board"];
+	
+	// Anchor the board to the lower-left corner of the container
+	[boardLayer addConstraintsFromSet:[CAConstraint superlayerLowerLeftCornerConstraintSet]];
 	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
 														 relativeTo:@"superlayer"
 														  attribute:kCAConstraintHeight]];
-	[backgroundLayer addSublayer:boardLayer];
+	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+														 relativeTo:@"superlayer"
+														  attribute:kCAConstraintHeight
+															  scale:boardRatio
+															 offset:0]];
+	
+	// Add the board to the container layer
+	[containerLayer addSublayer:boardLayer];
+	
+	// Create a layer for the "next piece box"
+	CALayer* nextPieceBoxLayer = [PetriAspectRatioLayer squareLayer];
+	[nextPieceBoxLayer setName:@"next piece box"];
+	[nextPieceBoxLayer setBackgroundColor:CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0)]; // FIXME: debug
+	
+	// Anchor the next-piece box to the lower-right corner of the container
+	[nextPieceBoxLayer addConstraintsFromSet:[CAConstraint superlayerLowerRightCornerConstraintSet]];
+	[nextPieceBoxLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
+																relativeTo:@"superlayer"
+																 attribute:kCAConstraintHeight
+																	 scale:PetriGameplayViewNewPieceBoxScaleFactor
+																	offset:0]];
+	[nextPieceBoxLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+																relativeTo:@"superlayer"
+																 attribute:kCAConstraintHeight
+																	 scale:PetriGameplayViewNewPieceBoxScaleFactor
+																	offset:0]];
+	
+	// Add the next-piece box to the container layer
+	[containerLayer addSublayer:nextPieceBoxLayer];
+	
+	// Create "status box" layers for each player in the game
+	for (NSUInteger playerNum = 0; playerNum < [[newGame players] count]; playerNum++)
+	{
+		// FIXME: WRITEME
+	}
 	
 	// Hold a reference to the game object
 	game = newGame;
