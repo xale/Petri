@@ -1,5 +1,5 @@
 //
-//  PetriSquareGridBoardTest.h
+//  PetriSquareGridBoardTestCases.h
 //  Petri
 //
 //  Created by Paul Martin on 10/11/22.
@@ -8,8 +8,9 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+@class PetriSquareGridBoard;
 
-@interface PetriSquareGridBoardTest : SenTestCase
+@interface PetriSquareGridBoardTestCases : SenTestCase
 {
 
 }
