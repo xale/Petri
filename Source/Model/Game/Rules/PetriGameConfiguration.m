@@ -18,7 +18,6 @@ NSString* const PetriInvalidMinMaxPlayersExceptionDescriptionFormat =	@"Minimum 
 			  maxPlayers:(NSInteger)maxPlayerCount
 		pieceFrequencies:(NSDictionary*)pieces
 {
-
 	// Min players no greater than max players
 	if (minPlayerCount > maxPlayerCount)
 	{
