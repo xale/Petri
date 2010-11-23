@@ -9,16 +9,26 @@
 #import "PetriGridBoardTestCases.h"
 
 #import "PetriGridBoard.h"
+#import "PetriMockGridBoard.h"
+
 #import "PetriBoardLocation.h"
+
 #import "PetriPiece.h"
+
 #import "PetriPlayer.h"
+#import "PetriMockPlayer.h"
 
 @implementation PetriGridBoardTestCases
 
-- (void)testCreatePetriGridBoard
+- (void)setUp
 {
-	PetriGridBoard* testBoard = [[PetriGridBoard alloc] init];
-	STAssertNotNil(testBoard, @"PetriBoard object creation unsuccessful");
+	testGridBoard = [[PetriMockGridBoard alloc] init];
+	STAssertNotNil(testGridBoard, @"PetriMockGridBoard object creation unsuccessful");
+}
+
+- (void)tearDown
+{
+	testGridBoard = nil;
 }
 
 /*
@@ -34,8 +44,7 @@
 
 - (void)testCellAtLocation
 {
-	PetriGridBoard* testBoard = [[PetriGridBoard alloc] init];
-	STAssertNotNil([testBoard cellAtLocation:[PetriBoardLocation locationWithX:3 Y:2]], @"Could not retrieve a cell at location (3,2)");
+	STAssertNotNil([testGridBoard cellAtLocation:[PetriBoardLocation locationWithX:3 Y:2]], @"Could not retrieve a cell at location (3,2)");
 }
 
 @end

@@ -8,15 +8,14 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+@class PetriGridBoard;
 
 @interface PetriGridBoardTestCases : SenTestCase
 {
-
+	PetriGridBoard* testGridBoard;
 }
 
-- (void)testCreatePetriGridBoard;
-
+- (void)testPlacePiece;
 - (void)testCellAtLocation;
-
 
 @end
