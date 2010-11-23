@@ -12,6 +12,7 @@
 #import "PetriGameConfiguration.h"
 
 #import "PetriPlayer.h"
+#import "PetriUser.h"
 #import "PetriUserPlayer.h"
 #import "PetriAIPlayer.h"
 
@@ -53,7 +54,11 @@
 
 - (void)addUsersObject:(PetriUser*)user
 {
-	//FIXME: handle case of user already in users
+	if ([users containsObject:user])
+	{
+		NSString* reason = [NSString stringWithFormat:@"Attempted to add user \"%@\" to %@.", [user nickname], users];
+		[[NSException exceptionWithName:@"UserFoundWhenAddingException" reason:reason userInfo:nil] raise];
+	}
 	[self willChangeValueForKey:@"users"];
 	[users addObject:user];
 	[self didChangeValueForKey:@"users"];
@@ -61,6 +66,11 @@
 
 - (void)removeUsersObject:(PetriUser*)user
 {
+	if (![users containsObject:user])
+	{
+		NSString* reason = [NSString stringWithFormat:@"Attempted to remove user \"%@\" from %@.", [user nickname], users];
+		[[NSException exceptionWithName:@"UserNotFoundWhenRemovingException" reason:reason userInfo:nil] raise];
+	}
 	[self willChangeValueForKey:@"users"];
 	[users removeObject:user];
 	[self didChangeValueForKey:@"users"];

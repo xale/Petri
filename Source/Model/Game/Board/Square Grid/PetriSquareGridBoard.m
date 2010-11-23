@@ -12,6 +12,10 @@
 #import "PetriPiece.h"
 #import "Petri2DCoordinates.h"
 
+
+/*!
+ Private interface for PetriSquareGridBoard
+ */
 @interface PetriSquareGridBoard(Private)
 
 - (void)clearDeadCells;
@@ -195,7 +199,7 @@
 - (void)clearDeadCellsHelperWithStart:(PetriBoardCell*) start
 								  set:(NSMutableSet*) visited
 {
-	for (PetriBoardCell* cell in [self coordinatesFromCell:start])
+	for (PetriBoardCell* cell in [self coordinatesOfCell:start])
 	{
 		if ([cell owner] == [start owner])
 		{

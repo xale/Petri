@@ -33,8 +33,10 @@
 - (void)testRotateIdentities
 {
 	Petri2DCoordinates* coordinates2 = [coordinates rotatedClockwiseAboutOrigin];
-	Petri2DCoordinates* coordinates3 = [coordinates2 rotatedCounterclockwiseAboutOrigin];
-	STAssertEqualObjects(coordinates, coordinates3, @"Rotating clockwise then counterclockwise should result in identity.");
+	STAssertEqualObjects(coordinates, [coordinates2 rotatedCounterclockwiseAboutOrigin], @"Rotating clockwise then counterclockwise should result in identity.");
+	Petri2DCoordinates* coordinates3 = [coordinates2 rotatedClockwiseAboutOrigin];
+	Petri2DCoordinates* coordinates4 = [coordinates3 rotatedClockwiseAboutOrigin];
+	STAssertEqualObjects(coordinates, [coordinates4 rotatedClockwiseAboutOrigin], @"Rotating clockwise 4 times should result in identity.");
 }
 
 @end

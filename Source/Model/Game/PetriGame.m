@@ -36,6 +36,11 @@
 - (id)initWithPlayers:(NSArray*)playersInGame
 	gameConfiguration:(PetriGameConfiguration*)configuration
 {
+	if (playersInGame == nil || [playersInGame count] == 0)
+	{
+		NSString* reason = @"Attempted to create game with no players or nil players array";
+		[[NSException exceptionWithName:@"BadPlayersArrayException" reason:reason userInfo:nil] raise];
+	}
 	players = [playersInGame mutableCopy];
 	currentPlayer = [players objectAtIndex:0];
 	gameConfiguration = configuration;
@@ -59,7 +64,11 @@
 
 - (void)addPlayersObject:(PetriPlayer*)player
 {
-	//FIXME: Should probably handle case where player is already in array
+	if ([players containsObject:player])
+	{
+		NSString* reason = [NSString stringWithFormat:@"Attempted to add user %@ to %@.", player, players];
+		[[NSException exceptionWithName:@"PlayerFoundWhenAddingException" reason:reason userInfo:nil] raise];
+	}
 	[self willChangeValueForKey:@"player"];
 	[players addObject:player];
 	[self didChangeValueForKey:@"player"];
@@ -67,6 +76,11 @@
 
 - (void)removePlayersObject:(PetriPlayer*)player
 {
+	if (![players containsObject:player])
+	{
+		NSString* reason = [NSString stringWithFormat:@"Attempted to remove player %@ from %@.", player, players];
+		[[NSException exceptionWithName:@"PlayerNotFoundWhenRemovingException" reason:reason userInfo:nil] raise];
+	}
 	[self willChangeValueForKey:@"player"];
 	[players removeObject:player];
 	[self didChangeValueForKey:@"player"];

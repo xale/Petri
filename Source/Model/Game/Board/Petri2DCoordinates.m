@@ -11,6 +11,12 @@
 
 @implementation Petri2DCoordinates
 
+- (id)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
 - (id)initWithXCoordinate:(NSInteger)x
 			  yCoordinate:(NSInteger)y
 {

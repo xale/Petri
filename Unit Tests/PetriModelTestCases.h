@@ -15,4 +15,6 @@
 	PetriModel* testModel;
 }
 
+- (void)testCreateLocalGameGroup;
+
 @end
