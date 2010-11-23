@@ -31,6 +31,18 @@
 	
 	users = [NSMutableArray arrayWithObject:gameHost];
 	game = nil;
+	
+	// Create an array of colors for the players
+	// FIXME: hardcoded
+	playerColors = [NSArray arrayWithObjects:
+					[NSColor redColor],
+					[NSColor blueColor],
+					[NSColor greenColor],
+					[NSColor yellowColor],
+					[NSColor purpleColor],
+					[NSColor orangeColor],
+					nil];
+	
 	return self;
 }
 
@@ -56,15 +68,23 @@
 
 - (void)newGame
 {
+	// Create a list of players participating in the game
 	NSMutableArray* players = [NSMutableArray array];
-	for (PetriUser* user in users)
+	
+	// Add a player to the game representing each user in the group
+	for (NSUInteger playerNum = 0; playerNum < [users count]; playerNum++)
 	{
-		[players addObject:[[PetriUserPlayer alloc] initWithControllingUser:user]];
+		[players addObject:[[PetriUserPlayer alloc] initWithControllingUser:[users objectAtIndex:playerNum]
+																	  color:[playerColors objectAtIndex:playerNum]]];
 	}
-	for (NSInteger numPlayers = [players count]; numPlayers < [gameConfiguration minPlayers]; numPlayers = [players count])
+	
+	// Fill any remaining "player slots" in the game with AI players
+	for (NSInteger playerNum = [players count]; playerNum < [gameConfiguration minPlayers]; playerNum++)
 	{
-		[players addObject:[[PetriAIPlayer alloc] init]];
+		[players addObject:[[PetriAIPlayer alloc] initWithColor:[playerColors objectAtIndex:playerNum]]];
 	}
+	
+	// Create new game with the list of players and the currently-configured rules
 	[self setGame:[[PetriGame alloc] initWithPlayers:[players copy]
 								   gameConfiguration:gameConfiguration]];
 }
@@ -72,5 +92,6 @@
 @synthesize host;
 @synthesize gameConfiguration;
 @synthesize game;
+@synthesize playerColors;
 
 @end

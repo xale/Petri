@@ -13,7 +13,7 @@
 
 - (id)init
 {
-	if (![super init])
+	if (![super initWithColor:[NSColor redColor]])
 	{
 		return nil;
 	}

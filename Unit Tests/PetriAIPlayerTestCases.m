@@ -11,4 +11,14 @@
 
 @implementation PetriAIPlayerTestCases
 
+- (void)setUp
+{
+	testAIPlayer = [[PetriAIPlayer alloc] initWithColor:[NSColor redColor]];
+}
+
+- (void)tearDown
+{
+	testAIPlayer = nil;
+}
+
 @end

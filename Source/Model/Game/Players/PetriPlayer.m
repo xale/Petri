@@ -13,6 +13,12 @@
 
 - (id)init
 {
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
+- (id)initWithColor:(NSColor*)playerColor
+{
 	if ([self isMemberOfClass:[PetriPlayer class]])
 	{
 		[self doesNotRecognizeSelector:_cmd];
@@ -20,7 +26,7 @@
 	}
 	items = [NSMutableDictionary dictionary];
 	controlledCells = [NSMutableSet set];
-	color = nil;
+	color = [playerColor copy];
 	return self;
 }
 

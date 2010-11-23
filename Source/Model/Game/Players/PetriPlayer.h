@@ -23,6 +23,15 @@
 }
 
 /*!
+ Initializes a PetriPlayer object with the specified color for the represented player.
+ 
+ \warning Do not invoke directly; instantiate a subclass instead.
+ 
+ @param playerColor The new player's color.
+ */
+- (id)initWithColor:(NSColor*)playerColor;
+
+/*!
  Adds a cell to the list of cells controlled by the player.
 
  @param cell the PetriBoardCell that the player now controls

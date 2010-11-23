@@ -10,9 +10,16 @@
 
 @implementation PetriUserPlayer
 
-- (id)initWithControllingUser:(PetriUser*)user
+- (id)initWithColor:(NSColor*)playerColor
 {
-	if (![super init])
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
+- (id)initWithControllingUser:(PetriUser*)user
+						color:(NSColor*)playerColor
+{
+	if (![super initWithColor:playerColor])
 	{
 		return nil;
 	}

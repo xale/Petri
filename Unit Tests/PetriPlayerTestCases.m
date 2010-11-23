@@ -13,6 +13,7 @@
 #import "PetriItem.h"
 
 @implementation PetriPlayerTestCases
+
 - (void)setUp
 {
 	// Create a test instance

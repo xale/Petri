@@ -25,6 +25,7 @@
 	PetriUser* host;			/*!< User that created and manages this group. */
 	PetriGameConfiguration*	gameConfiguration;	/*!< Rules used for games played by this group. May be changed by the host. */
 	PetriGame* game;			/*!< Game in progress, if any. */
+	NSArray* playerColors;		/*!< The array of NSColors assigned to the players (in order) when the game begins. */
 }
 
 
@@ -57,5 +58,6 @@
 @property (readonly) PetriUser* host;
 @property (readwrite, assign) PetriGameConfiguration* gameConfiguration;
 @property (readwrite, assign) PetriGame* game;
+@property (readwrite, copy) NSArray* playerColors;
 
 @end

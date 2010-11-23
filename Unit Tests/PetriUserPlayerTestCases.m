@@ -18,7 +18,8 @@ NSString* const nickname = @"Xale";
 {
 	user = [[PetriUser alloc] initWithNickname:nickname];
 	STAssertNotNil(user, @"Failed in creation of a user");
-	player = [[PetriUserPlayer alloc] initWithControllingUser:user];
+	player = [[PetriUserPlayer alloc] initWithControllingUser:user
+														color:[NSColor redColor]];
 	STAssertNotNil(player, @"Failed in creation of a player");
 }
 

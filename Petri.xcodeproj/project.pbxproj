@@ -581,15 +581,6 @@
 			path = Superclass;
 			sourceTree = "<group>";
 		};
-		FADBA23E12985742001EA149 /* Mock Classes */ = {
-			isa = PBXGroup;
-			children = (
-				FADBA25612985795001EA149 /* PetriMockPlayer.h */,
-				FADBA25712985795001EA149 /* PetriMockPlayer.m */,
-			);
-			name = "Mock Classes";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
