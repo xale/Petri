@@ -14,6 +14,8 @@
 #import "PetriGame.h"
 #import "PetriSquareGridBoard.h"
 
+#import "PetriPlayer.h"
+
 #import "CALayer+ConstraintSets.h"
 
 NSString* const PetriGameplayViewNibName =	@"GameplayView";
@@ -107,7 +109,7 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	// Create a layer
 	CALayer* nextPieceBoxLayer = [CALayer layer];
 	[nextPieceBoxLayer setCornerRadius:8.0];
-	[nextPieceBoxLayer setBackgroundColor:CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0)]; // FIXME: debug
+	[nextPieceBoxLayer setBackgroundColor:CGColorCreateGenericRGB(1.0, 1.0, 1.0, 0.8)]; // FIXME: debug
 	
 	// Anchor the layer to the lower-right corner of its superlayer
 	[nextPieceBoxLayer addConstraintsFromSet:[CAConstraint superlayerLowerRightCornerConstraintSet]];
@@ -156,7 +158,10 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	{
 		CALayer* statusBoxLayer = [CALayer layer];
 		[statusBoxLayer setCornerRadius:8.0];
-		[statusBoxLayer setBackgroundColor:CGColorCreateGenericRGB((((playerNum == 0) || (playerNum == 3)) ? 1.0 : 0.0), (((playerNum == 2) || (playerNum == 3)) ? 1.0 : 0.0), ((playerNum == 1) ? 1.0 : 0.0), 1.0)]; // FIXME: debug
+		
+		// Color the layer according to the player's color
+		NSColor* playerColor = [[[newGame players] objectAtIndex:playerNum] color];
+		[statusBoxLayer setBackgroundColor:CGColorCreateGenericRGB([playerColor redComponent], [playerColor greenComponent], [playerColor blueComponent], 0.8)];	// FIXME: debug
 		
 		// Anchor the status box to the left edge of the container
 		[statusBoxLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
