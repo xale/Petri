@@ -95,10 +95,10 @@
 	{
 		for (int j = 0; j < height; j++)
 		{
-			if ([self cellAtX:i Y:j] == cell)
+			if ([[self cellAtX:i Y:j] isEqual:cell])
 			{
 				return [Petri2DCoordinates coordinatesWithXCoordinate:i
-									  yCoordinate:j];
+														  yCoordinate:j];
 			}
 		}
 	}
