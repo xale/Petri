@@ -8,6 +8,8 @@
 
 #import "PetriSquareGridBoardLayer.h"
 
+#import "PetriBoardCellLayer.h"
+
 #import "PetriSquareGridBoard.h"
 
 /*!
@@ -37,8 +39,6 @@
 #pragma mark -
 #pragma mark Sublayer Layout
 
-NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
-
 - (NSArray*)cellSublayersForSquareBoard:(PetriSquareGridBoard*)boardForCells
 {
 	// Create a two-dimensional array of cell sublayers for the cells on the board
@@ -51,18 +51,7 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 		for (NSInteger y = 0; y < [boardForCells height]; y++)
 		{	
 			// Create a new layer for each cell of the board, bound to properties of the appropriate cell of the board
-			// FIXME: TESTING
-			//PetriBoardCellLayer* newLayer = [PetriBoardCellLayer boardCellLayerBoundToCell:[boardForCells cellAtX:x Y:y]];
-			CALayer* newLayer = [CALayer layer];
-			
-			// Name the layer based on its location, for reference by the layout manager
-			[newLayer setName:[NSString stringWithFormat:PetriBoardCellNameFormat, x, y]];
-			
-			// FIXME: TESTING: add a background for visibility
-			[newLayer setBackgroundColor:CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0)];
-			
-			// Add the layer to the collection of cell layers
-			[newColumn addObject:newLayer];
+			PetriBoardCellLayer* newLayer = [PetriBoardCellLayer boardCellLayerBoundToCell:[boardForCells cellAtX:x Y:y]];
 			
 			// Add constraints on the layer's position and size
 			// Size: divide board layer equally, leaving a small amount of space between cells
@@ -88,6 +77,9 @@ NSString* const PetriBoardCellNameFormat =	@"cellAtX:%d Y:%d";
 																attribute:kCAConstraintHeight
 																	scale:((y + 0.5) / [boardForCells height])
 																   offset:0]];
+			
+			// Add the layer to the collection of cell layers
+			[newColumn addObject:newLayer];
 		}
 		
 		// Add each column to the collection of cell layers
