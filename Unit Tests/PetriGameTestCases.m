@@ -8,26 +8,26 @@
 
 #import "PetriGameTestCases.h"
 #import "PetriGame.h"
-#import "PetriAIPlayer.h"
+#import "PetriMockPlayer.h"
 #import "PetriGameConfiguration.h"
 
 @implementation PetriGameTestCases
 
 - (void)testCreatePetriGame
 {
-	PetriPlayer* testPlayer = [[PetriAIPlayer alloc] init];
+	PetriPlayer* testPlayer = [[PetriMockPlayer alloc] init];
 	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
 	PetriGame* testGame = [[PetriGame alloc] initWithPlayers:[NSArray arrayWithObject:testPlayer]
-												   gameConfiguration:testGameRules];
+										   gameConfiguration:testGameRules];
 	STAssertNotNil(testGame, @"Game object not created successfully");
 }
 
 - (void)testGameBoardNotNil
 {
-	PetriPlayer* testPlayer = [[PetriAIPlayer alloc] init];
+	PetriPlayer* testPlayer = [[PetriMockPlayer alloc] init];
 	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
 	PetriGame* testGame = [[PetriGame alloc] initWithPlayers:[NSArray arrayWithObject:testPlayer]
-												   gameConfiguration:testGameRules];
+										   gameConfiguration:testGameRules];
 	STAssertNotNil([testGame board], @"The board should never be nil");
 	
 }
@@ -35,18 +35,14 @@
 - (void)testGameBoardHandlesEmptyPlayersArray
 {
 	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
-	STAssertThrows([[PetriGame alloc] initWithPlayers:[NSArray array]
-											gameConfiguration:testGameRules],
-				   @"An exception was not thrown when PetriGame was initialized with an empty array");
+	STAssertThrows([[PetriGame alloc] initWithPlayers:[NSArray array] gameConfiguration:testGameRules], @"An exception was not thrown when PetriGame was initialized with an empty array");
 	
 }
 
 - (void)testGameBoardHandlesNilPlayersArray
 {
 	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
-	STAssertThrows([[PetriGame alloc] initWithPlayers:nil
-											gameConfiguration:testGameRules],
-				   @"An exception was not thrown when PetriGame was initialized with a nil array");
+	STAssertThrows([[PetriGame alloc] initWithPlayers:nil gameConfiguration:testGameRules], @"An exception was not thrown when PetriGame was initialized with a nil array");
 	
 }
 
