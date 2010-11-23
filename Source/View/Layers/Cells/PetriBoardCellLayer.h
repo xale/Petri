@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class PetriBoardCell;
+
 /*!
  \brief A CALayer subclass used to display a PetriBoardCell.
  
@@ -15,7 +17,23 @@
  */
 @interface PetriBoardCellLayer : CALayer
 {
-	
+	PetriBoardCell* cell;	/*!< The cell for which this layer provides a graphical representation. */
 }
+
+/*!
+ Creates a new PetriBoardCellLayer with display attributes bound to the appropriate properties of the specified PetriBoardCell.
+ 
+ @param displayedCell The PetriBoardCell that this layer will represent.
+ */
++ (id)boardCellLayerBoundToCell:(PetriBoardCell*)displayedCell;
+
+/*!
+ Initializes a PetriBoardCellLayer by binding various display attributes to appropriate properties of the specified PetriBoardCell.
+ 
+ @param displayedCell The PetriBoardCell that this layer will represent.
+ */
+- (id)initBoundToCell:(PetriBoardCell*)displayedCell;
+
+@property (readonly) PetriBoardCell* cell;
 
 @end
