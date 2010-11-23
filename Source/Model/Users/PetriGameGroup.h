@@ -53,10 +53,7 @@
  */
 - (void)newGame;
 
-/*!
- Returns a readonly copy of the users array.
- */
-@property (readonly) NSArray* users;
+@property (readonly) NSArray* users;	/*!< A read-only property for accessing the users list. */
 @property (readonly) PetriUser* host;
 @property (readwrite, assign) PetriGameConfiguration* gameConfiguration;
 @property (readwrite, assign) PetriGame* game;
