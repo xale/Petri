@@ -13,10 +13,10 @@
 
 - (void)setUp
 {
-	coordinates = [Petri2DCoordinates coordinatesWithHorizontalCoordinate:2 verticalCoordinate:3];
+	coordinates = [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:3];
 	STAssertNotNil(coordinates, @"Petri2DCoordinates failed to allocate.");
-	STAssertTrue(2 == [coordinates horizontalCoordinate], @"x coordinate set incorrectly");
-	STAssertTrue(3 == [coordinates verticalCoordinate], @"y coordinate set incorrectly");
+	STAssertTrue(2 == [coordinates xCoordinate], @"x coordinate set incorrectly");
+	STAssertTrue(3 == [coordinates yCoordinate], @"y coordinate set incorrectly");
 }
 
 - (void)tearDown
@@ -28,7 +28,7 @@
 {
 	Petri2DCoordinates* coordinates2 = [coordinates rotatedClockwise];
 	Petri2DCoordinates* coordinates3 = [coordinates2 rotatedCounterClockwise];
-	STAssertTrue([coordinates3 horizontalCoordinate] == [coordinates horizontalCoordinate] && [coordinates3 verticalCoordinate] == [coordinates3 verticalCoordinate], @"Rotating clockwise then counterclockwise should result in identity.");
+	STAssertTrue([coordinates3 xCoordinate] == [coordinates xCoordinate] && [coordinates3 yCoordinate] == [coordinates3 yCoordinate], @"Rotating clockwise then counterclockwise should result in identity.");
 }
 
 @end

@@ -14,10 +14,10 @@
 - (id)init
 {
 	cellLocations = [NSSet setWithObjects:
-					 [Petri2DCoordinates coordinatesWithHorizontalCoordinate:0 verticalCoordinate:0],
-					 [Petri2DCoordinates coordinatesWithHorizontalCoordinate:0 verticalCoordinate:1],
-					 [Petri2DCoordinates coordinatesWithHorizontalCoordinate:1 verticalCoordinate:1],
-					 [Petri2DCoordinates coordinatesWithHorizontalCoordinate:1 verticalCoordinate:2],
+					 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+					 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+					 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
+					 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
 					 nil];
 	return self;
 }

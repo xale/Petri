@@ -8,23 +8,22 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface Petri2DCoordinates : NSObject
 {
-	NSInteger horizontalCoordinate;
-	NSInteger verticalCoordinate;
+	NSInteger xCoordinate;
+	NSInteger yCoordinate;
 }
 
-- (id)initWithHorizontalCoordinate:(NSInteger)x
-				verticalCoordinate:(NSInteger)y;
+- (id)initWithXCoordinate:(NSInteger)x
+			  yCoordinate:(NSInteger)y;
 
-+ (id)coordinatesWithHorizontalCoordinate:(NSInteger)x
-					   verticalCoordinate:(NSInteger)y;
++ (id)coordinatesWithXCoordinate:(NSInteger)x
+					 yCoordinate:(NSInteger)y;
 
 - (Petri2DCoordinates*)rotatedClockwise;
 - (Petri2DCoordinates*)rotatedCounterClockwise;
 
-@property (readonly) NSInteger horizontalCoordinate;
-@property (readonly) NSInteger verticalCoordinate;
+@property (readonly) NSInteger xCoordinate;
+@property (readonly) NSInteger yCoordinate;
 
 @end

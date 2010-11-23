@@ -11,30 +11,30 @@
 
 @implementation Petri2DCoordinates
 
-- (id)initWithHorizontalCoordinate:(NSInteger)x
-				verticalCoordinate:(NSInteger)y
+- (id)initWithXCoordinate:(NSInteger)x
+			  yCoordinate:(NSInteger)y
 {
-	horizontalCoordinate = x;
-	verticalCoordinate = y;
+	xCoordinate = x;
+	yCoordinate = y;
 	return self;
 }
 
-+ (id)coordinatesWithHorizontalCoordinate:(NSInteger)x
-					   verticalCoordinate:(NSInteger)y
++ (id)coordinatesWithXCoordinate:(NSInteger)x
+					 yCoordinate:(NSInteger)y
 {
-	return [[Petri2DCoordinates alloc] initWithHorizontalCoordinate:x verticalCoordinate:y];
+	return [[self alloc] initWithXCoordinate:x yCoordinate:y];
 }
 
 - (Petri2DCoordinates*)rotatedClockwise
 {
-	return [Petri2DCoordinates coordinatesWithHorizontalCoordinate:[self verticalCoordinate] verticalCoordinate:-[self horizontalCoordinate]];
+	return [Petri2DCoordinates coordinatesWithXCoordinate:[self yCoordinate] yCoordinate:-[self xCoordinate]];
 }
 - (Petri2DCoordinates*)rotatedCounterClockwise
 {
-	return [Petri2DCoordinates coordinatesWithHorizontalCoordinate:-[self verticalCoordinate] verticalCoordinate:[self horizontalCoordinate]];
+	return [Petri2DCoordinates coordinatesWithXCoordinate:-[self yCoordinate] yCoordinate:[self xCoordinate]];
 }
 
-@synthesize verticalCoordinate;
-@synthesize horizontalCoordinate;
+@synthesize yCoordinate;
+@synthesize xCoordinate;
 
 @end

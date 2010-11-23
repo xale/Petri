@@ -54,8 +54,8 @@
 	
 	//Add and subtract 1 to x and y
 	//Throw out negatives or things outside of bounds
-	NSInteger x = [location horizontalCoordinate];
-	NSInteger y = [location verticalCoordinate];
+	NSInteger x = [location xCoordinate];
+	NSInteger y = [location yCoordinate];
 	
 	if ((x - 1) >= 0)
 	{
@@ -83,8 +83,8 @@
 	
 	//Add and subtract 1 to x and y
 	//Throw out negatives or things outside of bounds
-	NSInteger x = [location horizontalCoordinate];
-	NSInteger y = [location verticalCoordinate];
+	NSInteger x = [location xCoordinate];
+	NSInteger y = [location yCoordinate];
 	
 	// Add laterally-adjacent cells
 	[adjacentCells unionSet:[self placementCellsAdjacentToLocation:location]];

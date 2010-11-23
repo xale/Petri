@@ -61,8 +61,8 @@
 	for (Petri2DCoordinates* pieceLocation in [piece cellLocations])
 	{
 		// Find the cell located at (piece origin) + (location offset)
-		PetriBoardCell* cell = [self cellAtX:([pieceLocation horizontalCoordinate] + [cellLocation horizontalCoordinate])
-										   Y:([pieceLocation verticalCoordinate] + [cellLocation verticalCoordinate])];
+		PetriBoardCell* cell = [self cellAtX:([pieceLocation xCoordinate] + [cellLocation xCoordinate])
+										   Y:([pieceLocation yCoordinate] + [cellLocation yCoordinate])];
 		
 		// Create a body cell for the piece's owner
 		[cell setOwner:player];
@@ -80,8 +80,8 @@
 
 - (PetriBoardCell*)cellAtLocation:(Petri2DCoordinates*)location
 {
-	return [self cellAtX:[location horizontalCoordinate]
-					   Y:[location verticalCoordinate]];
+	return [self cellAtX:[location xCoordinate]
+					   Y:[location yCoordinate]];
 }
 
 - (PetriBoardCell*)cellAtX:(NSInteger)x
