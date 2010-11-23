@@ -12,10 +12,26 @@
 #import "PetriSquareGridBoard.h"
 #import "PetriPiece.h"
 
+/*!
+ Private methods for PetriGame
+ */
+@interface PetriGame(Private)
+
+/*!
+ Updates the value of current piece randomly based on the distribution provided at initialization.
+ */
+- (void)nextPiece;
+
+/*!
+ Updates the value of the player looping over the array;
+ */
+- (void)nextPlayer;
+
+@end
+
+
 @implementation PetriGame
 
-#pragma mark -
-#pragma mark Accessors
 
 - (id)initWithPlayers:(NSArray*)playersInGame
 	gameConfiguration:(PetriGameConfiguration*)configuration
@@ -27,6 +43,19 @@
 												 height:20]; // FIXME: generate board from game configuration
 	return self;
 }
+
+- (void)nextTurn
+{
+	[self willChangeValueForKey:@"currentPiece"];
+	[self willChangeValueForKey:@"currentPlayer"];
+	[self nextPlayer];
+	[self nextPiece];
+	[self didChangeValueForKey:@"currentPlayer"];
+	[self didChangeValueForKey:@"currentPiece"];
+}
+
+#pragma mark -
+#pragma mark Accessors
 
 - (void)addPlayersObject:(PetriPlayer*)player
 {
@@ -80,6 +109,22 @@
 		}
 	}
 	currentPiece = [pieces objectAtIndex:(random() % accum)];
+}
+
+- (void)nextPlayer
+{
+	//N.B. Assumes that there are no duplicate player objects.
+	
+	NSUInteger index = [players indexOfObject:currentPlayer];
+	NSUInteger nextIndex = index + 1;
+	if (nextIndex < [players count])
+	{
+		currentPlayer = [players objectAtIndex:nextIndex];
+	}
+	else
+	{
+		currentPlayer = [players objectAtIndex:0];
+	}
 }
 
 - (NSArray*)players

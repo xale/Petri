@@ -46,9 +46,9 @@
 - (void)addPlayersObject:(PetriPlayer*)player;
 
 /*!
- Updates the value of current piece randomly based on the distribution provided at initialization.
+ Updates the value of the current piece and the current player.
  */
-- (void)nextPiece;
+- (void)nextTurn;
 
 /*!
  Returns an immutable copy of players.
