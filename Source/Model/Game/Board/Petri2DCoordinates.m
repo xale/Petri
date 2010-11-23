@@ -31,6 +31,24 @@
 	return [[self alloc] initWithXCoordinate:x yCoordinate:y];
 }
 
+#pragma mark -
+#pragma mark Offsets
+
+- (Petri2DCoordinates*)offsetCoordinates:(Petri2DCoordinates*)offset
+{
+	return [self offsetCoordinatesByX:[offset xCoordinate]
+									Y:[offset yCoordinate]];
+}
+
+- (Petri2DCoordinates*)offsetCoordinatesByX:(NSInteger)xOffset Y:(NSInteger)yOffset
+{
+	return [[self class] coordinatesWithXCoordinate:([self xCoordinate] + xOffset)
+										yCoordinate:([self yCoordinate] + yOffset)];
+}
+
+#pragma mark -
+#pragma mark Rotations
+
 - (Petri2DCoordinates*)rotatedClockwiseAboutOrigin
 {
 	return [[self class] coordinatesWithXCoordinate:[self yCoordinate] yCoordinate:-[self xCoordinate]];

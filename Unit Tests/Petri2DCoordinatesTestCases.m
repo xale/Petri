@@ -30,6 +30,27 @@
 	STAssertTrue([coordinates isEqual:coordinates], @"Comparison with self returned false");
 }
 
+#define NUM_OFFSET_TESTS 9
+
+- (void)testOffsetIdentities
+{
+	NSInteger offsets[NUM_OFFSET_TESTS][2] = {
+		{-1,  1}, { 0,  1}, { 1,  1},
+		{-1,  0}, { 0,  0}, { 0,  1},
+		{-1, -1}, { 0, -1}, {-1,  1}
+	};
+	
+	Petri2DCoordinates* forwardOffset = nil, * reverseOffset = nil;
+	for (NSUInteger offsetIndex = 0; offsetIndex < NUM_OFFSET_TESTS; offsetIndex++)
+	{
+		forwardOffset = [coordinates offsetCoordinatesByX:(offsets[offsetIndex][0])
+														Y:(offsets[offsetIndex][1])];
+		reverseOffset = [forwardOffset offsetCoordinatesByX:(0 - offsets[offsetIndex][0])
+														  Y:(0 - offsets[offsetIndex][1])];
+		STAssertEqualObjects(coordinates, reverseOffset, @"Offsetting by (%d, %d) did not revert to original coordinates after reverse offset", offsets[offsetIndex][0], offsets[offsetIndex][1]);
+	}
+}
+
 - (void)testRotateIdentities
 {
 	Petri2DCoordinates* coordinates2 = [coordinates rotatedClockwiseAboutOrigin];

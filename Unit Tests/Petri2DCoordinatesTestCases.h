@@ -15,6 +15,7 @@
 }
 
 - (void)testIdentityComparison;
+- (void)testOffsetIdentities;
 - (void)testRotateIdentities;
 
 @end

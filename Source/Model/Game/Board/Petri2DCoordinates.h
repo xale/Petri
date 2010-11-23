@@ -41,6 +41,22 @@
 					 yCoordinate:(NSInteger)y;
 
 /*!
+ Returns a copy of the reciever with its coordinate values offset by the specified coordinate values.
+ 
+ @param offset The x- and y-amounts to offset the resulting coordinates.
+ */
+- (Petri2DCoordinates*)offsetCoordinates:(Petri2DCoordinates*)offset;
+
+/*!
+ Returns a copy of the reciever with its coordinate values offset by the specified coordinate values.
+ 
+ @param xOffset The amount by which to offset the x-coordinate from the receiver.
+ @param yOffset The amount by which to offset the y-coordinate from the receiver.
+*/
+- (Petri2DCoordinates*)offsetCoordinatesByX:(NSInteger)xOffset
+										  Y:(NSInteger)yOffset;
+
+/*!
  Returns a point that is the rotation of this one clockwise around the origin.
  */
 - (Petri2DCoordinates*)rotatedClockwiseAboutOrigin;
