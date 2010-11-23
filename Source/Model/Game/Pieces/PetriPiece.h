@@ -54,4 +54,16 @@
 
 @property (readonly) NSSet* cellCoordinates;
 
+/**
+ Return the width of the piece
+ @return width as NSInteger
+ */
+- (NSInteger)width;
+
+/**
+ Return the height of the piece
+ @return height as NSInteger
+ */
+- (NSInteger)height;
+
 @end

@@ -61,6 +61,34 @@
 #pragma mark -
 #pragma mark Accessors
 
+- (NSInteger)width
+{
+	NSInteger xCoordinate = 0;
+	for (Petri2DCoordinates* cell in cellCoordinates)
+	{
+		if ([cell xCoordinate] > xCoordinate)
+		{
+			xCoordinate = [cell xCoordinate];
+		}
+	}
+	
+	return xCoordinate;
+}
+
+- (NSInteger)height
+{
+	NSInteger yCoordinate = 0;
+	for (Petri2DCoordinates* cell in cellCoordinates)
+	{
+		if ([cell yCoordinate] > yCoordinate)
+		{
+			yCoordinate = [cell yCoordinate];
+		}
+	}
+	
+	return yCoordinate;
+}
+
 @synthesize cellCoordinates;
 
 @end
