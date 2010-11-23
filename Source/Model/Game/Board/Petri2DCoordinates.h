@@ -20,8 +20,8 @@
 + (id)coordinatesWithXCoordinate:(NSInteger)x
 					 yCoordinate:(NSInteger)y;
 
-- (Petri2DCoordinates*)rotatedClockwise;
-- (Petri2DCoordinates*)rotatedCounterClockwise;
+- (Petri2DCoordinates*)rotatedClockwiseAboutOrigin;
+- (Petri2DCoordinates*)rotatedCounterclockwiseAboutOrigin;
 
 @property (readonly) NSInteger xCoordinate;
 @property (readonly) NSInteger yCoordinate;

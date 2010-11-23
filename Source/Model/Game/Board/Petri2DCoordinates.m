@@ -25,11 +25,11 @@
 	return [[self alloc] initWithXCoordinate:x yCoordinate:y];
 }
 
-- (Petri2DCoordinates*)rotatedClockwise
+- (Petri2DCoordinates*)rotatedClockwiseAboutOrigin
 {
 	return [Petri2DCoordinates coordinatesWithXCoordinate:[self yCoordinate] yCoordinate:-[self xCoordinate]];
 }
-- (Petri2DCoordinates*)rotatedCounterClockwise
+- (Petri2DCoordinates*)rotatedCounterclockwiseAboutOrigin
 {
 	return [Petri2DCoordinates coordinatesWithXCoordinate:-[self yCoordinate] yCoordinate:[self xCoordinate]];
 }

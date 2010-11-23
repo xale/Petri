@@ -33,7 +33,7 @@
 	NSMutableSet* newLocations = [NSMutableSet setWithCapacity:[cellLocations count]];
 	for (Petri2DCoordinates* location in cellLocations)
 	{
-		[newLocations addObject:[location rotatedClockwise]];
+		[newLocations addObject:[location rotatedClockwiseAboutOrigin]];
 	}
 	
 	return [[PetriPiece alloc] initWithCellLocations:[newLocations copy]];
@@ -44,7 +44,7 @@
 	NSMutableSet* newLocations = [NSMutableSet setWithCapacity:[cellLocations count]];
 	for (Petri2DCoordinates* location in cellLocations)
 	{
-		[newLocations addObject:[location rotatedCounterClockwise]];
+		[newLocations addObject:[location rotatedCounterclockwiseAboutOrigin]];
 	}
 	
 	return [[PetriPiece alloc] initWithCellLocations:[newLocations copy]];

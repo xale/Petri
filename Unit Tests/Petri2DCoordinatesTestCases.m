@@ -26,8 +26,8 @@
 
 - (void)testRotateIdentities
 {
-	Petri2DCoordinates* coordinates2 = [coordinates rotatedClockwise];
-	Petri2DCoordinates* coordinates3 = [coordinates2 rotatedCounterClockwise];
+	Petri2DCoordinates* coordinates2 = [coordinates rotatedClockwiseAboutOrigin];
+	Petri2DCoordinates* coordinates3 = [coordinates2 rotatedCounterclockwiseAboutOrigin];
 	STAssertTrue([coordinates3 xCoordinate] == [coordinates xCoordinate] && [coordinates3 yCoordinate] == [coordinates3 yCoordinate], @"Rotating clockwise then counterclockwise should result in identity.");
 }
 
