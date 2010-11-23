@@ -24,11 +24,17 @@
 	coordinates = nil;
 }
 
+- (void)testIdentityComparison
+{
+	STAssertTrue([coordinates isEqualToCoordinates:coordinates], @"Comparison with self returned false");
+	STAssertTrue([coordinates isEqual:coordinates], @"Comparison with self returned false");
+}
+
 - (void)testRotateIdentities
 {
 	Petri2DCoordinates* coordinates2 = [coordinates rotatedClockwiseAboutOrigin];
 	Petri2DCoordinates* coordinates3 = [coordinates2 rotatedCounterclockwiseAboutOrigin];
-	STAssertTrue([coordinates3 xCoordinate] == [coordinates xCoordinate] && [coordinates3 yCoordinate] == [coordinates3 yCoordinate], @"Rotating clockwise then counterclockwise should result in identity.");
+	STAssertEqualObjects(coordinates, coordinates3, @"Rotating clockwise then counterclockwise should result in identity.");
 }
 
 @end

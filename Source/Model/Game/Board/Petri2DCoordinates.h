@@ -23,6 +23,8 @@
 - (Petri2DCoordinates*)rotatedClockwiseAboutOrigin;
 - (Petri2DCoordinates*)rotatedCounterclockwiseAboutOrigin;
 
+- (BOOL)isEqualToCoordinates:(Petri2DCoordinates*)coordinates;
+
 @property (readonly) NSInteger xCoordinate;
 @property (readonly) NSInteger yCoordinate;
 

@@ -450,6 +450,8 @@
 			isa = PBXGroup;
 			children = (
 				6AA28D11129B76DB006FDE1F /* Mock Classes */,
+				FA591ACA129B906600210502 /* Petri2DCoordinatesTestCases.h */,
+				FA591ACB129B906600210502 /* Petri2DCoordinatesTestCases.m */,
 				6AEF227612763160008D8828 /* PetriAIPlayerTestCases.h */,
 				6AEF227712763160008D8828 /* PetriAIPlayerTestCases.m */,
 				64C7E6691278F1F800B040F8 /* PetriBoardCellTestCases.h */,
@@ -476,8 +478,6 @@
 				6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */,
 				6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */,
 				6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */,
-				FA591ACA129B906600210502 /* Petri2DCoordinatesTestCases.h */,
-				FA591ACB129B906600210502 /* Petri2DCoordinatesTestCases.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
