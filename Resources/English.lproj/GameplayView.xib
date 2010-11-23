@@ -58,7 +58,7 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrameSize">{800, 479}</string>
 						<reference key="NSSuperview" ref="733312337"/>
-						<string key="NSClassName">PetriNoLayerResizeAnimationView</string>
+						<string key="NSClassName">PetriGameplayView</string>
 					</object>
 					<object class="BWCustomView" id="377071890">
 						<reference key="NSNextResponder" ref="733312337"/>
@@ -101,7 +101,7 @@
 														<string>public.url</string>
 													</object>
 												</object>
-												<string key="NSFrameSize">{743, 45}</string>
+												<string key="NSFrameSize">{743, 60}</string>
 												<reference key="NSSuperview" ref="533715093"/>
 												<object class="NSTextContainer" key="NSTextContainer" id="480514471">
 													<object class="NSLayoutManager" key="NSLayoutManager">
@@ -729,6 +729,14 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
+					<string key="className">PetriGameplayView</string>
+					<string key="superclassName">PetriNoLayerResizeAnimationView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Source/View/Views/PetriGameplayView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">PetriGameplayViewController</string>
 					<string key="superclassName">PetriMainWindowViewController</string>
 					<object class="NSMutableDictionary" key="actions">
@@ -774,7 +782,7 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSView</string>
-							<string>NSView</string>
+							<string>PetriGameplayView</string>
 							<string>NSSplitView</string>
 						</object>
 					</object>
@@ -794,7 +802,7 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">gameplayPane</string>
-								<string key="candidateClassName">NSView</string>
+								<string key="candidateClassName">PetriGameplayView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">panesSplitView</string>
@@ -820,7 +828,7 @@
 					<string key="superclassName">NSView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Source/View/PetriNoLayerResizeAnimationView.h</string>
+						<string key="minorKey">Source/View/Views/PetriNoLayerResizeAnimationView.h</string>
 					</object>
 				</object>
 			</object>
