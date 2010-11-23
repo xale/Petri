@@ -70,9 +70,8 @@
  * Returns a location for a given cell
  * @param cell cell on board to return the location
  * @return location at given location
- */- (Petri2DCoordinates*)coordinatesFromCell:(PetriBoardCell*)cell;
-
-
+ */
+- (Petri2DCoordinates*)coordinatesOfCell:(PetriBoardCell*)cell;
 
 /**
  * Runs every time a piece is placed and performs all captures that are possible

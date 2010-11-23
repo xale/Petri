@@ -135,11 +135,11 @@
 						{
 							NSMutableSet* capturableCells = [[NSMutableSet alloc] init];
 							
-							NSInteger currentX = [[self coordinatesFromCell:current] xCoordinate];
-							NSInteger cellX = [[self coordinatesFromCell:cell] xCoordinate];
+							NSInteger currentX = [[self coordinatesOfCell:current] xCoordinate];
+							NSInteger cellX = [[self coordinatesOfCell:cell] xCoordinate];
 							
-							NSInteger currentY = [[self coordinatesFromCell:current] yCoordinate];
-							NSInteger cellY = [[self coordinatesFromCell:cell] yCoordinate];
+							NSInteger currentY = [[self coordinatesOfCell:current] yCoordinate];
+							NSInteger cellY = [[self coordinatesOfCell:cell] yCoordinate];
 							
 							NSInteger deltaX = currentX - cellX;
 							NSInteger deltaY = currentY - cellY;

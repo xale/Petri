@@ -90,7 +90,7 @@
 	return [[cells objectAtIndex:x] objectAtIndex:y];
 }
 
-- (Petri2DCoordinates*)coordinatesFromCell:(PetriBoardCell*)cell
+- (Petri2DCoordinates*)coordinatesOfCell:(PetriBoardCell*)cell
 {
 	for (int i = 0; i < width; i++)
 	{
