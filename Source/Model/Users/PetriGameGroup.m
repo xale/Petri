@@ -27,7 +27,7 @@
 	// FIXME: default values, for testing
 	gameConfiguration = [[PetriGameConfiguration alloc] initWithMinPlayers:2
 																maxPlayers:4
-														  pieceFrequencies:nil]; // FIXME: should not be nil
+														  pieceFrequencies:nil];
 	
 	users = [NSMutableArray arrayWithObject:gameHost];
 	game = nil;
