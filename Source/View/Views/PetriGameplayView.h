@@ -23,11 +23,11 @@
  */
 @interface PetriGameplayView : PetriNoLayerResizeAnimationView
 {
-	id <PetriGameplayViewDelegate> delegate;	/*!< The delegate object which this view will talk to when attempting to modify the model. */
+	IBOutlet id <PetriGameplayViewDelegate> delegate;	/*!< The delegate object which this view will talk to when attempting to modify the model. */
 	PetriGame* game;	/*!< The model Game object for which this view draws a representation. */
 }
 
-@property (readwrite, assign) id<PetriGameplayViewDelegate> delegate;
+@property (readwrite, assign) IBOutlet id<PetriGameplayViewDelegate> delegate;
 @property (readwrite, assign) PetriGame* game;
 
 @end
@@ -62,7 +62,7 @@
  @param board The board on which to place the piece.
  */
 - (void)gameplayView:(PetriGameplayView*)gameplayView
-	   didPlacePiece:(PetriPiece*)piece
+		  placePiece:(PetriPiece*)piece
 		   forPlayer:(PetriPlayer*)pieceOwner
 	   atCoordinates:(Petri2DCoordinates*)coordinates
 			 onBoard:(PetriGridBoard*)board;
