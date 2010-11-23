@@ -25,7 +25,7 @@
 	host = gameHost;
 	
 	// FIXME: default values, for testing
-	gameConfiguration = [[PetriGameConfiguration alloc] initWithMinPlayers:4
+	gameConfiguration = [[PetriGameConfiguration alloc] initWithMinPlayers:2
 																maxPlayers:4
 														  pieceFrequencies:nil]; // FIXME: should not be nil
 	
