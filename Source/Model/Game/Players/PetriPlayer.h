@@ -19,6 +19,7 @@
 {
 	NSMutableDictionary* items;		/*!< The items currently possessed by the player. Maps PetriItem to NSNumber; i.e., item type to quantity. */
 	NSMutableSet* controlledCells;	/*!< The set of cells curently controlled by the player. */
+	NSColor* color; /*!< The player's color. */
 }
 
 /*!
@@ -58,8 +59,6 @@
  */
 @property (readonly) NSDictionary* items;
 
-/*!
- The player's color.
- */
 @property (readwrite, copy) NSColor* color;
+
 @end
