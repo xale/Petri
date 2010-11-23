@@ -27,11 +27,11 @@
 
 - (Petri2DCoordinates*)rotatedClockwiseAboutOrigin
 {
-	return [Petri2DCoordinates coordinatesWithXCoordinate:[self yCoordinate] yCoordinate:-[self xCoordinate]];
+	return [[self class] coordinatesWithXCoordinate:[self yCoordinate] yCoordinate:-[self xCoordinate]];
 }
 - (Petri2DCoordinates*)rotatedCounterclockwiseAboutOrigin
 {
-	return [Petri2DCoordinates coordinatesWithXCoordinate:-[self yCoordinate] yCoordinate:[self xCoordinate]];
+	return [[self class] coordinatesWithXCoordinate:-[self yCoordinate] yCoordinate:[self xCoordinate]];
 }
 
 @synthesize yCoordinate;
