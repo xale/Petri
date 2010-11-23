@@ -106,10 +106,20 @@
 	return nil;
 }
 
+- (NSSet*)placementCellsAdjacentToCell:(PetriBoardCell*)cell
+{
+	return [self placementCellsAdjacentToCoordinates:[self coordinatesOfCell:cell]];
+}
+
 - (NSSet*)placementCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
+}
+
+- (NSSet*)capturableCellsAdjacentToCell:(PetriBoardCell*)cell
+{
+	return [self capturableCellsAdjacentToCoordinates:[self coordinatesOfCell:cell]];
 }
 
 - (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
