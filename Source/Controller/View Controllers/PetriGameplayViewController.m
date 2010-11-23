@@ -66,9 +66,9 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	   atCoordinates:(Petri2DCoordinates*)coordinates
 		 onGridBoard:(PetriGridBoard*)board
 {
-	return [board isValidPlacementForPiece:piece
-								atLocation:coordinates
-								withPlayer:pieceOwner];
+	return [board validatePlacementOfPiece:piece
+								 withOwner:pieceOwner
+							 atCoordinates:coordinates];
 }
 
 - (void)gameplayView:(PetriGameplayView*)gameplayView
@@ -79,8 +79,8 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 {
 	// FIXME: naive implementation
 	[board placePiece:piece
-		   atLocation:coordinates
-			withOwner:pieceOwner];
+		   withOwner:pieceOwner
+		atCoordinates:coordinates];
 }
 
 #pragma mark -

@@ -54,15 +54,14 @@
 }
 
 - (void)placePiece:(PetriPiece*)piece
-		atLocation:(Petri2DCoordinates*)cellLocation
 		 withOwner:(PetriPlayer*)player
+	 atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
 	// Iterate over location-offsets in the piece
-	for (Petri2DCoordinates* pieceLocation in [piece cellCoordinates])
+	for (Petri2DCoordinates* cellLocation in [piece cellCoordinates])
 	{
 		// Find the cell located at (piece origin) + (location offset)
-		PetriBoardCell* cell = [self cellAtX:([pieceLocation xCoordinate] + [cellLocation xCoordinate])
-										   Y:([pieceLocation yCoordinate] + [cellLocation yCoordinate])];
+		PetriBoardCell* cell = [self cellAtLocation:[pieceOrigin offsetCoordinates:cellLocation]];
 		
 		// Create a body cell for the piece's owner
 		[cell setOwner:player];
@@ -70,9 +69,9 @@
 	}
 }
 
-- (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
-					  atLocation:(Petri2DCoordinates*)location
-					  withPlayer:(PetriPlayer*)player;
+- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+					   withOwner:(PetriPlayer*)pieceOwner
+				   atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return FALSE;

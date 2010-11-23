@@ -25,14 +25,12 @@
 
 @implementation PetriSquareGridBoard
 
-- (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
-					  atLocation:(Petri2DCoordinates*)location
-					  withPlayer:(PetriPlayer*)player
+- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+					   withOwner:(PetriPlayer*)pieceOwner
+				   atCoordinates:(Petri2DCoordinates*)location
 {
-	NSSet* cellLocations = [piece cellCoordinates];
-	
 	//If any of the cells to be covered by the body are occupied, then we cannot place a piece there
-	for (Petri2DCoordinates* location in cellLocations)
+	for (Petri2DCoordinates* location in [piece cellCoordinates])
 	{
 		PetriBoardCell* cell = [self cellAtLocation:location];
 		
@@ -43,20 +41,20 @@
 	}
 	
 	//We now check the adjacency of each location and as long as we find one then we can return
-	for (Petri2DCoordinates* location in cellLocations)
+	for (Petri2DCoordinates* location in [piece cellCoordinates])
 	{		
 		NSSet* adjacencies = [self placementCellsAdjacentToLocation:location];
 		
 		for (PetriBoardCell* cell in adjacencies)
 		{
-			if ([cell owner] == player)
+			if ([cell owner] == pieceOwner)
 			{
 				return TRUE;
 			}
 		}
 	}
 	
-	return false;
+	return FALSE;
 }
 
 - (NSSet*)placementCellsAdjacentToLocation:(Petri2DCoordinates*)location

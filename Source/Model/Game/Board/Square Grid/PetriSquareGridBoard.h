@@ -31,13 +31,13 @@
  Override. Check if a location is a valid place to put a piece
  
  @param piece piece to place
- @param location location to place the piece
- @param player player placing the piece
+ @param owner player placing the piece
+ @param pieceOrigin the coordinates to place the piece's origin
  @return true if the location is valid
  */
-- (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
-					  atLocation:(Petri2DCoordinates*)location
-					  withPlayer:(PetriPlayer*)player;
+- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+					   withOwner:(PetriPlayer*)owner
+				   atCoordinates:(Petri2DCoordinates*)pieceOrigin;
 
 /*!
  Override. Runs every time a piece is placed and performs all captures that are possible

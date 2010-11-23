@@ -41,16 +41,6 @@
 			 height:(NSInteger)boardHeight;
 
 /**
- * Places a piece with a given owner at a cell location
- * @param piece piece to place
- * @param cellLocation origin for the origin of the piece to be placed
- * @param player owner of the piece being placed
- */
-- (void)placePiece:(PetriPiece*)piece
-		atLocation:(Petri2DCoordinates*)cellLocation
-		 withOwner:(PetriPlayer*)player;
-
-/**
  * Returns a cell at a given location
  * @param location Location on board to return the cell at
  * @return cell at given location
@@ -81,25 +71,25 @@
 
 /**
  * Place a given piece at a location naively
- * Legal moves are checked with the isValidPlacement method
+ * \warning This method does no validation or error checking. Call -validatePlacementOfPiece:withOwner:atCoordinates: first.
  * @param piece piece to place
- * @param location location to place the piece
- * @param owner of the piece
+ * @param pieceOwner player placing the piece
+ * @param pieceOrigin the coordinates to place the piece's origin
  */
 - (void)placePiece:(PetriPiece*)piece
-		atLocation:(Petri2DCoordinates*)location
-		 withOwner:(PetriPlayer*)owner;
+		 withOwner:(PetriPlayer*)pieceOwner
+	 atCoordinates:(Petri2DCoordinates*)pieceOrigin;
 
 /**
  * Check if a location is a valid place to put a piece
- * @param piece piece to place
- * @param location location to place the piece
- * @param player of the piece
- * @return true if the location is valid
+ * @param piece the piece to place.
+ * @param pieceOwner the player placing the piece
+ * @param pieceOrigin the coordinates to place the piece's origin
+ * @return true if the piece can be placed at the indicated coordinates
  */
-- (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
-					  atLocation:(Petri2DCoordinates*)location
-					  withPlayer:(PetriPlayer*)player;
+- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+					   withOwner:(PetriPlayer*)pieceOwner
+				   atCoordinates:(Petri2DCoordinates*)pieceOrigin;
 
 /**
  * Get an immutable set of all cells that are adjacent to a given location for the purpose of placing a piece
