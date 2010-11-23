@@ -36,7 +36,7 @@
  @param configuration The configuration specifying the layout of the game board, piece frequencies, etc.
  */
 - (id)initWithPlayers:(NSArray*)playersInGame
-			gameConfiguration:(PetriGameConfiguration*)configuration;
+	gameConfiguration:(PetriGameConfiguration*)configuration;
 
 /*!
  Adds a player object to a game.
