@@ -168,6 +168,8 @@
 #pragma mark -
 #pragma mark Accessors
 
+@synthesize delegate;
+
 - (void)setGame:(PetriGame*)newGame
 {
 	// Retrieve the view's hosted layer
