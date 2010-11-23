@@ -17,7 +17,20 @@
  */
 @interface PetriSquareGridBoard(Private)
 
+/**
+  Clears dead cells from the board after a capture
+ */
 - (void)clearDeadCells;
+
+/**
+ Recursive helper method for clearing dead cells from the board after a capture
+ Yes, all the cool kids would probably make this a single recursive method
+ but I'm sorry, I was very sleep deprived when I wrote it.
+ At least it works, probably.
+ 
+ @param start starting location to recursively check to see if connected
+ @param visited set of visited cells, which well not be swept from the board
+ */
 - (void)clearDeadCellsHelperWithStart:(PetriBoardCell*) start
 								  set:(NSMutableSet*) visited;
 @end
