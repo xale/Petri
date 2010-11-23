@@ -28,4 +28,10 @@
 	STAssertEqualObjects([testPetriPiece cellCoordinates], [testPetriPiece2 cellCoordinates], @"Both pieces should have equivalent positions");
 }
 
+- (id)testWidth
+{
+	PetriPiece* testPetriPiece = [[PetriPiece alloc] init];
+	STAssertEquals([testPetriPiece width], 3, @"Piece is initialized to width of 3 by default");
+}
+
 @end

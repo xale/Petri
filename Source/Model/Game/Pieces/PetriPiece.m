@@ -63,30 +63,42 @@
 
 - (NSInteger)width
 {
-	NSInteger xCoordinate = 0;
+	NSInteger max = INT_MIN;
+	NSInteger min = INT_MAX;
+	
 	for (Petri2DCoordinates* cell in cellCoordinates)
 	{
-		if ([cell xCoordinate] > xCoordinate)
+		if ([cell xCoordinate] > max)
 		{
-			xCoordinate = [cell xCoordinate];
+			max = [cell xCoordinate];
+		}
+		if ([cell xCoordinate] < min)
+		{
+			min = [cell xCoordinate];
 		}
 	}
 	
-	return xCoordinate;
+	return (max - min) + 1;
 }
 
 - (NSInteger)height
 {
-	NSInteger yCoordinate = 0;
+	NSInteger max = INT_MIN;
+	NSInteger min = INT_MAX;
+
 	for (Petri2DCoordinates* cell in cellCoordinates)
 	{
-		if ([cell yCoordinate] > yCoordinate)
+		if ([cell yCoordinate] > max)
 		{
-			yCoordinate = [cell yCoordinate];
+			max = [cell yCoordinate];
+		}
+		if ([cell yCoordinate] < min)
+		{
+			min = [cell yCoordinate];
 		}
 	}
 	
-	return yCoordinate;
+	return (max - min) + 1;
 }
 
 @synthesize cellCoordinates;
