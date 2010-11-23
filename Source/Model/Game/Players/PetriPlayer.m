@@ -20,6 +20,7 @@
 	}
 	items = [NSMutableDictionary dictionary];
 	controlledCells = [NSMutableSet set];
+	color = nil;
 	return self;
 }
 
@@ -95,5 +96,7 @@
 
 	[self didChangeValueForKey:@"item"];
 }
+
+@synthesize color;
 
 @end

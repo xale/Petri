@@ -115,4 +115,20 @@
 	//TODO: Implement this
 }
 
++ (NSString*)boardType
+{
+	return @"Square grid";
+}
+
++ (NSInteger)absoluteMinPlayers
+{
+	return 2;
+}
+
++ (NSInteger)absoluteMaxPlayers
+{
+	return 4;
+}
+
+
 @end
