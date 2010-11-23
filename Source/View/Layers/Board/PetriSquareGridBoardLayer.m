@@ -19,10 +19,9 @@
 
 /*!
  Generates the two-dimensional array of cell sublayers for the given board.
- 
  @param boardForCells The board whose cells will be represented by the generated sublayers; sublayers' appearances will be bound to properties of this board's cells.
  */
-- (NSArray*)cellSublayersForSquareBoard:(PetriSquareGridBoard*)boardForCells;
+- (void)createCellSublayersForSquareBoard:(PetriSquareGridBoard*)boardForCells;
 
 @end
 
@@ -30,8 +29,11 @@
 
 - (id)initWithBoard:(PetriSquareGridBoard*)boardToDisplay
 {
-	if (![super initWithBoard:boardToDisplay cellSublayers:[self cellSublayersForSquareBoard:boardToDisplay]])
+	if (![super initWithBoard:boardToDisplay])
 		return nil;
+	
+	// Lay out the cells of the board
+	[self createCellSublayersForSquareBoard:boardToDisplay];
 	
 	return self;
 }
@@ -39,15 +41,11 @@
 #pragma mark -
 #pragma mark Sublayer Layout
 
-- (NSArray*)cellSublayersForSquareBoard:(PetriSquareGridBoard*)boardForCells
+- (void)createCellSublayersForSquareBoard:(PetriSquareGridBoard*)boardForCells
 {
-	// Create a two-dimensional array of cell sublayers for the cells on the board
-	NSMutableArray* newCells = [NSMutableArray arrayWithCapacity:[boardForCells width]];
-	
+	// Create a grid of Board Cell Layer sublayers
 	for (NSInteger x = 0; x < [boardForCells width]; x++)
 	{
-		NSMutableArray* newColumn = [NSMutableArray arrayWithCapacity:[boardForCells height]];
-		
 		for (NSInteger y = 0; y < [boardForCells height]; y++)
 		{	
 			// Create a new layer for each cell of the board, bound to properties of the appropriate cell of the board
@@ -78,15 +76,10 @@
 																	scale:((y + 0.5) / [boardForCells height])
 																   offset:0]];
 			
-			// Add the layer to the collection of cell layers
-			[newColumn addObject:newLayer];
+			// Add the layer to this layer's sublayers
+			[self addSublayer:newLayer];
 		}
-		
-		// Add each column to the collection of cell layers
-		[newCells addObject:[newColumn copy]];
 	}
-	
-	return [newCells copy];
 }
 
 @end

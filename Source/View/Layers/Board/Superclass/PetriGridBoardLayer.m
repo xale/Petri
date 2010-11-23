@@ -16,7 +16,6 @@
 @implementation PetriGridBoardLayer
 
 - (id)initWithBoard:(PetriGridBoard*)boardToDisplay
-	  cellSublayers:(NSArray*)cellLayers
 {
 	// Check that we're not attempting to instantiate an abstract class
 	if ([self isMemberOfClass:[PetriGridBoardLayer class]])
@@ -35,14 +34,6 @@
 	// Hold a reference to the board
 	board = boardToDisplay;
 	
-	// Add the cell sublayers
-	cellSublayers = cellLayers;
-	for (NSArray* subArray in cellSublayers)
-	{
-		for (CALayer* cellLayer in subArray)
-			[self addSublayer:cellLayer];
-	}
-	
 	return self;
 }
 
@@ -56,6 +47,5 @@
 #pragma mark Accessors
 
 @synthesize board;
-@synthesize cellSublayers;
 
 @end

@@ -21,7 +21,7 @@
 }
 
 /*!
- Creates a new PetriSquareGridBoardLayer, displaying the specified board.
+ Override (with specialization.) Creates a new PetriSquareGridBoardLayer, displaying the specified board.
  
  @param boardToDisplay The PetriSquareGridBoard to display on this layer.
  */
