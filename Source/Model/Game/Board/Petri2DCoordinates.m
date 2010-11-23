@@ -27,12 +27,32 @@
 
 - (Petri2DCoordinates*)rotatedClockwiseAboutOrigin
 {
-	return [Petri2DCoordinates coordinatesWithXCoordinate:[self yCoordinate] yCoordinate:-[self xCoordinate]];
+	return [[self class] coordinatesWithXCoordinate:[self yCoordinate] yCoordinate:-[self xCoordinate]];
 }
 - (Petri2DCoordinates*)rotatedCounterclockwiseAboutOrigin
 {
-	return [Petri2DCoordinates coordinatesWithXCoordinate:-[self yCoordinate] yCoordinate:[self xCoordinate]];
+	return [[self class] coordinatesWithXCoordinate:-[self yCoordinate] yCoordinate:[self xCoordinate]];
 }
+
+#pragma mark -
+#pragma mark Comparators
+
+- (BOOL)isEqual:(id)object
+{
+	if (![object isKindOfClass:[self class]])
+		return NO;
+	
+	return [self isEqualToCoordinates:(Petri2DCoordinates*)object];
+}
+
+- (BOOL)isEqualToCoordinates:(Petri2DCoordinates*)coordinates
+{
+	return (([self xCoordinate] == [coordinates xCoordinate]) &&
+			([self yCoordinate] == [coordinates yCoordinate]));
+}
+
+#pragma mark -
+#pragma mark Accessors
 
 @synthesize yCoordinate;
 @synthesize xCoordinate;

@@ -14,6 +14,7 @@
 	Petri2DCoordinates* coordinates;
 }
 
+- (void)testIdentityComparison;
 - (void)testRotateIdentities;
 
 @end
