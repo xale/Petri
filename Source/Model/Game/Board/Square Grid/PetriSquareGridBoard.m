@@ -12,6 +12,13 @@
 #import "PetriPiece.h"
 #import "Petri2DCoordinates.h"
 
+@interface PetriSquareGridBoard(Private)
+
+- (void)clearDeadCells;
+- (void)clearDeadCellsHelperWithStart:(PetriBoardCell*) start
+								  set:(NSMutableSet*) visited;
+@end
+
 @implementation PetriSquareGridBoard
 
 - (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
@@ -163,7 +170,7 @@
 										captures = TRUE;
 										
 										//clear board
-										[self clearBoard];
+										[self clearDeadCells];
 									}
 									else if ([iteratedCell cellType] != unoccupiedCell)
 									{
@@ -185,9 +192,47 @@
 	} while (captures == TRUE);
 }
 
-- (void)clearBoard
+- (void)clearDeadCellsHelperWithStart:(PetriBoardCell*) start
+								  set:(NSMutableSet*) visited
 {
-	
+	for (PetriBoardCell* cell in [self coordinatesFromCell:start])
+	{
+		if ([cell owner] == [start owner])
+		{
+			[visited addObject:cell];
+			[self clearDeadCellsHelperWithStart:cell
+											set:visited];
+		}
+	}
+}
+
+- (void)clearDeadCells
+{
+	for (int i = 0; i < width; i++)
+	{
+		for (int j = 0; j < height; j++)
+		{
+			PetriBoardCell* current = [self cellAtX:i Y:j];
+			if ([current cellType] == headCell)
+			{
+				NSMutableSet* set = [[NSMutableSet alloc] init];
+				[self clearDeadCellsHelperWithStart:current
+												set: set];
+				for (int q = 0; q < width; q++)
+				{
+					for (int r = 0; r < height; r++)
+					{
+						PetriBoardCell* cell = [self cellAtX:q Y:r];
+						if (![set containsObject:cell])
+						{
+							[cell setOwner:nil];
+							[cell setCellType:unoccupiedCell];
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 + (NSString*)boardType
