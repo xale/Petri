@@ -10,13 +10,4 @@
 
 @implementation PetriAIPlayer
 
-- (id)init
-{
-	if (![super init])
-	{
-		return nil;
-	}
-	return self;
-}
-
 @end
