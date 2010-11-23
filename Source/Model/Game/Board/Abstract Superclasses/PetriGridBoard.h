@@ -22,15 +22,14 @@
 @interface PetriGridBoard : NSObject <PetriBoard>
 {
 	NSArray* cells;	/*!< Two-dimensional grid of PetriBoardCell objects representing the contents of the board. */
-	NSInteger width;	/*!< Width of board, as an integer number of columns */
-	NSInteger height;	/*!< Height of board, as an integer number of rows */
+	NSInteger width;	/*!< Width of board, as an integer number of columns. */
+	NSInteger height;	/*!< Height of board, as an integer number of rows. */
 }
 
 /**
  * Creates a board with a width and height of 10
  */
 - (id)init;
-
 
 /**
  * Creates a board with a specified width and height
