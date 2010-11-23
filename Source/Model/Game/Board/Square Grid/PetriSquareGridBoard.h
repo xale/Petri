@@ -45,10 +45,4 @@
  */
 - (void)capture;
 
-/**
- Private helper method.
- Does a DFS and clears any cells not connected to head
- */
-- (void)clearBoard;
-
 @end
