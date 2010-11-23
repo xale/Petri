@@ -15,7 +15,7 @@
  */
 @interface PetriPiece : NSObject
 {
-	NSSet* cellLocations;	/*!< The set of locations describing the positions of the cells in this piece. */
+	NSSet* cellCoordinates;	/*!< The set of Petri2DCoordinates describing the positions of the cells in this piece, as relative offsets from the piece's placement location. */
 }
 
 /**
@@ -27,10 +27,16 @@
 - (id)init;
 
 /**
- * Constructor to initialize with a set of locations
- * @param locations location set to initialize piece with
+ * Initializes a PetriPiece with a specific set of coordinates.
+ * @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location.
  */
-- (id)initWithCellLocations:(NSSet*)locations;
+- (id)initWithCellCoordinates:(NSSet*)coordinates;
+
+/*!
+ Creates a new PetriPiece with a specific set of coordinates.
+ @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location.
+ */
++ (id)pieceWithCellCoordinates:(NSSet*)coordinates;
 
 /**
  * Returns the current piece, but rotated clockwise
@@ -46,6 +52,6 @@
  */
 - (PetriPiece*)pieceRotatedCounterclockwise;
 
-@property (readonly) NSSet* cellLocations;
+@property (readonly) NSSet* cellCoordinates;
 
 @end

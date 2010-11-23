@@ -13,7 +13,7 @@
 
 - (id)init
 {
-	cellLocations = [NSSet setWithObjects:
+	cellCoordinates = [NSSet setWithObjects:
 					 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 					 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
 					 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
@@ -22,37 +22,45 @@
 	return self;
 }
 
-- (id)initWithCellLocations:(NSSet*)locations
+- (id)initWithCellCoordinates:(NSSet*)coordinates
 {
-	cellLocations = locations;
+	cellCoordinates = coordinates;
 	return self;
 }
 
++ (id)pieceWithCellCoordinates:(NSSet*)coordinates
+{
+	return [[self alloc] initWithCellCoordinates:coordinates];
+}
+
+#pragma mark -
+#pragma mark Rotations
+
 - (PetriPiece*)pieceRotatedClockwise
 {
-	NSMutableSet* newLocations = [NSMutableSet setWithCapacity:[cellLocations count]];
-	for (Petri2DCoordinates* location in cellLocations)
+	NSMutableSet* newCoordinates = [NSMutableSet setWithCapacity:[cellCoordinates count]];
+	for (Petri2DCoordinates* coord in cellCoordinates)
 	{
-		[newLocations addObject:[location rotatedClockwiseAboutOrigin]];
+		[newCoordinates addObject:[coord rotatedClockwiseAboutOrigin]];
 	}
 	
-	return [[PetriPiece alloc] initWithCellLocations:[newLocations copy]];
+	return [[PetriPiece alloc] initWithCellCoordinates:[newCoordinates copy]];
 }
 
 - (PetriPiece*)pieceRotatedCounterclockwise
 {
-	NSMutableSet* newLocations = [NSMutableSet setWithCapacity:[cellLocations count]];
-	for (Petri2DCoordinates* location in cellLocations)
+	NSMutableSet* newCoordinates = [NSMutableSet setWithCapacity:[cellCoordinates count]];
+	for (Petri2DCoordinates* coord in cellCoordinates)
 	{
-		[newLocations addObject:[location rotatedCounterclockwiseAboutOrigin]];
+		[newCoordinates addObject:[coord rotatedCounterclockwiseAboutOrigin]];
 	}
 	
-	return [[PetriPiece alloc] initWithCellLocations:[newLocations copy]];
+	return [[PetriPiece alloc] initWithCellCoordinates:[newCoordinates copy]];
 }
 
 #pragma mark -
 #pragma mark Accessors
 
-@synthesize cellLocations;
+@synthesize cellCoordinates;
 
 @end

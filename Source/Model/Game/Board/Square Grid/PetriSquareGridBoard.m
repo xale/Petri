@@ -18,7 +18,7 @@
 					  atLocation:(Petri2DCoordinates*)location
 					  withPlayer:(PetriPlayer*)player
 {
-	NSSet* cellLocations = [piece cellLocations];
+	NSSet* cellLocations = [piece cellCoordinates];
 	
 	//If any of the cells to be covered by the body are occupied, then we cannot place a piece there
 	for (Petri2DCoordinates* location in cellLocations)

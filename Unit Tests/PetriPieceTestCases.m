@@ -25,7 +25,7 @@
 	[testPetriPiece2 pieceRotatedClockwise];
 	[testPetriPiece2 pieceRotatedCounterclockwise];
 	
-	STAssertEqualObjects([testPetriPiece cellLocations], [testPetriPiece2 cellLocations], @"Both pieces should have equivalent positions");
+	STAssertEqualObjects([testPetriPiece cellCoordinates], [testPetriPiece2 cellCoordinates], @"Both pieces should have equivalent positions");
 }
 
 @end

@@ -58,7 +58,7 @@
 		 withOwner:(PetriPlayer*)player
 {
 	// Iterate over location-offsets in the piece
-	for (Petri2DCoordinates* pieceLocation in [piece cellLocations])
+	for (Petri2DCoordinates* pieceLocation in [piece cellCoordinates])
 	{
 		// Find the cell located at (piece origin) + (location offset)
 		PetriBoardCell* cell = [self cellAtX:([pieceLocation xCoordinate] + [cellLocation xCoordinate])
