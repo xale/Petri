@@ -7,17 +7,17 @@
 //
 
 #import "PetriPiece.h"
-#import "PetriBoardLocation.h"
+#import "Petri2DCoordinates.h"
 
 @implementation PetriPiece
 
 - (id)init
 {
 	cellLocations = [NSSet setWithObjects:
-					 [PetriBoardLocation locationWithX:0 Y:0],
-					 [PetriBoardLocation locationWithX:0 Y:1],
-					 [PetriBoardLocation locationWithX:1 Y:1],
-					 [PetriBoardLocation locationWithX:1 Y:2],
+					 [Petri2DCoordinates coordinatesWithHorizontalCoordinate:0 verticalCoordinate:0],
+					 [Petri2DCoordinates coordinatesWithHorizontalCoordinate:0 verticalCoordinate:1],
+					 [Petri2DCoordinates coordinatesWithHorizontalCoordinate:1 verticalCoordinate:1],
+					 [Petri2DCoordinates coordinatesWithHorizontalCoordinate:1 verticalCoordinate:2],
 					 nil];
 	return self;
 }
@@ -31,9 +31,9 @@
 - (PetriPiece*)pieceRotatedClockwise
 {
 	NSMutableSet* newLocations = [NSMutableSet setWithCapacity:[cellLocations count]];
-	for (PetriBoardLocation* location in cellLocations)
+	for (Petri2DCoordinates* location in cellLocations)
 	{
-		[newLocations addObject:[location locationRotatedClockwiseAboutOrigin]];
+		[newLocations addObject:[location rotatedClockwise]];
 	}
 	
 	return [[PetriPiece alloc] initWithCellLocations:[newLocations copy]];
@@ -42,9 +42,9 @@
 - (PetriPiece*)pieceRotatedCounterclockwise
 {
 	NSMutableSet* newLocations = [NSMutableSet setWithCapacity:[cellLocations count]];
-	for (PetriBoardLocation* location in cellLocations)
+	for (Petri2DCoordinates* location in cellLocations)
 	{
-		[newLocations addObject:[location locationRotatedCounterclockwiseAboutOrigin]];
+		[newLocations addObject:[location rotatedCounterClockwise]];
 	}
 	
 	return [[PetriPiece alloc] initWithCellLocations:[newLocations copy]];

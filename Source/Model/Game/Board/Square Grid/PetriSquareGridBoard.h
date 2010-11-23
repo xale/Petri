@@ -18,14 +18,14 @@
  
  @param location A location on the board around which to look for valid placement cells.
  */
-- (NSSet*)placementCellsAdjacentToLocation:(PetriBoardLocation*)location;
+- (NSSet*)placementCellsAdjacentToLocation:(Petri2DCoordinates*)location;
 
 /*!
  Override. Returns the cells laterally or diagonally adjacent to the specified location.
  
  @param location A location on the board around which to look for capturable cells.
  */
-- (NSSet*)capturableCellsAdjacentToLocation:(PetriBoardLocation*)location;
+- (NSSet*)capturableCellsAdjacentToLocation:(Petri2DCoordinates*)location;
 
 /*!
  Override. Check if a location is a valid place to put a piece
@@ -36,7 +36,7 @@
  @return true if the location is valid
  */
 - (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
-					  atLocation:(PetriBoardLocation*)location
+					  atLocation:(Petri2DCoordinates*)location
 					  withPlayer:(PetriPlayer*)player;
 
 /*!

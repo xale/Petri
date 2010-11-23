@@ -9,7 +9,7 @@
 #import "PetriGridBoardTestCases.h"
 
 #import "PetriGridBoard.h"
-#import "PetriBoardLocation.h"
+#import "Petri2DCoordinates.h"
 #import "PetriPiece.h"
 #import "PetriPlayer.h"
 
@@ -35,7 +35,7 @@
 - (void)testCellAtLocation
 {
 	PetriGridBoard* testBoard = [[PetriGridBoard alloc] init];
-	STAssertNotNil([testBoard cellAtLocation:[PetriBoardLocation locationWithX:3 Y:2]], @"Could not retrieve a cell at location (3,2)");
+	STAssertNotNil([testBoard cellAtLocation:[Petri2DCoordinates coordinatesWithHorizontalCoordinate:3 verticalCoordinate:2]], @"Could not retrieve a cell at location (3,2)");
 }
 
 @end

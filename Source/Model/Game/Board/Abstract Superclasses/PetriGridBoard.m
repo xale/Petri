@@ -8,7 +8,7 @@
 
 #import "PetriGridBoard.h"
 #import "PetriBoardCell.h"
-#import "PetriBoardLocation.h"
+#import "Petri2DCoordinates.h"
 #import "PetriPiece.h"
 
 @implementation PetriGridBoard
@@ -54,15 +54,15 @@
 }
 
 - (void)placePiece:(PetriPiece*)piece
-		atLocation:(PetriBoardLocation*)cellLocation
+		atLocation:(Petri2DCoordinates*)cellLocation
 		 withOwner:(PetriPlayer*)player
 {
 	// Iterate over location-offsets in the piece
-	for (PetriBoardLocation* pieceLocation in [piece cellLocations])
+	for (Petri2DCoordinates* pieceLocation in [piece cellLocations])
 	{
 		// Find the cell located at (piece origin) + (location offset)
-		PetriBoardCell* cell = [self cellAtX:([pieceLocation x] + [cellLocation x])
-										   Y:([pieceLocation y] + [cellLocation y])];
+		PetriBoardCell* cell = [self cellAtX:([pieceLocation horizontalCoordinate] + [cellLocation horizontalCoordinate])
+										   Y:([pieceLocation verticalCoordinate] + [cellLocation verticalCoordinate])];
 		
 		// Create a body cell for the piece's owner
 		[cell setOwner:player];
@@ -71,17 +71,17 @@
 }
 
 - (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
-					  atLocation:(PetriBoardLocation*)location
+					  atLocation:(Petri2DCoordinates*)location
 					  withPlayer:(PetriPlayer*)player;
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return FALSE;
 }
 
-- (PetriBoardCell*)cellAtLocation:(PetriBoardLocation*)location
+- (PetriBoardCell*)cellAtLocation:(Petri2DCoordinates*)location
 {
-	return [self cellAtX:[location x]
-					   Y:[location y]];
+	return [self cellAtX:[location horizontalCoordinate]
+					   Y:[location verticalCoordinate]];
 }
 
 - (PetriBoardCell*)cellAtX:(NSInteger)x
@@ -90,13 +90,13 @@
 	return [[cells objectAtIndex:x] objectAtIndex:y];
 }
 
-- (NSSet*)placementCellsAdjacentToLocation:(PetriBoardLocation*)location
+- (NSSet*)placementCellsAdjacentToLocation:(Petri2DCoordinates*)location
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
 }
 
-- (NSSet*)capturableCellsAdjacentToLocation:(PetriBoardLocation*)location
+- (NSSet*)capturableCellsAdjacentToLocation:(Petri2DCoordinates*)location
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;

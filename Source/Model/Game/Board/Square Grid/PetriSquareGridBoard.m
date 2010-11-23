@@ -10,18 +10,18 @@
 
 #import "PetriBoardCell.h"
 #import "PetriPiece.h"
-#import "PetriBoardLocation.h"
+#import "Petri2DCoordinates.h"
 
 @implementation PetriSquareGridBoard
 
 - (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
-					  atLocation:(PetriBoardLocation*)location
+					  atLocation:(Petri2DCoordinates*)location
 					  withPlayer:(PetriPlayer*)player
 {
 	NSSet* cellLocations = [piece cellLocations];
 	
 	//If any of the cells to be covered by the body are occupied, then we cannot place a piece there
-	for (PetriBoardLocation* location in cellLocations)
+	for (Petri2DCoordinates* location in cellLocations)
 	{
 		PetriBoardCell* cell = [self cellAtLocation:location];
 		
@@ -32,7 +32,7 @@
 	}
 	
 	//We now check the adjacency of each location and as long as we find one then we can return
-	for (PetriBoardLocation* location in cellLocations)
+	for (Petri2DCoordinates* location in cellLocations)
 	{		
 		NSSet* adjacencies = [self placementCellsAdjacentToLocation:location];
 		
@@ -48,14 +48,14 @@
 	return false;
 }
 
-- (NSSet*)placementCellsAdjacentToLocation:(PetriBoardLocation*)location
+- (NSSet*)placementCellsAdjacentToLocation:(Petri2DCoordinates*)location
 {
 	NSMutableSet* adjacentCells = [NSMutableSet set];
 	
 	//Add and subtract 1 to x and y
 	//Throw out negatives or things outside of bounds
-	NSInteger x = [location x];
-	NSInteger y = [location y];
+	NSInteger x = [location horizontalCoordinate];
+	NSInteger y = [location verticalCoordinate];
 	
 	if ((x - 1) >= 0)
 	{
@@ -77,14 +77,14 @@
 	return [adjacentCells copy];
 }
 
-- (NSSet*)capturableCellsAdjacentToLocation:(PetriBoardLocation*)location
+- (NSSet*)capturableCellsAdjacentToLocation:(Petri2DCoordinates*)location
 {
 	NSMutableSet* adjacentCells = [NSMutableSet set];
 	
 	//Add and subtract 1 to x and y
 	//Throw out negatives or things outside of bounds
-	NSInteger x = [location x];
-	NSInteger y = [location y];
+	NSInteger x = [location horizontalCoordinate];
+	NSInteger y = [location verticalCoordinate];
 	
 	// Add laterally-adjacent cells
 	[adjacentCells unionSet:[self placementCellsAdjacentToLocation:location]];
