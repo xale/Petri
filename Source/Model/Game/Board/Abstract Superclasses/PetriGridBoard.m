@@ -90,6 +90,23 @@
 	return [[cells objectAtIndex:x] objectAtIndex:y];
 }
 
+- (Petri2DCoordinates*)coordinatesFromCell:(PetriBoardCell*)cell
+{
+	for (int i = 0; i < width; i++)
+	{
+		for (int j = 0; j < height; j++)
+		{
+			if ([self cellAtX:i Y:j] == cell)
+			{
+				return [Petri2DCoordinates coordinatesWithXCoordinate:i
+									  yCoordinate:j];
+			}
+		}
+	}
+	
+	return nil;
+}
+
 - (NSSet*)placementCellsAdjacentToLocation:(Petri2DCoordinates*)location
 {
 	[self doesNotRecognizeSelector:_cmd];

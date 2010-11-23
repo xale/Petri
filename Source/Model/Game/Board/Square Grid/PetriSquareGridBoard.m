@@ -111,8 +111,83 @@
 }
 
 - (void)capture
+{	
+	BOOL captures;
+	
+	do
+	{
+		captures = FALSE;
+		//Check all rows
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; i < width; j++)
+			{
+				Petri2DCoordinates* currentCoordinates = [Petri2DCoordinates coordinatesWithXCoordinate:i
+																				   yCoordinate:j];
+				PetriBoardCell* current = [self cellAtX:i Y:j];
+				if ([current cellType] != unoccupiedCell)
+				{
+					//Iterate over all adjacent cells
+					for (PetriBoardCell* cell in [self capturableCellsAdjacentToLocation:currentCoordinates])
+					{
+						//If we find an adjacent cell with a different player's piece
+						if ([cell cellType] != unoccupiedCell && [cell owner] != [current owner])
+						{
+							NSMutableSet* capturableCells = [[NSMutableSet alloc] init];
+							
+							NSInteger currentX = [[self coordinatesFromCell:current] xCoordinate];
+							NSInteger cellX = [[self coordinatesFromCell:cell] xCoordinate];
+							
+							NSInteger currentY = [[self coordinatesFromCell:current] yCoordinate];
+							NSInteger cellY = [[self coordinatesFromCell:cell] yCoordinate];
+							
+							NSInteger deltaX = currentX - cellX;
+							NSInteger deltaY = currentY - cellY;
+							
+							for (int q = currentX; (q >= 0 && q < width); q += deltaX)
+							{
+								for (int r = currentY; (r >= 0 && r < height); r += deltaY)
+								{
+									PetriBoardCell* iteratedCell = [self cellAtX:q Y:r];
+									
+									//If we run into our own piece again in the same direction before hitting a null cell
+									if ([iteratedCell cellType] == [current cellType])
+									{
+										//Delete cells in between
+										for (PetriBoardCell* cell in capturableCells)
+										{
+											[cell setOwner:nil];
+											[cell setCellType:unoccupiedCell];
+										}
+										//Set captures to true
+										captures = TRUE;
+										
+										//clear board
+										[self clearBoard];
+									}
+									else if ([iteratedCell cellType] != unoccupiedCell)
+									{
+										//Add to set
+										[capturableCells addObject:iteratedCell];
+									}
+									else //break out of these loops, we didn't find a capture
+									{
+										goto emptyCellFound;
+									}
+								}
+							}
+						}
+						emptyCellFound:;
+					}
+				}
+			}
+		}
+	} while (captures == TRUE);
+}
+
+- (void)clearBoard
 {
-	//TODO: Implement this
+	
 }
 
 + (NSString*)boardType
