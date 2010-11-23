@@ -7,7 +7,10 @@
 //
 
 #import "PetriGameplayViewController.h"
-#import "PetriGameplayView.h"
+
+#import "PetriGame.h"
+#import "PetriBoard.h"
+#import "PetriGridBoard.h"
 
 NSString* const PetriGameplayViewNibName =	@"GameplayView";
 
@@ -52,6 +55,32 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 {
 	// FIXME: testing code; needs to prompt user, check if host, etc.
 	[[self mainWindowController] displayViewControllerForKey:PetriTitleViewControllerKey];
+}
+
+#pragma mark -
+#pragma mark PetriGameplayView Delegate Methods
+
+- (BOOL)gameplayView:(PetriGameplayView*)gameplayView
+	   canPlacePiece:(PetriPiece*)piece
+		   forPlayer:(PetriPlayer*)pieceOwner
+	   atCoordinates:(Petri2DCoordinates*)coordinates
+		 onGridBoard:(PetriGridBoard*)board
+{
+	return [board isValidPlacementForPiece:piece
+								atLocation:coordinates
+								withPlayer:pieceOwner];
+}
+
+- (void)gameplayView:(PetriGameplayView*)gameplayView
+		  placePiece:(PetriPiece*)piece
+		   forPlayer:(PetriPlayer*)pieceOwner
+	   atCoordinates:(Petri2DCoordinates*)coordinates
+			 onBoard:(PetriGridBoard*)board
+{
+	// FIXME: naive implementation
+	[board placePiece:piece
+		   atLocation:coordinates
+			withOwner:pieceOwner];
 }
 
 #pragma mark -

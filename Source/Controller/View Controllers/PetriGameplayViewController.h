@@ -8,15 +8,16 @@
 
 #import "PetriMainWindowViewController.h"
 
+#import "PetriGameplayView.h"	// Imported here for protocol definition
+
 @class PetriGame;
-@class PetriGameplayView;
 
 /*!
  \brief The controller for the Gameplay view.
  
  The PetriGameplayViewController is responsible for handling events from the view that displays displays and interacts with a game in progress.
  */
-@interface PetriGameplayViewController : PetriMainWindowViewController
+@interface PetriGameplayViewController : PetriMainWindowViewController <PetriGameplayViewDelegate>
 {
 	IBOutlet NSSplitView* panesSplitView;	/*!< The split view containing the gameplay and chat panes. */
 	IBOutlet PetriGameplayView* gameplayPane;	/*!< The layer-hosting view containing the board, next piece, and player information layers. */
