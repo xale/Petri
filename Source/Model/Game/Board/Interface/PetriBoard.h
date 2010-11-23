@@ -29,8 +29,9 @@
  */
 - (NSSet*)capturableCellsAdjacentToCell:(PetriBoardCell*)cell;
 
-+ (NSString*)boardType; //FIXME: document me
-+ (NSInteger)absoluteMinPlayers;	// FIXME: document me (old documentation is out-of-date: "(Computed property) Specifies the minimum valid value for the minPlayers and maxPlayers properties.")
-+ (NSInteger)absoluteMaxPlayers;	// FIXME: document me (old documentation is out-of-date: "(Computed property) Specifies the maximum valid value for the minPlayers and maxPlayers properties.")
++ (NSString*)boardType;	/*!< The type of board. See \ref boardTypes. */
+
++ (NSInteger)absoluteMinPlayers;	/*!< Returns the minimum number of players that a board of this type can accommodate. */
++ (NSInteger)absoluteMaxPlayers;	/*!< Returns the maximum number of players that a board of this type can accommodate. */
 
 @end
