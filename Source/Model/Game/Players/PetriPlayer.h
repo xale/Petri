@@ -57,4 +57,9 @@
  Returns immutable copy of items dictionary.
  */
 @property (readonly) NSDictionary* items;
+
+/*!
+ The player's color.
+ */
+@property (readwrite, copy) NSColor* color;
 @end
