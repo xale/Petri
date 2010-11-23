@@ -39,6 +39,7 @@
 		6A9430BF129B3F2A00A9F343 /* PetriGridBoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430B8129B3F2A00A9F343 /* PetriGridBoardLayer.m */; };
 		6A9430C0129B3F2A00A9F343 /* PetriBoardCellLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430BB129B3F2A00A9F343 /* PetriBoardCellLayer.m */; };
 		6A9430C1129B3F2A00A9F343 /* PetriAspectRatioLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430BD129B3F2A00A9F343 /* PetriAspectRatioLayer.m */; };
+		6A9430E1129B464000A9F343 /* PetriPlayerFiltersValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430E0129B464000A9F343 /* PetriPlayerFiltersValueTransformer.m */; };
 		6A9DE8D31276020200020AB9 /* PetriUserTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */; };
 		6AA738E51265FB97003ABB43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6AA738E01265FB97003ABB43 /* InfoPlist.strings */; };
 		6AA738E61265FB97003ABB43 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AA738E21265FB97003ABB43 /* MainMenu.xib */; };
@@ -157,6 +158,8 @@
 		6A9430BB129B3F2A00A9F343 /* PetriBoardCellLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardCellLayer.m; sourceTree = "<group>"; };
 		6A9430BC129B3F2A00A9F343 /* PetriAspectRatioLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriAspectRatioLayer.h; sourceTree = "<group>"; };
 		6A9430BD129B3F2A00A9F343 /* PetriAspectRatioLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriAspectRatioLayer.m; sourceTree = "<group>"; };
+		6A9430DF129B464000A9F343 /* PetriPlayerFiltersValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPlayerFiltersValueTransformer.h; sourceTree = "<group>"; };
+		6A9430E0129B464000A9F343 /* PetriPlayerFiltersValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPlayerFiltersValueTransformer.m; sourceTree = "<group>"; };
 		6A9DE8881275EF7400020AB9 /* Petri Unit Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Petri Unit Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A9DE89D1275F95000020AB9 /* Petri Unit Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Petri Unit Tests-Info.plist"; sourceTree = "<group>"; };
 		6A9DE8D11276020200020AB9 /* PetriUserTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriUserTestCases.h; sourceTree = "<group>"; };
@@ -431,6 +434,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		6A9430DE129B464000A9F343 /* Value Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				6A9430DF129B464000A9F343 /* PetriPlayerFiltersValueTransformer.h */,
+				6A9430E0129B464000A9F343 /* PetriPlayerFiltersValueTransformer.m */,
+			);
+			path = "Value Transformers";
+			sourceTree = "<group>";
+		};
 		6A9DE8CE127601B500020AB9 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -527,6 +539,7 @@
 		6AA738F51265FBB7003ABB43 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				6A9430DE129B464000A9F343 /* Value Transformers */,
 				6AE76033128BAB06009F6BC5 /* NSArray+Subranges.h */,
 				6AE76034128BAB06009F6BC5 /* NSArray+Subranges.m */,
 				6A112E851299F8BE002A930D /* CALayer+ConstraintSets.h */,
@@ -744,6 +757,7 @@
 				6A9430BF129B3F2A00A9F343 /* PetriGridBoardLayer.m in Sources */,
 				6A9430C0129B3F2A00A9F343 /* PetriBoardCellLayer.m in Sources */,
 				6A9430C1129B3F2A00A9F343 /* PetriAspectRatioLayer.m in Sources */,
+				6A9430E1129B464000A9F343 /* PetriPlayerFiltersValueTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
