@@ -9,13 +9,17 @@
 #import "PetriGameplayView.h"
 
 #import "PetriGame.h"
+#import "PetriPlayer.h"
 #import "PetriGridBoard.h"
 #import "PetriSquareGridBoard.h"
-#import "PetriPlayer.h"
+#import "PetriBoardCell.h"
+#import "PetriPiece.h"
+#import "Petri2DCoordinates.h"
 
 #import "PetriAspectRatioLayer.h"
 #import "PetriGridBoardLayer.h"
 #import "PetriSquareGridBoardLayer.h"
+#import "PetriBoardCellLayer.h"
 
 #import "CALayer+ConstraintSets.h"
 
@@ -37,6 +41,14 @@
 	// Set up the view to be layer-hosting (see discussion under documentation of NSView -setWantsLayer:)
 	[self setLayer:backgroundLayer];
 	[self setWantsLayer:YES];
+}
+
+#pragma mark -
+#pragma mark Drawing Attributes
+
+- (BOOL)isOpaque
+{
+	return NO;
 }
 
 #pragma mark -
@@ -163,6 +175,50 @@
 	}
 	
 	return containerLayer;
+}
+
+#pragma mark -
+#pragma mark Input Events
+
+- (void)mouseDown:(NSEvent*)mouseEvent
+{
+	// Determine where on the view the click occurred
+	NSPoint clickedPoint = [self convertPoint:[mouseEvent locationInWindow]
+									 fromView:nil];
+	
+	// Find the clicked layer
+	CALayer* clickedLayer = [[self layer] hitTest:NSPointToCGPoint(clickedPoint)];
+	
+	// FIXME: TESTING: If the clicked layer is a cell of the board, place a one-by-one piece
+	if ([clickedLayer isKindOfClass:[PetriBoardCellLayer class]])
+	{
+		// Get the board from the clicked cell's superlayer
+		// FIXME: reflection needed
+		PetriGridBoard* clickedBoard = [(PetriGridBoardLayer*)[clickedLayer superlayer] board];
+		
+		// Find the coordinates of the clicked cell
+		Petri2DCoordinates* clickedCoordinates = [clickedBoard coordinatesOfCell:[(PetriBoardCellLayer*)clickedLayer cell]];
+		
+		// Create piece
+		PetriPiece* piece = [PetriPiece pieceWithCellCoordinates:[NSSet setWithObject:[Petri2DCoordinates coordinatesWithXCoordinate:0
+																														 yCoordinate:0]]];
+		
+		// Test if the piece can be placed at the clicked coordinates
+		BOOL validMove = [[self delegate] gameplayView:self
+										 canPlacePiece:piece
+											 forPlayer:[game currentPlayer]
+										 atCoordinates:clickedCoordinates
+										   onGridBoard:clickedBoard];
+		if (validMove)
+		{
+			// Place the piece
+			[[self delegate] gameplayView:self
+							   placePiece:piece
+								forPlayer:[[[self game] players] objectAtIndex:(random() % [[[self game] players] count])]
+							atCoordinates:clickedCoordinates
+								  onBoard:clickedBoard];
+		}
+	}
 }
 
 #pragma mark -
