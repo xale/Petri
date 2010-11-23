@@ -49,6 +49,6 @@
  Private helper method.
  Does a DFS and clears any cells not connected to head
  */
-- (void)clearBoard
+- (void)clearBoard;
 
 @end
