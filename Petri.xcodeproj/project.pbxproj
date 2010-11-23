@@ -38,7 +38,7 @@
 		6A9430BF129B3F2A00A9F343 /* PetriGridBoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430B8129B3F2A00A9F343 /* PetriGridBoardLayer.m */; };
 		6A9430C0129B3F2A00A9F343 /* PetriBoardCellLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430BB129B3F2A00A9F343 /* PetriBoardCellLayer.m */; };
 		6A9430C1129B3F2A00A9F343 /* PetriAspectRatioLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430BD129B3F2A00A9F343 /* PetriAspectRatioLayer.m */; };
-		6A9430E1129B464000A9F343 /* PetriPlayerFiltersValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430E0129B464000A9F343 /* PetriPlayerFiltersValueTransformer.m */; };
+		6A9430E1129B464000A9F343 /* PetriPlayerColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430E0129B464000A9F343 /* PetriPlayerColorValueTransformer.m */; };
 		6A9DE8D31276020200020AB9 /* PetriUserTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */; };
 		6AA28D16129B76DB006FDE1F /* PetriMockGridBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA28D13129B76DB006FDE1F /* PetriMockGridBoard.m */; };
 		6AA28D17129B76DB006FDE1F /* PetriMockPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA28D15129B76DB006FDE1F /* PetriMockPlayer.m */; };
@@ -158,8 +158,8 @@
 		6A9430BB129B3F2A00A9F343 /* PetriBoardCellLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardCellLayer.m; sourceTree = "<group>"; };
 		6A9430BC129B3F2A00A9F343 /* PetriAspectRatioLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriAspectRatioLayer.h; sourceTree = "<group>"; };
 		6A9430BD129B3F2A00A9F343 /* PetriAspectRatioLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriAspectRatioLayer.m; sourceTree = "<group>"; };
-		6A9430DF129B464000A9F343 /* PetriPlayerFiltersValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPlayerFiltersValueTransformer.h; sourceTree = "<group>"; };
-		6A9430E0129B464000A9F343 /* PetriPlayerFiltersValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPlayerFiltersValueTransformer.m; sourceTree = "<group>"; };
+		6A9430DF129B464000A9F343 /* PetriPlayerColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPlayerColorValueTransformer.h; sourceTree = "<group>"; };
+		6A9430E0129B464000A9F343 /* PetriPlayerColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPlayerColorValueTransformer.m; sourceTree = "<group>"; };
 		6A9DE8881275EF7400020AB9 /* Petri Unit Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Petri Unit Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A9DE89D1275F95000020AB9 /* Petri Unit Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Petri Unit Tests-Info.plist"; sourceTree = "<group>"; };
 		6A9DE8D11276020200020AB9 /* PetriUserTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriUserTestCases.h; sourceTree = "<group>"; };
@@ -454,8 +454,8 @@
 		6A9430DE129B464000A9F343 /* Value Transformers */ = {
 			isa = PBXGroup;
 			children = (
-				6A9430DF129B464000A9F343 /* PetriPlayerFiltersValueTransformer.h */,
-				6A9430E0129B464000A9F343 /* PetriPlayerFiltersValueTransformer.m */,
+				6A9430DF129B464000A9F343 /* PetriPlayerColorValueTransformer.h */,
+				6A9430E0129B464000A9F343 /* PetriPlayerColorValueTransformer.m */,
 			);
 			path = "Value Transformers";
 			sourceTree = "<group>";
@@ -774,7 +774,7 @@
 				6A9430BF129B3F2A00A9F343 /* PetriGridBoardLayer.m in Sources */,
 				6A9430C0129B3F2A00A9F343 /* PetriBoardCellLayer.m in Sources */,
 				6A9430C1129B3F2A00A9F343 /* PetriAspectRatioLayer.m in Sources */,
-				6A9430E1129B464000A9F343 /* PetriPlayerFiltersValueTransformer.m in Sources */,
+				6A9430E1129B464000A9F343 /* PetriPlayerColorValueTransformer.m in Sources */,
 				FA591AA9129B8D7600210502 /* Petri2DCoordinates.m in Sources */,
 				6A3DB092129B9CD900D37405 /* PetriNoLayerResizeAnimationView.m in Sources */,
 				6A3DB095129B9D2B00D37405 /* PetriGameplayView.m in Sources */,
