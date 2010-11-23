@@ -16,7 +16,7 @@
 @protocol PetriBoard
 
 + (NSString*)boardType; //FIXME: document me
-+ (NSInteger)absoluteMinPlayers;	/*!< (Computed property) Specifies the minimum valid value for the minPlayers and maxPlayers properties. */
-+ (NSInteger)absoluteMaxPlayers;	/*!< (Computed property) Specifies the maximum valid value for the minPlayers and maxPlayers properties. */
++ (NSInteger)absoluteMinPlayers;	// FIXME: document me (old documentation is out-of-date: "(Computed property) Specifies the minimum valid value for the minPlayers and maxPlayers properties.")
++ (NSInteger)absoluteMaxPlayers;	// FIXME: document me (old documentation is out-of-date: "(Computed property) Specifies the maximum valid value for the minPlayers and maxPlayers properties.")
 
 @end
