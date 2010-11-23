@@ -44,7 +44,7 @@
 
 - (void)testCellAtLocation
 {
-	STAssertNotNil([testGridBoard cellAtLocation:[Petri2DCoordinates coordinatesWithXCoordinate:3 yCoordinate:2]], @"Could not retrieve a cell at coordinates (3,2)");
+	STAssertNotNil([testGridBoard cellAtCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:3 yCoordinate:2]], @"Could not retrieve a cell at coordinates (3,2)");
 }
 
 @end

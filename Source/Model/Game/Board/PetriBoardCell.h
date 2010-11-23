@@ -15,7 +15,7 @@
 /*!
  \brief Object representing a cell on the game board.
  
- The PetriBoardCell class stores information about an individual location (i.e., a single unit in the coordinate system) on a game board, including the type of cell, the which player (if any) controls the cell, and, if present, an item that can be picked up when the cell is claimed.
+ The PetriBoardCell class stores information about an individual "place" (i.e., a single unit in the coordinate system) on a game board, including the type of cell, the which player (if any) controls the cell, and, if present, an item that can be picked up when the cell is claimed.
  */
 @interface PetriBoardCell : NSObject
 {
@@ -31,10 +31,10 @@
 - (id)init;
 
 /**
- * Returns an allocated location
+ * Initializes a PetriBoardCell with the specified type, owner, if any, and item, if any.
  * @param type The type of cell
- * @param player The player currently controlling the cell
- * @param item The item picked up when this cell is claimed
+ * @param player The player currently controlling the cell; may be nil.
+ * @param item The item picked up when this cell is claimed; may be nil.
  */
 - (id)initWithCellType:(PetriCellType)type
 				 owner:(PetriPlayer*)player

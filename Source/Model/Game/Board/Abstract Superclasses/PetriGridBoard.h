@@ -41,25 +41,25 @@
 			 height:(NSInteger)boardHeight;
 
 /**
- * Returns a cell at a given location
- * @param location Location on board to return the cell at
- * @return cell at given location
+ * Returns the cell on the board at the given coordinates
+ * @param coordinates Coordinates of the cell to locate
+ * @return cell at given coordinates
  */
-- (PetriBoardCell*)cellAtLocation:(Petri2DCoordinates*)location;
+- (PetriBoardCell*)cellAtCoordinates:(Petri2DCoordinates*)coordinates;
 
 /**
- * Returns a cell at a given coordinates
- * @param x x coordinate of desired cell on board
- * @param y y coordinate of desired cell on board
- * @return cell at given location
+ * Returns the cell on the board at the given coordinates
+ * @param x x-coordinate of desired cell on board
+ * @param y y-coordinate of desired cell on board
+ * @return cell at given coordinates
  */
 - (PetriBoardCell*)cellAtX:(NSInteger)x
 						 Y:(NSInteger)y;
 
 /**
- * Returns a location for a given cell
- * @param cell cell on board to return the location
- * @return location at given location
+ * Returns the coordinates of the given cell, or nil, if the cell is not present on the board
+ * @param cell cell on board to locate
+ * @return coordinates of the cell, or nil
  */
 - (Petri2DCoordinates*)coordinatesOfCell:(PetriBoardCell*)cell;
 
@@ -70,7 +70,7 @@
 - (void)capture;
 
 /**
- * Place a given piece at a location naively
+ * Places a given piece on the board.
  * \warning This method does no validation or error checking. Call -validatePlacementOfPiece:withOwner:atCoordinates: first.
  * @param piece piece to place
  * @param pieceOwner player placing the piece
@@ -81,7 +81,7 @@
 	 atCoordinates:(Petri2DCoordinates*)pieceOrigin;
 
 /**
- * Check if a location is a valid place to put a piece
+ * Checks the validity of an attempt to place a piece.
  * @param piece the piece to place.
  * @param pieceOwner the player placing the piece
  * @param pieceOrigin the coordinates to place the piece's origin
@@ -92,18 +92,18 @@
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin;
 
 /**
- * Get an immutable set of all cells that are adjacent to a given location for the purpose of placing a piece
- * @param location location to get adjacent cells
- * @return NSSet of cells that are adjacent to the location
+ * Get an immutable set of all cells that are adjacent to the given coordinates for the purposes of piece placement
+ * @param cellCoordinates the coordinates of the cell around which to look for adjacent cells
+ * @return NSSet of cells that are adjacent (for purposes of piece placement) to the cell at the given coordinates
  */
-- (NSSet*)placementCellsAdjacentToLocation:(Petri2DCoordinates*)location;
+- (NSSet*)placementCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates;
 
 /**
- * Get an immutable set of all cells that are adjacent to a given location for the purpose of placing a piece
- * @param location location to get adjacent cells
- * @return NSSet of locations that are adjacent
+ * Get an immutable set of all cells that are adjacent to a given coordinates for the purposes of capturing
+ * @param cellCoordinates the coordinates of the cell around which to look for adjacent cells
+ * @return NSSet of cells that are adjacent (for purposes of capturing) to the cell at the given coordinates
  */
-- (NSSet*)capturableCellsAdjacentToLocation:(Petri2DCoordinates*)location;
+- (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates;
 
 @property (readonly) NSInteger width;
 @property (readonly) NSInteger height;

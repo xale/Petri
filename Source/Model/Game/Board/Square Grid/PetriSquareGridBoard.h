@@ -14,26 +14,24 @@
 @interface PetriSquareGridBoard : PetriGridBoard
 
 /*!
- Override. Returns the cells laterally adjacent to (i.e., above, below, and to the left and right of) the specified location.
- 
- @param location A location on the board around which to look for valid placement cells.
+ Override. Returns the cells laterally adjacent to (i.e., above, below, and to the left and right of) the cell at the specified coordinates.
+ @param cellCoordinates The coordinates of a cell on the board around which to look for valid placement cells.
  */
-- (NSSet*)placementCellsAdjacentToLocation:(Petri2DCoordinates*)location;
+- (NSSet*)placementCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates;
 
 /*!
- Override. Returns the cells laterally or diagonally adjacent to the specified location.
- 
- @param location A location on the board around which to look for capturable cells.
+ Override. Returns the cells laterally or diagonally adjacent to the cell at the specified coordinates.
+ @param cellCoordinates The coordinates of a cell on the board around which to look for capturable cells.
  */
-- (NSSet*)capturableCellsAdjacentToLocation:(Petri2DCoordinates*)location;
+- (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates;
 
 /*!
- Override. Check if a location is a valid place to put a piece
+ Override. Checks if a piece can be placed on the board.
  
  @param piece piece to place
  @param owner player placing the piece
  @param pieceOrigin the coordinates to place the piece's origin
- @return true if the location is valid
+ @return true if the piece can be placed
  */
 - (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
 					   withOwner:(PetriPlayer*)owner

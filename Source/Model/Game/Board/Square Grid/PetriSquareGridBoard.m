@@ -12,7 +12,6 @@
 #import "PetriPiece.h"
 #import "Petri2DCoordinates.h"
 
-
 /*!
  Private interface for PetriSquareGridBoard
  */
@@ -27,23 +26,24 @@
 
 - (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
 					   withOwner:(PetriPlayer*)pieceOwner
-				   atCoordinates:(Petri2DCoordinates*)location
+				   atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
-	//If any of the cells to be covered by the body are occupied, then we cannot place a piece there
-	for (Petri2DCoordinates* location in [piece cellCoordinates])
+	//If any of the cells to be covered by the body are occupied, or not on the board then we cannot place a piece there
+	for (Petri2DCoordinates* cellOffset in [piece cellCoordinates])
 	{
-		PetriBoardCell* cell = [self cellAtLocation:location];
+		// FIXME check if coordinates are on board
 		
+		PetriBoardCell* cell = [self cellAtCoordinates:[pieceOrigin offsetCoordinates:cellOffset]];
 		if ([cell cellType] != unoccupiedCell)
 		{
 			return FALSE;
 		}
 	}
 	
-	//We now check the adjacency of each location and as long as we find one then we can return
-	for (Petri2DCoordinates* location in [piece cellCoordinates])
+	//We now check that at least one cell adjoins a cell owned by the player placing the piece
+	for (Petri2DCoordinates* cellOffset in [piece cellCoordinates])
 	{		
-		NSSet* adjacencies = [self placementCellsAdjacentToLocation:location];
+		NSSet* adjacencies = [self placementCellsAdjacentToCoordinates:[pieceOrigin offsetCoordinates:cellOffset]];
 		
 		for (PetriBoardCell* cell in adjacencies)
 		{
@@ -57,14 +57,14 @@
 	return FALSE;
 }
 
-- (NSSet*)placementCellsAdjacentToLocation:(Petri2DCoordinates*)location
+- (NSSet*)placementCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
 {
 	NSMutableSet* adjacentCells = [NSMutableSet set];
 	
 	//Add and subtract 1 to x and y
 	//Throw out negatives or things outside of bounds
-	NSInteger x = [location xCoordinate];
-	NSInteger y = [location yCoordinate];
+	NSInteger x = [cellCoordinates xCoordinate];
+	NSInteger y = [cellCoordinates yCoordinate];
 	
 	if ((x - 1) >= 0)
 	{
@@ -86,17 +86,17 @@
 	return [adjacentCells copy];
 }
 
-- (NSSet*)capturableCellsAdjacentToLocation:(Petri2DCoordinates*)location
+- (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
 {
 	NSMutableSet* adjacentCells = [NSMutableSet set];
 	
 	//Add and subtract 1 to x and y
 	//Throw out negatives or things outside of bounds
-	NSInteger x = [location xCoordinate];
-	NSInteger y = [location yCoordinate];
+	NSInteger x = [cellCoordinates xCoordinate];
+	NSInteger y = [cellCoordinates yCoordinate];
 	
 	// Add laterally-adjacent cells
-	[adjacentCells unionSet:[self placementCellsAdjacentToLocation:location]];
+	[adjacentCells unionSet:[self placementCellsAdjacentToCoordinates:cellCoordinates]];
 	
 	// Add diagonally-adjacent cells
 	if ((x - 1) >= 0 && (y - 1) >= 0)
@@ -137,7 +137,7 @@
 				if ([current cellType] != unoccupiedCell)
 				{
 					//Iterate over all adjacent cells
-					for (PetriBoardCell* cell in [self capturableCellsAdjacentToLocation:currentCoordinates])
+					for (PetriBoardCell* cell in [self capturableCellsAdjacentToCoordinates:currentCoordinates])
 					{
 						//If we find an adjacent cell with a different player's piece
 						if ([cell cellType] != unoccupiedCell && [cell owner] != [current owner])

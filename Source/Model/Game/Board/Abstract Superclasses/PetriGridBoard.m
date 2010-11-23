@@ -57,11 +57,11 @@
 		 withOwner:(PetriPlayer*)player
 	 atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
-	// Iterate over location-offsets in the piece
-	for (Petri2DCoordinates* cellLocation in [piece cellCoordinates])
+	// Iterate over cell-offsets in the piece
+	for (Petri2DCoordinates* cellOffset in [piece cellCoordinates])
 	{
-		// Find the cell located at (piece origin) + (location offset)
-		PetriBoardCell* cell = [self cellAtLocation:[pieceOrigin offsetCoordinates:cellLocation]];
+		// Find the cell located at (piece origin) + (cell offset)
+		PetriBoardCell* cell = [self cellAtCoordinates:[pieceOrigin offsetCoordinates:cellOffset]];
 		
 		// Create a body cell for the piece's owner
 		[cell setOwner:player];
@@ -77,10 +77,10 @@
 	return FALSE;
 }
 
-- (PetriBoardCell*)cellAtLocation:(Petri2DCoordinates*)location
+- (PetriBoardCell*)cellAtCoordinates:(Petri2DCoordinates*)coordinates
 {
-	return [self cellAtX:[location xCoordinate]
-					   Y:[location yCoordinate]];
+	return [self cellAtX:[coordinates xCoordinate]
+					   Y:[coordinates yCoordinate]];
 }
 
 - (PetriBoardCell*)cellAtX:(NSInteger)x
@@ -106,13 +106,13 @@
 	return nil;
 }
 
-- (NSSet*)placementCellsAdjacentToLocation:(Petri2DCoordinates*)location
+- (NSSet*)placementCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
 }
 
-- (NSSet*)capturableCellsAdjacentToLocation:(Petri2DCoordinates*)location
+- (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
