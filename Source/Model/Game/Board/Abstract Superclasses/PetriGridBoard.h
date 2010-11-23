@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "PetriBoard.h"
 
-@class PetriBoardLocation;
+@class Petri2DCoordinates;
 @class PetriPiece;
 @class PetriPlayer;
 @class PetriBoardCell;
@@ -47,7 +47,7 @@
  * @param player owner of the piece being placed
  */
 - (void)placePiece:(PetriPiece*)piece
-		atLocation:(PetriBoardLocation*)cellLocation
+		atLocation:(Petri2DCoordinates*)cellLocation
 		 withOwner:(PetriPlayer*)player;
 
 /**
@@ -55,7 +55,7 @@
  * @param location Location on board to return the cell at
  * @return cell at given location
  */
-- (PetriBoardCell*)cellAtLocation:(PetriBoardLocation*)location;
+- (PetriBoardCell*)cellAtLocation:(Petri2DCoordinates*)location;
 
 /**
  * Returns a cell at a given coordinates
@@ -80,7 +80,7 @@
  * @param owner of the piece
  */
 - (void)placePiece:(PetriPiece*)piece
-		atLocation:(PetriBoardLocation*)location
+		atLocation:(Petri2DCoordinates*)location
 		 withOwner:(PetriPlayer*)owner;
 
 /**
@@ -91,7 +91,7 @@
  * @return true if the location is valid
  */
 - (BOOL)isValidPlacementForPiece:(PetriPiece*)piece
-					  atLocation:(PetriBoardLocation*)location
+					  atLocation:(Petri2DCoordinates*)location
 					  withPlayer:(PetriPlayer*)player;
 
 /**
@@ -99,14 +99,14 @@
  * @param location location to get adjacent cells
  * @return NSSet of cells that are adjacent to the location
  */
-- (NSSet*)placementCellsAdjacentToLocation:(PetriBoardLocation*)location;
+- (NSSet*)placementCellsAdjacentToLocation:(Petri2DCoordinates*)location;
 
 /**
  * Get an immutable set of all cells that are adjacent to a given location for the purpose of placing a piece
  * @param location location to get adjacent cells
  * @return NSSet of locations that are adjacent
  */
-- (NSSet*)capturableCellsAdjacentToLocation:(PetriBoardLocation*)location;
+- (NSSet*)capturableCellsAdjacentToLocation:(Petri2DCoordinates*)location;
 
 @property (readonly) NSInteger width;
 @property (readonly) NSInteger height;
