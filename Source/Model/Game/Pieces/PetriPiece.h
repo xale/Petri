@@ -18,6 +18,17 @@
 	NSSet* cellCoordinates;	/*!< The set of Petri2DCoordinates describing the positions of the cells in this piece, as relative offsets from the piece's placement origin location. */
 }
 
++ (id)jPiece;
++ (id)lPiece;
++ (id)zPiece;
++ (id)sPiece;
++ (id)line4Piece;
++ (id)line5Piece;
++ (id)squarePiece;
++ (id)j3Piece;
++ (id)l3Piece;
++ (id)line3Piece;
+
 /**
  * Default constructor
  * Creates a set of four locations for a tetromino
