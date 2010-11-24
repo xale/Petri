@@ -18,14 +18,14 @@
 @interface PetriGame(Private)
 
 /*!
- Updates the value of current piece randomly based on the distribution provided at initialization.
+ Returns the next PetriPiece to be assigned to \c currentPiece, chosen at random based on the distribution provided at initialization.
  */
-- (void)nextPiece;
+- (PetriPiece*)nextPiece;
 
 /*!
- Updates the value of the player looping over the array;
+ Returns the next player to play, to be assigned to \c currentPlayer.
  */
-- (void)nextPlayer;
+- (PetriPlayer*)nextPlayer;
 
 @end
 
@@ -46,7 +46,7 @@
 	gameConfiguration = configuration;
 	board = [[PetriSquareGridBoard alloc] initWithWidth:20
 												 height:20]; // FIXME: generate board from game configuration
-	[self nextPiece];
+	currentPiece = [self nextPiece];
 	return self;
 }
 
@@ -54,8 +54,8 @@
 {
 	[self willChangeValueForKey:@"currentPiece"];
 	[self willChangeValueForKey:@"currentPlayer"];
-	[self nextPlayer];
-	[self nextPiece];
+	currentPlayer = [self nextPlayer];
+	currentPiece = [self nextPiece];
 	[self didChangeValueForKey:@"currentPlayer"];
 	[self didChangeValueForKey:@"currentPiece"];
 }
@@ -102,7 +102,7 @@
 	return [players firstObjectCommonWithArray:[NSArray arrayWithObject:player]];
 }
 
-- (void)nextPiece
+- (PetriPiece*)nextPiece
 {
 	NSDictionary* pieceFrequencies = [gameConfiguration pieceFrequencies];
 	long accum = 0;
@@ -118,23 +118,14 @@
 			[pieces addObject:piece];
 		}
 	}
-	currentPiece = [pieces objectAtIndex:(random() % accum)];
+	return [pieces objectAtIndex:(random() % accum)];
 }
 
-- (void)nextPlayer
+- (PetriPlayer*)nextPlayer
 {
 	//N.B. Assumes that there are no duplicate player objects.
-	
 	NSUInteger index = [players indexOfObject:currentPlayer];
-	NSUInteger nextIndex = index + 1;
-	if (nextIndex < [players count])
-	{
-		currentPlayer = [players objectAtIndex:nextIndex];
-	}
-	else
-	{
-		currentPlayer = [players objectAtIndex:0];
-	}
+	return [players objectAtIndex:((index + 1) % [players count])];
 }
 
 - (NSArray*)players
