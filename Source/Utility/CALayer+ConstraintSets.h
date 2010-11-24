@@ -28,6 +28,11 @@
 @interface CAConstraint(ConstraintSets)
 
 /*!
+ Generates a set of CAConstraints that constrains a layer's center to the center of its superlayer.
+ */
++ (NSSet*)superlayerCenterConstraintSet;
+
+/*!
  Generates a set of CAConstraints that constrains a layer's lower-left corner to the lower-left corner of its superlayer.
  */
 + (NSSet*)superlayerLowerLeftCornerConstraintSet;

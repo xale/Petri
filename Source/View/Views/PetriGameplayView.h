@@ -8,11 +8,11 @@
 
 #import "PetriNoLayerResizeAnimationView.h"
 
+#import "PetriBoard.h"
+
 @class PetriGame;
 @class PetriPlayer;
-@class PetriGridBoard;
 @class PetriPiece;
-@class Petri2DCoordinates;
 
 @protocol PetriGameplayViewDelegate;
 
@@ -24,11 +24,22 @@
 @interface PetriGameplayView : PetriNoLayerResizeAnimationView
 {
 	IBOutlet id <PetriGameplayViewDelegate> delegate;	/*!< The delegate object which this view will talk to when attempting to modify the model. */
-	PetriGame* game;	/*!< The model Game object for which this view draws a representation. */
+	
+	CALayer* outerContainerLayer;	/*!< A fixed-aspect-ratio container layer that keeps the game elements centered on the view. */
+	CALayer* nextPieceBoxLayer;		/*!< A square layer in the lower-right corner of the container layer that holds the next piece to be placed on the board. */
+	CALayer* playerBoxesConstainerLayer;	/*!< A container layer for the player-status-info boxes in the top-right corner of the view. */
+	
+	NSArray* players;			/*!< The list of players in the game. */
+	PetriPlayer* currentPlayer;	/*!< The player whose turn it is. */
+	id<PetriBoard> board;		/*!< The game board. */
+	PetriPiece* currentPiece;	/*!< The piece to be placed this turn. */
 }
 
 @property (readwrite, assign) IBOutlet id<PetriGameplayViewDelegate> delegate;
-@property (readwrite, assign) PetriGame* game;
+@property (readwrite, copy) NSArray* players;
+@property (readwrite, assign) PetriPlayer* currentPlayer;
+@property (readwrite, assign) id<PetriBoard> board;
+@property (readwrite, assign) PetriPiece* currentPiece;
 
 @end
 
@@ -43,14 +54,14 @@
  @param gameplayView The view requesting the validation.
  @param piece The piece whose placement is being validated.
  @param pieceOwner The owner of the piece whose placement is being validated.
- @param coordinates The placement coordinates to validate for the piece.
+ @param originCell The cell in which the origin of the piece will be placed.
  @param board The board on which placement is being validated.
  */
 - (BOOL)gameplayView:(PetriGameplayView*)gameplayView
 	   canPlacePiece:(PetriPiece*)piece
 		   forPlayer:(PetriPlayer*)pieceOwner
-	   atCoordinates:(Petri2DCoordinates*)coordinates
-		 onGridBoard:(PetriGridBoard*)board;
+			  onCell:(PetriBoardCell*)originCell
+			 ofBoard:(id<PetriBoard>)board;
 
 /*!
  Informs the delegate that a piece has been placed on the board.
@@ -58,13 +69,13 @@
  @param gameplayView The view responsible for the placement.
  @param piece The piece being placed.
  @param pieceOwner The owner of the piece being placed.
- @param coordinates The placement coordinates for the piece.
+ @param originCell The cell in which the origin of the piece is being placed.
  @param board The board on which to place the piece.
  */
 - (void)gameplayView:(PetriGameplayView*)gameplayView
 		  placePiece:(PetriPiece*)piece
 		   forPlayer:(PetriPlayer*)pieceOwner
-	   atCoordinates:(Petri2DCoordinates*)coordinates
-			 onBoard:(PetriGridBoard*)board;
+			  onCell:(PetriBoardCell*)originCell
+			 ofBoard:(id<PetriBoard>)board;
 
 @end
