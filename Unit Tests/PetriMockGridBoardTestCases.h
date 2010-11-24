@@ -15,5 +15,6 @@
 }
 
 - (void)testInitUsesCorrectDimensions;
+- (void)testPlacePiece;
 
 @end

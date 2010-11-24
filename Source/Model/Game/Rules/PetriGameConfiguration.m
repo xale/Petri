@@ -7,7 +7,7 @@
 //
 
 #import "PetriGameConfiguration.h"
-
+#import "PetriPiece.h"
 
 @implementation PetriGameConfiguration
 
@@ -34,6 +34,22 @@ NSString* const PetriInvalidMinMaxPlayersExceptionDescriptionFormat =	@"Minimum 
 	pieceFrequencies = pieces;
 	
 	return self;
+}
+
++ (NSDictionary*)defaultPieceFrequencies
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			[NSNumber numberWithInteger:1],	[PetriPiece sPiece],
+			[NSNumber numberWithInteger:1],	[PetriPiece zPiece],
+			[NSNumber numberWithInteger:1],	[PetriPiece lPiece],
+			[NSNumber numberWithInteger:1],	[PetriPiece jPiece],
+			[NSNumber numberWithInteger:1],	[PetriPiece line3Piece],
+			[NSNumber numberWithInteger:1],	[PetriPiece line4Piece],
+			[NSNumber numberWithInteger:1],	[PetriPiece line5Piece],
+			[NSNumber numberWithInteger:1],	[PetriPiece j3Piece],
+			[NSNumber numberWithInteger:1],	[PetriPiece l3Piece],
+			[NSNumber numberWithInteger:1],	[PetriPiece squarePiece],
+			nil];
 }
 
 #pragma mark -

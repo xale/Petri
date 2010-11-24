@@ -31,6 +31,8 @@
 			  maxPlayers:(NSInteger)maxPlayerCount
 		pieceFrequencies:(NSDictionary*)pieces;
 
++ (NSDictionary*)defaultPieceFrequencies;
+
 @property (readwrite, assign) NSInteger minPlayers;
 @property (readwrite, assign) NSInteger maxPlayers;
 @property (readwrite, copy) NSDictionary* pieceFrequencies;
