@@ -17,5 +17,6 @@
 - (void)testIdentityComparison;
 - (void)testOffsetIdentities;
 - (void)testRotateIdentities;
+- (void)testCoordinatesWithXCoordinate;
 
 @end
