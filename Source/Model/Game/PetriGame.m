@@ -46,6 +46,7 @@
 	gameConfiguration = configuration;
 	board = [[PetriSquareGridBoard alloc] initWithWidth:20
 												 height:20]; // FIXME: generate board from game configuration
+	currentPiece = [[PetriPiece alloc] init]; // FIXME: testing
 	return self;
 }
 
@@ -54,7 +55,7 @@
 	[self willChangeValueForKey:@"currentPiece"];
 	[self willChangeValueForKey:@"currentPlayer"];
 	[self nextPlayer];
-	[self nextPiece];
+	//[self nextPiece]; FIXME: TESTING
 	[self didChangeValueForKey:@"currentPlayer"];
 	[self didChangeValueForKey:@"currentPiece"];
 }
