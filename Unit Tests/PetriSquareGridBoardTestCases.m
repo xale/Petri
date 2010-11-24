@@ -16,8 +16,8 @@
 #import "PetriPiece.h"
 #import "PetriBoardCell.h"
 
-#define WIDTH 20
-#define HEIGHT 25
+#define WIDTH	20
+#define HEIGHT	25
 
 @implementation PetriSquareGridBoardTestCases
 
