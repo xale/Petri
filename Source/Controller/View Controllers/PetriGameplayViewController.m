@@ -73,6 +73,24 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 #pragma mark PetriGameplayView Delegate Methods
 
 - (BOOL)gameplayView:(PetriGameplayView*)gameplayView
+canRotateCurrentPiece:(PetriPiece*)piece
+		   forPlayer:(PetriPlayer*)pieceOwner
+{
+	// FIXME: check that the player performing the rotation is local to the machine
+	return YES;
+}
+
+- (void)gameplayView:(PetriGameplayView*)gameplayView
+  rotateCurrentPiece:(PetriPiece*)piece
+		   forPlayer:(PetriPlayer*)pieceOwner
+{
+	// Ask the game to rotate the current piece
+	// [[self game] rotatePiece]; FIXME: WRITEME
+	
+	// FIXME: anything else?
+}
+
+- (BOOL)gameplayView:(PetriGameplayView*)gameplayView
 	   canPlacePiece:(PetriPiece*)piece
 		   forPlayer:(PetriPlayer*)pieceOwner
 			  onCell:(PetriBoardCell*)cell
@@ -97,7 +115,7 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	// Advance to the next player's turn
 	[[self game] nextTurn];
 	
-	// FIXME: WRITEME
+	// FIXME: anything else?
 }
 
 #pragma mark -

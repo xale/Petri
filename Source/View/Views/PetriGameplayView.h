@@ -49,8 +49,27 @@
 @protocol PetriGameplayViewDelegate
 
 /*!
+ Queries the delegate as to whether the current piece (i.e., the next piece to be placed on the board) may be rotated.
+ @param gameplayView The view requesting the validation.
+ @param piece The piece for which to validate rotation.
+ @param pieceOwner The player who currently has the active turn, and therefore "owns" the piece.
+ */
+- (BOOL)gameplayView:(PetriGameplayView*)gameplayView
+canRotateCurrentPiece:(PetriPiece*)piece
+		   forPlayer:(PetriPlayer*)pieceOwner;
+
+/*!
+ Informs the delegate that the current piece should be rotated.
+ @param gameplayView The view on which the rotation was performed.
+ @param piece The piece to be rotated.
+ @param pieceOwner The player who currently has the active turn, and therefore "owns" the piece.
+ */
+- (void)gameplayView:(PetriGameplayView*)gameplayView
+  rotateCurrentPiece:(PetriPiece*)piece
+		   forPlayer:(PetriPlayer*)pieceOwner;
+
+/*!
  Queries the delegate for the validity of a player placing a piece at the specified coordinates on the board.
- 
  @param gameplayView The view requesting the validation.
  @param piece The piece whose placement is being validated.
  @param pieceOwner The owner of the piece whose placement is being validated.
@@ -65,7 +84,6 @@
 
 /*!
  Informs the delegate that a piece has been placed on the board.
- 
  @param gameplayView The view responsible for the placement.
  @param piece The piece being placed.
  @param pieceOwner The owner of the piece being placed.
