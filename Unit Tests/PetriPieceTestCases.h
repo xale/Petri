@@ -16,5 +16,7 @@
 
 - (id)testCreatePetriPiece;
 - (id)testRotatePetriPiece;
+- (id)testWidth;
+- (id)testHeight;
 
 @end
