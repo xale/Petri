@@ -20,6 +20,18 @@
 
 @implementation CAConstraint(ConstraintSets)
 
++ (NSSet*)superlayerCenterConstraintSet
+{
+	return [NSSet setWithObjects:
+			[CAConstraint constraintWithAttribute:kCAConstraintMidX
+									   relativeTo:@"superlayer"
+										attribute:kCAConstraintMidX],
+			[CAConstraint constraintWithAttribute:kCAConstraintMidY
+									   relativeTo:@"superlayer"
+										attribute:kCAConstraintMidY],
+			nil];
+}
+
 + (NSSet*)superlayerLowerLeftCornerConstraintSet
 {
 	return [NSSet setWithObjects:
