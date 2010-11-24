@@ -99,12 +99,7 @@
 
 - (PetriPlayer*)memberOfPlayers:(PetriPlayer*)player
 {
-	NSUInteger index = [players indexOfObject:player];
-	if (index == NSNotFound)
-	{
-		return nil;
-	}
-	return [players objectAtIndex:index];
+	return [players firstObjectCommonWithArray:[NSArray arrayWithObject:player]];
 }
 
 - (void)nextPiece
