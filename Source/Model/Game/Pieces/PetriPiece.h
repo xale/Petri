@@ -18,6 +18,8 @@
 	NSSet* cellCoordinates;	/*!< The set of Petri2DCoordinates describing the positions of the cells in this piece, as relative offsets from the piece's placement origin location. */
 }
 
++ (NSDictionary*)defaultPieceFrequencies;
+
 + (id)jPiece;
 + (id)lPiece;
 + (id)zPiece;

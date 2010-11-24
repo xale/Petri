@@ -21,8 +21,15 @@
 }
 
 /*!
+ Creates a new PetriGameConfiguration with default initial values:
+ minPlayers: 2
+ maxPlayers: 4
+ pieceFrequencies: (see PetriPiece +defaultPieceFrequencies)
+ */
++ (id)defaultGameConfiguration;
+
+/*!
  Initializes a PetriGameConfiguration instance with the specified initial values.
- 
  @param minPlayerCount The minimum number of players in the game.
  @param maxPlayerCount The maximum number of players in the game. Must satisfy (\c maxPlayerCount \c >= \c minPlayerCount).
  @param pieces The set of pieces used in the game, and the probabilities of spawning each one on the next turn. See \ref pieceFrequencies.
@@ -30,8 +37,6 @@
 - (id)initWithMinPlayers:(NSInteger)minPlayerCount
 			  maxPlayers:(NSInteger)maxPlayerCount
 		pieceFrequencies:(NSDictionary*)pieces;
-
-+ (NSDictionary*)defaultPieceFrequencies;
 
 @property (readwrite, assign) NSInteger minPlayers;
 @property (readwrite, assign) NSInteger maxPlayers;
