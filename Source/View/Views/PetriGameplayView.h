@@ -26,7 +26,7 @@
 	IBOutlet id <PetriGameplayViewDelegate> delegate;	/*!< The delegate object which this view will talk to when attempting to modify the model. */
 	
 	CALayer* outerContainerLayer;	/*!< A fixed-aspect-ratio container layer that keeps the game elements centered on the view. */
-	CALayer* nextPieceBoxLayer;		/*!< A square layer in the lower-right corner of the container layer that holds the next piece to be placed on the board. */
+	CALayer* pieceBoxLayer;		/*!< A square layer in the lower-right corner of the container layer that holds the next piece to be placed on the board. */
 	CALayer* playerBoxesConstainerLayer;	/*!< A container layer for the player-status-info boxes in the top-right corner of the view. */
 	
 	NSArray* players;			/*!< The list of players in the game. */
