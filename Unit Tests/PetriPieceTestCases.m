@@ -34,4 +34,10 @@
 	STAssertEquals([testPetriPiece width], 3, @"Piece is initialized to width of 3 by default");
 }
 
+- (id)testHeight
+{
+	PetriPiece* testPetriPiece = [[PetriPiece alloc] init];
+	STAssertEquals([testPetriPiece height], 2, @"Piece is initialized to width of 3 by default");
+}
+
 @end
