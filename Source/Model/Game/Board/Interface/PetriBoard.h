@@ -9,6 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 @class PetriBoardCell;
+@class PetriPlayer;
+@class PetriPiece;
+@class PetriBoardCell;
 
 /*!
  \brief Protocol definining common behaviors for interacting with the state of the game board.
@@ -29,7 +32,25 @@
  */
 - (NSSet*)capturableCellsAdjacentToCell:(PetriBoardCell*)cell;
 
-+ (NSString*)boardType;	/*!< The type of board. See \ref boardTypes. */
+/*!
+ Method called on board to validate piece placement.
+ @param piece the piece to place
+ @param owner the player attempting to place the piece
+ @param cell the cell on the board on which the origin of the piece will be placed
+ */
+- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+					   withOwner:(PetriPlayer*)owner
+						  onCell:(PetriBoardCell*)cell;
+/*!
+ Method called on board to place piece.
+ \warning This method does no validation; call -validatePlacementOfPiece:withOwner:onCell: first.
+ @param piece the piece to place
+ @param owner the player attempting to place the piece
+ @param cell the cell on the board on which the origin of the piece will be placed
+ */
+- (void)placePiece:(PetriPiece*)piece
+		 withOwner:(PetriPlayer*)owner
+			onCell:(PetriBoardCell*)cell;
 
 + (NSInteger)absoluteMinPlayers;	/*!< Returns the minimum number of players that a board of this type can accommodate. */
 + (NSInteger)absoluteMaxPlayers;	/*!< Returns the maximum number of players that a board of this type can accommodate. */

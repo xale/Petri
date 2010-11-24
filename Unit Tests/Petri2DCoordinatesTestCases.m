@@ -11,12 +11,15 @@
 
 @implementation Petri2DCoordinatesTestCases
 
+#define XCOORD 2
+#define YCOORD 3
+
 - (void)setUp
 {
-	coordinates = [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:3];
+	coordinates = [Petri2DCoordinates coordinatesWithXCoordinate:XCOORD yCoordinate:YCOORD];
 	STAssertNotNil(coordinates, @"Petri2DCoordinates failed to allocate.");
-	STAssertTrue(2 == [coordinates xCoordinate], @"x coordinate set incorrectly");
-	STAssertTrue(3 == [coordinates yCoordinate], @"y coordinate set incorrectly");
+	STAssertTrue(XCOORD == [coordinates xCoordinate], @"x coordinate set incorrectly");
+	STAssertTrue(YCOORD == [coordinates yCoordinate], @"y coordinate set incorrectly");
 }
 
 - (void)tearDown
@@ -60,21 +63,12 @@
 	STAssertEqualObjects(coordinates, [coordinates4 rotatedClockwiseAboutOrigin], @"Rotating clockwise 4 times should result in identity.");
 }
 
-- (void)testCoordinatesWithXCoordinate;
-{
-	Petri2DCoordinates* coord = [Petri2DCoordinates coordinatesWithXCoordinate:3 yCoordinate:2];
-	STAssertNotNil(coord, @"This object should be created successfully");	
-	STAssertEquals([coord xCoordinate], 3, @"This object was initialized with an x coordinate of 3");
-	STAssertEquals([coord yCoordinate], 2, @"This object was initialized with an y coordinate of 2");
-}
-
 - (void)testEquality
 {
-	Petri2DCoordinates* coordinates1 = [Petri2DCoordinates coordinatesWithXCoordinate:3 yCoordinate:2];
-	Petri2DCoordinates* coordinates2 = [Petri2DCoordinates coordinatesWithXCoordinate:3 yCoordinate:2];
+	Petri2DCoordinates* coordinates2 = [Petri2DCoordinates coordinatesWithXCoordinate:XCOORD yCoordinate:YCOORD];
 	
-	STAssertTrue([coordinates1 isEqual:coordinates1], @"Object should certainly be equal to itself");
-	STAssertTrue([coordinates1 isEqualToCoordinates:coordinates2], @"Object should certainly be equal to itself");
+	STAssertEqualObjects(coordinates, coordinates, @"Object should certainly be equal to itself");
+	STAssertEqualObjects(coordinates, coordinates2, @"Object should be equal to another object created with the same parameters");
 }
 
 @end

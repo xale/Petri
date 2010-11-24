@@ -250,11 +250,6 @@
 	}
 }
 
-+ (NSString*)boardType
-{
-	return @"Square grid";
-}
-
 + (NSInteger)absoluteMinPlayers
 {
 	return 2;

@@ -106,6 +106,20 @@
 	return nil;
 }
 
+- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+					   withOwner:(PetriPlayer*)owner
+						  onCell:(PetriBoardCell*)cell
+{
+	return [self validatePlacementOfPiece:piece withOwner:owner atCoordinates:[self coordinatesOfCell:cell]];
+}
+
+- (void)placePiece:(PetriPiece*)piece
+		 withOwner:(PetriPlayer*)owner
+			onCell:(PetriBoardCell*)cell
+{
+		return [self placePiece:piece withOwner:owner atCoordinates:[self coordinatesOfCell:cell]];
+}
+
 - (NSSet*)placementCellsAdjacentToCell:(PetriBoardCell*)cell
 {
 	return [self placementCellsAdjacentToCoordinates:[self coordinatesOfCell:cell]];
