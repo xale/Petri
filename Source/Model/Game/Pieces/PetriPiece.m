@@ -132,6 +132,11 @@
 	return [[self alloc] initWithCellCoordinates:coordinates];
 }
 
+- (id)copyWithZone:(NSZone*)zone
+{
+	return [[[self class] allocWithZone:zone] initWithCellCoordinates:[self cellCoordinates]];
+}
+
 #pragma mark -
 #pragma mark Rotations
 
