@@ -13,37 +13,35 @@
 
 @implementation PetriGameTestCases
 
-- (void)testCreatePetriGame
+- (void)setUp
 {
 	PetriPlayer* testPlayer = [[PetriMockPlayer alloc] init];
-	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
-	PetriGame* testGame = [[PetriGame alloc] initWithPlayers:[NSArray arrayWithObject:testPlayer]
-										   gameConfiguration:testGameRules];
+	PetriGameConfiguration* testGameConfiguration = [PetriGameConfiguration defaultGameConfiguration];
+	testGame = [[PetriGame alloc] initWithPlayers:[NSArray arrayWithObject:testPlayer]
+								gameConfiguration:testGameConfiguration];
 	STAssertNotNil(testGame, @"Game object not created successfully");
+}
+
+- (void)tearDown
+{
+	testGame = nil;
 }
 
 - (void)testGameBoardNotNil
 {
-	PetriPlayer* testPlayer = [[PetriMockPlayer alloc] init];
-	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
-	PetriGame* testGame = [[PetriGame alloc] initWithPlayers:[NSArray arrayWithObject:testPlayer]
-										   gameConfiguration:testGameRules];
 	STAssertNotNil([testGame board], @"The board should never be nil");
-	
 }
 
 - (void)testGameBoardHandlesEmptyPlayersArray
 {
 	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
-	STAssertThrows([[PetriGame alloc] initWithPlayers:[NSArray array] gameConfiguration:testGameRules], @"An exception was not thrown when PetriGame was initialized with an empty array");
-	
+	STAssertThrows([[PetriGame alloc] initWithPlayers:[NSArray array] gameConfiguration:testGameRules], @"An exception was not thrown when PetriGame was initialized with an empty players array");
 }
 
 - (void)testGameBoardHandlesNilPlayersArray
 {
 	PetriGameConfiguration* testGameRules = [[PetriGameConfiguration alloc] init];
-	STAssertThrows([[PetriGame alloc] initWithPlayers:nil gameConfiguration:testGameRules], @"An exception was not thrown when PetriGame was initialized with a nil array");
-	
+	STAssertThrows([[PetriGame alloc] initWithPlayers:nil gameConfiguration:testGameRules], @"An exception was not thrown when PetriGame was initialized with a nil players array");
 }
 
 @end
