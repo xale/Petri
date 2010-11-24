@@ -36,9 +36,21 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	   options:nil];
 	
 	// Bind the gameplay view to this controller
-	[gameplayPane bind:@"game"
+	[gameplayPane bind:@"players"
 			  toObject:self
-		   withKeyPath:@"game"
+		   withKeyPath:@"game.players"
+			   options:nil];
+	[gameplayPane bind:@"currentPlayer"
+			  toObject:self
+		   withKeyPath:@"game.currentPlayer"
+			   options:nil];
+	[gameplayPane bind:@"board"
+			  toObject:self
+		   withKeyPath:@"game.board"
+			   options:nil];
+	[gameplayPane bind:@"currentPiece"
+			  toObject:self
+		   withKeyPath:@"game.currentPiece"
 			   options:nil];
 }
 
@@ -63,24 +75,29 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 - (BOOL)gameplayView:(PetriGameplayView*)gameplayView
 	   canPlacePiece:(PetriPiece*)piece
 		   forPlayer:(PetriPlayer*)pieceOwner
-	   atCoordinates:(Petri2DCoordinates*)coordinates
-		 onGridBoard:(PetriGridBoard*)board
+			  onCell:(PetriBoardCell*)cell
+			 ofBoard:(id<PetriBoard>)board
 {
 	return [board validatePlacementOfPiece:piece
 								 withOwner:pieceOwner
-							 atCoordinates:coordinates];
+									onCell:cell];
 }
 
 - (void)gameplayView:(PetriGameplayView*)gameplayView
 		  placePiece:(PetriPiece*)piece
 		   forPlayer:(PetriPlayer*)pieceOwner
-	   atCoordinates:(Petri2DCoordinates*)coordinates
-			 onBoard:(PetriGridBoard*)board
+			  onCell:(PetriBoardCell*)cell
+			 ofBoard:(id<PetriBoard>)board
 {
-	// FIXME: naive implementation
+	// Place the piece on the board
 	[board placePiece:piece
-		   withOwner:pieceOwner
-		atCoordinates:coordinates];
+			withOwner:pieceOwner
+			   onCell:cell];
+	
+	// Advance to the next player's turn
+	[[self game] nextTurn];
+	
+	// FIXME: WRITEME
 }
 
 #pragma mark -
