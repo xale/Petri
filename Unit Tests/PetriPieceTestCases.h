@@ -8,15 +8,15 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+@class PetriPiece;
 
 @interface PetriPieceTestCases : SenTestCase
 {
-
+	PetriPiece* testPiece;
 }
 
-- (id)testCreatePetriPiece;
-- (id)testRotatePetriPiece;
-- (id)testWidth;
-- (id)testHeight;
+- (void)testPieceDimensions;
+- (void)testPieceIdempotentRotateRevert;
+- (void)testPieceIdempotentRepeatedRotate;
 
 @end

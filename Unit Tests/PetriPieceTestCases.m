@@ -9,35 +9,59 @@
 #import "PetriPieceTestCases.h"
 #import "PetriPiece.h"
 
+#import "Petri2DCoordinates.h"
+
+#define EXPECTED_WIDTH	2
+#define EXPECTED_HEIGHT	3
+
 @implementation PetriPieceTestCases
 
-- (id)testCreatePetriPiece
+- (void)setUp
 {
-	PetriPiece* testPetriPiece = [[PetriPiece alloc] init];
-	STAssertNotNil(testPetriPiece, @"PetriPiece object creation unsuccessful");
+	// Create a test piece (shaped like a 'C')
+	testPiece = [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+													  [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+													  [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0],
+													  [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+													  [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
+													  [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
+													  nil]];
+	STAssertNotNil(testPiece, @"Unable to create test PetriPiece.");
 }
 
-- (id)testRotatePetriPiece
+- (void)tearDown
 {
-	PetriPiece* testPetriPiece = [[PetriPiece alloc] init];
-	PetriPiece* testPetriPiece2 = [[PetriPiece alloc] init];
+	testPiece = nil;
+}
+
+- (void)testPieceDimensions
+{
+	STAssertTrue(([testPiece width] == EXPECTED_WIDTH), @"Test PetriPiece width differs from expected width.");
+	STAssertTrue(([testPiece height] == EXPECTED_HEIGHT), @"Test PetriPiece height differs from expected height.");
+}
+
+- (void)testPieceIdempotentRotateRevert
+{
+	PetriPiece* rotatedPiece = [testPiece pieceRotatedClockwise];
+	rotatedPiece = [rotatedPiece pieceRotatedCounterclockwise];
+	STAssertEqualObjects(testPiece, rotatedPiece, @"Clockwise rotate followed by counterclockwise rotate should result in identity.");
+}
+
+- (void)testPieceIdempotentRepeatedRotate
+{
+	PetriPiece* rotatedPiece = [testPiece copy];
+	for (NSInteger numRotations = 0; numRotations < 4; numRotations++) // FIXME: hardcoded value; should use number of orientations
+	{
+		rotatedPiece = [rotatedPiece pieceRotatedClockwise];
+	}
+	STAssertEqualObjects(testPiece, rotatedPiece, @"Rotating clockwise orientationCount (%d) times should result in identity.", 4); // FIXME: hardcoded value
 	
-	[testPetriPiece2 pieceRotatedClockwise];
-	[testPetriPiece2 pieceRotatedCounterclockwise];
-	
-	STAssertEqualObjects([testPetriPiece cellCoordinates], [testPetriPiece2 cellCoordinates], @"Both pieces should have equivalent positions");
-}
-
-- (id)testWidth
-{
-	PetriPiece* testPetriPiece = [[PetriPiece alloc] init];
-	STAssertEquals([testPetriPiece width], 3, @"Piece is initialized to width of 3 by default");
-}
-
-- (id)testHeight
-{
-	PetriPiece* testPetriPiece = [[PetriPiece alloc] init];
-	STAssertEquals([testPetriPiece height], 2, @"Piece is initialized to width of 3 by default");
+	rotatedPiece = [testPiece copy];
+	for (NSInteger numRotations = 0; numRotations < 4; numRotations++) // FIXME: hardcoded value; should use number of orientations
+	{
+		rotatedPiece = [rotatedPiece pieceRotatedCounterclockwise];
+	}
+	STAssertEqualObjects(testPiece, rotatedPiece, @"Rotating counterclockwise orientationCount (%d) times should result in identity.", 4); // FIXME: hardcoded value
 }
 
 @end
