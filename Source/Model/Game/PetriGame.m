@@ -29,9 +29,7 @@
 
 @end
 
-
 @implementation PetriGame
-
 
 - (id)initWithPlayers:(NSArray*)playersInGame
 	gameConfiguration:(PetriGameConfiguration*)configuration
@@ -41,7 +39,7 @@
 		NSString* reason = @"Attempted to create game with no players or nil players array";
 		[[NSException exceptionWithName:@"BadPlayersArrayException" reason:reason userInfo:nil] raise];
 	}
-	players = [playersInGame mutableCopy];
+	players = [playersInGame copy];
 	currentPlayer = [players objectAtIndex:0];
 	gameConfiguration = configuration;
 	board = [[PetriSquareGridBoard alloc] initWithWidth:20
@@ -62,30 +60,6 @@
 
 #pragma mark -
 #pragma mark Accessors
-
-- (void)addPlayersObject:(PetriPlayer*)player
-{
-	if ([players containsObject:player])
-	{
-		NSString* reason = [NSString stringWithFormat:@"Attempted to add user %@ to %@.", player, players];
-		[[NSException exceptionWithName:@"PlayerFoundWhenAddingException" reason:reason userInfo:nil] raise];
-	}
-	[self willChangeValueForKey:@"player"];
-	[players addObject:player];
-	[self didChangeValueForKey:@"player"];
-}
-
-- (void)removePlayersObject:(PetriPlayer*)player
-{
-	if (![players containsObject:player])
-	{
-		NSString* reason = [NSString stringWithFormat:@"Attempted to remove player %@ from %@.", player, players];
-		[[NSException exceptionWithName:@"PlayerNotFoundWhenRemovingException" reason:reason userInfo:nil] raise];
-	}
-	[self willChangeValueForKey:@"player"];
-	[players removeObject:player];
-	[self didChangeValueForKey:@"player"];
-}
 
 - (NSUInteger)countOfPlayers
 {
@@ -128,11 +102,7 @@
 	return [players objectAtIndex:((index + 1) % [players count])];
 }
 
-- (NSArray*)players
-{
-	return [players copy];
-}
-
+@synthesize players;
 @synthesize currentPlayer;
 @synthesize board;
 @synthesize gameConfiguration;
