@@ -126,15 +126,13 @@
 												 nil]];
 }
 
+/*!
+ Override. Throws an exception.
+ */
 - (id)init
 {
-	cellCoordinates = [NSSet setWithObjects:
-					   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
-					   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-					   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
-					   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
-					   nil];
-	return self;
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
 }
 
 - (id)initWithCellCoordinates:(NSSet*)coordinates
@@ -164,7 +162,7 @@
 		[newCoordinates addObject:[coord rotatedClockwiseAboutOrigin]];
 	}
 	
-	return [[PetriPiece alloc] initWithCellCoordinates:[newCoordinates copy]];
+	return [[self class] pieceWithCellCoordinates:[newCoordinates copy]];
 }
 
 - (PetriPiece*)pieceRotatedCounterclockwise

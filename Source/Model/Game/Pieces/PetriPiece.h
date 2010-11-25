@@ -32,16 +32,8 @@
 + (id)line3Piece;
 
 /**
- * Default constructor
- * Creates a set of four locations for a tetromino
- * In this case it's an s-block for testing purposes
- * We will work to extend this with more shapes later
- */
-- (id)init;
-
-/**
- * Initializes a PetriPiece with a specific set of coordinates.
- * @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location.
+ * Default constructor. Initializes a PetriPiece with a specific set of coordinates.
+ * @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location. These coordinates will be "normalized" relative to the origin: see the documentation for -normalizeCoordinates:.
  */
 - (id)initWithCellCoordinates:(NSSet*)coordinates;
 
