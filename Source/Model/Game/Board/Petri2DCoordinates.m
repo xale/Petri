@@ -81,4 +81,9 @@
 @synthesize yCoordinate;
 @synthesize xCoordinate;
 
+- (NSString*)description
+{
+	return [NSString stringWithFormat:@"(%d, %d)", [self xCoordinate], [self yCoordinate]];
+}
+
 @end
