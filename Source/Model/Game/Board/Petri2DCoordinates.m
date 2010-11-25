@@ -75,6 +75,11 @@
 			([self yCoordinate] == [coordinates yCoordinate]));
 }
 
+- (NSUInteger)hash
+{
+	return [[self description] hash];
+}
+
 #pragma mark -
 #pragma mark Accessors
 
