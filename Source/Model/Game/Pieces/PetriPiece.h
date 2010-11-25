@@ -65,6 +65,12 @@
  */
 - (PetriPiece*)pieceRotatedCounterclockwise;
 
+/*!
+ Returns YES if the specified piece has the same set of cell offsets as the receiver.
+ @param piece The piece with which to compare.
+ */
+- (BOOL)isEqualToPiece:(PetriPiece*)piece;
+
 @property (readonly) NSSet* cellCoordinates;
 
 /**

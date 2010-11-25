@@ -175,7 +175,28 @@
 		[newCoordinates addObject:[coord rotatedCounterclockwiseAboutOrigin]];
 	}
 	
-	return [[PetriPiece alloc] initWithCellCoordinates:[newCoordinates copy]];
+	return [[self class] pieceWithCellCoordinates:[newCoordinates copy]];
+}
+
+#pragma mark -
+#pragma mark Comparators
+
+- (BOOL)isEqual:(id)object
+{
+	if (![object isKindOfClass:[self class]])
+		return NO;
+	
+	return [self isEqualToPiece:(PetriPiece*)object];
+}
+
+- (BOOL)isEqualToPiece:(PetriPiece*)piece
+{
+	return [[self cellCoordinates] isEqualToSet:[piece cellCoordinates]];
+}
+
+- (NSUInteger)hash
+{
+	return [[self cellCoordinates] hash];
 }
 
 #pragma mark -
