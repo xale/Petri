@@ -78,21 +78,31 @@
 
 - (PetriPiece*)nextPiece
 {
-	NSDictionary* pieceFrequencies = [gameConfiguration pieceFrequencies];
-	long accum = 0;
-	for (NSNumber* num in [pieceFrequencies objectEnumerator])
+	// Create a list from which to select a next piece
+	NSMutableArray* pieces = [NSMutableArray array];
+	for (PetriPiece* piece in [gameConfiguration pieceFrequencies])
 	{
-		accum += [num longValue];
-	}
-	NSMutableArray* pieces = [NSMutableArray arrayWithCapacity:accum]; // there is technically a signedness type error
-	for (PetriPiece* piece in pieceFrequencies)
-	{
-		for (int i = 0; i < [[pieceFrequencies objectForKey:piece] intValue]; i++)
+		// Populate the array with each piece type in the dictionary, duplicated according to its frequency
+		for (NSInteger i = 0; i < [[[gameConfiguration pieceFrequencies] objectForKey:piece] integerValue]; i++)
 		{
 			[pieces addObject:piece];
 		}
 	}
-	return [pieces objectAtIndex:(random() % accum)];
+	
+	// Choose a piece at random from the list
+	PetriPiece* nextPiece = [pieces objectAtIndex:(random() % [pieces count])];
+	
+	// Choose at random a number of times to rotate the piece
+	NSInteger numRotations = random() % 4; // FIXME: hardcoded value; should be based on number of possible rotations
+	
+	// Rotate the piece
+	while (numRotations > 0)
+	{
+		nextPiece = [nextPiece pieceRotatedClockwise];
+		numRotations--;
+	}
+	
+	return nextPiece;
 }
 
 - (PetriPlayer*)nextPlayer
