@@ -9,6 +9,18 @@
 #import "PetriPiece.h"
 #import "Petri2DCoordinates.h"
 
+/*!
+ Private methods on PetriPiece.
+ */
+@interface PetriPiece(Private)
+
+/*!
+ Takes a set of Petri2DCoordinates, and shifts them so that they maintain their positions relative to one another, but their bounding rect has its origin at (0,0).
+ */
+- (NSSet*)normalizeCoordinates:(NSSet*)coordinates;
+
+@end
+
 @implementation PetriPiece
 
 + (NSDictionary*)defaultPieceFrequencies
@@ -151,7 +163,7 @@
 
 - (id)initWithCellCoordinates:(NSSet*)coordinates
 {
-	cellCoordinates = coordinates;
+	cellCoordinates = [self normalizeCoordinates:coordinates];
 	return self;
 }
 
@@ -163,6 +175,30 @@
 - (id)copyWithZone:(NSZone*)zone
 {
 	return [[[self class] allocWithZone:zone] initWithCellCoordinates:[self cellCoordinates]];
+}
+
+#pragma mark -
+#pragma mark Coordinate Normalization
+
+- (NSSet*)normalizeCoordinates:(NSSet*)coordinates
+{
+	NSInteger minX = NSIntegerMax, minY = NSIntegerMax;
+	for (Petri2DCoordinates* coord in coordinates)
+	{
+		if ([coord xCoordinate] < minX)
+			minX = [coord xCoordinate];
+		if ([coord yCoordinate] < minY)
+			minY = [coord yCoordinate];
+	}
+	
+	NSMutableSet* normalizedCoordinates = [NSMutableSet setWithCapacity:[coordinates count]];
+	for (Petri2DCoordinates* coord in coordinates)
+	{
+		[normalizedCoordinates addObject:[coord offsetCoordinatesByX:-minX
+																   Y:-minY]];
+	}
+	
+	return [normalizedCoordinates copy];
 }
 
 #pragma mark -
@@ -216,42 +252,28 @@
 
 - (NSInteger)width
 {
-	NSInteger max = INT_MIN;
-	NSInteger min = INT_MAX;
+	NSInteger maxX = NSIntegerMin;
 	
 	for (Petri2DCoordinates* cell in cellCoordinates)
 	{
-		if ([cell xCoordinate] > max)
-		{
-			max = [cell xCoordinate];
-		}
-		if ([cell xCoordinate] < min)
-		{
-			min = [cell xCoordinate];
-		}
+		if ([cell xCoordinate] > maxX)
+			maxX = [cell xCoordinate];
 	}
 	
-	return (max - min) + 1;
+	return (maxX + 1);
 }
 
 - (NSInteger)height
 {
-	NSInteger max = INT_MIN;
-	NSInteger min = INT_MAX;
+	NSInteger maxY = NSIntegerMin;
 
 	for (Petri2DCoordinates* cell in cellCoordinates)
 	{
-		if ([cell yCoordinate] > max)
-		{
-			max = [cell yCoordinate];
-		}
-		if ([cell yCoordinate] < min)
-		{
-			min = [cell yCoordinate];
-		}
+		if ([cell yCoordinate] > maxY)
+			maxY = [cell yCoordinate];
 	}
 	
-	return (max - min) + 1;
+	return (maxY + 1);
 }
 
 @synthesize cellCoordinates;
