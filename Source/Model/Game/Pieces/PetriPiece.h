@@ -18,18 +18,22 @@
 	NSSet* cellCoordinates;	/*!< The set of Petri2DCoordinates describing the positions of the cells in this piece, as relative offsets from the piece's placement origin location. */
 }
 
+/*!
+ Returns a piece-frequency dictionary containing the set of default pieces, with an even distribution.
+ */
 + (NSDictionary*)defaultPieceFrequencies;
 
-+ (id)jPiece;
-+ (id)lPiece;
-+ (id)zPiece;
-+ (id)sPiece;
-+ (id)line4Piece;
-+ (id)line5Piece;
-+ (id)squarePiece;
-+ (id)j3Piece;
-+ (id)l3Piece;
-+ (id)line3Piece;
++ (id)unitPiece;	/*!< Returns a PetriPiece with a single cell located at the piece's origin. */
++ (id)line2Piece;	/*!< Returns a PetriPiece consisting of two adjacent cells. */
++ (id)line3Piece;	/*!< Returns a PetriPiece consisting of three cells in a line. */
++ (id)l3Piece;		/*!< Returns a PetriPiece consisting of three cells in an 'L' shape */
++ (id)line4Piece;	/*!< Returns a PetriPiece consisting of four cells in a line. */
++ (id)squarePiece;	/*!< Returns a PetriPiece consisting of four cells in a square. */
++ (id)jPiece;		/*!< Returns a PetriPiece shaped like the 'J' tetromino. */
++ (id)lPiece;		/*!< Returns a PetriPiece shaped like the 'L' tetromino. */
++ (id)zPiece;		/*!< Returns a PetriPiece shaped like the 'Z' tetromino. */
++ (id)sPiece;		/*!< Returns a PetriPiece shaped like the 'S' tetromino. */
++ (id)line5Piece;	/*!< Returns a PetriPiece consisting of five cells in a line. */
 
 /**
  * Default constructor. Initializes a PetriPiece with a specific set of coordinates.

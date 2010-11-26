@@ -13,18 +13,41 @@
 
 + (NSDictionary*)defaultPieceFrequencies
 {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithInteger:1],	[PetriPiece sPiece],
-			[NSNumber numberWithInteger:1],	[PetriPiece zPiece],
-			[NSNumber numberWithInteger:1],	[PetriPiece lPiece],
-			[NSNumber numberWithInteger:1],	[PetriPiece jPiece],
-			[NSNumber numberWithInteger:1],	[PetriPiece line3Piece],
-			[NSNumber numberWithInteger:1],	[PetriPiece line4Piece],
-			[NSNumber numberWithInteger:1],	[PetriPiece line5Piece],
-			[NSNumber numberWithInteger:1],	[PetriPiece j3Piece],
-			[NSNumber numberWithInteger:1],	[PetriPiece l3Piece],
-			[NSNumber numberWithInteger:1],	[PetriPiece squarePiece],
-			nil];
+	NSArray* pieceTypes = [NSArray arrayWithObjects:
+						   [PetriPiece unitPiece],
+						   [PetriPiece line2Piece],
+						   [PetriPiece line3Piece],
+						   [PetriPiece l3Piece],
+						   [PetriPiece line4Piece],
+						   [PetriPiece sPiece],
+						   [PetriPiece zPiece],
+						   [PetriPiece lPiece],
+						   [PetriPiece jPiece],
+						   [PetriPiece squarePiece],
+						   [PetriPiece line5Piece],
+						   nil];
+	
+	NSMutableDictionary* pieceFrequencies = [NSMutableDictionary dictionaryWithCapacity:[pieceTypes count]];
+	for (PetriPiece* pieceType in pieceTypes)
+	{
+		[pieceFrequencies setObject:[NSNumber numberWithInteger:1]
+							 forKey:pieceType];
+	}
+	
+	return [pieceFrequencies copy];
+}
+
++ (id)unitPiece
+{
+	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0]]];
+}
+
++ (id)line2Piece
+{
+	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+												 nil]];
 }
 
 + (id)jPiece
@@ -99,20 +122,11 @@
 												 nil]];
 }
 
-+ (id)j3Piece
++ (id)l3Piece
 {
 	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
-												 nil]];
-}
-
-+ (id)l3Piece
-{
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:1],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
 												 nil]];
 }
