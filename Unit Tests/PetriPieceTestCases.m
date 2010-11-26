@@ -51,18 +51,18 @@
 - (void)testPieceIdempotentRepeatedRotate
 {
 	PetriPiece* rotatedPiece = [testPiece copy];
-	for (NSInteger numRotations = 0; numRotations < 4; numRotations++) // FIXME: hardcoded value; should use number of orientations
+	for (NSUInteger numRotations = 0; numRotations < [PetriPiece orientationsCount]; numRotations++)
 	{
 		rotatedPiece = [rotatedPiece pieceRotatedClockwise];
 	}
-	STAssertEqualObjects(testPiece, rotatedPiece, @"Rotating clockwise orientationCount (%d) times should result in identity.", 4); // FIXME: hardcoded value
+	STAssertEqualObjects(testPiece, rotatedPiece, @"Rotating clockwise orientationCount (%d) times should result in identity.", [PetriPiece orientationsCount]);
 	
 	rotatedPiece = [testPiece copy];
-	for (NSInteger numRotations = 0; numRotations < 4; numRotations++) // FIXME: hardcoded value; should use number of orientations
+	for (NSUInteger numRotations = 0; numRotations < [PetriPiece orientationsCount]; numRotations++)
 	{
 		rotatedPiece = [rotatedPiece pieceRotatedCounterclockwise];
 	}
-	STAssertEqualObjects(testPiece, rotatedPiece, @"Rotating counterclockwise orientationCount (%d) times should result in identity.", 4); // FIXME: hardcoded value
+	STAssertEqualObjects(testPiece, rotatedPiece, @"Rotating counterclockwise orientationCount (%d) times should result in identity.", [PetriPiece orientationsCount]);
 }
 
 @end

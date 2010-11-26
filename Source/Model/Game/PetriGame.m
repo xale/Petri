@@ -93,7 +93,7 @@
 	PetriPiece* nextPiece = [pieces objectAtIndex:(random() % [pieces count])];
 	
 	// Choose at random a number of times to rotate the piece
-	NSInteger numRotations = random() % 4; // FIXME: hardcoded value; should be based on number of possible rotations
+	NSInteger numRotations = (random() % [[nextPiece class] orientationsCount]);
 	
 	// Rotate the piece
 	while (numRotations > 0)

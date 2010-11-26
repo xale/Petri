@@ -226,6 +226,11 @@
 	return [[self class] pieceWithCellCoordinates:[newCoordinates copy]];
 }
 
++ (NSUInteger)orientationsCount
+{
+	return 4;
+}
+
 #pragma mark -
 #pragma mark Comparators
 

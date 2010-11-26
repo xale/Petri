@@ -62,6 +62,12 @@
 - (PetriPiece*)pieceRotatedCounterclockwise;
 
 /*!
+ Returns the number of orientations the piece can be rotated to occupy; more precisely, rotating a piece this many times is guaranteed to produce a piece whose configuration is identical to the original piece.
+ In the case of pieces to be placed on a square grid, this method returns 4.
+ */
++ (NSUInteger)orientationsCount;
+
+/*!
  Returns YES if the specified piece has the same set of cell offsets as the receiver.
  @param piece The piece with which to compare.
  */
