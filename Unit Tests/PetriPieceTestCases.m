@@ -26,6 +26,7 @@
 													  [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
 													  [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
 													  nil]];
+	
 	STAssertNotNil(testPiece, @"Unable to create test PetriPiece.");
 }
 

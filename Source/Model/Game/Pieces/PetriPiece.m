@@ -278,4 +278,24 @@
 
 @synthesize cellCoordinates;
 
+- (NSString*)description
+{
+	NSMutableString* description = [NSMutableString stringWithFormat:@"%@: {%C", [super description], NSLineSeparatorCharacter];
+	for (NSInteger y = ([self height] - 1); y >= 0; y--)
+	{
+		for (NSInteger x = 0; x < [self width]; x++)
+		{
+			if ([[self cellCoordinates] containsObject:[Petri2DCoordinates coordinatesWithXCoordinate:x yCoordinate:y]])
+				[description appendString:@"o "];
+			else
+				[description appendString:@"  "];
+		}
+		[description appendFormat:@"%C", NSLineSeparatorCharacter];
+	}
+	
+	[description appendString:@"}"];
+	
+	return [description copy];
+}
+
 @end
