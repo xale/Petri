@@ -41,7 +41,6 @@
 	[testGameGroup addUsersObject:user2];
 	[testGameGroup addUsersObject:user3];
 	NSArray* array = [testGameGroup users];
-	NSLog(@"users: %@", array);
 	STAssertEqualObjects([array objectAtIndex:0], user1, @"user1 not first in array.");
 	STAssertEqualObjects([array objectAtIndex:1], user2, @"user2 not first in array.");
 	STAssertEqualObjects([array objectAtIndex:2], user3, @"user3 not first in array.");
