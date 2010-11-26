@@ -8,13 +8,13 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+@class PetriGame;
 
 @interface PetriGameTestCases : SenTestCase
 {
-
+	PetriGame* testGame;
 }
 
-- (void)testCreatePetriGame;
 - (void)testGameBoardNotNil;
 - (void)testGameBoardHandlesEmptyPlayersArray;
 - (void)testGameBoardHandlesNilPlayersArray;

@@ -75,10 +75,20 @@
 			([self yCoordinate] == [coordinates yCoordinate]));
 }
 
+- (NSUInteger)hash
+{
+	return [[self description] hash];
+}
+
 #pragma mark -
 #pragma mark Accessors
 
 @synthesize yCoordinate;
 @synthesize xCoordinate;
+
+- (NSString*)description
+{
+	return [NSString stringWithFormat:@"(%d, %d)", [self xCoordinate], [self yCoordinate]];
+}
 
 @end

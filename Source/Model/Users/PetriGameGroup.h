@@ -17,7 +17,7 @@
  
  The PetriGameGroup class manages a group of human users who are preparing to play, are playing, or have finished playing a Petri game. PetriGameGroup instances are created when a player begins the process of starting a new game, either for local or network play (instances are not created for players joining remote games; these players are added to the group created by the game host.)
  
- Note that PetriGameGroup instances will never contain AI players as members: only human users are listed in the groups' users collection. AI players are added to games based on the game rules, which contains a "minimum players" value. If the number of human players in the group does not meet the required minumum players when a game is started, AI players are added to fill slots.
+ Note that PetriGameGroup instances will never contain AI players as members: only human users are listed in the groups' users collection. AI players are added to games based on the game configuration, which contains a "minimum players" value. If the number of human players in the group does not meet the required minumum players when a game is started, AI players are added to fill slots.
  */
 @interface PetriGameGroup : NSObject
 {
@@ -27,7 +27,6 @@
 	PetriGame* game;			/*!< Game in progress, if any. */
 	NSArray* playerColors;		/*!< The array of NSColors assigned to the players (in order) when the game begins. */
 }
-
 
 /*!
  Initialize a group with a given host.

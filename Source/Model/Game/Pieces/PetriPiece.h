@@ -18,28 +18,26 @@
 	NSSet* cellCoordinates;	/*!< The set of Petri2DCoordinates describing the positions of the cells in this piece, as relative offsets from the piece's placement origin location. */
 }
 
-+ (id)jPiece;
-+ (id)lPiece;
-+ (id)zPiece;
-+ (id)sPiece;
-+ (id)line4Piece;
-+ (id)line5Piece;
-+ (id)squarePiece;
-+ (id)j3Piece;
-+ (id)l3Piece;
-+ (id)line3Piece;
-
-/**
- * Default constructor
- * Creates a set of four locations for a tetromino
- * In this case it's an s-block for testing purposes
- * We will work to extend this with more shapes later
+/*!
+ Returns a piece-frequency dictionary containing the set of default pieces, with an even distribution.
  */
-- (id)init;
++ (NSDictionary*)defaultPieceFrequencies;
+
++ (id)unitPiece;	/*!< Returns a PetriPiece with a single cell located at the piece's origin. */
++ (id)line2Piece;	/*!< Returns a PetriPiece consisting of two adjacent cells. */
++ (id)line3Piece;	/*!< Returns a PetriPiece consisting of three cells in a line. */
++ (id)l3Piece;		/*!< Returns a PetriPiece consisting of three cells in an 'L' shape */
++ (id)line4Piece;	/*!< Returns a PetriPiece consisting of four cells in a line. */
++ (id)squarePiece;	/*!< Returns a PetriPiece consisting of four cells in a square. */
++ (id)jPiece;		/*!< Returns a PetriPiece shaped like the 'J' tetromino. */
++ (id)lPiece;		/*!< Returns a PetriPiece shaped like the 'L' tetromino. */
++ (id)zPiece;		/*!< Returns a PetriPiece shaped like the 'Z' tetromino. */
++ (id)sPiece;		/*!< Returns a PetriPiece shaped like the 'S' tetromino. */
++ (id)line5Piece;	/*!< Returns a PetriPiece consisting of five cells in a line. */
 
 /**
- * Initializes a PetriPiece with a specific set of coordinates.
- * @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location.
+ * Default constructor. Initializes a PetriPiece with a specific set of coordinates.
+ * @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location. These coordinates will be "normalized" relative to the origin: see the documentation for -normalizeCoordinates:.
  */
 - (id)initWithCellCoordinates:(NSSet*)coordinates;
 
@@ -62,6 +60,12 @@
  * @return current piece rotated counterclockwise
  */
 - (PetriPiece*)pieceRotatedCounterclockwise;
+
+/*!
+ Returns YES if the specified piece has the same set of cell offsets as the receiver.
+ @param piece The piece with which to compare.
+ */
+- (BOOL)isEqualToPiece:(PetriPiece*)piece;
 
 @property (readonly) NSSet* cellCoordinates;
 

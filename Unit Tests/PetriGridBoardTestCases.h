@@ -15,7 +15,7 @@
 	PetriGridBoard* testGridBoard;
 }
 
+- (void)testInitUsesCorrectDimensions;
 - (void)testPlacePiece;
-- (void)testCellAtLocation;
 
 @end

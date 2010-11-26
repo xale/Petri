@@ -8,22 +8,23 @@
 
 #import "PetriGridBoardTestCases.h"
 
-#import "PetriGridBoard.h"
 #import "PetriMockGridBoard.h"
 
 #import "Petri2DCoordinates.h"
 
 #import "PetriPiece.h"
 
-#import "PetriPlayer.h"
 #import "PetriMockPlayer.h"
+
+#define WIDTH	20
+#define HEIGHT	25
 
 @implementation PetriGridBoardTestCases
 
 - (void)setUp
 {
-	testGridBoard = [[PetriMockGridBoard alloc] init];
-	STAssertNotNil(testGridBoard, @"PetriMockGridBoard object creation unsuccessful");
+	testGridBoard = [[PetriMockGridBoard alloc] initWithWidth:WIDTH height:HEIGHT];
+	STAssertNotNil(testGridBoard, @"Initializing PetriMockGridBoard failed.");
 }
 
 - (void)tearDown
@@ -31,20 +32,20 @@
 	testGridBoard = nil;
 }
 
-/*
+- (void)testInitUsesCorrectDimensions
+{
+	STAssertTrue([testGridBoard width]==WIDTH && [testGridBoard height]==HEIGHT, @"Board width or height not assigned correctly.");
+}
+
 - (void)testPlacePiece
 {
-	PetriGridBoard* testBoard = [[PetriGridBoard alloc] init];
-	PetriPiece* piece = [[PetriPiece alloc] init];
-	PetriPlayer* owner = [[PetriPlayer alloc] init];
-	PetriBoardLocation* location = [[PetriBoardLocation alloc] initWithX:2 Y:3];
+	NSInteger x = 3;
+	NSInteger y = 3;
+	PetriPlayer* player = [[PetriMockPlayer alloc] init];
+	PetriPiece* piece = [PetriPiece pieceWithCellCoordinates:[NSSet setWithObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0]]];
+	[testGridBoard placePiece:piece withOwner:player onCell:[testGridBoard cellAtX:x Y:y]];
 	
-	BOOL success = [testBoard placePiece:piece atLocation:location withOwner:owner];
-}*/
-
-- (void)testCellAtLocation
-{
-	STAssertNotNil([testGridBoard cellAtCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:3 yCoordinate:2]], @"Could not retrieve a cell at coordinates (3,2)");
+	STAssertEqualObjects([[testGridBoard cellAtX:x Y:y] owner], player, @"Cell at this location should have been covered in the placement.");
 }
 
 @end

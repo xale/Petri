@@ -18,20 +18,18 @@
 @interface PetriGame(Private)
 
 /*!
- Updates the value of current piece randomly based on the distribution provided at initialization.
+ Returns the next PetriPiece to be assigned to \c currentPiece, chosen at random based on the distribution provided at initialization.
  */
-- (void)nextPiece;
+- (PetriPiece*)nextPiece;
 
 /*!
- Updates the value of the player looping over the array;
+ Returns the next player to play, to be assigned to \c currentPlayer.
  */
-- (void)nextPlayer;
+- (PetriPlayer*)nextPlayer;
 
 @end
 
-
 @implementation PetriGame
-
 
 - (id)initWithPlayers:(NSArray*)playersInGame
 	gameConfiguration:(PetriGameConfiguration*)configuration
@@ -41,12 +39,12 @@
 		NSString* reason = @"Attempted to create game with no players or nil players array";
 		[[NSException exceptionWithName:@"BadPlayersArrayException" reason:reason userInfo:nil] raise];
 	}
-	players = [playersInGame mutableCopy];
+	players = [playersInGame copy];
 	currentPlayer = [players objectAtIndex:0];
 	gameConfiguration = configuration;
 	board = [[PetriSquareGridBoard alloc] initWithWidth:20
 												 height:20]; // FIXME: generate board from game configuration
-	[self nextPiece];
+	currentPiece = [self nextPiece];
 	return self;
 }
 
@@ -54,38 +52,14 @@
 {
 	[self willChangeValueForKey:@"currentPiece"];
 	[self willChangeValueForKey:@"currentPlayer"];
-	[self nextPlayer];
-	[self nextPiece];
+	currentPlayer = [self nextPlayer];
+	currentPiece = [self nextPiece];
 	[self didChangeValueForKey:@"currentPlayer"];
 	[self didChangeValueForKey:@"currentPiece"];
 }
 
 #pragma mark -
 #pragma mark Accessors
-
-- (void)addPlayersObject:(PetriPlayer*)player
-{
-	if ([players containsObject:player])
-	{
-		NSString* reason = [NSString stringWithFormat:@"Attempted to add user %@ to %@.", player, players];
-		[[NSException exceptionWithName:@"PlayerFoundWhenAddingException" reason:reason userInfo:nil] raise];
-	}
-	[self willChangeValueForKey:@"player"];
-	[players addObject:player];
-	[self didChangeValueForKey:@"player"];
-}
-
-- (void)removePlayersObject:(PetriPlayer*)player
-{
-	if (![players containsObject:player])
-	{
-		NSString* reason = [NSString stringWithFormat:@"Attempted to remove player %@ from %@.", player, players];
-		[[NSException exceptionWithName:@"PlayerNotFoundWhenRemovingException" reason:reason userInfo:nil] raise];
-	}
-	[self willChangeValueForKey:@"player"];
-	[players removeObject:player];
-	[self didChangeValueForKey:@"player"];
-}
 
 - (NSUInteger)countOfPlayers
 {
@@ -99,54 +73,46 @@
 
 - (PetriPlayer*)memberOfPlayers:(PetriPlayer*)player
 {
-	NSUInteger index = [players indexOfObject:player];
-	if (index == NSNotFound)
-	{
-		return nil;
-	}
-	return [players objectAtIndex:index];
+	return [players firstObjectCommonWithArray:[NSArray arrayWithObject:player]];
 }
 
-- (void)nextPiece
+- (PetriPiece*)nextPiece
 {
-	NSDictionary* pieceFrequencies = [gameConfiguration pieceFrequencies];
-	long accum = 0;
-	for (NSNumber* num in [pieceFrequencies objectEnumerator])
+	// Create a list from which to select a next piece
+	NSMutableArray* pieces = [NSMutableArray array];
+	for (PetriPiece* piece in [gameConfiguration pieceFrequencies])
 	{
-		accum += [num longValue];
-	}
-	NSMutableArray* pieces = [NSMutableArray arrayWithCapacity:accum]; // there is technically a signedness type error
-	for (PetriPiece* piece in pieceFrequencies)
-	{
-		for (int i = 0; i < [[pieceFrequencies objectForKey:piece] intValue]; i++)
+		// Populate the array with each piece type in the dictionary, duplicated according to its frequency
+		for (NSInteger i = 0; i < [[[gameConfiguration pieceFrequencies] objectForKey:piece] integerValue]; i++)
 		{
 			[pieces addObject:piece];
 		}
 	}
-	currentPiece = [pieces objectAtIndex:(random() % accum)];
+	
+	// Choose a piece at random from the list
+	PetriPiece* nextPiece = [pieces objectAtIndex:(random() % [pieces count])];
+	
+	// Choose at random a number of times to rotate the piece
+	NSInteger numRotations = random() % 4; // FIXME: hardcoded value; should be based on number of possible rotations
+	
+	// Rotate the piece
+	while (numRotations > 0)
+	{
+		nextPiece = [nextPiece pieceRotatedClockwise];
+		numRotations--;
+	}
+	
+	return nextPiece;
 }
 
-- (void)nextPlayer
+- (PetriPlayer*)nextPlayer
 {
 	//N.B. Assumes that there are no duplicate player objects.
-	
 	NSUInteger index = [players indexOfObject:currentPlayer];
-	NSUInteger nextIndex = index + 1;
-	if (nextIndex < [players count])
-	{
-		currentPlayer = [players objectAtIndex:nextIndex];
-	}
-	else
-	{
-		currentPlayer = [players objectAtIndex:0];
-	}
+	return [players objectAtIndex:((index + 1) % [players count])];
 }
 
-- (NSArray*)players
-{
-	return [players copy];
-}
-
+@synthesize players;
 @synthesize currentPlayer;
 @synthesize board;
 @synthesize gameConfiguration;

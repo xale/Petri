@@ -32,9 +32,9 @@
 - (PetriBoardLayer*)createBoardLayerForBoard:(id<PetriBoard>)newBoard;
 
 /*!
- Creates the layer used as the container for the next piece.
+ Creates the layer used as the container for the current piece.
  */
-- (CALayer*)createNextPieceBoxLayer;
+- (CALayer*)createPieceBoxLayer;
 
 /*!
  Creates the layer used as the container for the player-status boxes.
@@ -72,7 +72,7 @@
 	[self setWantsLayer:YES];
 	
 	// Create container layers, but do not add them to the view yet
-	nextPieceBoxLayer = [self createNextPieceBoxLayer];
+	pieceBoxLayer = [self createPieceBoxLayer];
 	playerBoxesConstainerLayer = [self createPlayerBoxesConstainerLayer];
 }
 
@@ -110,7 +110,7 @@
 	return boardLayer;
 }
 
-- (CALayer*)createNextPieceBoxLayer
+- (CALayer*)createPieceBoxLayer
 {
 	// Create a layer
 	CALayer* boxLayer = [PetriAspectRatioLayer squareLayer];
@@ -145,7 +145,7 @@
 	// Anchor the container to the top-right corner of its superlayer
 	[playerContainerLayer addConstraintsFromSet:[CAConstraint superlayerUpperRightCornerConstraintSet]];
 	
-	// Constrain the container to fill the right-edge "sidebar" of the superlayer (leaving space for the next-piece box below)
+	// Constrain the container to fill the right-edge "sidebar" of the superlayer (leaving space for the piece box below)
 	[playerContainerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
 															 relativeTo:@"superlayer"
 															  attribute:kCAConstraintHeight
@@ -277,7 +277,7 @@
 	[outerContainerLayer addSublayer:boardLayer];
 	
 	// Add a layer to hold the piece to be played each turn
-	[outerContainerLayer addSublayer:nextPieceBoxLayer];
+	[outerContainerLayer addSublayer:pieceBoxLayer];
 	
 	// Add a layer containing the status boxes for the players in the game
 	[outerContainerLayer addSublayer:playerBoxesConstainerLayer];
@@ -298,7 +298,7 @@
 	[pieceLayer addConstraintsFromSet:[CAConstraint superlayerSizeConstraintSet]];
 	
 	// Place the layer in the new-piece box
-	[nextPieceBoxLayer setSublayers:[NSArray arrayWithObject:pieceLayer]];
+	[pieceBoxLayer setSublayers:[NSArray arrayWithObject:pieceLayer]];
 	
 	// Hold a reference to the board object
 	currentPiece = newPiece;

@@ -22,7 +22,7 @@
  */
 @interface PetriGame : NSObject
 {
-	NSMutableArray* players;	/*!< The players participating in the game. Contains PetriPlayer objects. */
+	NSArray* players;	/*!< The players participating in the game. Contains PetriPlayer objects. */
 	PetriPlayer* currentPlayer;	/*!< The player whose turn it is. */
 	id<PetriBoard> board;			/*!< The game board. */
 	PetriGameConfiguration* gameConfiguration;	/*!< The rules for the game. */
@@ -31,7 +31,6 @@
 
 /*!
  Creates a new game with the specified players and rules.
-
  @param playersInGame NSArray of player objects
  @param configuration The configuration specifying the layout of the game board, piece frequencies, etc.
  */
@@ -39,20 +38,10 @@
 	gameConfiguration:(PetriGameConfiguration*)configuration;
 
 /*!
- Adds a player object to a game.
-
- @param player PetriPlayer object
- */
-- (void)addPlayersObject:(PetriPlayer*)player;
-
-/*!
  Updates the value of the current piece and the current player.
  */
 - (void)nextTurn;
 
-/*!
- Returns an immutable copy of players.
- */
 @property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readonly) id<PetriBoard>  board;

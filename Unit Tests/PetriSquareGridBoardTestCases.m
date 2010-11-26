@@ -14,10 +14,10 @@
 #import "PetriMockPlayer.h"
 #import "Petri2DCoordinates.h"
 #import "PetriPiece.h"
-#import "PetriCellType.h"
+#import "PetriBoardCell.h"
 
-#define WIDTH 20
-#define HEIGHT 25
+#define WIDTH	20
+#define HEIGHT	25
 
 @implementation PetriSquareGridBoardTestCases
 
@@ -42,16 +42,16 @@
 	PetriPlayer* player = [[PetriMockPlayer alloc] init];
 	NSSet* set = [NSSet setWithObjects:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0], [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1], nil];
 	PetriPiece* piece = [PetriPiece pieceWithCellCoordinates:set];
-	int headx = 3;
-	int heady = 3;
+	NSInteger headX = 3;
+	NSInteger headY = 3;
 	
-	PetriBoardCell* cell = [board cellAtX:headx Y:heady];
+	PetriBoardCell* cell = [board cellAtX:headX Y:headY];
 	[cell setCellType:headCell];
 	[cell setOwner:player];
-	STAssertFalse([board validatePlacementOfPiece:piece withOwner:player atCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:headx yCoordinate:heady]], @"Overlapping placement should be invalid.");
-	STAssertTrue([board validatePlacementOfPiece:piece withOwner:player atCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:(headx-1) yCoordinate:heady]], @"Adjacent placement should be valid.");
-	STAssertFalse([board validatePlacementOfPiece:piece withOwner:player atCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:(headx-2) yCoordinate:heady]], @"Non-adjacent placement should be invalid.");
-	STAssertFalse([board validatePlacementOfPiece:piece withOwner:player atCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:(headx-1) yCoordinate:(heady+1)]], @"Diagonal adjacency placement should be invalid.");
+	STAssertFalse([board validatePlacementOfPiece:piece withOwner:player atCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:headX yCoordinate:headY]], @"Overlapping placement should be invalid.");
+	STAssertTrue([board validatePlacementOfPiece:piece withOwner:player atCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:(headX-1) yCoordinate:headY]], @"Adjacent placement should be valid.");
+	STAssertFalse([board validatePlacementOfPiece:piece withOwner:player atCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:(headX-2) yCoordinate:headY]], @"Non-adjacent placement should be invalid.");
+	STAssertFalse([board validatePlacementOfPiece:piece withOwner:player atCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:(headX-1) yCoordinate:(headY+1)]], @"Diagonal adjacency placement should be invalid.");
 }
 
 @end

@@ -9,7 +9,58 @@
 #import "PetriPiece.h"
 #import "Petri2DCoordinates.h"
 
+/*!
+ Private methods on PetriPiece.
+ */
+@interface PetriPiece(Private)
+
+/*!
+ Takes a set of Petri2DCoordinates, and shifts them so that they maintain their positions relative to one another, but their bounding rect has its origin at (0,0).
+ */
+- (NSSet*)normalizeCoordinates:(NSSet*)coordinates;
+
+@end
+
 @implementation PetriPiece
+
++ (NSDictionary*)defaultPieceFrequencies
+{
+	NSArray* pieceTypes = [NSArray arrayWithObjects:
+						   [PetriPiece unitPiece],
+						   [PetriPiece line2Piece],
+						   [PetriPiece line3Piece],
+						   [PetriPiece l3Piece],
+						   [PetriPiece line4Piece],
+						   [PetriPiece sPiece],
+						   [PetriPiece zPiece],
+						   [PetriPiece lPiece],
+						   [PetriPiece jPiece],
+						   [PetriPiece squarePiece],
+						   [PetriPiece line5Piece],
+						   nil];
+	
+	NSMutableDictionary* pieceFrequencies = [NSMutableDictionary dictionaryWithCapacity:[pieceTypes count]];
+	for (PetriPiece* pieceType in pieceTypes)
+	{
+		[pieceFrequencies setObject:[NSNumber numberWithInteger:1]
+							 forKey:pieceType];
+	}
+	
+	return [pieceFrequencies copy];
+}
+
++ (id)unitPiece
+{
+	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0]]];
+}
+
++ (id)line2Piece
+{
+	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+												 nil]];
+}
 
 + (id)jPiece
 {
@@ -83,20 +134,11 @@
 												 nil]];
 }
 
-+ (id)j3Piece
++ (id)l3Piece
 {
 	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
-												 nil]];
-}
-
-+ (id)l3Piece
-{
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:1],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
 												 nil]];
 }
@@ -110,20 +152,18 @@
 												 nil]];
 }
 
+/*!
+ Override. Throws an exception.
+ */
 - (id)init
 {
-	cellCoordinates = [NSSet setWithObjects:
-					   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
-					   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-					   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
-					   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
-					   nil];
-	return self;
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
 }
 
 - (id)initWithCellCoordinates:(NSSet*)coordinates
 {
-	cellCoordinates = coordinates;
+	cellCoordinates = [self normalizeCoordinates:coordinates];
 	return self;
 }
 
@@ -138,6 +178,30 @@
 }
 
 #pragma mark -
+#pragma mark Coordinate Normalization
+
+- (NSSet*)normalizeCoordinates:(NSSet*)coordinates
+{
+	NSInteger minX = NSIntegerMax, minY = NSIntegerMax;
+	for (Petri2DCoordinates* coord in coordinates)
+	{
+		if ([coord xCoordinate] < minX)
+			minX = [coord xCoordinate];
+		if ([coord yCoordinate] < minY)
+			minY = [coord yCoordinate];
+	}
+	
+	NSMutableSet* normalizedCoordinates = [NSMutableSet setWithCapacity:[coordinates count]];
+	for (Petri2DCoordinates* coord in coordinates)
+	{
+		[normalizedCoordinates addObject:[coord offsetCoordinatesByX:-minX
+																   Y:-minY]];
+	}
+	
+	return [normalizedCoordinates copy];
+}
+
+#pragma mark -
 #pragma mark Rotations
 
 - (PetriPiece*)pieceRotatedClockwise
@@ -148,7 +212,7 @@
 		[newCoordinates addObject:[coord rotatedClockwiseAboutOrigin]];
 	}
 	
-	return [[PetriPiece alloc] initWithCellCoordinates:[newCoordinates copy]];
+	return [[self class] pieceWithCellCoordinates:[newCoordinates copy]];
 }
 
 - (PetriPiece*)pieceRotatedCounterclockwise
@@ -159,7 +223,28 @@
 		[newCoordinates addObject:[coord rotatedCounterclockwiseAboutOrigin]];
 	}
 	
-	return [[PetriPiece alloc] initWithCellCoordinates:[newCoordinates copy]];
+	return [[self class] pieceWithCellCoordinates:[newCoordinates copy]];
+}
+
+#pragma mark -
+#pragma mark Comparators
+
+- (BOOL)isEqual:(id)object
+{
+	if (![object isKindOfClass:[self class]])
+		return NO;
+	
+	return [self isEqualToPiece:(PetriPiece*)object];
+}
+
+- (BOOL)isEqualToPiece:(PetriPiece*)piece
+{
+	return [[self cellCoordinates] isEqualToSet:[piece cellCoordinates]];
+}
+
+- (NSUInteger)hash
+{
+	return [[self cellCoordinates] hash];
 }
 
 #pragma mark -
@@ -167,42 +252,28 @@
 
 - (NSInteger)width
 {
-	NSInteger max = INT_MIN;
-	NSInteger min = INT_MAX;
+	NSInteger maxX = NSIntegerMin;
 	
 	for (Petri2DCoordinates* cell in cellCoordinates)
 	{
-		if ([cell xCoordinate] > max)
-		{
-			max = [cell xCoordinate];
-		}
-		if ([cell xCoordinate] < min)
-		{
-			min = [cell xCoordinate];
-		}
+		if ([cell xCoordinate] > maxX)
+			maxX = [cell xCoordinate];
 	}
 	
-	return (max - min) + 1;
+	return (maxX + 1);
 }
 
 - (NSInteger)height
 {
-	NSInteger max = INT_MIN;
-	NSInteger min = INT_MAX;
+	NSInteger maxY = NSIntegerMin;
 
 	for (Petri2DCoordinates* cell in cellCoordinates)
 	{
-		if ([cell yCoordinate] > max)
-		{
-			max = [cell yCoordinate];
-		}
-		if ([cell yCoordinate] < min)
-		{
-			min = [cell yCoordinate];
-		}
+		if ([cell yCoordinate] > maxY)
+			maxY = [cell yCoordinate];
 	}
 	
-	return (max - min) + 1;
+	return (maxY + 1);
 }
 
 @synthesize cellCoordinates;
