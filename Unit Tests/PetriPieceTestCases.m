@@ -35,6 +35,21 @@
 	testPiece = nil;
 }
 
+- (void)testPieceEquality
+{
+	STAssertEqualObjects(testPiece, testPiece, @"Test PetriPiece is not equal to itself");
+	
+	// Create an identical piece
+	PetriPiece* identicalPiece = [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+																	   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+																	   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0],
+																	   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+																	   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
+																	   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
+																	   nil]];
+	STAssertEqualObjects(testPiece, identicalPiece, @"Test PetriPiece is not equal to an identical piece");
+}
+
 - (void)testPieceDimensions
 {
 	STAssertTrue(([testPiece width] == EXPECTED_WIDTH), @"Test PetriPiece width differs from expected width.");

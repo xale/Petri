@@ -15,6 +15,7 @@
 	PetriPiece* testPiece;
 }
 
+- (void)testPieceEquality;
 - (void)testPieceDimensions;
 - (void)testPieceIdempotentRotateRevert;
 - (void)testPieceIdempotentRepeatedRotate;
