@@ -56,6 +56,13 @@
 	STAssertTrue(([testPiece height] == EXPECTED_HEIGHT), @"Test PetriPiece height differs from expected height.");
 }
 
+- (void)testPieceCopy
+{
+	PetriPiece* pieceCopy = [testPiece copy];
+	STAssertNotNil(pieceCopy, @"Test PetriPiece copy unsuccessful");
+	STAssertEqualObjects(testPiece, pieceCopy, @"Test PetriPiece copy differs from original");
+}
+
 - (void)testPieceIdempotentRotateRevert
 {
 	PetriPiece* rotatedPiece = [testPiece pieceRotatedClockwise];
