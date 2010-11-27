@@ -53,6 +53,18 @@
 	return self;
 }
 
+#pragma mark -
+#pragma mark Piece Placement
+
+- (void)placePiece:(PetriPiece*)piece
+		 withOwner:(PetriPlayer*)owner
+			onCell:(PetriBoardCell*)cell
+{
+	return [self placePiece:piece
+				  withOwner:owner
+			  atCoordinates:[self coordinatesOfCell:cell]];
+}
+
 - (void)placePiece:(PetriPiece*)piece
 		 withOwner:(PetriPlayer*)player
 	 atCoordinates:(Petri2DCoordinates*)pieceOrigin
@@ -70,12 +82,32 @@
 }
 
 - (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+					   withOwner:(PetriPlayer*)owner
+						  onCell:(PetriBoardCell*)cell
+{
+	return [self validatePlacementOfPiece:piece
+								withOwner:owner
+							atCoordinates:[self coordinatesOfCell:cell]];
+}
+
+- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
 					   withOwner:(PetriPlayer*)pieceOwner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return FALSE;
 }
+
+#pragma mark -
+#pragma mark Captures
+
+- (void)capture
+{
+	[self doesNotRecognizeSelector:_cmd];
+}
+
+#pragma mark -
+#pragma mark Cell Accessors
 
 - (PetriBoardCell*)cellAtCoordinates:(Petri2DCoordinates*)coordinates
 {
@@ -106,20 +138,6 @@
 	return nil;
 }
 
-- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
-					   withOwner:(PetriPlayer*)owner
-						  onCell:(PetriBoardCell*)cell
-{
-	return [self validatePlacementOfPiece:piece withOwner:owner atCoordinates:[self coordinatesOfCell:cell]];
-}
-
-- (void)placePiece:(PetriPiece*)piece
-		 withOwner:(PetriPlayer*)owner
-			onCell:(PetriBoardCell*)cell
-{
-		return [self placePiece:piece withOwner:owner atCoordinates:[self coordinatesOfCell:cell]];
-}
-
 - (NSSet*)placementCellsAdjacentToCell:(PetriBoardCell*)cell
 {
 	return [self placementCellsAdjacentToCoordinates:[self coordinatesOfCell:cell]];
@@ -142,10 +160,8 @@
 	return nil;
 }
 
-- (void)capture
-{
-	[self doesNotRecognizeSelector:_cmd];
-}
+#pragma mark -
+#pragma mark Other Accessors
 
 + (NSString*)boardType
 {
