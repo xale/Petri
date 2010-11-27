@@ -18,7 +18,7 @@
  
  The PetriBoard protocol defines how the game interacts with the state of the board, such as placing pieces, checking for and making captures, using items, etc.
  */
-@protocol PetriBoard
+@protocol PetriBoard <NSObject>
 
 /*!
  Returns a set of PetriBoardCells which are, for the purposes of \a piece \a placement, adjacent to the specified cell on the board.

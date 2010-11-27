@@ -20,13 +20,13 @@ NSString* const PetriUnknownBoardTypeExceptionDescriptionFormat =	@"Cannot gener
 {
 	// Attempt to determine the type of board
 	// Square-grid
-	if ([(id)boardToDisplay isKindOfClass:[PetriSquareGridBoard class]])
+	if ([boardToDisplay isKindOfClass:[PetriSquareGridBoard class]])
 	{
 		return [[PetriSquareGridBoardLayer alloc] initWithBoard:(PetriSquareGridBoard*)boardToDisplay];
 	}
 	
 	// Unknown board type: throw an exception
-	NSString* exceptionDesc = [NSString stringWithFormat:PetriUnknownBoardTypeExceptionDescriptionFormat, [(id)boardToDisplay class]];
+	NSString* exceptionDesc = [NSString stringWithFormat:PetriUnknownBoardTypeExceptionDescriptionFormat, [boardToDisplay class]];
 	NSException* invalidKeyException = [NSException exceptionWithName:PetriUnknownBoardTypeExceptionName
 															   reason:exceptionDesc
 															 userInfo:nil];
