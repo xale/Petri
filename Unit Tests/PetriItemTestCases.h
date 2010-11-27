@@ -8,12 +8,14 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+@class PetriItem;
 
 @interface PetriItemTestCases : SenTestCase
 {
-
+	PetriItem* testItem;
 }
 
-- (id)testCreatePetriItem;
+- (void)testItemEquality;
+- (void)testCopyItem;
 
 @end

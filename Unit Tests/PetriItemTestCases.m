@@ -11,10 +11,29 @@
 
 @implementation PetriItemTestCases
 
-- (id)testCreatePetriItem
+- (void)setUp
 {
-	PetriItem* testItem = [[PetriItem alloc] init];
-	STAssertNotNil(testItem, @"PetriItem object creation unsuccessful");
+	testItem = [[PetriItem alloc] init];
+	STAssertNotNil(testItem, @"Test PetriItem object creation unsuccessful");
+}
+
+- (void)tearDown
+{
+	testItem = nil;
+}
+
+- (void)testItemEquality
+{
+	STAssertEqualObjects(testItem, testItem, @"Test PetriItem not equal to itself");
+	
+	// FIXME: test comparison of two separate items
+}
+
+- (void)testCopyItem
+{
+	PetriItem* itemCopy = [testItem copy];
+	STAssertNotNil(itemCopy, @"Test PetriItem copy unsuccessful");
+	STAssertEqualObjects(testItem, itemCopy, @"Test PetriItem copy differs from original");
 }
 
 @end

@@ -13,9 +13,14 @@
  
  PetriItem instances represent game items that can be collected by players, and then used by their owners to influence the game.
  */
-@interface PetriItem : NSObject
+@interface PetriItem : NSObject <NSCopying>
 {
 	
 }
+
+/*!
+ Tests for the equality of two PetriItem objects.
+ */
+- (BOOL)isEqualToItem:(PetriItem*)item;
 
 @end
