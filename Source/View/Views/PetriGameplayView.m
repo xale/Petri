@@ -32,6 +32,12 @@
 - (PetriBoardLayer*)createBoardLayerForBoard:(id<PetriBoard>)newBoard;
 
 /*!
+ Creates the CALayer used as an outer container for all visible layers on the view, and maintains their aspect ratio over view resize.
+ @param newBoardLayer The new board layer to contain, which defines the aspect ratio of the new container.
+ */
+- (CALayer*)createOuterContainerLayerForBoardLayer:(PetriBoardLayer*)newBoardLayer;
+
+/*!
  Creates the layer used as the container for the current piece.
  */
 - (CALayer*)createPieceBoxLayer;
@@ -130,6 +136,25 @@
 	return boardLayer;
 }
 
+- (CALayer*)createOuterContainerLayerForBoardLayer:(PetriBoardLayer*)newBoardLayer
+{
+	// Calculate the aspect ratio of the new container layer, based on the new board's aspect ratio
+	CGFloat containerRatio = ([newBoardLayer aspectRatio] + PetriGameplayViewSidebarProportion);
+	
+	// Create the container layer
+	CALayer* newContainer = [PetriAspectRatioLayer layerWithAspectRatio:containerRatio];
+	[newContainer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
+	
+	// Constrain the container layer to fill the view
+	[newContainer addConstraintsFromSet:[CAConstraint superlayerCenterConstraintSet]];
+	[newContainer addConstraintsFromSet:[CAConstraint superlayerSizeConstraintSet]];
+	
+	// Add the board to the container layer
+	[newContainer addSublayer:newBoardLayer];
+	
+	return newContainer;
+}
+
 - (CALayer*)createPieceBoxLayer
 {
 	// Create a layer
@@ -217,7 +242,6 @@
 																  attribute:kCAConstraintHeight
 																	  scale:(1.0 / playerSlotsCount)
 																	 offset:0]];
-		
 		[statusBoxes addObject:statusBoxLayer];
 	}
 	
@@ -329,19 +353,8 @@
 	// Create the new board layer
 	PetriBoardLayer* boardLayer = [self createBoardLayerForBoard:newBoard];
 	
-	// Calculate the aspect ratio of the new container layer, based on the new board's aspect ratio
-	CGFloat containerRatio = ([boardLayer aspectRatio] + PetriGameplayViewSidebarProportion);
-	
-	// (Re-)create the container layer
-	outerContainerLayer = [PetriAspectRatioLayer layerWithAspectRatio:containerRatio];
-	[outerContainerLayer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
-	
-	// Constrain the container layer to fill the view
-	[outerContainerLayer addConstraintsFromSet:[CAConstraint superlayerCenterConstraintSet]];
-	[outerContainerLayer addConstraintsFromSet:[CAConstraint superlayerSizeConstraintSet]];
-	
-	// Add the board to the container layer
-	[outerContainerLayer addSublayer:boardLayer];
+	// (Re-)create the new container layer
+	outerContainerLayer = [self createOuterContainerLayerForBoardLayer:boardLayer];
 	
 	// Add a layer to hold the piece to be played each turn
 	[outerContainerLayer addSublayer:pieceBoxLayer];
