@@ -207,17 +207,23 @@
 
 - (NSArray*)createStatusBoxLayersForPlayers:(NSArray*)playersList
 {
-	CGFloat playerSlotsCount = (CGFloat)4;	// FIXME: hardcoded value
+	// Determine the total number of player slots (to divide the space equally)
+	// Note that the array contains NSNull placeholders for unfilled slots, which will render as empty space below the filled slots
+	// FIXME: that note isn't actually true yet
+	CGFloat playerSlotsCount = (CGFloat)[playersList count];
+	
+	// Filter the NSNull placeholders from the players list
+	NSArray* newPlayers = [playersList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != %@", [NSNull null]]];
 	
 	// Create "status box" layers for each player in the game
-	NSMutableArray* statusBoxes = [NSMutableArray arrayWithCapacity:[playersList count]];
-	for (NSUInteger playerNum = 0; playerNum < [playersList count]; playerNum++)
+	NSMutableArray* statusBoxes = [NSMutableArray arrayWithCapacity:[newPlayers count]];
+	for (NSUInteger playerNum = 0; playerNum < [newPlayers count]; playerNum++)
 	{
 		CALayer* statusBoxLayer = [CALayer layer];
 		[statusBoxLayer setCornerRadius:8.0];
 		
 		// Color the layer according to the player's color
-		NSColor* playerColor = [[playersList objectAtIndex:playerNum] color];
+		NSColor* playerColor = [[newPlayers objectAtIndex:playerNum] color];
 		[statusBoxLayer setBackgroundColor:CGColorCreateGenericRGB([playerColor redComponent], [playerColor greenComponent], [playerColor blueComponent], 0.8)];	// FIXME: debug
 		
 		// Anchor the status box to the left edge of the container
@@ -342,6 +348,14 @@
 
 @synthesize delegate;
 
+- (void)setPlayers:(NSArray*)newPlayers
+{
+	// Create new player-status-box layers, and place them in their container
+	[playerBoxesConstainerLayer setSublayers:[self createStatusBoxLayersForPlayers:newPlayers]];
+	
+	// Copy the new players list
+	players = [newPlayers copy];
+}
 @synthesize players;
 @synthesize currentPlayer;
 
