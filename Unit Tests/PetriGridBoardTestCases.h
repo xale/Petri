@@ -16,6 +16,7 @@
 }
 
 - (void)testInitUsesCorrectDimensions;
+- (void)testGridBoardCopy;
 - (void)testPlacePiece;
 
 @end

@@ -27,17 +27,18 @@
 }
 
 /**
- * Creates a board with a width and height of 10
- */
-- (id)init;
-
-/**
  * Creates a board with a specified width and height
  * @param boardWidth width to make the board
  * @param boardHeight height to make the board
  */
 - (id)initWithWidth:(NSInteger)boardWidth
 			 height:(NSInteger)boardHeight;
+
+/*!
+ "Copy constructor." Initializes a new grid board using the properties of the specified board.
+ @param board The board whose properties should be reflected in the new board.
+ */
+- (id)initWithGridBoard:(PetriGridBoard*)board;
 
 /**
  * Returns the cell on the board at the given coordinates

@@ -37,6 +37,22 @@
 	STAssertTrue([testGridBoard width]==WIDTH && [testGridBoard height]==HEIGHT, @"Board width or height not assigned correctly.");
 }
 
+- (void)testGridBoardCopy
+{
+	PetriGridBoard* boardCopy = [testGridBoard copy];
+	STAssertNotNil(boardCopy, @"Test PetriGridBoard copy unsuccessful");
+	
+	// Test that the new board looks like the old
+	STAssertTrue((([boardCopy width] == WIDTH) && ([boardCopy height] == HEIGHT)), @"Test PetriGridBoard dimensions differ from copy");
+	for (NSInteger x = 0; x < [testGridBoard width]; x++)
+	{
+		for (NSInteger y = 0; y < [testGridBoard height]; y++)
+		{
+			STAssertEqualObjects([testGridBoard cellAtX:x Y:y], [boardCopy cellAtX:x Y:y], @"Test PetriGridBoard contents differ from copy");
+		}
+	}
+}
+
 - (void)testPlacePiece
 {
 	NSInteger x = 3;

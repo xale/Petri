@@ -13,10 +13,13 @@
 
 @implementation PetriGridBoard
 
+/*!
+ Override. Throws an exception.
+ */
 - (id)init
 {
-	return [self initWithWidth:10
-						height:10];
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
 }
 
 - (id)initWithWidth:(NSInteger)boardWidth
@@ -31,10 +34,10 @@
 	
 	// Create the two-dimensional array of board cells
 	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:boardWidth];
-	
+	NSMutableArray* column = nil;
 	for (NSInteger x = 0; x < boardWidth; x++)
 	{
-		NSMutableArray* column = [NSMutableArray arrayWithCapacity:boardHeight];
+		column = [NSMutableArray arrayWithCapacity:boardHeight];
 		
 		for (NSInteger y = 0; y < boardHeight; y++)
 		{
@@ -51,6 +54,42 @@
 	height = boardHeight;
 	
 	return self;
+}
+
+- (id)initWithGridBoard:(PetriGridBoard*)board
+{
+	// Check that we aren't instantiating an abstract class
+	if ([self isMemberOfClass:[PetriGridBoard class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
+	
+	// Copy the other board's size
+	width = [board width];
+	height = [board height];
+	
+	// Copy cells from the other board
+	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:width];
+	NSMutableArray* column = nil;
+	for (NSInteger x = 0; x < width; x++)
+	{
+		// Fill the board column-by-column
+		column = [NSMutableArray arrayWithCapacity:height];
+		for (NSInteger y = 0; y < height; y++)
+		{
+			[column addObject:[[board cellAtX:x Y:y] copy]];
+		}
+		[tempBoard addObject:column];
+	}
+	cells = [tempBoard copy]; // Shallow copy, does not copy cells redundantly
+	
+	return self;
+}
+
+- (id)copyWithZone:(NSZone*)zone
+{
+	return [[[self class] allocWithZone:zone] initWithGridBoard:self];
 }
 
 #pragma mark -
@@ -163,12 +202,6 @@
 
 #pragma mark -
 #pragma mark Other Accessors
-
-+ (NSString*)boardType
-{
-	[self doesNotRecognizeSelector:_cmd];
-	return nil;
-}
 
 + (NSInteger)absoluteMinPlayers
 {
