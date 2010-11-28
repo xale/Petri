@@ -42,6 +42,11 @@
  */
 - (void)nextTurn;
 
+/*!
+ Rotates (clockwise) the current piece.
+ */
+- (void)rotateCurrentPiece;
+
 @property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readonly) id<PetriBoard>  board;

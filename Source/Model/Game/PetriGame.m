@@ -48,6 +48,9 @@
 	return self;
 }
 
+#pragma mark -
+#pragma mark Game-State Actions
+
 - (void)nextTurn
 {
 	[self willChangeValueForKey:@"currentPiece"];
@@ -55,6 +58,13 @@
 	currentPlayer = [self nextPlayer];
 	currentPiece = [self nextPiece];
 	[self didChangeValueForKey:@"currentPlayer"];
+	[self didChangeValueForKey:@"currentPiece"];
+}
+
+- (void)rotateCurrentPiece
+{
+	[self willChangeValueForKey:@"currentPiece"];
+	currentPiece = [currentPiece pieceRotatedClockwise];
 	[self didChangeValueForKey:@"currentPiece"];
 }
 
