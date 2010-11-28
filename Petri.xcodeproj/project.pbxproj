@@ -928,7 +928,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Petri Unit Tests";
-				RUN_UNIT_TESTS = YES;
+				RUN_UNIT_TESTS = NO;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Petri.app/Contents/MacOS/Petri";
 				WRAPPER_EXTENSION = octest;
 			};
