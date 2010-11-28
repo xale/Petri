@@ -52,6 +52,16 @@
  */
 - (void)boardCellLayerClicked:(PetriBoardCellLayer*)clickedLayer;
 
+/*!
+ Called when the view recieves a -mouseDown: event corresponding to a click on the piece-box layer.
+ */
+- (void)pieceBoxLayerClicked:(CALayer*)clickedLayer;
+
+/*!
+ Called when the view receives a -keyDown: event corresponding to a press of the spacebar.
+ */
+- (void)spacebarDown:(NSEvent*)keyEvent;
+
 @end
 
 @implementation PetriGameplayView
@@ -82,7 +92,12 @@
 }
 
 #pragma mark -
-#pragma mark Drawing Attributes
+#pragma mark Configuration and Drawing Attributes
+
+- (BOOL)acceptsFirstResponder
+{
+	return YES;
+}
 
 - (BOOL)isOpaque
 {
@@ -230,6 +245,9 @@
 		if ([searchLayer isKindOfClass:[PetriBoardCellLayer class]])
 			[self boardCellLayerClicked:(PetriBoardCellLayer*)searchLayer];
 		
+		// Piece box
+		if ([searchLayer isEqual:pieceBoxLayer])
+			[self pieceBoxLayerClicked:searchLayer];
 	}
 }
 
@@ -259,6 +277,39 @@
 							forPlayer:[self currentPlayer]
 							   onCell:clickedCell
 							  ofBoard:clickedBoard];
+	}
+}
+
+- (void)pieceBoxLayerClicked:(CALayer*)clickedLayer
+{
+	// FIXME: WRITEME
+}
+
+#pragma mark Keyboard
+
+- (void)keyDown:(NSEvent*)keyEvent
+{
+	if ([[keyEvent characters] isEqualToString:@" "])
+	{
+		[self spacebarDown:keyEvent];
+		return;
+	}
+	
+	[super keyDown:keyEvent];
+}
+
+- (void)spacebarDown:(NSEvent*)keyEvent
+{
+	// Check if the user can rotate the current piece
+	BOOL rotationAllowed = [[self delegate] gameplayView:self
+								   canRotateCurrentPiece:[self currentPiece]
+											   forPlayer:[self currentPlayer]];
+	if (rotationAllowed)
+	{
+		// Rotate the current piece
+		[[self delegate] gameplayView:self
+				   rotateCurrentPiece:[self currentPiece]
+							forPlayer:[self currentPlayer]];
 	}
 }
 

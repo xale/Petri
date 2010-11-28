@@ -85,7 +85,7 @@ canRotateCurrentPiece:(PetriPiece*)piece
 		   forPlayer:(PetriPlayer*)pieceOwner
 {
 	// Ask the game to rotate the current piece
-	// [[self game] rotatePiece]; FIXME: WRITEME
+	[[self game] rotateCurrentPiece];
 	
 	// FIXME: anything else?
 }
