@@ -8,13 +8,14 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+@class PetriBoardCell;
 
 @interface PetriBoardCellTestCases : SenTestCase
 {
-
+	PetriBoardCell* testCell;
 }
 
-- (id)testCreatePetriBoardCell;
-- (id)testCreatePetriBoardCellWithCellType;
+- (void)testCellEquality;
+- (void)testCellCopy;
 
 @end

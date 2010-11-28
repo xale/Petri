@@ -17,7 +17,7 @@
  
  The PetriBoardCell class stores information about an individual "place" (i.e., a single unit in the coordinate system) on a game board, including the type of cell, the which player (if any) controls the cell, and, if present, an item that can be picked up when the cell is claimed.
  */
-@interface PetriBoardCell : NSObject
+@interface PetriBoardCell : NSObject <NSCopying>
 {
 	PetriCellType cellType;	/*!< The type of cell. */
 	PetriPlayer* owner;		/*!< The player currently controlling the cell, if any. Will be nil if cellType is not headCell or bodyCell. */
@@ -39,6 +39,12 @@
 - (id)initWithCellType:(PetriCellType)type
 				 owner:(PetriPlayer*)player
 				pickUp:(PetriItem*)item;
+
+/*!
+ Tests for equality of two PetriBoardCell objects.
+ \note This method does \e not test whether a PetriBoardCell object represents the same location on the board as another, merely whether two cells have the same values for their respective properties.
+ */
+- (BOOL)isEqualToCell:(PetriBoardCell*)cell;
 
 @property (readwrite, assign) PetriCellType cellType;
 @property (readwrite, assign) PetriPlayer* owner;
