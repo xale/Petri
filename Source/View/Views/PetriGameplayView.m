@@ -47,6 +47,11 @@
  */
 - (NSArray*)createStatusBoxLayersForPlayers:(NSArray*)playersList;
 
+/*!
+ Called when the view receives a -mouseDown: event corresponding to a click on a cell of the board.
+ */
+- (void)boardCellLayerClicked:(PetriBoardCellLayer*)clickedLayer;
+
 @end
 
 @implementation PetriGameplayView
@@ -207,6 +212,8 @@
 #pragma mark -
 #pragma mark Input Events
 
+#pragma mark Mouse
+
 - (void)mouseDown:(NSEvent*)mouseEvent
 {
 	// Determine where on the view the click occurred
@@ -216,33 +223,42 @@
 	// Find the clicked layer
 	CALayer* clickedLayer = [[self layer] hitTest:NSPointToCGPoint(clickedPoint)];
 	
-	// FIXME: TESTING: If the clicked layer is a cell of the board, place a one-by-one piece
-	if ([clickedLayer isKindOfClass:[PetriBoardCellLayer class]])
+	// Search the layer's ancestor tree, looking for layers of interest
+	for (CALayer* searchLayer = clickedLayer; searchLayer != nil; searchLayer = [searchLayer superlayer])
 	{
-		// Get the board from the clicked cell's superlayer
-		id<PetriBoard> clickedBoard = [(PetriBoardLayer*)[clickedLayer superlayer] board];
+		// Cell on the board
+		if ([searchLayer isKindOfClass:[PetriBoardCellLayer class]])
+			[self boardCellLayerClicked:(PetriBoardCellLayer*)searchLayer];
 		
-		// Get cell of the board that was clicked
-		PetriBoardCell* clickedCell = [(PetriBoardCellLayer*)clickedLayer cell];
-		
-		// Test if the piece can be placed at the clicked coordinates
-		/* FIXME: TESTING
-		 BOOL validMove = [[self delegate] gameplayView:self
-										 canPlacePiece:[self currentPiece]
-											 forPlayer:[self currentPlayer]
-												onCell:clickedCell
-											   ofBoard:clickedBoard];
-		 */
-		BOOL validMove = YES;
-		if (validMove)
-		{
-			// Place the piece
-			[[self delegate] gameplayView:self
-							   placePiece:[self currentPiece]
-								forPlayer:[self currentPlayer]
-								   onCell:clickedCell
-								  ofBoard:clickedBoard];
-		}
+	}
+}
+
+- (void)boardCellLayerClicked:(PetriBoardCellLayer*)clickedLayer
+{
+	// Get cell of the board that was clicked
+	PetriBoardCell* clickedCell = [clickedLayer cell];
+	
+	// Get the board from the clicked cell's superlayer
+	id<PetriBoard> clickedBoard = [(PetriBoardLayer*)[clickedLayer superlayer] board];
+	
+	// Test if the current piece can be placed at the clicked coordinates
+	/* FIXME: TESTING
+	 BOOL validMove = [[self delegate] gameplayView:self
+	 canPlacePiece:[self currentPiece]
+	 forPlayer:[self currentPlayer]
+	 onCell:clickedCell
+	 ofBoard:clickedBoard];
+	 */
+	BOOL validMove = YES;	// FIXME: TESTING
+	
+	if (validMove)
+	{
+		// Place the current piece on the board
+		[[self delegate] gameplayView:self
+						   placePiece:[self currentPiece]
+							forPlayer:[self currentPlayer]
+							   onCell:clickedCell
+							  ofBoard:clickedBoard];
 	}
 }
 
