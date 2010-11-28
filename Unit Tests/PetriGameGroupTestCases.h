@@ -18,8 +18,8 @@
 	PetriUser* user3;
 }
 
-//- (id)testCreatePetriGameGroup;
 - (void)testIdempotentAddRemove;
 - (void)testAdd;
 - (void)testRemove;
+
 @end
