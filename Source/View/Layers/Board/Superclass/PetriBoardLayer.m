@@ -16,7 +16,7 @@
 NSString* const PetriUnknownBoardTypeExceptionName =				@"unknownBoardTypeException";
 NSString* const PetriUnknownBoardTypeExceptionDescriptionFormat =	@"Cannot generate board layer for unknown board class: %@";
 
-+ (id)boardLayerForBoard:(id <PetriBoard>)boardToDisplay
++ (id)boardLayerForBoard:(id<PetriBoard>)boardToDisplay
 {
 	// Attempt to determine the type of board
 	// Square-grid
@@ -27,10 +27,10 @@ NSString* const PetriUnknownBoardTypeExceptionDescriptionFormat =	@"Cannot gener
 	
 	// Unknown board type: throw an exception
 	NSString* exceptionDesc = [NSString stringWithFormat:PetriUnknownBoardTypeExceptionDescriptionFormat, [boardToDisplay class]];
-	NSException* invalidKeyException = [NSException exceptionWithName:PetriUnknownBoardTypeExceptionName
-															   reason:exceptionDesc
-															 userInfo:nil];
-	@throw invalidKeyException;
+	NSException* unknownBoardTypeException = [NSException exceptionWithName:PetriUnknownBoardTypeExceptionName
+																	 reason:exceptionDesc
+																   userInfo:nil];
+	@throw unknownBoardTypeException;
 }
 
 - (id)initWithBoard:(id<PetriBoard>)boardToDisplay
