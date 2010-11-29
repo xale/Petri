@@ -79,15 +79,15 @@ NSString* const PetriUnknownPieceTypeExceptionDescriptionFormat =	@"Cannot gener
 	CGFloat rotation = ((CGFloat)newOrientation / (CGFloat)[[[self piece] class] orientationsCount]);
 	
 	// Convert to radians
-	rotation = (rotation * (2.0 * M_PI));
+	rotation = -(rotation * (2.0 * M_PI));
 	
 	// Rotate the layer
 	[self setValue:[NSNumber numberWithDouble:rotation]
-			forKey:@"transform.rotation"];
+		forKeyPath:@"transform.rotation"];
+	
+	// Change the local value
+	orientation = newOrientation;
 }
-- (NSUInteger)orientation
-{
-	return [[self piece] orientation];
-}
+@synthesize orientation;
 
 @end
