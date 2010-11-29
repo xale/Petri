@@ -20,7 +20,7 @@
  Returns the number of different orientations this piece type supports.
  Certain pieces might have fewer unique orientations, but any piece of this type is guaranteed return to its initial orientation if rotated this many times.
  */
-+ (NSUInteger)orientationCount;
++ (NSUInteger)orientationsCount;
 /*!
  Rotates a piece; updates the value of -orientation:
  */
