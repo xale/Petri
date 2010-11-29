@@ -18,7 +18,6 @@
 - (void)testPieceEquality;
 - (void)testPieceDimensions;
 - (void)testPieceCopy;
-- (void)testPieceIdempotentRotateRevert;
 - (void)testPieceIdempotentRepeatedRotate;
 
 @end

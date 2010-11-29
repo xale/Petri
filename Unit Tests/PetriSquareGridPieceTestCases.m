@@ -63,28 +63,14 @@
 	STAssertEqualObjects(testPiece, pieceCopy, @"Test PetriSquareGridPiece copy differs from original");
 }
 
-- (void)testPieceIdempotentRotateRevert
-{
-	PetriSquareGridPiece* rotatedPiece = [testPiece pieceRotatedClockwise];
-	rotatedPiece = [rotatedPiece pieceRotatedCounterclockwise];
-	STAssertEqualObjects(testPiece, rotatedPiece, @"Clockwise rotate followed by counterclockwise rotate should result in identity.");
-}
-
 - (void)testPieceIdempotentRepeatedRotate
 {
 	PetriSquareGridPiece* rotatedPiece = [testPiece copy];
 	for (NSUInteger numRotations = 0; numRotations < [PetriSquareGridPiece orientationsCount]; numRotations++)
 	{
-		rotatedPiece = [rotatedPiece pieceRotatedClockwise];
+		[rotatedPiece rotate];
 	}
-	STAssertEqualObjects(testPiece, rotatedPiece, @"Rotating clockwise orientationCount (%d) times should result in identity.", [PetriSquareGridPiece orientationsCount]);
-	
-	rotatedPiece = [testPiece copy];
-	for (NSUInteger numRotations = 0; numRotations < [PetriSquareGridPiece orientationsCount]; numRotations++)
-	{
-		rotatedPiece = [rotatedPiece pieceRotatedCounterclockwise];
-	}
-	STAssertEqualObjects(testPiece, rotatedPiece, @"Rotating counterclockwise orientationCount (%d) times should result in identity.", [PetriSquareGridPiece orientationsCount]);
+	STAssertEqualObjects(testPiece, rotatedPiece, @"Rotating a piece orientationCount (%d) times should result in identity.", [PetriSquareGridPiece orientationsCount]);
 }
 
 @end
