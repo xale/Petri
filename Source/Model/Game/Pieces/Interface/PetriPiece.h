@@ -25,7 +25,7 @@
 /*!
  Returns the current orientation of the piece; updated by calls to \c -rotate
  */
-- (NSUInteger)orientation;
+@property (readonly) NSUInteger orientation;
 
 /*!
  Returns the number of different orientations this piece type supports.
