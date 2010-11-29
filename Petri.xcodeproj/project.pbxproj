@@ -68,6 +68,8 @@
 		FADBA25B12985812001EA149 /* PetriPlayerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FADBA25A12985812001EA149 /* PetriPlayerTestCases.m */; };
 		FADBA467129AFA57001EA149 /* BGHUDAppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FADBA43B129AF9DE001EA149 /* BGHUDAppKit.framework */; };
 		FADBA496129AFA60001EA149 /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FADBA43D129AF9DE001EA149 /* BWToolkitFramework.framework */; };
+		FAE7603712A468C4000F5C77 /* PetriMockGridPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE7603612A468C4000F5C77 /* PetriMockGridPiece.m */; };
+		FAE7603A12A46915000F5C77 /* PetriGridPieceTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE7603912A46915000F5C77 /* PetriGridPieceTestCases.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +216,10 @@
 		FADBA25A12985812001EA149 /* PetriPlayerTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPlayerTestCases.m; sourceTree = "<group>"; };
 		FADBA43B129AF9DE001EA149 /* BGHUDAppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BGHUDAppKit.framework; path = Frameworks/BGHUDAppKit.framework; sourceTree = "<group>"; };
 		FADBA43D129AF9DE001EA149 /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = Frameworks/BWToolkitFramework.framework; sourceTree = "<group>"; };
+		FAE7603512A468C4000F5C77 /* PetriMockGridPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriMockGridPiece.h; sourceTree = "<group>"; };
+		FAE7603612A468C4000F5C77 /* PetriMockGridPiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriMockGridPiece.m; sourceTree = "<group>"; };
+		FAE7603812A46915000F5C77 /* PetriGridPieceTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGridPieceTestCases.h; sourceTree = "<group>"; };
+		FAE7603912A46915000F5C77 /* PetriGridPieceTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGridPieceTestCases.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -549,6 +555,8 @@
 				6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */,
 				6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */,
 				6AEF22C61276397A008D8828 /* PetriUserPlayerTestCases.m */,
+				FAE7603812A46915000F5C77 /* PetriGridPieceTestCases.h */,
+				FAE7603912A46915000F5C77 /* PetriGridPieceTestCases.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -560,6 +568,8 @@
 				6AA28D13129B76DB006FDE1F /* PetriMockGridBoard.m */,
 				6AA28D14129B76DB006FDE1F /* PetriMockPlayer.h */,
 				6AA28D15129B76DB006FDE1F /* PetriMockPlayer.m */,
+				FAE7603512A468C4000F5C77 /* PetriMockGridPiece.h */,
+				FAE7603612A468C4000F5C77 /* PetriMockGridPiece.m */,
 			);
 			path = "Mock Classes";
 			sourceTree = "<group>";
@@ -798,6 +808,8 @@
 				6AA28D17129B76DB006FDE1F /* PetriMockPlayer.m in Sources */,
 				FA591AD3129B926B00210502 /* Petri2DCoordinatesTestCases.m in Sources */,
 				6A9A49F0129DD9820033AA14 /* PetriSquareGridBoardTestCases.m in Sources */,
+				FAE7603712A468C4000F5C77 /* PetriMockGridPiece.m in Sources */,
+				FAE7603A12A46915000F5C77 /* PetriGridPieceTestCases.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

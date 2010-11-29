@@ -33,6 +33,7 @@
 	
 	cellCoordinates = [self normalizeCoordinates:coordinates];
 	orientation = 0;
+	//TODO optimization: if rotations is big, reduce to smaller than orientationsCount
 	for (NSUInteger i = rotations; i > 0; i--)
 	{
 		cellCoordinates = [self normalizeCoordinates:[self rotateCoordinatesClockwise:cellCoordinates]];

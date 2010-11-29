@@ -1,18 +1,17 @@
 //
-//  PetriPieceTestCases.h
+//  PetriGridPieceTestCases.h
 //  Petri
 //
-//  Created by Paul Martin on 10/10/27.
+//  Created by Alexander Rozenshteyn on 11/29/10.
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+@class PetriMockGridPiece;
 
-@class PetriSquareGridPiece;
-
-@interface PetriSquareGridPieceTestCases : SenTestCase
+@interface PetriGridPieceTestCases : SenTestCase
 {
-	PetriSquareGridPiece* testPiece;
+	PetriMockGridPiece* testPiece;
 	NSSet* testSet;
 	NSSet* rotatedSet; // Should be testSet after one rotation
 	NSSet* denormalizedSet; // Should be equivalent to testSet after normalization
@@ -22,6 +21,4 @@
 - (void)testPieceDimensions;
 - (void)testPieceCopy;
 - (void)testNormalization;
-- (void)testPieceIdempotentRepeatedRotate;
-
 @end
