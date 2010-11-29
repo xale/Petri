@@ -10,6 +10,9 @@
 		6491819A1279228900A185C2 /* PetriBoardCellTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C7E66A1278F1F800B040F8 /* PetriBoardCellTestCases.m */; };
 		64C7E66E1278F24200B040F8 /* PetriSquareGridPieceTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C7E66D1278F24200B040F8 /* PetriSquareGridPieceTestCases.m */; };
 		64C7E6741278F2D600B040F8 /* PetriItemTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C7E6731278F2D600B040F8 /* PetriItemTestCases.m */; };
+		6A03C3C412A41E95001F243A /* PetriPieceLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A03C3C312A41E95001F243A /* PetriPieceLayer.m */; };
+		6A03C47312A44091001F243A /* PetriSquareGridPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A03C47212A44091001F243A /* PetriSquareGridPiece.m */; };
+		6A03C47612A440D7001F243A /* PetriGridPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A03C47512A440D7001F243A /* PetriGridPiece.m */; };
 		6A0B311412A1A28200366122 /* PetriGameConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0B311312A1A28200366122 /* PetriGameConfiguration.m */; };
 		6A112E871299F8BE002A930D /* CALayer+ConstraintSets.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A112E861299F8BE002A930D /* CALayer+ConstraintSets.m */; };
 		6A12DE5212945ACD007333FA /* PetriModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A12DE5112945ACD007333FA /* PetriModel.m */; };
@@ -26,14 +29,13 @@
 		6A4A15E712663B7900429714 /* PetriUserPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A15E212663B7900429714 /* PetriUserPlayer.m */; };
 		6A4A15ED12663C1600429714 /* PetriGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A15EC12663C1600429714 /* PetriGame.m */; };
 		6A4A160312663EFD00429714 /* PetriItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A160212663EFD00429714 /* PetriItem.m */; };
-		6A4A161112663F4200429714 /* PetriSquareGridPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A161012663F4100429714 /* PetriSquareGridPiece.m */; };
 		6A56903B1285ECB50002C128 /* TitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A5690391285ECAD0002C128 /* TitleView.xib */; };
 		6A56903C1285ECCA0002C128 /* PetriTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A5690351285DC9A0002C128 /* PetriTitleViewController.m */; };
 		6A5690441285ED480002C128 /* PetriGameplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A5690431285ED480002C128 /* PetriGameplayViewController.m */; };
 		6A5690451285ED530002C128 /* PetriGameGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A5690401285ED2E0002C128 /* PetriGameGroupViewController.m */; };
 		6A56904B1285F6EA0002C128 /* GameplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A56904A1285F6EA0002C128 /* GameplayView.xib */; };
 		6A56904D1285F6F20002C128 /* GameGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A56904C1285F6F20002C128 /* GameGroupView.xib */; };
-		6A7D5C8D129C790F00D7243F /* PetriPieceLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D5C8C129C790F00D7243F /* PetriPieceLayer.m */; };
+		6A7D5C8D129C790F00D7243F /* PetriSquareGridPieceLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D5C8C129C790F00D7243F /* PetriSquareGridPieceLayer.m */; };
 		6A9430BE129B3F2A00A9F343 /* PetriSquareGridBoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430B5129B3F2A00A9F343 /* PetriSquareGridBoardLayer.m */; };
 		6A9430BF129B3F2A00A9F343 /* PetriBoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430B8129B3F2A00A9F343 /* PetriBoardLayer.m */; };
 		6A9430C0129B3F2A00A9F343 /* PetriBoardCellLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430BB129B3F2A00A9F343 /* PetriBoardCellLayer.m */; };
@@ -104,6 +106,12 @@
 		64C7E66D1278F24200B040F8 /* PetriSquareGridPieceTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriSquareGridPieceTestCases.m; sourceTree = "<group>"; };
 		64C7E6721278F2D600B040F8 /* PetriItemTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriItemTestCases.h; sourceTree = "<group>"; };
 		64C7E6731278F2D600B040F8 /* PetriItemTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriItemTestCases.m; sourceTree = "<group>"; };
+		6A03C3C212A41E95001F243A /* PetriPieceLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPieceLayer.h; sourceTree = "<group>"; };
+		6A03C3C312A41E95001F243A /* PetriPieceLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPieceLayer.m; sourceTree = "<group>"; };
+		6A03C47112A44091001F243A /* PetriSquareGridPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriSquareGridPiece.h; sourceTree = "<group>"; };
+		6A03C47212A44091001F243A /* PetriSquareGridPiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriSquareGridPiece.m; sourceTree = "<group>"; };
+		6A03C47412A440D7001F243A /* PetriGridPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGridPiece.h; sourceTree = "<group>"; };
+		6A03C47512A440D7001F243A /* PetriGridPiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGridPiece.m; sourceTree = "<group>"; };
 		6A0B311212A1A28200366122 /* PetriGameConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameConfiguration.h; sourceTree = "<group>"; };
 		6A0B311312A1A28200366122 /* PetriGameConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameConfiguration.m; sourceTree = "<group>"; };
 		6A112E851299F8BE002A930D /* CALayer+ConstraintSets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+ConstraintSets.h"; sourceTree = "<group>"; };
@@ -138,8 +146,7 @@
 		6A4A15EC12663C1600429714 /* PetriGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGame.m; sourceTree = "<group>"; };
 		6A4A160112663EFC00429714 /* PetriItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriItem.h; sourceTree = "<group>"; };
 		6A4A160212663EFD00429714 /* PetriItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriItem.m; sourceTree = "<group>"; };
-		6A4A160F12663F4100429714 /* PetriSquareGridPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriSquareGridPiece.h; sourceTree = "<group>"; };
-		6A4A161012663F4100429714 /* PetriSquareGridPiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriSquareGridPiece.m; sourceTree = "<group>"; };
+		6A515D7412A4490200EABDAB /* PetriPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPiece.h; sourceTree = "<group>"; };
 		6A5690341285DC9A0002C128 /* PetriTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriTitleViewController.h; sourceTree = "<group>"; };
 		6A5690351285DC9A0002C128 /* PetriTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriTitleViewController.m; sourceTree = "<group>"; };
 		6A5690371285ECA70002C128 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/TitleView.xib; sourceTree = "<group>"; };
@@ -149,8 +156,8 @@
 		6A5690431285ED480002C128 /* PetriGameplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameplayViewController.m; sourceTree = "<group>"; };
 		6A5690461285F6D20002C128 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GameGroupView.xib; sourceTree = "<group>"; };
 		6A5690481285F6E00002C128 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GameplayView.xib; sourceTree = "<group>"; };
-		6A7D5C8B129C790F00D7243F /* PetriPieceLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPieceLayer.h; sourceTree = "<group>"; };
-		6A7D5C8C129C790F00D7243F /* PetriPieceLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPieceLayer.m; sourceTree = "<group>"; };
+		6A7D5C8B129C790F00D7243F /* PetriSquareGridPieceLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriSquareGridPieceLayer.h; sourceTree = "<group>"; };
+		6A7D5C8C129C790F00D7243F /* PetriSquareGridPieceLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriSquareGridPieceLayer.m; sourceTree = "<group>"; };
 		6A9430B4129B3F2A00A9F343 /* PetriSquareGridBoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriSquareGridBoardLayer.h; sourceTree = "<group>"; };
 		6A9430B5129B3F2A00A9F343 /* PetriSquareGridBoardLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriSquareGridBoardLayer.m; sourceTree = "<group>"; };
 		6A9430B7129B3F2A00A9F343 /* PetriBoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardLayer.h; sourceTree = "<group>"; };
@@ -197,7 +204,6 @@
 		FA591AA8129B8D7600210502 /* Petri2DCoordinates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Petri2DCoordinates.m; sourceTree = "<group>"; };
 		FA591ACA129B906600210502 /* Petri2DCoordinatesTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Petri2DCoordinatesTestCases.h; sourceTree = "<group>"; };
 		FA591ACB129B906600210502 /* Petri2DCoordinatesTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Petri2DCoordinatesTestCases.m; sourceTree = "<group>"; };
-		FA9BC06112A418520043E76D /* PetriPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPiece.h; sourceTree = "<group>"; };
 		FAB0331012788BBB00DC01F0 /* PetriGameTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameTestCases.h; sourceTree = "<group>"; };
 		FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameTestCases.m; sourceTree = "<group>"; };
 		FAB033301278D71500DC01F0 /* PetriGridBoardTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGridBoardTestCases.h; sourceTree = "<group>"; };
@@ -283,6 +289,51 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6A03C3C112A41E95001F243A /* Superclass */ = {
+			isa = PBXGroup;
+			children = (
+				6A03C3C212A41E95001F243A /* PetriPieceLayer.h */,
+				6A03C3C312A41E95001F243A /* PetriPieceLayer.m */,
+			);
+			path = Superclass;
+			sourceTree = "<group>";
+		};
+		6A03C46D12A44091001F243A /* Pieces */ = {
+			isa = PBXGroup;
+			children = (
+				6A03C46F12A44091001F243A /* Interface */,
+				6A03C46E12A44091001F243A /* Abstract Superclasses */,
+				6A03C47012A44091001F243A /* Square Grid */,
+			);
+			path = Pieces;
+			sourceTree = "<group>";
+		};
+		6A03C46E12A44091001F243A /* Abstract Superclasses */ = {
+			isa = PBXGroup;
+			children = (
+				6A03C47412A440D7001F243A /* PetriGridPiece.h */,
+				6A03C47512A440D7001F243A /* PetriGridPiece.m */,
+			);
+			path = "Abstract Superclasses";
+			sourceTree = "<group>";
+		};
+		6A03C46F12A44091001F243A /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				6A515D7412A4490200EABDAB /* PetriPiece.h */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		6A03C47012A44091001F243A /* Square Grid */ = {
+			isa = PBXGroup;
+			children = (
+				6A03C47112A44091001F243A /* PetriSquareGridPiece.h */,
+				6A03C47212A44091001F243A /* PetriSquareGridPiece.m */,
+			);
+			path = "Square Grid";
+			sourceTree = "<group>";
+		};
 		6A0B311112A1A28200366122 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,7 +399,7 @@
 				6A4A15DC12663B7900429714 /* Players */,
 				6A0B311112A1A28200366122 /* Configuration */,
 				6A4A15D612663B7800429714 /* Board */,
-				6A4A160E12663F4100429714 /* Pieces */,
+				6A03C46D12A44091001F243A /* Pieces */,
 				6A4A160012663EFC00429714 /* Items */,
 			);
 			path = Game;
@@ -391,16 +442,6 @@
 			path = Items;
 			sourceTree = "<group>";
 		};
-		6A4A160E12663F4100429714 /* Pieces */ = {
-			isa = PBXGroup;
-			children = (
-				FA9BC05F12A418180043E76D /* Interface */,
-				6A4A160F12663F4100429714 /* PetriSquareGridPiece.h */,
-				6A4A161012663F4100429714 /* PetriSquareGridPiece.m */,
-			);
-			path = Pieces;
-			sourceTree = "<group>";
-		};
 		6A5690331285DC9A0002C128 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,8 +461,9 @@
 		6A7D5C8A129C790F00D7243F /* Pieces */ = {
 			isa = PBXGroup;
 			children = (
-				6A7D5C8B129C790F00D7243F /* PetriPieceLayer.h */,
-				6A7D5C8C129C790F00D7243F /* PetriPieceLayer.m */,
+				6A03C3C112A41E95001F243A /* Superclass */,
+				6A7D5C8B129C790F00D7243F /* PetriSquareGridPieceLayer.h */,
+				6A7D5C8C129C790F00D7243F /* PetriSquareGridPieceLayer.m */,
 			);
 			path = Pieces;
 			sourceTree = "<group>";
@@ -497,12 +539,12 @@
 				64C7E6731278F2D600B040F8 /* PetriItemTestCases.m */,
 				6A21A9F91299CF6B0054B8F0 /* PetriModelTestCases.h */,
 				6A21A9FA1299CF6B0054B8F0 /* PetriModelTestCases.m */,
-				64C7E66C1278F24200B040F8 /* PetriSquareGridPieceTestCases.h */,
-				64C7E66D1278F24200B040F8 /* PetriSquareGridPieceTestCases.m */,
 				FADBA25912985812001EA149 /* PetriPlayerTestCases.h */,
 				FADBA25A12985812001EA149 /* PetriPlayerTestCases.m */,
 				6A9A49EE129DD9820033AA14 /* PetriSquareGridBoardTestCases.h */,
 				6A9A49EF129DD9820033AA14 /* PetriSquareGridBoardTestCases.m */,
+				64C7E66C1278F24200B040F8 /* PetriSquareGridPieceTestCases.h */,
+				64C7E66D1278F24200B040F8 /* PetriSquareGridPieceTestCases.m */,
 				6A9DE8D11276020200020AB9 /* PetriUserTestCases.h */,
 				6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */,
 				6AEF22C51276397A008D8828 /* PetriUserPlayerTestCases.h */,
@@ -607,14 +649,6 @@
 				6ACA2E5C12888EEE002DEBE1 /* PetriMainWindowViewController.m */,
 			);
 			path = Superclass;
-			sourceTree = "<group>";
-		};
-		FA9BC05F12A418180043E76D /* Interface */ = {
-			isa = PBXGroup;
-			children = (
-				FA9BC06112A418520043E76D /* PetriPiece.h */,
-			);
-			name = Interface;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -781,7 +815,6 @@
 				6A4A15E712663B7900429714 /* PetriUserPlayer.m in Sources */,
 				6A4A15ED12663C1600429714 /* PetriGame.m in Sources */,
 				6A4A160312663EFD00429714 /* PetriItem.m in Sources */,
-				6A4A161112663F4200429714 /* PetriSquareGridPiece.m in Sources */,
 				6A56903C1285ECCA0002C128 /* PetriTitleViewController.m in Sources */,
 				6A5690441285ED480002C128 /* PetriGameplayViewController.m in Sources */,
 				6A5690451285ED530002C128 /* PetriGameGroupViewController.m in Sources */,
@@ -800,8 +833,11 @@
 				FA591AA9129B8D7600210502 /* Petri2DCoordinates.m in Sources */,
 				6A3DB092129B9CD900D37405 /* PetriNoLayerResizeAnimationView.m in Sources */,
 				6A3DB095129B9D2B00D37405 /* PetriGameplayView.m in Sources */,
-				6A7D5C8D129C790F00D7243F /* PetriPieceLayer.m in Sources */,
+				6A7D5C8D129C790F00D7243F /* PetriSquareGridPieceLayer.m in Sources */,
 				6A0B311412A1A28200366122 /* PetriGameConfiguration.m in Sources */,
+				6A03C3C412A41E95001F243A /* PetriPieceLayer.m in Sources */,
+				6A03C47312A44091001F243A /* PetriSquareGridPiece.m in Sources */,
+				6A03C47612A440D7001F243A /* PetriGridPiece.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

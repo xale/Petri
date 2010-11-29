@@ -11,7 +11,7 @@
 #import "PetriGame.h"
 #import "PetriPlayer.h"
 #import "PetriBoardCell.h"
-#import "PetriSquareGridPiece.h"
+#import "PetriPiece.h"
 
 #import "PetriAspectRatioLayer.h"
 #import "PetriBoardLayer.h"
@@ -384,7 +384,7 @@
 }
 @synthesize board;
 
-- (void)setCurrentPiece:(PetriSquareGridPiece*)newPiece
+- (void)setCurrentPiece:(id<PetriPiece>)newPiece
 {
 	// Create a piece layer
 	CALayer* pieceLayer = [PetriPieceLayer pieceLayerForPiece:newPiece];

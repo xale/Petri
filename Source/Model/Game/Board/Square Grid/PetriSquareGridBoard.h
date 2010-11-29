@@ -27,13 +27,12 @@
 
 /*!
  Override. Checks if a piece can be placed on the board.
- 
  @param piece piece to place
  @param owner player placing the piece
  @param pieceOrigin the coordinates to place the piece's origin
  @return true if the piece can be placed
  */
-- (BOOL)validatePlacementOfPiece:(PetriSquareGridPiece*)piece
+- (BOOL)validatePlacementOfPiece:(PetriGridPiece*)piece
 					   withOwner:(PetriPlayer*)owner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin;
 

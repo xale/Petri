@@ -1,5 +1,5 @@
 //
-//  PetriPiece.m
+//  PetriSquareGridPiece.m
 //  Petri
 //
 //  Created by Alex Heinz on 10/13/10.
@@ -10,14 +10,9 @@
 #import "Petri2DCoordinates.h"
 
 /*!
- Private methods on PetriPiece.
+ Private methods on PetriSquareGridPiece.
  */
 @interface PetriSquareGridPiece(Private)
-
-/*!
- Takes a set of Petri2DCoordinates, and shifts them so that they maintain their positions relative to one another, but their bounding rect has its origin at (0,0).
- */
-- (NSSet*)normalizeCoordinates:(NSSet*)coordinates;
 
 @end
 
@@ -152,102 +147,26 @@
 												 nil]];
 }
 
+#pragma mark -
+#pragma mark Rotation
+
 /*!
- Override. Throws an exception.
+ Override. Rotates all coordinates in the piece's set 90° about the pieces origin, and normalizes them. Also updates the piece's \c orientation.
  */
-- (id)init
-{
-	[self doesNotRecognizeSelector:_cmd];
-	return nil;
-}
-
-- (id)initWithCellCoordinates:(NSSet*)coordinates
-{
-	return [self initWithCellCoordinates:coordinates
-							   rotations:0];
-}
-
-- (id)initWithCellCoordinates:(NSSet*)coordinates
-					rotations:(NSUInteger)rotations
-{
-	cellCoordinates = [self normalizeCoordinates:coordinates];
-	orientation = 0;
-	for (NSUInteger i = rotations; i > 0; i--)
-	{
-		cellCoordinates = [self normalizeCoordinates:[self cellCoordinatesRotatedClockwise]];
-		orientation = 0;
-	}
-	return self;
-}
-
-- (id)initWithPiece:(id<PetriPiece>)piece
-		  rotations:(NSUInteger)rotations
-{
-	if (![piece isKindOfClass:[PetriSquareGridPiece class]])
-	{
-		NSException* exception = [NSException exceptionWithName:@"NSInternalInconcistancyException" reason:@"Initializer was expecting a PetriSquareGridPiece but did not receive one." userInfo:nil];
-		@throw exception;
-	}
-	return [self initWithCellCoordinates:[piece cellCoordinates] rotations:rotations];
-}
-
-+ (id)pieceWithCellCoordinates:(NSSet*)coordinates
-{
-	return [[self alloc] initWithCellCoordinates:coordinates];
-}
-
-+ (id)pieceWithCellCoordinates:(NSSet*)coordinates
-					 rotations:(NSUInteger)rotations
-{
-	return [[self alloc] initWithCellCoordinates:coordinates rotations:rotations];
-}
-
-- (id)copyWithZone:(NSZone*)zone
-{
-	return [[[self class] allocWithZone:zone] initWithCellCoordinates:[self cellCoordinates]];
-}
-
-#pragma mark -
-#pragma mark Coordinate Normalization
-
-- (NSSet*)normalizeCoordinates:(NSSet*)coordinates
-{
-	NSInteger minX = NSIntegerMax, minY = NSIntegerMax;
-	for (Petri2DCoordinates* coord in coordinates)
-	{
-		if ([coord xCoordinate] < minX)
-			minX = [coord xCoordinate];
-		if ([coord yCoordinate] < minY)
-			minY = [coord yCoordinate];
-	}
-	
-	NSMutableSet* normalizedCoordinates = [NSMutableSet setWithCapacity:[coordinates count]];
-	for (Petri2DCoordinates* coord in coordinates)
-	{
-		[normalizedCoordinates addObject:[coord offsetCoordinatesByX:-minX
-																   Y:-minY]];
-	}
-	
-	return [normalizedCoordinates copy];
-}
-
-#pragma mark -
-#pragma mark Rotations
-
 - (void)rotate
 {
 	[self willChangeValueForKey:@"orientation"];
 	[self willChangeValueForKey:@"cellCoordinates"];
 	orientation = (orientation + 1) % [[self class] orientationsCount];
-	cellCoordinates = [self normalizeCoordinates:[self cellCoordinatesRotatedClockwise]];
+	cellCoordinates = [self normalizeCoordinates:[self rotateCoordinatesClockwise:[self cellCoordinates]]];
 	[self didChangeValueForKey:@"cellCoordinates"];
 	[self didChangeValueForKey:@"orientation"];
 }
 
-- (NSSet*)cellCoordinatesRotatedClockwise
+- (NSSet*)rotateCoordinatesClockwise:(NSSet*)coordinates
 {
-	NSMutableSet* newCoordinates = [NSMutableSet setWithCapacity:[cellCoordinates count]];
-	for (Petri2DCoordinates* coord in cellCoordinates)
+	NSMutableSet* newCoordinates = [NSMutableSet setWithCapacity:[coordinates count]];
+	for (Petri2DCoordinates* coord in coordinates)
 	{
 		[newCoordinates addObject:[coord rotatedClockwiseAboutOrigin]];
 	}
@@ -255,64 +174,16 @@
 	return [newCoordinates copy];
 }
 
+#pragma mark -
+#pragma mark Accessors
 
+/*!
+ Override. In the case of pieces to be placed on a square grid, this method returns 4.
+ */
 + (NSUInteger)orientationsCount
 {
 	return 4;
 }
-
-#pragma mark -
-#pragma mark Comparators
-
-- (BOOL)isEqual:(id)object
-{
-	if (![object isKindOfClass:[self class]])
-		return NO;
-	
-	return [self isEqualToPiece:(PetriSquareGridPiece*)object];
-}
-
-- (BOOL)isEqualToPiece:(PetriSquareGridPiece*)piece
-{
-	return [[self cellCoordinates] isEqualToSet:[piece cellCoordinates]];
-}
-
-- (NSUInteger)hash
-{
-	return [[self cellCoordinates] hash];
-}
-
-#pragma mark -
-#pragma mark Accessors
-
-- (NSInteger)width
-{
-	NSInteger maxX = NSIntegerMin;
-	
-	for (Petri2DCoordinates* cell in cellCoordinates)
-	{
-		if ([cell xCoordinate] > maxX)
-			maxX = [cell xCoordinate];
-	}
-	
-	return (maxX + 1);
-}
-
-- (NSInteger)height
-{
-	NSInteger maxY = NSIntegerMin;
-
-	for (Petri2DCoordinates* cell in cellCoordinates)
-	{
-		if ([cell yCoordinate] > maxY)
-			maxY = [cell yCoordinate];
-	}
-	
-	return (maxY + 1);
-}
-
-@synthesize cellCoordinates;
-@synthesize orientation;
 
 - (NSString*)description
 {

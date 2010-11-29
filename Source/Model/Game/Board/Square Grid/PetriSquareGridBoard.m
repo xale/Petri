@@ -31,13 +31,13 @@
  @param start starting location to recursively check to see if connected
  @param visited set of visited cells, which well not be swept from the board
  */
-- (void)clearDeadCellsHelperWithStart:(PetriBoardCell*) start
-								  set:(NSMutableSet*) visited;
+- (void)clearDeadCellsHelperWithStart:(PetriBoardCell*)start
+								  set:(NSMutableSet*)visited;
 @end
 
 @implementation PetriSquareGridBoard
 
-- (BOOL)validatePlacementOfPiece:(PetriSquareGridPiece*)piece
+- (BOOL)validatePlacementOfPiece:(PetriGridPiece*)piece
 					   withOwner:(PetriPlayer*)pieceOwner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
@@ -248,6 +248,11 @@
 			}
 		}
 	}
+}
+
++ (Class<PetriPiece>)pieceClass
+{
+	return [PetriSquareGridPiece class];
 }
 
 + (NSInteger)absoluteMinPlayers

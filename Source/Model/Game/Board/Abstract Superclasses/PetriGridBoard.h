@@ -10,7 +10,7 @@
 #import "PetriBoard.h"
 
 @class Petri2DCoordinates;
-@class PetriSquareGridPiece;
+@class PetriGridPiece;
 @class PetriPlayer;
 @class PetriBoardCell;
 
@@ -76,7 +76,7 @@
  * @param pieceOwner player placing the piece
  * @param pieceOrigin the coordinates to place the piece's origin
  */
-- (void)placePiece:(PetriSquareGridPiece*)piece
+- (void)placePiece:(PetriGridPiece*)piece
 		 withOwner:(PetriPlayer*)pieceOwner
 	 atCoordinates:(Petri2DCoordinates*)pieceOrigin;
 
@@ -87,7 +87,7 @@
  * @param pieceOrigin the coordinates to place the piece's origin
  * @return true if the piece can be placed at the indicated coordinates
  */
-- (BOOL)validatePlacementOfPiece:(PetriSquareGridPiece*)piece
+- (BOOL)validatePlacementOfPiece:(PetriGridPiece*)piece
 					   withOwner:(PetriPlayer*)pieceOwner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin;
 

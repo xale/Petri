@@ -10,8 +10,8 @@
 
 @class PetriBoardCell;
 @class PetriPlayer;
-@class PetriSquareGridPiece;
-@class PetriBoardCell;
+
+@protocol PetriPiece;
 
 /*!
  \brief Protocol definining common behaviors for interacting with the state of the game board.
@@ -38,7 +38,7 @@
  @param owner the player attempting to place the piece
  @param cell the cell on the board on which the origin of the piece will be placed
  */
-- (BOOL)validatePlacementOfPiece:(PetriSquareGridPiece*)piece
+- (BOOL)validatePlacementOfPiece:(id<PetriPiece>)piece
 					   withOwner:(PetriPlayer*)owner
 						  onCell:(PetriBoardCell*)cell;
 /*!
@@ -48,9 +48,11 @@
  @param owner the player attempting to place the piece
  @param cell the cell on the board on which the origin of the piece will be placed
  */
-- (void)placePiece:(PetriSquareGridPiece*)piece
+- (void)placePiece:(id<PetriPiece>)piece
 		 withOwner:(PetriPlayer*)owner
 			onCell:(PetriBoardCell*)cell;
+
++ (Class<PetriPiece>)pieceClass;	/*!< Returns the type of PetriPiece used by this type of board. */
 
 + (NSInteger)absoluteMinPlayers;	/*!< Returns the minimum number of players that a board of this type can accommodate. */
 + (NSInteger)absoluteMaxPlayers;	/*!< Returns the maximum number of players that a board of this type can accommodate. */

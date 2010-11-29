@@ -9,11 +9,10 @@
 #import <Cocoa/Cocoa.h>
 
 @class PetriPlayer;
-@class PetriGridBoard;
 @class PetriGameConfiguration;
-@class PetriSquareGridPiece;
 
 @protocol PetriBoard;
+@protocol PetriPiece;
 
 /*!
  \brief Top-level object encapusating a Petri game.
@@ -26,7 +25,7 @@
 	PetriPlayer* currentPlayer;	/*!< The player whose turn it is. */
 	id<PetriBoard> board;			/*!< The game board. */
 	PetriGameConfiguration* gameConfiguration;	/*!< The rules for the game. */
-	PetriSquareGridPiece* currentPiece; /*!< The piece available for use on the current player's move. */
+	id<PetriPiece> currentPiece; /*!< The piece available for use on the current player's move. */
 }
 
 /*!
@@ -51,6 +50,6 @@
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readonly) id<PetriBoard>  board;
 @property (readonly) PetriGameConfiguration* gameConfiguration;
-@property (readonly) PetriSquareGridPiece* currentPiece;
+@property (readonly) id<PetriPiece> currentPiece;
 
 @end

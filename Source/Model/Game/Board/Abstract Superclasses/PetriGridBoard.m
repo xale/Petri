@@ -9,7 +9,7 @@
 #import "PetriGridBoard.h"
 #import "PetriBoardCell.h"
 #import "Petri2DCoordinates.h"
-#import "PetriSquareGridPiece.h"
+#import "PetriGridPiece.h"
 
 @implementation PetriGridBoard
 
@@ -95,16 +95,28 @@
 #pragma mark -
 #pragma mark Piece Placement
 
-- (void)placePiece:(PetriSquareGridPiece*)piece
+NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Attempting to place or validate piece of invalid type on PetriGridBoard: %@";
+
+- (void)placePiece:(id<PetriPiece>)piece
 		 withOwner:(PetriPlayer*)owner
 			onCell:(PetriBoardCell*)cell
 {
-	return [self placePiece:piece
+	// Check that the piece type is valid for placement on this board
+	if (![piece isKindOfClass:[[self class] pieceClass]])
+	{
+		NSString* exceptionDesc = [NSString stringWithFormat:PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat, [piece class]];
+		NSException* invalidPieceTypeException = [NSException exceptionWithName:NSInternalInconsistencyException
+																		 reason:exceptionDesc
+																	   userInfo:nil];
+		@throw invalidPieceTypeException;
+	}
+	
+	return [self placePiece:(PetriGridPiece*)piece
 				  withOwner:owner
 			  atCoordinates:[self coordinatesOfCell:cell]];
 }
 
-- (void)placePiece:(PetriSquareGridPiece*)piece
+- (void)placePiece:(PetriGridPiece*)piece
 		 withOwner:(PetriPlayer*)player
 	 atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
@@ -120,16 +132,26 @@
 	}
 }
 
-- (BOOL)validatePlacementOfPiece:(PetriSquareGridPiece*)piece
+- (BOOL)validatePlacementOfPiece:(id<PetriPiece>)piece
 					   withOwner:(PetriPlayer*)owner
 						  onCell:(PetriBoardCell*)cell
 {
-	return [self validatePlacementOfPiece:piece
+	// Check that the piece type is valid for placement on this board
+	if (![piece isKindOfClass:[[self class] pieceClass]])
+	{
+		NSString* exceptionDesc = [NSString stringWithFormat:PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat, [piece class]];
+		NSException* invalidPieceTypeException = [NSException exceptionWithName:NSInternalInconsistencyException
+																		 reason:exceptionDesc
+																	   userInfo:nil];
+		@throw invalidPieceTypeException;
+	}
+	
+	return [self validatePlacementOfPiece:(PetriGridPiece*)piece
 								withOwner:owner
 							atCoordinates:[self coordinatesOfCell:cell]];
 }
 
-- (BOOL)validatePlacementOfPiece:(PetriSquareGridPiece*)piece
+- (BOOL)validatePlacementOfPiece:(PetriGridPiece*)piece
 					   withOwner:(PetriPlayer*)pieceOwner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
@@ -202,6 +224,11 @@
 
 #pragma mark -
 #pragma mark Other Accessors
+
++ (Class<PetriPiece>)pieceClass
+{
+	return [PetriGridPiece class];
+}
 
 + (NSInteger)absoluteMinPlayers
 {

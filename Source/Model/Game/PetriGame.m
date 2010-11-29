@@ -10,7 +10,7 @@
 
 #import "PetriGameConfiguration.h"
 #import "PetriSquareGridBoard.h"
-#import "PetriSquareGridPiece.h"
+#import "PetriPiece.h"
 
 /*!
  Private methods for PetriGame
@@ -20,7 +20,7 @@
 /*!
  Returns the next PetriPiece to be assigned to \c currentPiece, chosen at random based on the distribution provided at initialization.
  */
-- (PetriSquareGridPiece*)nextPiece;
+- (id<PetriPiece>)nextPiece;
 
 /*!
  Returns the next player to play, to be assigned to \c currentPlayer.
@@ -63,9 +63,7 @@
 
 - (void)rotateCurrentPiece
 {
-	[self willChangeValueForKey:@"currentPiece"];
-	currentPiece = [currentPiece pieceRotatedClockwise];
-	[self didChangeValueForKey:@"currentPiece"];
+	[currentPiece rotate];
 }
 
 #pragma mark -
@@ -86,11 +84,11 @@
 	return [players firstObjectCommonWithArray:[NSArray arrayWithObject:player]];
 }
 
-- (PetriSquareGridPiece*)nextPiece
+- (id<PetriPiece>)nextPiece
 {
 	// Create a list from which to select a next piece
 	NSMutableArray* pieces = [NSMutableArray array];
-	for (PetriSquareGridPiece* piece in [gameConfiguration pieceFrequencies])
+	for (id<PetriPiece> piece in [gameConfiguration pieceFrequencies])
 	{
 		// Populate the array with each piece type in the dictionary, duplicated according to its frequency
 		for (NSInteger i = 0; i < [[[gameConfiguration pieceFrequencies] objectForKey:piece] integerValue]; i++)
@@ -100,17 +98,14 @@
 	}
 	
 	// Choose a piece at random from the list
-	PetriSquareGridPiece* nextPiece = [pieces objectAtIndex:(random() % [pieces count])];
+	id<PetriPiece> nextPiece = [pieces objectAtIndex:(random() % [pieces count])];
 	
 	// Choose at random a number of times to rotate the piece
 	NSInteger numRotations = (random() % [[nextPiece class] orientationsCount]);
 	
 	// Rotate the piece
-	while (numRotations > 0)
-	{
-		nextPiece = [nextPiece pieceRotatedClockwise];
-		numRotations--;
-	}
+	nextPiece = [[[nextPiece class] alloc] initWithPiece:nextPiece
+											   rotations:numRotations];
 	
 	return nextPiece;
 }

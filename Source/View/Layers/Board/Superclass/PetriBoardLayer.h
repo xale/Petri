@@ -29,7 +29,7 @@
 /*!
  Initializes a new PetriBoardLayer with a reference to the specified board.
  \warning Called by subclasses, do not invoke directly; use the class-factory method +boardLayerForBoard: instead.
- @param boardToDisplay The PetriGridBoard this layer will represent.
+ @param boardToDisplay The PetriBoard this layer will represent.
  @param ratio The aspect ratio the board layer will maintain.
  */
 - (id)initWithBoard:(id<PetriBoard>)boardToDisplay

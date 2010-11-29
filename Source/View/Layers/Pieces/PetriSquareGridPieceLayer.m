@@ -1,20 +1,20 @@
 //
-//  PetriPieceLayer.m
+//  PetriSquareGridPieceLayer.m
 //  Petri
 //
 //  Created by Alex Heinz on 11/23/10.
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
-#import "PetriPieceLayer.h"
+#import "PetriSquareGridPieceLayer.h"
 
 #import "PetriSquareGridPiece.h"
 #import "Petri2DCoordinates.h"
 
 /*!
- Private methods on PetriPieceLayer.
+ Private methods on PetriSquareGridPieceLayer.
  */
-@interface PetriPieceLayer(Private)
+@interface PetriSquareGridPieceLayer(Private)
 
 /*!
  Returns an aspect ratio for the layer based on a piece's dimensions.
@@ -31,12 +31,12 @@
 @end
 
 
-@implementation PetriPieceLayer
+@implementation PetriSquareGridPieceLayer
 
 - (id)initWithPiece:(PetriSquareGridPiece*)displayPiece
 {
-	// Initialize the layer with the appropriate aspect ratio for the piece
-	if (![super initWithAspectRatio:[self aspectRatioForPiece:displayPiece]])
+	// Call the superclass initializer
+	if (![super initWithPiece:displayPiece aspectRatio:[self aspectRatioForPiece:displayPiece]])
 		return nil;
 	
 	// Create a layout manager
@@ -45,14 +45,7 @@
 	// Lay out the layer's cells
 	[self createCellSublayersForPiece:displayPiece];
 	
-	piece = displayPiece;
-	
 	return self;
-}
-
-+ (id)pieceLayerForPiece:(PetriSquareGridPiece*)displayPiece
-{
-	return [[self alloc] initWithPiece:displayPiece];
 }
 
 #pragma mark -
@@ -100,10 +93,5 @@
 		[self addSublayer:cellLayer];
 	}
 }
-
-#pragma mark -
-#pragma mark Accessors
-
-@synthesize piece;
 
 @end
