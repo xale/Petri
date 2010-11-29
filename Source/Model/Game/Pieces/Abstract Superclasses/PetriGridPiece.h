@@ -70,6 +70,5 @@
 - (NSInteger)height;
 
 @property (readonly) NSSet* cellCoordinates;
-@property (readonly) NSUInteger orientation;
 
 @end

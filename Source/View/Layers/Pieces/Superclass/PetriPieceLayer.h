@@ -18,6 +18,7 @@
 @interface PetriPieceLayer : PetriAspectRatioLayer
 {
 	id<PetriPiece> piece;	/*!< The piece this layer displays. */
+	NSUInteger orientation;	/*!< The piece's orientation, used as the layer's rotation. Automatically bound to the piece's \c orientation property. */
 }
 
 /*!
@@ -36,6 +37,6 @@
 		aspectRatio:(CGFloat)ratio;
 
 @property (readonly) id<PetriPiece> piece;
-@property (readwrite, assign) NSUInteger orientation;	/*!< A readwrite property that is automatically bound to the represented piece's orientation property, and animates the layer when the piece rotates. */
+@property (readwrite, assign) NSUInteger orientation;
 
 @end
