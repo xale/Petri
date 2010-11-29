@@ -8,11 +8,11 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@class PetriPiece;
+@class PetriSquareGridPiece;
 
-@interface PetriPieceTestCases : SenTestCase
+@interface PetriSquareGridPieceTestCases : SenTestCase
 {
-	PetriPiece* testPiece;
+	PetriSquareGridPiece* testPiece;
 }
 
 - (void)testPieceEquality;

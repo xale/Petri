@@ -9,7 +9,7 @@
 #import "PetriSquareGridBoard.h"
 
 #import "PetriBoardCell.h"
-#import "PetriPiece.h"
+#import "PetriSquareGridPiece.h"
 #import "Petri2DCoordinates.h"
 
 /*!
@@ -37,7 +37,7 @@
 
 @implementation PetriSquareGridBoard
 
-- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+- (BOOL)validatePlacementOfPiece:(PetriSquareGridPiece*)piece
 					   withOwner:(PetriPlayer*)pieceOwner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {

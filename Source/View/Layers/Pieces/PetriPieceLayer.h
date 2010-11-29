@@ -8,7 +8,7 @@
 
 #import "PetriAspectRatioLayer.h"
 
-@class PetriPiece;
+@class PetriSquareGridPiece;
 
 /*!
  \brief A CALayer subclass for drawing a PetriPiece.
@@ -17,21 +17,21 @@
  */
 @interface PetriPieceLayer : PetriAspectRatioLayer
 {
-	PetriPiece* piece;	/*!< The piece this layer displays. */
+	PetriSquareGridPiece* piece;	/*!< The piece this layer displays. */
 }
 
 /*!
  Initializes a Piece Layer to display the specified Piece.
  @param displayPiece The PetriPiece the layer will display.
  */
-- (id)initWithPiece:(PetriPiece*)displayPiece;
+- (id)initWithPiece:(PetriSquareGridPiece*)displayPiece;
 
 /*!
  Creates a new Piece Layer to display the specified Piece.
  @param displayPiece The PetriPiece the layer will display.
  */
-+ (id)pieceLayerForPiece:(PetriPiece*)displayPiece;
++ (id)pieceLayerForPiece:(PetriSquareGridPiece*)displayPiece;
 
-@property (readonly) PetriPiece* piece;
+@property (readonly) PetriSquareGridPiece* piece;
 
 @end

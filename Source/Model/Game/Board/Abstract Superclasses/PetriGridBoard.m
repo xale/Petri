@@ -9,7 +9,7 @@
 #import "PetriGridBoard.h"
 #import "PetriBoardCell.h"
 #import "Petri2DCoordinates.h"
-#import "PetriPiece.h"
+#import "PetriSquareGridPiece.h"
 
 @implementation PetriGridBoard
 
@@ -95,7 +95,7 @@
 #pragma mark -
 #pragma mark Piece Placement
 
-- (void)placePiece:(PetriPiece*)piece
+- (void)placePiece:(PetriSquareGridPiece*)piece
 		 withOwner:(PetriPlayer*)owner
 			onCell:(PetriBoardCell*)cell
 {
@@ -104,7 +104,7 @@
 			  atCoordinates:[self coordinatesOfCell:cell]];
 }
 
-- (void)placePiece:(PetriPiece*)piece
+- (void)placePiece:(PetriSquareGridPiece*)piece
 		 withOwner:(PetriPlayer*)player
 	 atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
@@ -120,7 +120,7 @@
 	}
 }
 
-- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+- (BOOL)validatePlacementOfPiece:(PetriSquareGridPiece*)piece
 					   withOwner:(PetriPlayer*)owner
 						  onCell:(PetriBoardCell*)cell
 {
@@ -129,7 +129,7 @@
 							atCoordinates:[self coordinatesOfCell:cell]];
 }
 
-- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+- (BOOL)validatePlacementOfPiece:(PetriSquareGridPiece*)piece
 					   withOwner:(PetriPlayer*)pieceOwner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {

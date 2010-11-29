@@ -10,7 +10,7 @@
 
 @class PetriBoardCell;
 @class PetriPlayer;
-@class PetriPiece;
+@class PetriSquareGridPiece;
 @class PetriBoardCell;
 
 /*!
@@ -38,7 +38,7 @@
  @param owner the player attempting to place the piece
  @param cell the cell on the board on which the origin of the piece will be placed
  */
-- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+- (BOOL)validatePlacementOfPiece:(PetriSquareGridPiece*)piece
 					   withOwner:(PetriPlayer*)owner
 						  onCell:(PetriBoardCell*)cell;
 /*!
@@ -48,7 +48,7 @@
  @param owner the player attempting to place the piece
  @param cell the cell on the board on which the origin of the piece will be placed
  */
-- (void)placePiece:(PetriPiece*)piece
+- (void)placePiece:(PetriSquareGridPiece*)piece
 		 withOwner:(PetriPlayer*)owner
 			onCell:(PetriBoardCell*)cell;
 

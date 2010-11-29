@@ -8,7 +8,7 @@
 
 #import "PetriPieceLayer.h"
 
-#import "PetriPiece.h"
+#import "PetriSquareGridPiece.h"
 #import "Petri2DCoordinates.h"
 
 /*!
@@ -20,20 +20,20 @@
  Returns an aspect ratio for the layer based on a piece's dimensions.
  @param displayPiece The piece this layer will display; the resulting aspect ratio will be the piece's \c width divided by its \c height.
  */
-- (CGFloat)aspectRatioForPiece:(PetriPiece*)displayPiece;
+- (CGFloat)aspectRatioForPiece:(PetriSquareGridPiece*)displayPiece;
 
 /*!
  Creates and lays out the cell sublayers for the given piece.
  @param displayPiece The piece whose configuration the sublayers will lay out according to.
  */
-- (void)createCellSublayersForPiece:(PetriPiece*)displayPiece;
+- (void)createCellSublayersForPiece:(PetriSquareGridPiece*)displayPiece;
 
 @end
 
 
 @implementation PetriPieceLayer
 
-- (id)initWithPiece:(PetriPiece*)displayPiece
+- (id)initWithPiece:(PetriSquareGridPiece*)displayPiece
 {
 	// Initialize the layer with the appropriate aspect ratio for the piece
 	if (![super initWithAspectRatio:[self aspectRatioForPiece:displayPiece]])
@@ -50,7 +50,7 @@
 	return self;
 }
 
-+ (id)pieceLayerForPiece:(PetriPiece*)displayPiece
++ (id)pieceLayerForPiece:(PetriSquareGridPiece*)displayPiece
 {
 	return [[self alloc] initWithPiece:displayPiece];
 }
@@ -58,12 +58,12 @@
 #pragma mark -
 #pragma mark Layout
 
-- (CGFloat)aspectRatioForPiece:(PetriPiece*)displayPiece
+- (CGFloat)aspectRatioForPiece:(PetriSquareGridPiece*)displayPiece
 {
 	return ((CGFloat)[displayPiece width] / (CGFloat)[displayPiece height]);
 }
 
-- (void)createCellSublayersForPiece:(PetriPiece*)displayPiece
+- (void)createCellSublayersForPiece:(PetriSquareGridPiece*)displayPiece
 {
 	// Create a sublayer for each cell in the piece
 	for (Petri2DCoordinates* cellCoord in [displayPiece cellCoordinates])

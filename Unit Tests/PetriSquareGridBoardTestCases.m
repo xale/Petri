@@ -13,7 +13,7 @@
 #import "PetriPlayer.h"
 #import "PetriMockPlayer.h"
 #import "Petri2DCoordinates.h"
-#import "PetriPiece.h"
+#import "PetriSquareGridPiece.h"
 #import "PetriBoardCell.h"
 
 #define WIDTH	20
@@ -41,7 +41,7 @@
 {
 	PetriPlayer* player = [[PetriMockPlayer alloc] init];
 	NSSet* set = [NSSet setWithObjects:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0], [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1], nil];
-	PetriPiece* piece = [PetriPiece pieceWithCellCoordinates:set];
+	PetriSquareGridPiece* piece = [PetriSquareGridPiece pieceWithCellCoordinates:set];
 	NSInteger headX = 3;
 	NSInteger headY = 3;
 	

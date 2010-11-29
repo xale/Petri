@@ -6,13 +6,13 @@
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
-#import "PetriPiece.h"
+#import "PetriSquareGridPiece.h"
 #import "Petri2DCoordinates.h"
 
 /*!
  Private methods on PetriPiece.
  */
-@interface PetriPiece(Private)
+@interface PetriSquareGridPiece(Private)
 
 /*!
  Takes a set of Petri2DCoordinates, and shifts them so that they maintain their positions relative to one another, but their bounding rect has its origin at (0,0).
@@ -21,26 +21,26 @@
 
 @end
 
-@implementation PetriPiece
+@implementation PetriSquareGridPiece
 
 + (NSDictionary*)defaultPieceFrequencies
 {
 	NSArray* pieceTypes = [NSArray arrayWithObjects:
-						   [PetriPiece unitPiece],
-						   [PetriPiece line2Piece],
-						   [PetriPiece line3Piece],
-						   [PetriPiece l3Piece],
-						   [PetriPiece line4Piece],
-						   [PetriPiece sPiece],
-						   [PetriPiece zPiece],
-						   [PetriPiece lPiece],
-						   [PetriPiece jPiece],
-						   [PetriPiece squarePiece],
-						   [PetriPiece line5Piece],
+						   [PetriSquareGridPiece unitPiece],
+						   [PetriSquareGridPiece line2Piece],
+						   [PetriSquareGridPiece line3Piece],
+						   [PetriSquareGridPiece l3Piece],
+						   [PetriSquareGridPiece line4Piece],
+						   [PetriSquareGridPiece sPiece],
+						   [PetriSquareGridPiece zPiece],
+						   [PetriSquareGridPiece lPiece],
+						   [PetriSquareGridPiece jPiece],
+						   [PetriSquareGridPiece squarePiece],
+						   [PetriSquareGridPiece line5Piece],
 						   nil];
 	
 	NSMutableDictionary* pieceFrequencies = [NSMutableDictionary dictionaryWithCapacity:[pieceTypes count]];
-	for (PetriPiece* pieceType in pieceTypes)
+	for (PetriSquareGridPiece* pieceType in pieceTypes)
 	{
 		[pieceFrequencies setObject:[NSNumber numberWithInteger:1]
 							 forKey:pieceType];
@@ -51,12 +51,12 @@
 
 + (id)unitPiece
 {
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0]]];
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0]]];
 }
 
 + (id)line2Piece
 {
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
 												 nil]];
@@ -64,7 +64,7 @@
 
 + (id)jPiece
 {
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
@@ -74,7 +74,7 @@
 
 + (id)lPiece
 {
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:1],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:2],
@@ -85,7 +85,7 @@
 
 + (id)zPiece
 {
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
@@ -95,7 +95,7 @@
 
 + (id)sPiece
 {
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
@@ -105,7 +105,7 @@
 
 + (id)line4Piece
 {
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
@@ -115,7 +115,7 @@
 
 + (id)line5Piece
 {
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
@@ -126,7 +126,7 @@
 
 + (id)squarePiece
 {
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
@@ -136,7 +136,7 @@
 
 + (id)l3Piece
 {
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
@@ -145,7 +145,7 @@
 
 + (id)line3Piece
 {
-	return [PetriPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
 												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
@@ -204,7 +204,7 @@
 #pragma mark -
 #pragma mark Rotations
 
-- (PetriPiece*)pieceRotatedClockwise
+- (PetriSquareGridPiece*)pieceRotatedClockwise
 {
 	NSMutableSet* newCoordinates = [NSMutableSet setWithCapacity:[cellCoordinates count]];
 	for (Petri2DCoordinates* coord in cellCoordinates)
@@ -215,7 +215,7 @@
 	return [[self class] pieceWithCellCoordinates:[newCoordinates copy]];
 }
 
-- (PetriPiece*)pieceRotatedCounterclockwise
+- (PetriSquareGridPiece*)pieceRotatedCounterclockwise
 {
 	NSMutableSet* newCoordinates = [NSMutableSet setWithCapacity:[cellCoordinates count]];
 	for (Petri2DCoordinates* coord in cellCoordinates)
@@ -239,10 +239,10 @@
 	if (![object isKindOfClass:[self class]])
 		return NO;
 	
-	return [self isEqualToPiece:(PetriPiece*)object];
+	return [self isEqualToPiece:(PetriSquareGridPiece*)object];
 }
 
-- (BOOL)isEqualToPiece:(PetriPiece*)piece
+- (BOOL)isEqualToPiece:(PetriSquareGridPiece*)piece
 {
 	return [[self cellCoordinates] isEqualToSet:[piece cellCoordinates]];
 }

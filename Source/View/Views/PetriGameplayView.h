@@ -12,7 +12,7 @@
 
 @class PetriGame;
 @class PetriPlayer;
-@class PetriPiece;
+@class PetriSquareGridPiece;
 
 @protocol PetriGameplayViewDelegate;
 
@@ -32,14 +32,14 @@
 	NSArray* players;			/*!< The list of players in the game. */
 	PetriPlayer* currentPlayer;	/*!< The player whose turn it is. */
 	id<PetriBoard> board;		/*!< The game board. */
-	PetriPiece* currentPiece;	/*!< The piece to be placed this turn. */
+	PetriSquareGridPiece* currentPiece;	/*!< The piece to be placed this turn. */
 }
 
 @property (readwrite, assign) IBOutlet id<PetriGameplayViewDelegate> delegate;
 @property (readwrite, copy) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readwrite, assign) id<PetriBoard> board;
-@property (readwrite, assign) PetriPiece* currentPiece;
+@property (readwrite, assign) PetriSquareGridPiece* currentPiece;
 
 @end
 
@@ -55,7 +55,7 @@
  @param pieceOwner The player who currently has the active turn, and therefore "owns" the piece.
  */
 - (BOOL)gameplayView:(PetriGameplayView*)gameplayView
-canRotateCurrentPiece:(PetriPiece*)piece
+canRotateCurrentPiece:(PetriSquareGridPiece*)piece
 		   forPlayer:(PetriPlayer*)pieceOwner;
 
 /*!
@@ -65,7 +65,7 @@ canRotateCurrentPiece:(PetriPiece*)piece
  @param pieceOwner The player who currently has the active turn, and therefore "owns" the piece.
  */
 - (void)gameplayView:(PetriGameplayView*)gameplayView
-  rotateCurrentPiece:(PetriPiece*)piece
+  rotateCurrentPiece:(PetriSquareGridPiece*)piece
 		   forPlayer:(PetriPlayer*)pieceOwner;
 
 /*!
@@ -77,7 +77,7 @@ canRotateCurrentPiece:(PetriPiece*)piece
  @param board The board on which placement is being validated.
  */
 - (BOOL)gameplayView:(PetriGameplayView*)gameplayView
-	   canPlacePiece:(PetriPiece*)piece
+	   canPlacePiece:(PetriSquareGridPiece*)piece
 		   forPlayer:(PetriPlayer*)pieceOwner
 			  onCell:(PetriBoardCell*)originCell
 			 ofBoard:(id<PetriBoard>)board;
@@ -91,7 +91,7 @@ canRotateCurrentPiece:(PetriPiece*)piece
  @param board The board on which to place the piece.
  */
 - (void)gameplayView:(PetriGameplayView*)gameplayView
-		  placePiece:(PetriPiece*)piece
+		  placePiece:(PetriSquareGridPiece*)piece
 		   forPlayer:(PetriPlayer*)pieceOwner
 			  onCell:(PetriBoardCell*)originCell
 			 ofBoard:(id<PetriBoard>)board;

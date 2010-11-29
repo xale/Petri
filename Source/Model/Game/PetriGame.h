@@ -11,7 +11,7 @@
 @class PetriPlayer;
 @class PetriGridBoard;
 @class PetriGameConfiguration;
-@class PetriPiece;
+@class PetriSquareGridPiece;
 
 @protocol PetriBoard;
 
@@ -26,7 +26,7 @@
 	PetriPlayer* currentPlayer;	/*!< The player whose turn it is. */
 	id<PetriBoard> board;			/*!< The game board. */
 	PetriGameConfiguration* gameConfiguration;	/*!< The rules for the game. */
-	PetriPiece* currentPiece; /*!< The piece available for use on the current player's move. */
+	PetriSquareGridPiece* currentPiece; /*!< The piece available for use on the current player's move. */
 }
 
 /*!
@@ -51,6 +51,6 @@
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readonly) id<PetriBoard>  board;
 @property (readonly) PetriGameConfiguration* gameConfiguration;
-@property (readonly) PetriPiece* currentPiece;
+@property (readonly) PetriSquareGridPiece* currentPiece;
 
 @end

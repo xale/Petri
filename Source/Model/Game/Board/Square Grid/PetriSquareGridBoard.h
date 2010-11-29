@@ -33,7 +33,7 @@
  @param pieceOrigin the coordinates to place the piece's origin
  @return true if the piece can be placed
  */
-- (BOOL)validatePlacementOfPiece:(PetriPiece*)piece
+- (BOOL)validatePlacementOfPiece:(PetriSquareGridPiece*)piece
 					   withOwner:(PetriPlayer*)owner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin;
 

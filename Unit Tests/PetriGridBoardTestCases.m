@@ -12,7 +12,7 @@
 
 #import "Petri2DCoordinates.h"
 
-#import "PetriPiece.h"
+#import "PetriSquareGridPiece.h"
 
 #import "PetriMockPlayer.h"
 
@@ -58,7 +58,7 @@
 	NSInteger x = 3;
 	NSInteger y = 3;
 	PetriPlayer* player = [[PetriMockPlayer alloc] init];
-	PetriPiece* piece = [PetriPiece pieceWithCellCoordinates:[NSSet setWithObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0]]];
+	PetriSquareGridPiece* piece = [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0]]];
 	[testGridBoard placePiece:piece withOwner:player onCell:[testGridBoard cellAtX:x Y:y]];
 	
 	STAssertEqualObjects([[testGridBoard cellAtX:x Y:y] owner], player, @"Cell at this location should have been covered in the placement.");

@@ -7,7 +7,7 @@
 //
 
 #import "PetriGameConfiguration.h"
-#import "PetriPiece.h"
+#import "PetriSquareGridPiece.h"
 
 @implementation PetriGameConfiguration
 
@@ -15,7 +15,7 @@
 {
 	return [[self alloc] initWithMinPlayers:2
 								 maxPlayers:4
-						   pieceFrequencies:[PetriPiece defaultPieceFrequencies]];
+						   pieceFrequencies:[PetriSquareGridPiece defaultPieceFrequencies]];
 }
 
 NSString* const PetriInvalidGameConfigurationExceptionName =			@"invalidGameConfigurationException";

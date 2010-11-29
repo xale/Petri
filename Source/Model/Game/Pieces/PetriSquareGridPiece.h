@@ -13,7 +13,7 @@
  
  A PetriPiece object is a (small) collection of coordinates which represent the offsets of cells from an origin point. Placing a piece on the board adds the cells in the set to the board contents, assuming the placement is legal. Each game has a pool of piece configurations, and a random member of this pool is generated at the beginning of each turn, as the piece for the player to place on the board.
  */
-@interface PetriPiece : NSObject <NSCopying>
+@interface PetriSquareGridPiece : NSObject <NSCopying>
 {
 	NSSet* cellCoordinates;	/*!< The set of Petri2DCoordinates describing the positions of the cells in this piece, as relative offsets from the piece's placement origin location. */
 }
@@ -52,14 +52,14 @@
  * This is done by rotating all blocks in the set 90 degrees about the origin
  * @return current piece rotated clockwise
  */
-- (PetriPiece*)pieceRotatedClockwise;
+- (PetriSquareGridPiece*)pieceRotatedClockwise;
 
 /**
  * Returns the current piece, but rotated counterclockwise
  * This is done by rotating all blocks in the set -90 degrees about the origin
  * @return current piece rotated counterclockwise
  */
-- (PetriPiece*)pieceRotatedCounterclockwise;
+- (PetriSquareGridPiece*)pieceRotatedCounterclockwise;
 
 /*!
  Returns the number of orientations the piece can be rotated to occupy; more precisely, rotating a piece this many times is guaranteed to produce a piece whose configuration is identical to the original piece.
@@ -71,7 +71,7 @@
  Returns YES if the specified piece has the same set of cell offsets as the receiver.
  @param piece The piece with which to compare.
  */
-- (BOOL)isEqualToPiece:(PetriPiece*)piece;
+- (BOOL)isEqualToPiece:(PetriSquareGridPiece*)piece;
 
 @property (readonly) NSSet* cellCoordinates;
 
