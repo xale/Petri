@@ -8,7 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-
+/*!
+ Interface that pieces of all types of boards conform to.
+ */
 @protocol PetriPiece <NSObject, NSCopying>
 
 /*!
