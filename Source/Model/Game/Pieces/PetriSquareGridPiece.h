@@ -7,15 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "PetriPiece.h"
 /*!
  \brief The game pieces given to players to place on the board.
  
  A PetriPiece object is a (small) collection of coordinates which represent the offsets of cells from an origin point. Placing a piece on the board adds the cells in the set to the board contents, assuming the placement is legal. Each game has a pool of piece configurations, and a random member of this pool is generated at the beginning of each turn, as the piece for the player to place on the board.
  */
-@interface PetriSquareGridPiece : NSObject <NSCopying>
+@interface PetriSquareGridPiece : NSObject <PetriPiece>
 {
 	NSSet* cellCoordinates;	/*!< The set of Petri2DCoordinates describing the positions of the cells in this piece, as relative offsets from the piece's placement origin location. */
+	NSUInteger orientation;
 }
 
 /*!
@@ -42,27 +43,34 @@
 - (id)initWithCellCoordinates:(NSSet*)coordinates;
 
 /*!
+ Initializes a PetriPiece with a set of coordinates and rotates it the specified number of times.
+ @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location. These coordinates will be "normalized" relative to the origin: see the documentation for -normalizeCoordinates:.
+ @param rotations The number of times the piece is rotated.
+ */
+- (id)initWithCellCoordinates:(NSSet*)coordinates
+					rotations:(NSUInteger)rotations;
+
+/*!
  Creates a new PetriPiece with a specific set of coordinates.
  @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location.
  */
 + (id)pieceWithCellCoordinates:(NSSet*)coordinates;
 
-/**
- * Returns the current piece, but rotated clockwise
- * This is done by rotating all blocks in the set 90 degrees about the origin
- * @return current piece rotated clockwise
+/*!
+ Creates a new PetriPiece with a specific set of coordinates and rotates it a number of times.
+ @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location.
+ @param rotations number of times the piece is rotated.
  */
-- (PetriSquareGridPiece*)pieceRotatedClockwise;
++ (id)pieceWithCellCoordinates:(NSSet*)coordinates
+					 rotations:(NSUInteger)rotations;
 
 /**
- * Returns the current piece, but rotated counterclockwise
- * This is done by rotating all blocks in the set -90 degrees about the origin
- * @return current piece rotated counterclockwise
+ * Returns the coordinates current piece, but rotated clockwise.
+ * This is done by rotating all blocks in the set 90 degrees about the origin.
  */
-- (PetriSquareGridPiece*)pieceRotatedCounterclockwise;
+- (NSSet*)cellCoordinatesRotatedClockwise;
 
 /*!
- Returns the number of orientations the piece can be rotated to occupy; more precisely, rotating a piece this many times is guaranteed to produce a piece whose configuration is identical to the original piece.
  In the case of pieces to be placed on a square grid, this method returns 4.
  */
 + (NSUInteger)orientationsCount;
@@ -74,6 +82,7 @@
 - (BOOL)isEqualToPiece:(PetriSquareGridPiece*)piece;
 
 @property (readonly) NSSet* cellCoordinates;
+@property (readonly) NSUInteger orientation;
 
 /**
  Return the width of the piece
