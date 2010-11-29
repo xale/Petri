@@ -197,6 +197,7 @@
 		FA591AA8129B8D7600210502 /* Petri2DCoordinates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Petri2DCoordinates.m; sourceTree = "<group>"; };
 		FA591ACA129B906600210502 /* Petri2DCoordinatesTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Petri2DCoordinatesTestCases.h; sourceTree = "<group>"; };
 		FA591ACB129B906600210502 /* Petri2DCoordinatesTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Petri2DCoordinatesTestCases.m; sourceTree = "<group>"; };
+		FA9BC06112A418520043E76D /* PetriPiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPiece.h; sourceTree = "<group>"; };
 		FAB0331012788BBB00DC01F0 /* PetriGameTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameTestCases.h; sourceTree = "<group>"; };
 		FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameTestCases.m; sourceTree = "<group>"; };
 		FAB033301278D71500DC01F0 /* PetriGridBoardTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGridBoardTestCases.h; sourceTree = "<group>"; };
@@ -393,6 +394,7 @@
 		6A4A160E12663F4100429714 /* Pieces */ = {
 			isa = PBXGroup;
 			children = (
+				FA9BC05F12A418180043E76D /* Interface */,
 				6A4A160F12663F4100429714 /* PetriSquareGridPiece.h */,
 				6A4A161012663F4100429714 /* PetriSquareGridPiece.m */,
 			);
@@ -605,6 +607,14 @@
 				6ACA2E5C12888EEE002DEBE1 /* PetriMainWindowViewController.m */,
 			);
 			path = Superclass;
+			sourceTree = "<group>";
+		};
+		FA9BC05F12A418180043E76D /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				FA9BC06112A418520043E76D /* PetriPiece.h */,
+			);
+			name = Interface;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
