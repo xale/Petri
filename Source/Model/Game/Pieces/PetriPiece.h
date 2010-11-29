@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@protocol PetriPiece
+@protocol PetriPiece <NSObject, NSCopying>
 
 /*!
  Returns the current orientation of the piece; updated by calls to -rotate:
