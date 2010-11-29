@@ -163,13 +163,43 @@
 
 - (id)initWithCellCoordinates:(NSSet*)coordinates
 {
+	return [self initWithCellCoordinates:coordinates
+							   rotations:0];
+}
+
+- (id)initWithCellCoordinates:(NSSet*)coordinates
+					rotations:(NSUInteger)rotations
+{
 	cellCoordinates = [self normalizeCoordinates:coordinates];
+	orientation = 0;
+	for (NSUInteger i = rotations; i > 0; i--)
+	{
+		cellCoordinates = [self normalizeCoordinates:[self cellCoordinatesRotatedClockwise]];
+		orientation = 0;
+	}
 	return self;
+}
+
+- (id)initWithPiece:(id<PetriPiece>)piece
+		  rotations:(NSUInteger)rotations
+{
+	if (![piece isKindOfClass:[PetriSquareGridPiece class]])
+	{
+		NSException* exception = [NSException exceptionWithName:@"NSInternalInconcistancyException" reason:@"Initializer was expecting a PetriSquareGridPiece but did not receive one." userInfo:nil];
+		@throw exception;
+	}
+	return [self initWithCellCoordinates:[piece cellCoordinates] rotations:rotations];
 }
 
 + (id)pieceWithCellCoordinates:(NSSet*)coordinates
 {
 	return [[self alloc] initWithCellCoordinates:coordinates];
+}
+
++ (id)pieceWithCellCoordinates:(NSSet*)coordinates
+					 rotations:(NSUInteger)rotations
+{
+	return [[self alloc] initWithCellCoordinates:coordinates rotations:rotations];
 }
 
 - (id)copyWithZone:(NSZone*)zone
@@ -204,7 +234,17 @@
 #pragma mark -
 #pragma mark Rotations
 
-- (PetriSquareGridPiece*)pieceRotatedClockwise
+- (void)rotate
+{
+	[self willChangeValueForKey:@"orientation"];
+	[self willChangeValueForKey:@"cellCoordinates"];
+	orientation = (orientation + 1) % [[self class] orientationsCount];
+	cellCoordinates = [self normalizeCoordinates:[self cellCoordinatesRotatedClockwise]];
+	[self didChangeValueForKey:@"cellCoordinates"];
+	[self didChangeValueForKey:@"orientation"];
+}
+
+- (NSSet*)cellCoordinatesRotatedClockwise
 {
 	NSMutableSet* newCoordinates = [NSMutableSet setWithCapacity:[cellCoordinates count]];
 	for (Petri2DCoordinates* coord in cellCoordinates)
@@ -212,19 +252,9 @@
 		[newCoordinates addObject:[coord rotatedClockwiseAboutOrigin]];
 	}
 	
-	return [[self class] pieceWithCellCoordinates:[newCoordinates copy]];
+	return [newCoordinates copy];
 }
 
-- (PetriSquareGridPiece*)pieceRotatedCounterclockwise
-{
-	NSMutableSet* newCoordinates = [NSMutableSet setWithCapacity:[cellCoordinates count]];
-	for (Petri2DCoordinates* coord in cellCoordinates)
-	{
-		[newCoordinates addObject:[coord rotatedCounterclockwiseAboutOrigin]];
-	}
-	
-	return [[self class] pieceWithCellCoordinates:[newCoordinates copy]];
-}
 
 + (NSUInteger)orientationsCount
 {
@@ -282,6 +312,7 @@
 }
 
 @synthesize cellCoordinates;
+@synthesize orientation;
 
 - (NSString*)description
 {
