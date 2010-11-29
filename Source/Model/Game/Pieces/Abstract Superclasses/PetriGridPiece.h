@@ -42,7 +42,7 @@
 
 /*!
  Takes an NSSet of Petri2DCoordinates, and rotates the set clockwise about the origin while preserving their relative positions.
- \warning Abstract method; subclasses must override.
+ \warning Abstract method; subclasses must override to define the amount of rotation, and the particular implementation of that rotation.
  */
 - (NSSet*)rotateCoordinatesClockwise:(NSSet*)coordinates;
 
