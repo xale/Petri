@@ -36,21 +36,9 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	   options:nil];
 	
 	// Bind the gameplay view to this controller
-	[gameplayPane bind:@"players"
+	[gameplayPane bind:@"game"
 			  toObject:self
-		   withKeyPath:@"game.players"
-			   options:nil];
-	[gameplayPane bind:@"currentPlayer"
-			  toObject:self
-		   withKeyPath:@"game.currentPlayer"
-			   options:nil];
-	[gameplayPane bind:@"board"
-			  toObject:self
-		   withKeyPath:@"game.board"
-			   options:nil];
-	[gameplayPane bind:@"currentPiece"
-			  toObject:self
-		   withKeyPath:@"game.currentPiece"
+		   withKeyPath:@"game"
 			   options:nil];
 }
 
