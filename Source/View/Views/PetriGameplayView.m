@@ -86,6 +86,12 @@
 	// Set up the view to be layer-hosting (see discussion under documentation of NSView -setWantsLayer:)
 	[self setLayer:backgroundLayer];
 	[self setWantsLayer:YES];
+	
+	// Make the view track mouse movements
+	[self addTrackingArea:[[NSTrackingArea alloc] initWithRect:NSZeroRect
+													   options:(NSTrackingMouseMoved | NSTrackingActiveInActiveApp | NSTrackingInVisibleRect)
+														 owner:self
+													  userInfo:nil]];
 }
 
 #pragma mark -
@@ -262,6 +268,11 @@
 }
 
 - (void)pieceContainerLayerClicked:(PetriPieceContainerLayer*)clickedLayer
+{
+	// FIXME: TESTING
+}
+
+- (void)mouseMoved:(NSEvent*)mouseEvent
 {
 	// FIXME: WRITEME
 }
