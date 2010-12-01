@@ -113,6 +113,9 @@ NSString* const PetriInvalidViewControllerKeyExceptionDescriptionFormat =	@"No v
 
 - (void)applicationDidFinishLaunching:(NSNotification*)aNotification
 {
+	// Seed the RNG
+	srandom(time(NULL));
+	
 	// Display the title view controller
 	[self displayViewControllerForKey:PetriTitleViewControllerKey];
 }
