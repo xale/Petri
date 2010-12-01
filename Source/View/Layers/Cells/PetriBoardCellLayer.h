@@ -25,14 +25,14 @@
  
  @param displayedCell The PetriBoardCell that this layer will represent.
  */
-+ (id)boardCellLayerBoundToCell:(PetriBoardCell*)displayedCell;
++ (id)boardCellLayerForCell:(PetriBoardCell*)displayedCell;
 
 /*!
  Initializes a PetriBoardCellLayer by binding various display attributes to appropriate properties of the specified PetriBoardCell.
  
  @param displayedCell The PetriBoardCell that this layer will represent.
  */
-- (id)initBoundToCell:(PetriBoardCell*)displayedCell;
+- (id)initWithCell:(PetriBoardCell*)displayedCell;
 
 @property (readonly) PetriBoardCell* cell;
 

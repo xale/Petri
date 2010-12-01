@@ -14,12 +14,12 @@
 
 @implementation PetriBoardCellLayer
 
-+ (id)boardCellLayerBoundToCell:(PetriBoardCell*)displayedCell
++ (id)boardCellLayerForCell:(PetriBoardCell*)displayedCell
 {
-	return [[self alloc] initBoundToCell:displayedCell];
+	return [[self alloc] initWithCell:displayedCell];
 }
 
-- (id)initBoundToCell:(PetriBoardCell*)displayedCell
+- (id)initWithCell:(PetriBoardCell*)displayedCell
 {
 	if (![super init])
 		return nil;

@@ -60,7 +60,7 @@
 		for (NSInteger y = 0; y < [boardForCells height]; y++)
 		{
 			// Create a new layer for each cell of the board, bound to properties of the appropriate cell of the board
-			PetriBoardCellLayer* newLayer = [PetriBoardCellLayer boardCellLayerBoundToCell:[boardForCells cellAtX:x Y:y]];
+			PetriBoardCellLayer* newLayer = [PetriBoardCellLayer boardCellLayerForCell:[boardForCells cellAtX:x Y:y]];
 			
 			// Add constraints on the layer's position and size
 			// Size: divide board layer equally, leaving a small amount of space between cells
