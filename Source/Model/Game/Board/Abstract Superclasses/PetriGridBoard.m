@@ -244,5 +244,6 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 
 @synthesize width;
 @synthesize height;
+@synthesize headCells;
 
 @end

@@ -48,10 +48,12 @@
 		@throw exception;
 	}
 	self = [super initWithWidth:boardWidth height:boardHeight];
-	[[self cellAtX:2 Y:2] setCellType:headCell];
-	[[self cellAtX:2 Y:boardHeight - 3] setCellType:headCell];
-	[[self cellAtX:boardWidth - 3 Y:2] setCellType:headCell];
-	[[self cellAtX:boardWidth - 3 Y:boardHeight - 3] setCellType:headCell];
+	NSMutableArray* headCellsTemp = [NSMutableArray arrayWithCapacity:4];
+	[headCellsTemp addObject:[self cellAtX:2 Y:2]];
+	[headCellsTemp addObject:[self cellAtX:boardWidth - 3 Y:boardHeight - 3]];
+	[headCellsTemp addObject:[self cellAtX:2 Y:boardHeight - 3]];
+	[headCellsTemp addObject:[self cellAtX:boardWidth - 3 Y:2]];
+	headCells = [headCellsTemp copy];
 	return self;
 }
 

@@ -11,6 +11,8 @@
 #import "PetriGameConfiguration.h"
 #import "PetriSquareGridBoard.h"
 #import "PetriPiece.h"
+#import "PetriBoardCell.h"
+#import "PetriCellType.h"
 
 /*!
  Private methods for PetriGame
@@ -37,7 +39,7 @@
 	if (playersInGame == nil || [playersInGame count] == 0)
 	{
 		NSString* reason = @"Attempted to create game with no players or nil players array";
-		[[NSException exceptionWithName:@"BadPlayersArrayException" reason:reason userInfo:nil] raise];
+		[[NSException exceptionWithName:NSInternalInconsistencyException reason:reason userInfo:nil] raise];
 	}
 	players = [playersInGame copy];
 	currentPlayer = [players objectAtIndex:0];
@@ -45,6 +47,14 @@
 	board = [[PetriSquareGridBoard alloc] initWithWidth:20
 												 height:20]; // FIXME: generate board from game configuration
 	currentPiece = [self nextPiece];
+
+	for (NSUInteger i = 0; i < [players count]; i++)
+	{
+		[[[board headCells] objectAtIndex:i] setOwner:[players objectAtIndex:i]];
+		[[[board headCells] objectAtIndex:i] setCellType:headCell];
+		NSLog(@"%@", [[board headCells] objectAtIndex:i]);
+		NSLog(@"%@", [[[[board headCells] objectAtIndex:i] owner] color]);
+	}
 	return self;
 }
 
