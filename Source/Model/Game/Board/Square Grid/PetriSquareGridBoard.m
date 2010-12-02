@@ -12,6 +12,8 @@
 #import "PetriSquareGridPiece.h"
 #import "Petri2DCoordinates.h"
 
+#define MIN_DIMENSION 8
+
 /*!
  Private interface for PetriSquareGridBoard
  */
@@ -36,6 +38,22 @@
 @end
 
 @implementation PetriSquareGridBoard
+
+- (id)initWithWidth:(NSInteger)boardWidth
+			 height:(NSInteger)boardHeight
+{
+	if (boardWidth < MIN_DIMENSION || boardHeight < MIN_DIMENSION)
+	{
+		NSException* exception = [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Board initialized with too small width or height." userInfo:nil];
+		@throw exception;
+	}
+	self = [super initWithWidth:boardWidth height:boardHeight];
+	[[self cellAtX:2 Y:2] setCellType:headCell];
+	[[self cellAtX:2 Y:boardHeight - 3] setCellType:headCell];
+	[[self cellAtX:boardWidth - 3 Y:2] setCellType:headCell];
+	[[self cellAtX:boardWidth - 3 Y:boardHeight - 3] setCellType:headCell];
+	return self;
+}
 
 - (BOOL)validatePlacementOfPiece:(PetriGridPiece*)piece
 					   withOwner:(PetriPlayer*)pieceOwner

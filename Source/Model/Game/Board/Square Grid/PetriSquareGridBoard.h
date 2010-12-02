@@ -14,6 +14,12 @@
 @interface PetriSquareGridBoard : PetriGridBoard
 
 /*!
+ Override. Sets up the board with heads as appropriate for a rectangular board.
+ */
+- (id)initWithWidth:(NSInteger)boardWidth
+			 height:(NSInteger)boardHeight;
+
+/*!
  Override. Returns the cells laterally adjacent to (i.e., above, below, and to the left and right of) the cell at the specified coordinates.
  @param cellCoordinates The coordinates of a cell on the board around which to look for valid placement cells.
  */
