@@ -12,7 +12,11 @@
 #import "PetriSquareGridPiece.h"
 #import "Petri2DCoordinates.h"
 
+#import "PetriBoardParameter.h"
+
 #define MIN_DIMENSION 8
+#define MAX_DIMENSION 100
+#define DEFAULT_DIMENSION 10
 
 /*!
  Private interface for PetriSquareGridBoard
@@ -38,6 +42,18 @@
 @end
 
 @implementation PetriSquareGridBoard
+
++ (id)boardWithParameters:(NSDictionary*)parameters
+{
+	return [[self alloc] initWithParameters:parameters];
+}
+
+- (id)initWithParameters:(NSDictionary*)parameters
+{
+	return [self initWithWidth:(NSInteger)[[[parameters objectForKey:@"width"] parameterValue] unsignedIntValue]
+						height:(NSInteger)[[[parameters objectForKey:@"height"] parameterValue] unsignedIntValue]
+			];
+}
 
 - (id)initWithWidth:(NSInteger)boardWidth
 			 height:(NSInteger)boardHeight
@@ -297,5 +313,17 @@
 	return 4;
 }
 
++ (NSDictionary*)setupParameters
+{
+	NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithCapacity:2];
+	NSMutableSet* values = [NSMutableSet setWithCapacity:92];
+	for (NSUInteger i = MIN_DIMENSION; i < MAX_DIMENSION; i++)
+	{
+		[values addObject:[NSNumber numberWithUnsignedInt:i]];
+	}
+	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Height" value:[NSNumber numberWithUnsignedInt:DEFAULT_DIMENSION] validValues:[values copy]] forKey:@"height"];
+	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Width" value:[NSNumber numberWithUnsignedInt:DEFAULT_DIMENSION] validValues:[values copy]] forKey:@"width"];
+	return [parameters copy];
+}
 
 @end

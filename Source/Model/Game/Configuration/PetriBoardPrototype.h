@@ -16,7 +16,7 @@
 @interface PetriBoardPrototype : NSObject
 {
 	Class<PetriBoard> boardClass;	/*!< Class of the board that this prototype represents. */
-	NSSet* setupParameters;	/*!< Set of PetriBoardParameters that are configurable on the board of the class above. */
+	NSDictionary* setupParameters;	/*!< map from names (NSString*) to PetriBoardParameters that are configurable on the board of the class above. */
 }
 
 @property (readwrite, assign) Class<PetriBoard> boardClass;

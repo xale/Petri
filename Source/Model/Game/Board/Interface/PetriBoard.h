@@ -21,6 +21,18 @@
 @protocol PetriBoard <NSObject, NSCopying>
 
 /*!
+ Returns a board initialized with the parameters given.
+ @param parameters a dictionary of names to parameters, usually taken from +setupParameters: and configured by the user
+ */
+- (id)initWithParameters:(NSDictionary*)parameters;
+
+/*!
+ Returns a board initialized with the parameters given.
+ @param parameters a dictionary of names to parameters, usually taken from +setupParameters: and configured by the user
+ */
++ (id)boardWithParameters:(NSDictionary*)parameters;
+
+/*!
  Returns a set of PetriBoardCells which are, for the purposes of \a piece \a placement, adjacent to the specified cell on the board.
  @param cell The cell around which to find adjacent cells.
  */
@@ -58,9 +70,9 @@
 - (void)setHeadsForPlayers:(NSArray*)players;
 
 /*!
- Returns a set of BoardParameter objects.
+ Returns a dictionary of BoardParameter objects mapped by name.
  */
-+ (NSSet*)setupParameters;
++ (NSDictionary*)setupParameters;
 
 + (Class<PetriPiece>)pieceClass;	/*!< Returns the type of PetriPiece used by this type of board. */
 

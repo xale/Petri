@@ -22,6 +22,18 @@
 	return nil;
 }
 
++ (id)boardWithParameters:(NSDictionary*)parameters
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
+- (id)initWithParameters:(NSDictionary*)parameters
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
 - (id)initWithWidth:(NSInteger)boardWidth
 			 height:(NSInteger)boardHeight
 {
@@ -247,7 +259,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	[self doesNotRecognizeSelector:_cmd];
 }
 
-+ (NSSet*)setupParameters
++ (NSDictionary*)setupParameters
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
