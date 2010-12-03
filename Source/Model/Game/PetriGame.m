@@ -14,6 +14,8 @@
 #import "PetriBoardCell.h"
 #import "PetriCellType.h"
 
+#import "PetriBoardPrototype.h"
+
 /*!
  Private methods for PetriGame
  */
@@ -44,8 +46,7 @@
 	players = [playersInGame copy];
 	currentPlayer = [players objectAtIndex:0];
 	gameConfiguration = configuration;
-	board = [[PetriSquareGridBoard alloc] initWithWidth:20
-												 height:20]; // FIXME: generate board from game configuration
+	board = [[[configuration prototype] boardClass] boardWithParameters:[[configuration prototype] setupParameters]];
 	[board setHeadsForPlayers:players];
 	currentPiece = [self nextPiece];
 	return self;

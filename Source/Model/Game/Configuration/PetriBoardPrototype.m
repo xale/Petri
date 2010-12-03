@@ -11,12 +11,31 @@
 
 @implementation PetriBoardPrototype
 
+
+- (id)initWithClass:(Class<PetriBoard>)cls
+{
+	boardClass = cls;
+	setupParameters = [cls setupParameters];
+	return self;
+}
+
++ (id)prototypeForBoardClass:(Class<PetriBoard>)cls
+{
+	return [[PetriBoardPrototype alloc] initWithClass:cls];
+}
+
 - (void) setBoardClass:(Class<PetriBoard>)newClass
 {
 	boardClass = newClass;
 	setupParameters = [newClass setupParameters];
 }
 
++ (NSSet*)keyPathsForValuesAffectingSetupParameters
+{
+	return [NSSet setWithObject:@"boardClass"];
+}
+
 @synthesize boardClass;
+@synthesize setupParameters;
 
 @end
