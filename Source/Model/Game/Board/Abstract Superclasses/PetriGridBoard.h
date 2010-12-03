@@ -24,7 +24,6 @@
 	NSArray* cells;		/*!< Two-dimensional grid of PetriBoardCell objects representing the contents of the board. */
 	NSInteger width;	/*!< Width of board, as an integer number of columns. */
 	NSInteger height;	/*!< Height of board, as an integer number of rows. */
-	NSArray* headCells;	/*!< Convenience and efficiency member used to keep track of cells that are heads. */
 }
 
 /**
@@ -108,6 +107,5 @@
 
 @property (readonly) NSInteger width;
 @property (readonly) NSInteger height;
-@property (readonly) NSArray* headCells;
 
 @end

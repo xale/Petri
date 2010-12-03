@@ -47,14 +47,7 @@
 		NSException* exception = [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Board initialized with too small width or height." userInfo:nil];
 		@throw exception;
 	}
-	self = [super initWithWidth:boardWidth height:boardHeight];
-	NSMutableArray* headCellsTemp = [NSMutableArray arrayWithCapacity:4];
-	[headCellsTemp addObject:[self cellAtX:2 Y:2]];
-	[headCellsTemp addObject:[self cellAtX:boardWidth - 3 Y:boardHeight - 3]];
-	[headCellsTemp addObject:[self cellAtX:2 Y:boardHeight - 3]];
-	[headCellsTemp addObject:[self cellAtX:boardWidth - 3 Y:2]];
-	headCells = [headCellsTemp copy];
-	return self;
+	return [super initWithWidth:boardWidth height:boardHeight];
 }
 
 - (BOOL)validatePlacementOfPiece:(PetriGridPiece*)piece
@@ -270,17 +263,36 @@
 	}
 }
 
+- (void)setHeadsForPlayers:(NSArray*)players
+{
+	if ([players count] > [[self class] absoluteMaxPlayers] || [players count] < [[self class] absoluteMinPlayers])
+	{
+		NSException* exception = [NSException exceptionWithName:NSInternalInconsistencyException reason:@"The number of players passed in is too small or too large." userInfo:nil];
+		@throw exception;
+	}
+	NSMutableArray* headCellsTemp = [NSMutableArray arrayWithCapacity:4];
+	[headCellsTemp addObject:[self cellAtX:2 Y:2]];
+	[headCellsTemp addObject:[self cellAtX:width - 3 Y:height - 3]];
+	[headCellsTemp addObject:[self cellAtX:2 Y:height - 3]];
+	[headCellsTemp addObject:[self cellAtX:width - 3 Y:2]];
+	for (NSUInteger i = 0; i < [players count]; i++)
+	{
+		[[headCellsTemp objectAtIndex:i] setOwner:[players objectAtIndex:i]];
+		[[headCellsTemp objectAtIndex:i] setCellType:headCell];
+	}
+}
+
 + (Class<PetriPiece>)pieceClass
 {
 	return [PetriSquareGridPiece class];
 }
 
-+ (NSInteger)absoluteMinPlayers
++ (NSUInteger)absoluteMinPlayers
 {
 	return 2;
 }
 
-+ (NSInteger)absoluteMaxPlayers
++ (NSUInteger)absoluteMaxPlayers
 {
 	return 4;
 }

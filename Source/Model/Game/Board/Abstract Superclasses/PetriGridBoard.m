@@ -230,20 +230,24 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return [PetriGridPiece class];
 }
 
-+ (NSInteger)absoluteMinPlayers
++ (NSUInteger)absoluteMinPlayers
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return -1;
 }
 
-+ (NSInteger)absoluteMaxPlayers
++ (NSUInteger)absoluteMaxPlayers
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return -1;
+}
+
+- (void)setHeadsForPlayers:(NSArray*)players
+{
+	[self doesNotRecognizeSelector:_cmd];
 }
 
 @synthesize width;
 @synthesize height;
-@synthesize headCells;
 
 @end
