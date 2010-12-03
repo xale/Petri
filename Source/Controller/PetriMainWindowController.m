@@ -51,7 +51,7 @@ NSString* const PetriInvalidViewControllerKeyExceptionDescriptionFormat =	@"No v
 - (void)displayViewControllerForKey:(NSString*)viewControllerKey
 {
 	// Find the view controller for the specified key
-	NSViewController* newViewController = [viewControllers objectForKey:viewControllerKey];
+	PetriMainWindowViewController* newViewController = [viewControllers objectForKey:viewControllerKey];
 	
 	// Check that the controller exists
 	if (newViewController == nil)
@@ -70,6 +70,9 @@ NSString* const PetriInvalidViewControllerKeyExceptionDescriptionFormat =	@"No v
 		NSBeep();
 		return;
 	}
+	
+	// Inform the view controller it is about to be displayed
+	[newViewController willDisplayInWindow];
 	
 	// Get the new view to be displayed from its controller
 	NSView* newView = [newViewController view];
@@ -98,7 +101,10 @@ NSString* const PetriInvalidViewControllerKeyExceptionDescriptionFormat =	@"No v
 	// Move first-responder status to the new view
 	[[self window] makeFirstResponder:newView];
 	
-	// Change the current view controller
+	// Inform the view controller it is now being displayed
+	[newViewController didDisplayInWindow];
+	
+	// Change the current view controller reference
 	[self setCurrentViewController:newViewController];
 	
 	// Post a notification

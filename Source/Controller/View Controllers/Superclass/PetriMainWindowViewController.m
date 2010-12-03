@@ -48,6 +48,19 @@
 }
 
 #pragma mark -
+#pragma mark Display Notifications
+
+- (void)willDisplayInWindow
+{
+	// Does nothing; subclasses may override
+}
+
+- (void)didDisplayInWindow
+{
+	// Does nothing; subclasses may override
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 @synthesize mainWindowController;

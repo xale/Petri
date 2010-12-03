@@ -39,6 +39,16 @@
 - (id)initWithWindowController:(PetriMainWindowController*)windowController
 					   nibName:(NSString*)nibName;
 
+/*!
+ Called by the main window controller when this view controller is about to be displayed in the main window. Default implementation does nothing.
+ */
+- (void)willDisplayInWindow;
+
+/*!
+ Called by the main window controller when this view controller has just been displayed in the main window. Default implementation does nothing.
+ */
+- (void)didDisplayInWindow;
+
 @property (readwrite, assign) PetriMainWindowController* mainWindowController;
 
 @end
