@@ -16,8 +16,10 @@
 /*!
  Creates new player-status boxes for the specified players list.
  @param players The new list of players for which to create status boxes.
+ @param playerSlots The number of slots which the new players can occupy.
  */
-- (NSArray*)statusBoxLayersForPlayers:(NSArray*)players;
+- (NSArray*)statusBoxLayersForPlayers:(NSArray*)players
+								slots:(NSUInteger)playerSlots;
 
 @end
 
@@ -29,6 +31,7 @@
 }
 
 - (id)initWithPlayersList:(NSArray*)players
+			  playerSlots:(NSUInteger)playerSlots
 		   selectedPlayer:(PetriPlayer*)startingPlayer
 {
 	// Initialize the layer
@@ -39,7 +42,8 @@
 	[self setLayoutManager:[CAConstraintLayoutManager layoutManager]];
 	
 	// Create sublayers for the player-status boxes
-	[self setSublayers:[self statusBoxLayersForPlayers:players]];
+	[self setSublayers:[self statusBoxLayersForPlayers:players
+												 slots:playerSlots]];
 	
 	// Hold references to the player list and starting player
 	playersList = players;
@@ -52,25 +56,20 @@
 #pragma mark Layout
 
 - (NSArray*)statusBoxLayersForPlayers:(NSArray*)players
+								slots:(NSUInteger)playerSlots
 {
-	// Determine the total number of player slots (to divide the space equally)
-	// Note that the array contains NSNull placeholders for unfilled slots, which will render as empty space below the filled slots
-	// FIXME: that note isn't actually true yet
-	CGFloat playerSlotsCount = (CGFloat)[players count];
-	
-	// Filter the NSNull placeholders from the players list
-	NSArray* newPlayers = [players filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF != %@", [NSNull null]]];
-	
 	// Create "status box" layers for each player in the game
-	NSMutableArray* statusBoxes = [NSMutableArray arrayWithCapacity:[newPlayers count]];
-	for (NSUInteger playerNum = 0; playerNum < [newPlayers count]; playerNum++)
+	NSMutableArray* statusBoxes = [NSMutableArray arrayWithCapacity:[players count]];
+	for (NSUInteger playerNum = 0; playerNum < [players count]; playerNum++)
 	{
 		CALayer* statusBoxLayer = [CALayer layer];
 		[statusBoxLayer setCornerRadius:8.0];
 		
 		// Color the layer according to the player's color
-		NSColor* playerColor = [[newPlayers objectAtIndex:playerNum] color];
-		[statusBoxLayer setBackgroundColor:CGColorCreateGenericRGB([playerColor redComponent], [playerColor greenComponent], [playerColor blueComponent], 0.8)];	// FIXME: debug
+		NSColor* playerColor = [[players objectAtIndex:playerNum] color];
+		CGColorRef boxColor = CGColorCreateGenericRGB([playerColor redComponent], [playerColor greenComponent], [playerColor blueComponent], 1.0);
+		[statusBoxLayer setBackgroundColor:boxColor];
+		CGColorRelease(boxColor);
 		
 		// Anchor the status box to the left edge of the container
 		[statusBoxLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
@@ -78,7 +77,7 @@
 																  attribute:kCAConstraintMinX]];
 		
 		// Position the status box a proportional distance from the top of the container
-		CGFloat topPositionScale = ((playerSlotsCount - playerNum) / playerSlotsCount);
+		CGFloat topPositionScale = (1.0 - ((CGFloat)playerNum / (CGFloat)playerSlots));
 		[statusBoxLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY
 																 relativeTo:@"superlayer"
 																  attribute:kCAConstraintMaxY
@@ -92,7 +91,7 @@
 		[statusBoxLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
 																 relativeTo:@"superlayer"
 																  attribute:kCAConstraintHeight
-																	  scale:(1.0 / playerSlotsCount)
+																	  scale:(1.0 / playerSlots)
 																	 offset:0]];
 		[statusBoxes addObject:statusBoxLayer];
 	}

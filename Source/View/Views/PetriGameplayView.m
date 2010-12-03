@@ -10,6 +10,7 @@
 
 #import "PetriGame.h"
 #import "PetriPlayer.h"
+#import "PetriBoard.h"
 #import "PetriBoardCell.h"
 #import "PetriPiece.h"
 
@@ -185,6 +186,7 @@
 {
 	// Create a container layer
 	CALayer* playerContainerLayer = [[PetriPlayersListContainerLayer alloc] initWithPlayersList:[newGame players]
+																					playerSlots:[[[newGame board] class] absoluteMaxPlayers]
 																				 selectedPlayer:[newGame currentPlayer]];
 	
 	// Anchor the container to the top-right corner of its superlayer
