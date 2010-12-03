@@ -15,7 +15,7 @@
 					   value:(id)value
 				 validValues:(NSSet*)set
 {
-	[[self alloc] initWithName:name value:value validValues:set];
+	return [[self alloc] initWithName:name value:value validValues:set];
 }
 
 
@@ -26,6 +26,11 @@
 	parameterName = name;
 	parameterValue = value;
 	validValues = set;
+	return self;
 }
+
+@synthesize parameterName;
+@synthesize parameterValue;
+@synthesize validValues;
 
 @end

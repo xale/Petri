@@ -247,6 +247,12 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	[self doesNotRecognizeSelector:_cmd];
 }
 
++ (NSSet*)setupParameters
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
 @synthesize width;
 @synthesize height;
 

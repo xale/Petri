@@ -7,6 +7,7 @@
 //
 
 #import "PetriBoardPrototype.h"
+#import "PetriBoard.h"
 
 @implementation PetriBoardPrototype
 
@@ -16,6 +17,6 @@
 	setupParameters = [newClass setupParameters];
 }
 
-@synthesize boardClass
+@synthesize boardClass;
 
 @end

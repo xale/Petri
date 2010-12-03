@@ -58,9 +58,9 @@
 - (void)setHeadsForPlayers:(NSArray*)players;
 
 /*!
- Returns a dictionary of strings to BoardParameter objects.
+ Returns a set of BoardParameter objects.
  */
-+ (NSDictionary*)setupParameters;
++ (NSSet*)setupParameters;
 
 + (Class<PetriPiece>)pieceClass;	/*!< Returns the type of PetriPiece used by this type of board. */
 
