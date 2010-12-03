@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class PetriBoardPrototype;
+
 /*!
  \brief A container class for configurable game rules.
  
@@ -18,6 +20,7 @@
 	NSInteger minPlayers;			/*!< The minimum number of players to participate in the game. If the game begins with fewer than this number of human users in the game group, AI players will be added to the game. */
 	NSInteger maxPlayers;			/*!< The maximum number of players allowed in the game. If the game group contains this many players, new players will not be allowed to join. */
 	NSDictionary* pieceFrequencies;	/*!< Stores probablilities used to choose a piece from the set of pieces at the beginning of each turn. Maps PetriPiece to NSNumber; i.e., piece to probability. */
+	PetriBoardPrototype* prototype;	/*!< Holds the prototype of the board the users will be playing on when the game starts. */
 }
 
 /*!
@@ -41,5 +44,6 @@
 @property (readwrite, assign) NSInteger minPlayers;
 @property (readwrite, assign) NSInteger maxPlayers;
 @property (readwrite, copy) NSDictionary* pieceFrequencies;
+@property (readwrite, assign) PetriBoardPrototype* prototype;
 
 @end

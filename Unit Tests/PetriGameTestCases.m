@@ -16,8 +16,9 @@
 - (void)setUp
 {
 	PetriPlayer* testPlayer = [[PetriMockPlayer alloc] init];
+	PetriPlayer* testPlayer2 = [[PetriMockPlayer alloc] init];
 	PetriGameConfiguration* testGameConfiguration = [PetriGameConfiguration defaultGameConfiguration];
-	testGame = [[PetriGame alloc] initWithPlayers:[NSArray arrayWithObject:testPlayer]
+	testGame = [[PetriGame alloc] initWithPlayers:[NSArray arrayWithObjects:testPlayer, testPlayer2, nil]
 								gameConfiguration:testGameConfiguration];
 	STAssertNotNil(testGame, @"Game object not created successfully");
 }

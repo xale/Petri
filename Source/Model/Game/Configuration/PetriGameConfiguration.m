@@ -8,6 +8,9 @@
 
 #import "PetriGameConfiguration.h"
 #import "PetriSquareGridPiece.h"
+#import "PetriSquareGridBoard.h" // FIXME: this is for now; later this default should be abstracted away
+
+#import "PetriBoardPrototype.h"
 
 @implementation PetriGameConfiguration
 
@@ -39,6 +42,7 @@ NSString* const PetriInvalidMinMaxPlayersExceptionDescriptionFormat =	@"Minimum 
 	minPlayers = minPlayerCount;
 	maxPlayers = maxPlayerCount;
 	pieceFrequencies = pieces;
+	prototype = [PetriBoardPrototype prototypeForBoardClass:[PetriSquareGridBoard class]];
 	
 	return self;
 }
@@ -49,5 +53,6 @@ NSString* const PetriInvalidMinMaxPlayersExceptionDescriptionFormat =	@"Minimum 
 @synthesize minPlayers;
 @synthesize maxPlayers;
 @synthesize pieceFrequencies;
+@synthesize prototype;
 
 @end

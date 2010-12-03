@@ -15,6 +15,7 @@
 #import "Petri2DCoordinates.h"
 #import "PetriSquareGridPiece.h"
 #import "PetriBoardCell.h"
+#import "PetriBoardParameter.h"
 
 #define WIDTH	20
 #define HEIGHT	25
@@ -35,6 +36,15 @@
 - (void)testInitUsesCorrectDimensions
 {
 	STAssertTrue([board width]==WIDTH && [board height]==HEIGHT, @"Board width or height not assigned correctly.");
+}
+
+- (void)testInitWithParameters
+{
+	NSDictionary* params = [[board class] setupParameters];
+	[[params objectForKey:@"height"] setParameterValue:[NSNumber numberWithUnsignedInt:HEIGHT]];
+	[[params objectForKey:@"width"] setParameterValue:[NSNumber numberWithUnsignedInt:WIDTH]];
+	PetriSquareGridBoard* board2 = [PetriSquareGridBoard boardWithParameters:params];
+	STAssertTrue([board2 width]==WIDTH && [board2 height]==HEIGHT, @"Board width or height not assigned correctly.");
 }
 
 - (void)testValidatePlacement
