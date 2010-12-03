@@ -16,6 +16,7 @@
 }
 
 - (void)testInitUsesCorrectDimensions;
+- (void)testInitWithParameters;
 - (void)testValidatePlacement;
 
 @end
