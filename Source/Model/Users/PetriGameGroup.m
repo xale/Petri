@@ -30,7 +30,7 @@
 	
 	users = [NSMutableArray arrayWithObject:gameHost];
 	game = nil;
-	
+	localGameGroup = YES; //FIXME: When we get networking, there actually needs to be some logic here.
 	// Create an array of colors for the players
 	// FIXME: hardcoded
 	playerColors = [NSArray arrayWithObjects:
@@ -101,5 +101,6 @@
 @synthesize gameConfiguration;
 @synthesize game;
 @synthesize playerColors;
+@synthesize isLocalGameGroup;
 
 @end
