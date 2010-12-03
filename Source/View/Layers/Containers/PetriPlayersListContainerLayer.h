@@ -23,9 +23,11 @@
 /*!
  Initializes a PetriPlayersListContainerLayer with the given list of players and starting current player.
  @param players The list of players displayed in this container.
+ @param playerSlots The number total number of slots that the players in the list can occupy, which determines how much of the total space in the container that each status box occupies.
  @param startingPlayer The first player (in the list) to play; i.e., the current player on the first turn.
  */
 - (id)initWithPlayersList:(NSArray*)players
+			  playerSlots:(NSUInteger)playerSlots
 		   selectedPlayer:(PetriPlayer*)startingPlayer;
 
 @property (readonly) NSArray* playersList;
