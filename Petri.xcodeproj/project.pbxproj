@@ -62,6 +62,8 @@
 		6AFFCC93129AFFB200C49D42 /* BWToolkitFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FADBA43D129AF9DE001EA149 /* BWToolkitFramework.framework */; };
 		6AFFCD9E129B1AA200C49D42 /* PetriGameConfigurationTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AFFCD9D129B1AA200C49D42 /* PetriGameConfigurationTestCases.m */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		FA547A6A12A89BE500F14951 /* PetriBoardPrototype.m in Sources */ = {isa = PBXBuildFile; fileRef = FA547A6912A89BE500F14951 /* PetriBoardPrototype.m */; };
+		FA547A6D12A98D0300F14951 /* PetriBoardParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA547A6C12A98D0300F14951 /* PetriBoardParameter.m */; };
 		FA591AA9129B8D7600210502 /* Petri2DCoordinates.m in Sources */ = {isa = PBXBuildFile; fileRef = FA591AA8129B8D7600210502 /* Petri2DCoordinates.m */; };
 		FA591AD3129B926B00210502 /* Petri2DCoordinatesTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FA591ACB129B906600210502 /* Petri2DCoordinatesTestCases.m */; };
 		FAB0331212788BBB00DC01F0 /* PetriGameTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB0331112788BBB00DC01F0 /* PetriGameTestCases.m */; };
@@ -208,6 +210,10 @@
 		6AFFCD9C129B1AA200C49D42 /* PetriGameConfigurationTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameConfigurationTestCases.h; sourceTree = "<group>"; };
 		6AFFCD9D129B1AA200C49D42 /* PetriGameConfigurationTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameConfigurationTestCases.m; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Petri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Petri.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA547A6812A89BE500F14951 /* PetriBoardPrototype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardPrototype.h; sourceTree = "<group>"; };
+		FA547A6912A89BE500F14951 /* PetriBoardPrototype.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardPrototype.m; sourceTree = "<group>"; };
+		FA547A6B12A98D0300F14951 /* PetriBoardParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardParameter.h; sourceTree = "<group>"; };
+		FA547A6C12A98D0300F14951 /* PetriBoardParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardParameter.m; sourceTree = "<group>"; };
 		FA591AA7129B8D7600210502 /* Petri2DCoordinates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Petri2DCoordinates.h; sourceTree = "<group>"; };
 		FA591AA8129B8D7600210502 /* Petri2DCoordinates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Petri2DCoordinates.m; sourceTree = "<group>"; };
 		FA591ACA129B906600210502 /* Petri2DCoordinatesTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Petri2DCoordinatesTestCases.h; sourceTree = "<group>"; };
@@ -351,6 +357,10 @@
 			children = (
 				6A0B311212A1A28200366122 /* PetriGameConfiguration.h */,
 				6A0B311312A1A28200366122 /* PetriGameConfiguration.m */,
+				FA547A6812A89BE500F14951 /* PetriBoardPrototype.h */,
+				FA547A6912A89BE500F14951 /* PetriBoardPrototype.m */,
+				FA547A6B12A98D0300F14951 /* PetriBoardParameter.h */,
+				FA547A6C12A98D0300F14951 /* PetriBoardParameter.m */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -870,6 +880,8 @@
 				6A03C47612A440D7001F243A /* PetriGridPiece.m in Sources */,
 				6A4722F812A6ECE800D5F67C /* PetriPieceContainerLayer.m in Sources */,
 				6A4722F912A6ECE800D5F67C /* PetriPlayersListContainerLayer.m in Sources */,
+				FA547A6A12A89BE500F14951 /* PetriBoardPrototype.m in Sources */,
+				FA547A6D12A98D0300F14951 /* PetriBoardParameter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

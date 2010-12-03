@@ -46,6 +46,7 @@
 	gameConfiguration = configuration;
 	board = [[PetriSquareGridBoard alloc] initWithWidth:20
 												 height:20]; // FIXME: generate board from game configuration
+	[board setHeadsForPlayers:players];
 	currentPiece = [self nextPiece];
 	return self;
 }
