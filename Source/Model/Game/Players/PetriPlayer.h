@@ -67,7 +67,10 @@
  Returns immutable copy of items dictionary.
  */
 @property (readonly) NSDictionary* items;
-
+/*!
+ Returns immutable copy of controlledCells set.
+ */
+@property (readonly) NSSet* controlledCells;
 @property (readwrite, copy) NSColor* color;
 
 @end

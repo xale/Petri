@@ -103,6 +103,11 @@
 	[self didChangeValueForKey:@"item"];
 }
 
+- (NSSet*)controlledCells
+{
+	return [controlledCells copy];
+}
+
 @synthesize color;
 
 @end

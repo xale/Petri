@@ -18,29 +18,6 @@
 #define MAX_DIMENSION 100
 #define DEFAULT_DIMENSION 10
 
-/*!
- Private interface for PetriSquareGridBoard
- */
-@interface PetriSquareGridBoard(Private)
-
-/**
-  Clears dead cells from the board after a capture
- */
-- (void)clearDeadCells;
-
-/**
- Recursive helper method for clearing dead cells from the board after a capture
- Yes, all the cool kids would probably make this a single recursive method
- but I'm sorry, I was very sleep deprived when I wrote it.
- At least it works, probably.
- 
- @param start starting location to recursively check to see if connected
- @param visited set of visited cells, which well not be swept from the board
- */
-- (void)clearDeadCellsHelperWithStart:(PetriBoardCell*)start
-								  set:(NSMutableSet*)visited;
-@end
-
 @implementation PetriSquareGridBoard
 
 + (id)boardWithParameters:(NSDictionary*)parameters
@@ -236,65 +213,30 @@
 	} while (captures == TRUE);
 }
 
-- (void)clearDeadCellsHelperWithStart:(PetriBoardCell*) start
-								  set:(NSMutableSet*) visited
-{
-	for (PetriBoardCell* cell in [self coordinatesOfCell:start])
-	{
-		if ([cell owner] == [start owner])
-		{
-			[visited addObject:cell];
-			[self clearDeadCellsHelperWithStart:cell
-											set:visited];
-		}
-	}
-}
-
-- (void)clearDeadCells
-{
-	for (int i = 0; i < width; i++)
-	{
-		for (int j = 0; j < height; j++)
-		{
-			PetriBoardCell* current = [self cellAtX:i Y:j];
-			if ([current cellType] == headCell)
-			{
-				NSMutableSet* set = [[NSMutableSet alloc] init];
-				[self clearDeadCellsHelperWithStart:current
-												set: set];
-				for (int q = 0; q < width; q++)
-				{
-					for (int r = 0; r < height; r++)
-					{
-						PetriBoardCell* cell = [self cellAtX:q Y:r];
-						if (![set containsObject:cell])
-						{
-							[cell setOwner:nil];
-							[cell setCellType:unoccupiedCell];
-						}
-					}
-				}
-			}
-		}
-	}
-}
 
 - (void)setHeadsForPlayers:(NSArray*)players
 {
+	// Ensure that there are a sane number of players
 	if ([players count] > [[self class] absoluteMaxPlayers] || [players count] < [[self class] absoluteMinPlayers])
 	{
 		NSException* exception = [NSException exceptionWithName:NSInternalInconsistencyException reason:@"The number of players passed in is too small or too large." userInfo:nil];
 		@throw exception;
 	}
+	
 	NSMutableArray* headCellsTemp = [NSMutableArray arrayWithCapacity:4];
+	
+	// Up to four heads can exist; they are added in this order so that two players start diagonally across from each other.
 	[headCellsTemp addObject:[self cellAtX:2 Y:2]];
 	[headCellsTemp addObject:[self cellAtX:width - 3 Y:height - 3]];
 	[headCellsTemp addObject:[self cellAtX:2 Y:height - 3]];
 	[headCellsTemp addObject:[self cellAtX:width - 3 Y:2]];
+	
+	// Incrementally assign each player a potential head as long as you haven't run out of players.
 	for (NSUInteger i = 0; i < [players count]; i++)
 	{
 		[[headCellsTemp objectAtIndex:i] setOwner:[players objectAtIndex:i]];
 		[[headCellsTemp objectAtIndex:i] setCellType:headCell];
+		[heads addObject:[headCellsTemp objectAtIndex:i]];
 	}
 }
 

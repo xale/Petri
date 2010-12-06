@@ -65,6 +65,24 @@
 			onCell:(PetriBoardCell*)cell;
 
 /*!
+ Remove all cells that don't have a path to their owner's head.
+ Should be called after every manipulation to the board to ensure legal state.
+ */
+- (void)clearDeadCells;
+
+/*!
+ Returns a set of all head cells on the board.
+ */
+- (NSSet*)heads;
+
+/*!
+ Returns the head cell owned by the player, or nil if none exists.
+ 
+ @param player the player whose head cell is of interest.
+ */
+- (PetriBoardCell*)headForPlayer:(PetriPlayer*)player;
+
+/*!
  Sets the head cells of the players in the array passed in.
  */
 - (void)setHeadsForPlayers:(NSArray*)players;

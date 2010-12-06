@@ -21,9 +21,10 @@
  */
 @interface PetriGridBoard : NSObject <PetriBoard>
 {
-	NSArray* cells;		/*!< Two-dimensional grid of PetriBoardCell objects representing the contents of the board. */
-	NSInteger width;	/*!< Width of board, as an integer number of columns. */
-	NSInteger height;	/*!< Height of board, as an integer number of rows. */
+	NSArray* cells;			/*!< Two-dimensional grid of PetriBoardCell objects representing the contents of the board. */
+	NSInteger width;		/*!< Width of board, as an integer number of columns. */
+	NSInteger height;		/*!< Height of board, as an integer number of rows. */
+	NSMutableSet* heads;	/*!< Store a set of heads for convenience. */
 }
 
 /**
@@ -104,6 +105,13 @@
  * @return NSSet of cells that are adjacent (for purposes of capturing) to the cell at the given coordinates
  */
 - (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates;
+
+/*!
+ Returns a set of all cells that a player owns that are alive; any cell not in this set but owned by the player should be removed.
+ 
+ @param player the player whose cells are being examined
+ */
+- (NSSet*)findLivingCellsForPlayer:(PetriPlayer*)player;
 
 @property (readonly) NSInteger width;
 @property (readonly) NSInteger height;

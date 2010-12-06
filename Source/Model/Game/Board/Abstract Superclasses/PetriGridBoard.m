@@ -10,6 +10,25 @@
 #import "PetriBoardCell.h"
 #import "Petri2DCoordinates.h"
 #import "PetriGridPiece.h"
+#import "PetriPlayer.h"
+
+@interface NSMutableSet(Pop)
+- (id)pop;
+@end
+
+@implementation NSMutableSet(Pop)
+- (id)pop;
+{
+	id any = [self anyObject];
+	[self removeObject:any];
+	return any;
+}
+@end
+
+
+@interface PetriGridBoard(Private)
+- (void)forceClearCell:(PetriBoardCell*)cell;
+@end
 
 @implementation PetriGridBoard
 
@@ -64,6 +83,7 @@
 	
 	width = boardWidth;
 	height = boardHeight;
+	heads = [NSMutableSet set];
 	
 	return self;
 }
@@ -252,6 +272,79 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return -1;
+}
+
+- (NSSet*)heads
+{
+	return [heads copy];
+}
+
+- (PetriBoardCell*)headForPlayer:(PetriPlayer*)player
+{
+	for (PetriBoardCell* cell in heads)
+	{
+		if ([cell owner] == player)
+		{
+			return cell;
+		}
+	}
+	return nil;
+}
+
+// Implemented using only interface methods.
+// Why don't we have default implementations for interface methods?
+- (NSSet*)findLivingCellsForPlayer:(PetriPlayer*)player
+{
+	PetriBoardCell* head = [self headForPlayer:player];
+	
+	// If the player has no head, s/he has no living cells
+	if (head == nil)
+	{
+		return [NSSet set];
+	}
+	NSMutableSet* visited = [NSMutableSet set];
+	NSMutableSet* unvisited = [NSMutableSet setWithObject:head];
+	
+	PetriBoardCell* cell;
+	NSMutableSet* visiting;
+	while ([unvisited count] > 0) // as long as there are cells whose neighbors we haven't checked
+	{
+		// Take an arbitrary unvisited cell
+		cell = [unvisited pop];
+		// Get all its neighbors
+		visiting = [[self placementCellsAdjacentToCell:cell] mutableCopy];
+		// Remove the ones we've already visited
+		[visiting minusSet:visited];
+		// Mark them for later visitation
+		[unvisited unionSet:visiting];
+	}
+	return [visited copy];
+}
+
+- (void)forceClearCell:(PetriBoardCell*)cell
+{
+	[cell setOwner:nil];
+	[cell setCellType:unoccupiedCell];
+}
+
+- (void)clearDeadCells
+{
+	PetriPlayer* player;
+	NSMutableSet* owned;
+	for (PetriBoardCell* head in [self heads])
+	{
+		// Get the player who owns this particular head
+		player = [head owner];
+		// Get all cells the player owns
+		owned = [[player controlledCells] mutableCopy];
+		// Remove all living cells the player owns
+		[owned minusSet:[self findLivingCellsForPlayer:player]];
+		// Clear all the rest
+		for (PetriBoardCell* cell in owned)
+		{
+			[self forceClearCell:cell];
+		}
+	}
 }
 
 - (void)setHeadsForPlayers:(NSArray*)players
