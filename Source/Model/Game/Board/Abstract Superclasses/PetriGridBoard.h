@@ -85,7 +85,7 @@
  * @param piece the piece to place.
  * @param pieceOwner the player placing the piece
  * @param pieceOrigin the coordinates to place the piece's origin
- * @return true if the piece can be placed at the indicated coordinates
+ * @return \c YES if the piece can be placed at the indicated coordinates
  */
 - (BOOL)validatePlacementOfPiece:(PetriGridPiece*)piece
 					   withOwner:(PetriPlayer*)pieceOwner

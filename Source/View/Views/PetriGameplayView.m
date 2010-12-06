@@ -248,16 +248,11 @@
 	// Get the board from the clicked cell's superlayer
 	id<PetriBoard> clickedBoard = [(PetriBoardLayer*)[clickedLayer superlayer] board];
 	
-	// Test if the current piece can be placed at the clicked coordinates
-	/* FIXME: TESTING
-	 BOOL validMove = [[self delegate] gameplayView:self
-	 canPlacePiece:[[self game] currentPiece]
-	 forPlayer:[[self game] currentPlayer]
-	 onCell:clickedCell
-	 ofBoard:clickedBoard];
-	 */
-	BOOL validMove = YES;	// FIXME: TESTING
-	
+	BOOL validMove = [[self delegate] gameplayView:self
+									 canPlacePiece:[[self game] currentPiece]
+										 forPlayer:[[self game] currentPlayer]
+											onCell:clickedCell
+										   ofBoard:clickedBoard];
 	if (validMove)
 	{
 		// Place the current piece on the board
