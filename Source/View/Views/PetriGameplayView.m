@@ -55,12 +55,12 @@
 /*!
  Called when the view receives a -mouseDown: event corresponding to a click on a cell of the board.
  */
-- (void)boardCellLayerClicked:(PetriBoardCellLayer*)clickedLayer;
+- (void)mouseDownOnBoardCellLayer:(PetriBoardCellLayer*)clickedLayer;
 
 /*!
  Called when the view recieves a -mouseDown: event corresponding to a click on the current-piece container layer.
  */
-- (void)pieceContainerLayerClicked:(PetriPieceContainerLayer*)clickedLayer;
+- (void)mouseDownOnPieceContainerLayer:(PetriPieceContainerLayer*)clickedLayer;
 
 /*!
  Called when the view receives a -keyDown: event corresponding to a press of the spacebar.
@@ -232,15 +232,15 @@
 	{
 		// Cell on the board
 		if ([searchLayer isKindOfClass:[PetriBoardCellLayer class]])
-			[self boardCellLayerClicked:(PetriBoardCellLayer*)searchLayer];
+			[self mouseDownOnBoardCellLayer:(PetriBoardCellLayer*)searchLayer];
 		
 		// Piece box
 		if ([searchLayer isKindOfClass:[PetriPieceContainerLayer class]])
-			[self pieceContainerLayerClicked:(PetriPieceContainerLayer*)searchLayer];
+			[self mouseDownOnPieceContainerLayer:(PetriPieceContainerLayer*)searchLayer];
 	}
 }
 
-- (void)boardCellLayerClicked:(PetriBoardCellLayer*)clickedLayer
+- (void)mouseDownOnBoardCellLayer:(PetriBoardCellLayer*)clickedLayer
 {
 	// Get cell of the board that was clicked
 	PetriBoardCell* clickedCell = [clickedLayer cell];
@@ -264,7 +264,7 @@
 	}
 }
 
-- (void)pieceContainerLayerClicked:(PetriPieceContainerLayer*)clickedLayer
+- (void)mouseDownOnPieceContainerLayer:(PetriPieceContainerLayer*)clickedLayer
 {
 	// FIXME: TESTING
 }
