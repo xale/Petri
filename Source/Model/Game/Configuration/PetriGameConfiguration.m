@@ -7,44 +7,39 @@
 //
 
 #import "PetriGameConfiguration.h"
-#import "PetriSquareGridPiece.h"
 #import "PetriSquareGridBoard.h" // FIXME: this is for now; later this default should be abstracted away
 
 #import "PetriBoardPrototype.h"
+#import "PetriBoardManager.h"
+#import "PetriPiece.h"
 
 @implementation PetriGameConfiguration
 
++ (void)initialize
+{
+	[[PetriBoardManager sharedManager] registerBoardClass:[PetriSquareGridBoard class]];
+}
+
 + (id)defaultGameConfiguration
 {
-	return [[self alloc] initWithMinPlayers:2
-								 maxPlayers:4
-						   pieceFrequencies:[PetriSquareGridPiece defaultPieceFrequencies]];
+	return [[self alloc] init];
 }
 
 NSString* const PetriInvalidGameConfigurationExceptionName =			@"invalidGameConfigurationException";
 NSString* const PetriInvalidMinMaxPlayersExceptionDescriptionFormat =	@"Minimum players (%d) greater than maximum players (%d)";
 
-- (id)initWithMinPlayers:(NSInteger)minPlayerCount
-			  maxPlayers:(NSInteger)maxPlayerCount
-		pieceFrequencies:(NSDictionary*)pieces
+- (id)initWithPrototype:(PetriBoardPrototype*)proto
 {
-	// Min players no greater than max players
-	if (minPlayerCount > maxPlayerCount)
-	{
-		NSString* exceptionDesc = [NSString stringWithFormat:PetriInvalidMinMaxPlayersExceptionDescriptionFormat, minPlayerCount, maxPlayerCount];
-		NSException* invalidMinMaxException = [NSException exceptionWithName:PetriInvalidGameConfigurationExceptionName
-																	  reason:exceptionDesc
-																	userInfo:nil];
-		@throw invalidMinMaxException;
-	}
-	
-	// Initialize members
-	minPlayers = minPlayerCount;
-	maxPlayers = maxPlayerCount;
-	pieceFrequencies = pieces;
-	prototype = [PetriBoardPrototype prototypeForBoardClass:[PetriSquareGridBoard class]];
-	
+	prototype = proto;
+	minPlayers = [[prototype boardClass] absoluteMinPlayers];
+	maxPlayers = [[prototype boardClass] absoluteMaxPlayers];
+	pieceFrequencies = [[[prototype boardClass] pieceClass] defaultPieceFrequencies];
 	return self;
+}
+
+- (id)init
+{
+	return [self initWithPrototype:[PetriBoardPrototype prototypeForBoardClass:[[[PetriBoardManager sharedManager] registeredBoardClasses] anyObject]]];
 }
 
 #pragma mark -

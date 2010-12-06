@@ -69,6 +69,8 @@
  */
 - (NSInteger)height;
 
++ (NSDictionary*)defaultPieceFrequencies;
+
 @property (readonly) NSSet* cellCoordinates;
 
 @end

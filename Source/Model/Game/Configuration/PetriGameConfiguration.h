@@ -17,32 +17,31 @@
  */
 @interface PetriGameConfiguration : NSObject
 {
-	NSInteger minPlayers;			/*!< The minimum number of players to participate in the game. If the game begins with fewer than this number of human users in the game group, AI players will be added to the game. */
-	NSInteger maxPlayers;			/*!< The maximum number of players allowed in the game. If the game group contains this many players, new players will not be allowed to join. */
+	NSUInteger minPlayers;			/*!< The minimum number of players to participate in the game. If the game begins with fewer than this number of human users in the game group, AI players will be added to the game. */
+	NSUInteger maxPlayers;			/*!< The maximum number of players allowed in the game. If the game group contains this many players, new players will not be allowed to join. */
 	NSDictionary* pieceFrequencies;	/*!< Stores probablilities used to choose a piece from the set of pieces at the beginning of each turn. Maps PetriPiece to NSNumber; i.e., piece to probability. */
 	PetriBoardPrototype* prototype;	/*!< Holds the prototype of the board the users will be playing on when the game starts. */
 }
 
 /*!
- Creates a new PetriGameConfiguration with default initial values:
- minPlayers: 2
- maxPlayers: 4
- pieceFrequencies: (see PetriPiece +defaultPieceFrequencies)
+ Returns a default game configuration.
  */
 + (id)defaultGameConfiguration;
 
 /*!
- Initializes a PetriGameConfiguration instance with the specified initial values.
- @param minPlayerCount The minimum number of players in the game.
- @param maxPlayerCount The maximum number of players in the game. Must satisfy (\c maxPlayerCount \c >= \c minPlayerCount).
- @param pieces The set of pieces used in the game, and the probabilities of spawning each one on the next turn. See \ref pieceFrequencies.
+ Initialize a game configuration with the default configuration for the prototype given.
+ 
+ @param proto the prototype
  */
-- (id)initWithMinPlayers:(NSInteger)minPlayerCount
-			  maxPlayers:(NSInteger)maxPlayerCount
-		pieceFrequencies:(NSDictionary*)pieces;
+- (id)initWithPrototype:(PetriBoardPrototype*)proto;
 
-@property (readwrite, assign) NSInteger minPlayers;
-@property (readwrite, assign) NSInteger maxPlayers;
+/*!
+ Initialize a game configuration with a prototype of an arbitrary registered board.
+ */
+- (id)init;
+
+@property (readwrite, assign) NSUInteger minPlayers;
+@property (readwrite, assign) NSUInteger maxPlayers;
 @property (readwrite, copy) NSDictionary* pieceFrequencies;
 @property (readwrite, assign) PetriBoardPrototype* prototype;
 
