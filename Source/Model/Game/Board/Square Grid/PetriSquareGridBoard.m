@@ -241,7 +241,7 @@
 {
 	for (PetriBoardCell* cell in [self coordinatesOfCell:start])
 	{
-		if ([cell owner] == [start owner])
+		if ([[cell owner] isEqual:[start owner]])
 		{
 			[visited addObject:cell];
 			[self clearDeadCellsHelperWithStart:cell

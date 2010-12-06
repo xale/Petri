@@ -22,13 +22,10 @@
 	testCell = nil;
 }
 
-- (void)testCellEquality
+- (void)testCellPropertyComparison
 {
-	STAssertEqualObjects(testCell, testCell, @"Test PetriBoardCell is not equal to itself");
-	
-	// Create an identical cell
 	PetriBoardCell* identicalCell = [[PetriBoardCell alloc] init];
-	STAssertEqualObjects(testCell, identicalCell, @"Test PetriBoardCell is not equal to identical cell object.");
+	STAssertTrue([identicalCell hasSamePropertiesAsCell:testCell], @"Test PetriBoardCell differs from identical cell");
 }
 
 - (void)testCellCopy
@@ -36,7 +33,7 @@
 	// Copy the test cell
 	PetriBoardCell* cellCopy = [testCell copy];
 	STAssertNotNil(cellCopy, @"Test PetriBoardCell copy unsuccessful");
-	STAssertEqualObjects(testCell, cellCopy, @"Test PetriBoardCell differs from copy");
+	STAssertTrue([cellCopy hasSamePropertiesAsCell:testCell], @"Test PetriBoardCell differs from copy");
 }
 
 @end

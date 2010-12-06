@@ -200,8 +200,8 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	{
 		for (int j = 0; j < height; j++)
 		{
-			// Check if this is the specified cell; uses a literal pointer comparison, since comparing cell attributes is not useful (too many cells are similar)
-			if ([self cellAtX:i Y:j] == cell)
+			// Check if this is the specified cell
+			if ([[self cellAtX:i Y:j] isEqual:cell])
 			{
 				return [Petri2DCoordinates coordinatesWithXCoordinate:i
 														  yCoordinate:j];

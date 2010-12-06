@@ -9,7 +9,7 @@
 #import "PetriGridBoardTestCases.h"
 
 #import "PetriMockGridBoard.h"
-
+#import "PetriBoardCell.h"
 #import "Petri2DCoordinates.h"
 
 #import "PetriSquareGridPiece.h"
@@ -48,7 +48,11 @@
 	{
 		for (NSInteger y = 0; y < [testGridBoard height]; y++)
 		{
-			STAssertEqualObjects([testGridBoard cellAtX:x Y:y], [boardCopy cellAtX:x Y:y], @"Test PetriGridBoard contents differ from copy");
+			if (![[testGridBoard cellAtX:x Y:y] hasSamePropertiesAsCell:[boardCopy cellAtX:x Y:y]])
+			{
+				STAssertTrue([[testGridBoard cellAtX:x Y:y] hasSamePropertiesAsCell:[boardCopy cellAtX:x Y:y]], @"Test PetriGridBoard contents differ from copy");
+				return;
+			}
 		}
 	}
 }
