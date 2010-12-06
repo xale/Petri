@@ -50,8 +50,8 @@
 
 - (id)initWithParameters:(NSDictionary*)parameters
 {
-	return [self initWithWidth:(NSInteger)[[[parameters objectForKey:@"width"] parameterValue] unsignedIntValue]
-						height:(NSInteger)[[[parameters objectForKey:@"height"] parameterValue] unsignedIntValue]
+	return [self initWithWidth:(NSInteger)[[[parameters objectForKey:@"width"] parameterValue] unsignedIntegerValue]
+						height:(NSInteger)[[[parameters objectForKey:@"height"] parameterValue] unsignedIntegerValue]
 			];
 }
 
