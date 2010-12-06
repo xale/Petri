@@ -14,7 +14,7 @@
  
  The PetriMainWindowViewController class is an abstract subclass of NSViewController for use on the main window of the application.
  */
-@interface PetriMainWindowViewController : NSViewController
+@interface PetriMainWindowViewController : NSViewController <NSUserInterfaceValidations>
 {
 	PetriMainWindowController* mainWindowController;	/*!< A reference to the main window controller. */
 }

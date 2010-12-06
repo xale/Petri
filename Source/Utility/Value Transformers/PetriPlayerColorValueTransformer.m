@@ -29,6 +29,10 @@
 
 - (id)transformedValue:(id)value
 {
+	// Check for nil value (i.e., no owner)
+	if (value == nil)
+		return [CIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]; // "Unowned cell" color
+	
 	// Check that the value to transform is a valid player
 	if (![value isKindOfClass:[PetriPlayer class]])
 		return [CIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
