@@ -15,5 +15,6 @@
 }
 
 - (void)testSingleton;
+- (void)testRegister;
 
 @end
