@@ -53,9 +53,6 @@
 	
 	// FIXME: additional bindings
 	
-	// FIXME: TESTING: add a background for visibility
-	[self setBackgroundColor:CGColorCreateGenericRGB(0.8, 0.8, 0.8, 1.0)];
-	
 	cell = displayedCell;
 	
 	return self;
@@ -68,11 +65,17 @@
 - (void)setValue:(id)value
 		  forKey:(NSString*)key
 {
-	if ([key isEqualToString:@"backgroundColor"] && [value isKindOfClass:[CIColor class]])
+	// Check for the backgroundColor key, since we need to convert from a CIColor to a CGColor
+	if ([key isEqualToString:@"backgroundColor"])
 	{
-		CIColor* colorValue = (CIColor*)value;
-		CGColorRef color = CGColorCreateGenericRGB([colorValue red], [colorValue green], [colorValue blue], [colorValue alpha]);
-		[self setBackgroundColor:color];
+		// If the value is a CIColor, convert to a CGColor
+		if ([value isKindOfClass:[CIColor class]])
+		{
+			CIColor* colorValue = (CIColor*)value;
+			CGColorRef color = CGColorCreateGenericRGB([colorValue red], [colorValue green], [colorValue blue], [colorValue alpha]);
+			[self setBackgroundColor:color];
+			CGColorRelease(color);
+		}
 		return;
 	}
 	

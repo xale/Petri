@@ -61,6 +61,14 @@
 }
 
 #pragma mark -
+#pragma mark Interface Validation
+
+- (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item
+{
+	return [self respondsToSelector:[item action]];
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 @synthesize mainWindowController;
