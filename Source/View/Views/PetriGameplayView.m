@@ -312,6 +312,13 @@
 	// Remove any existing sublayers from the background
 	[[self layer] setSublayers:nil];
 	
+	// If the new game is nil, skip creating new layers
+	if (newGame == nil)
+	{
+		game = nil;
+		return;
+	}
+	
 	// Create the new board layer
 	PetriBoardLayer* boardLayer = [self createBoardLayerForBoard:[newGame board]];
 	
