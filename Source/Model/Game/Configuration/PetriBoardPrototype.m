@@ -24,7 +24,7 @@
 	return [[PetriBoardPrototype alloc] initWithClass:cls];
 }
 
-- (void) setBoardClass:(Class<PetriBoard>)newClass
+- (void)setBoardClass:(Class<PetriBoard>)newClass
 {
 	boardClass = newClass;
 	setupParameters = [newClass setupParameters];

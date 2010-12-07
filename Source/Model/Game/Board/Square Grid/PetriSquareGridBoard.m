@@ -292,13 +292,19 @@
 + (NSDictionary*)setupParameters
 {
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithCapacity:2];
-	NSMutableSet* values = [NSMutableSet setWithCapacity:92];
+	NSMutableArray* values = [NSMutableArray arrayWithCapacity:(MAX_DIMENSION - MIN_DIMENSION)];
 	for (NSUInteger i = MIN_DIMENSION; i < MAX_DIMENSION; i++)
 	{
 		[values addObject:[NSNumber numberWithUnsignedInt:i]];
 	}
-	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Height" value:[NSNumber numberWithUnsignedInt:DEFAULT_DIMENSION] validValues:[values copy]] forKey:@"height"];
-	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Width" value:[NSNumber numberWithUnsignedInt:DEFAULT_DIMENSION] validValues:[values copy]] forKey:@"width"];
+	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Height"
+																value:[NSNumber numberWithUnsignedInt:DEFAULT_DIMENSION]
+														  validValues:[values copy]]
+				   forKey:@"height"];
+	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Width"
+																value:[NSNumber numberWithUnsignedInt:DEFAULT_DIMENSION]
+														  validValues:[values copy]]
+				   forKey:@"width"];
 	return [parameters copy];
 }
 
