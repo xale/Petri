@@ -88,9 +88,7 @@
 - (void)setHeadsForPlayers:(NSArray*)players;
 
 /*!
- Runs every time a piece is placed and performs all captures that are possible
- recursively until no more captures are available
- 
+ Runs every time a piece is placed and performs all captures that are possible recursively until no more captures are available.
  @param player player to perform captures for
  */
 - (void)performCapturesForPlayer:(PetriPlayer*)player;
