@@ -46,7 +46,7 @@
 	players = [playersInGame copy];
 	currentPlayer = [players objectAtIndex:0];
 	gameConfiguration = configuration;
-	board = [[[configuration prototype] boardClass] boardWithParameters:[[configuration prototype] setupParameters]];
+	board = [[[configuration boardPrototype] boardClass] boardWithParameters:[[configuration boardPrototype] setupParameters]];
 	[board setHeadsForPlayers:players];
 	currentPiece = [self nextPiece];
 	return self;

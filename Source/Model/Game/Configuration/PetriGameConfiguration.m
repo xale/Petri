@@ -42,7 +42,7 @@ NSString* const PetriInvalidMinMaxPlayersExceptionDescriptionFormat =	@"Minimum 
 	minPlayers = minPlayerCount;
 	maxPlayers = maxPlayerCount;
 	pieceFrequencies = pieces;
-	prototype = [PetriBoardPrototype prototypeForBoardClass:[PetriSquareGridBoard class]];
+	boardPrototype = [PetriBoardPrototype prototypeForBoardClass:[PetriSquareGridBoard class]];
 	
 	return self;
 }
@@ -53,6 +53,6 @@ NSString* const PetriInvalidMinMaxPlayersExceptionDescriptionFormat =	@"Minimum 
 @synthesize minPlayers;
 @synthesize maxPlayers;
 @synthesize pieceFrequencies;
-@synthesize prototype;
+@synthesize boardPrototype;
 
 @end
