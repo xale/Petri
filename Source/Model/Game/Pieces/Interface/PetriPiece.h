@@ -38,4 +38,9 @@
  */
 - (void)rotate;
 
+/*!
+ Returns a piece-frequency dictionary containing the set of default pieces.
+ */
++ (NSDictionary*)defaultPieceFrequencies;
+
 @end

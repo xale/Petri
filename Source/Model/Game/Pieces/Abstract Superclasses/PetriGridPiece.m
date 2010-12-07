@@ -179,4 +179,10 @@ NSString* const PetriGridPieceAbstractMethodExceptionFormat =	@"Attempt to invok
 	@throw abstractMethodException;
 }
 
++ (NSDictionary*)defaultPieceFrequencies
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
 @end

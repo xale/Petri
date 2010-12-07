@@ -13,21 +13,13 @@
 
 - (void)setUp
 {
-	testGameConfiguration = [[PetriGameConfiguration alloc] initWithMinPlayers:2
-																	maxPlayers:4
-															  pieceFrequencies:nil];	// FIXME: allow nil?
+	testGameConfiguration = [PetriGameConfiguration defaultGameConfiguration];
 	STAssertNotNil(testGameConfiguration, @"PetriGameConfiguration object creation unsuccessful");
 }
 
 - (void)tearDown
 {
 	testGameConfiguration = nil;
-}
-
-- (void)testCreateInvalidGameConfigurations
-{
-	// Attempt to create an invalid game configuration, with greater maxPlayers than minPlayers
-	STAssertThrows([[PetriGameConfiguration alloc] initWithMinPlayers:4 maxPlayers:3 pieceFrequencies:nil], @"Expected exception when initializing game configuration with minPlayers > maxPlayers");	
 }
 
 @end
