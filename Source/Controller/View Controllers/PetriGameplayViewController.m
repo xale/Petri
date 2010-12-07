@@ -100,10 +100,21 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 			withOwner:pieceOwner
 			   onCell:cell];
 	
+	// Perform captures for the player who placed the piece
+	// FIXME: not yet written
+	//[board performCapturesForPlayer:pieceOwner]
+	
+	// Perform any secondary captures for other players
+	// FIXME: not yet written
+	// FIXME: additional captures should probably be performed in reverse-turn-order
+	//[board performAdditionalCaptures]
+	
+	// Clean up any dead cells
+	// FIXME: not yet written
+	//[board clearDeadCells];
+	
 	// Advance to the next player's turn
 	[[self game] nextTurn];
-	
-	// FIXME: anything else?
 }
 
 #pragma mark -
