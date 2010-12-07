@@ -16,7 +16,13 @@
 - (id)pop;
 @end
 
+/*!
+ Adds a pop method to mutable set.
+ */
 @implementation NSMutableSet(Pop)
+/*!
+ Return an arbitrary element and remove it from the set.
+ */
 - (id)pop;
 {
 	id any = [self anyObject];
@@ -25,8 +31,15 @@
 }
 @end
 
-
+/*!
+ Private methods for PetriGridBoard
+ */
 @interface PetriGridBoard(Private)
+/*!
+ Make the cell passed in owned by noone and of empty type
+ 
+ @param cell the cell to clear
+ */
 - (void)forceClearCell:(PetriBoardCell*)cell;
 @end
 
