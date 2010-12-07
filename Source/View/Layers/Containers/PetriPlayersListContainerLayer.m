@@ -8,6 +8,10 @@
 
 #import "PetriPlayersListContainerLayer.h"
 
+NSString* const PetriPlayersListContainerLayerPlayerKey =	@"player";
+
+#define PetriPlayersListContainerLayerSelectedLayerBorderWidth	4.0
+
 /*!
  Private methods on PetriPlayersListContainerLayer
  */
@@ -17,9 +21,11 @@
  Creates new player-status boxes for the specified players list.
  @param players The new list of players for which to create status boxes.
  @param playerSlots The number of slots which the new players can occupy.
+ @param initialSelectedPlayer The selected player when the boxes are created.
  */
 - (NSArray*)statusBoxLayersForPlayers:(NSArray*)players
-								slots:(NSUInteger)playerSlots;
+								slots:(NSUInteger)playerSlots
+					   selectedPlayer:(PetriPlayer*)initialSelectedPlayer;
 
 @end
 
@@ -43,7 +49,8 @@
 	
 	// Create sublayers for the player-status boxes
 	[self setSublayers:[self statusBoxLayersForPlayers:players
-												 slots:playerSlots]];
+												 slots:playerSlots
+										selectedPlayer:startingPlayer]];
 	
 	// Hold references to the player list and starting player
 	playersList = players;
@@ -57,19 +64,32 @@
 
 - (NSArray*)statusBoxLayersForPlayers:(NSArray*)players
 								slots:(NSUInteger)playerSlots
+					   selectedPlayer:(PetriPlayer*)initialSelectedPlayer
 {
 	// Create "status box" layers for each player in the game
 	NSMutableArray* statusBoxes = [NSMutableArray arrayWithCapacity:[players count]];
+	PetriPlayer* player;
 	for (NSUInteger playerNum = 0; playerNum < [players count]; playerNum++)
 	{
+		player = [players objectAtIndex:playerNum];
 		CALayer* statusBoxLayer = [CALayer layer];
 		[statusBoxLayer setCornerRadius:8.0];
 		
+		// Associate the player with the layer
+		[statusBoxLayer setValue:player
+						  forKey:PetriPlayersListContainerLayerPlayerKey];
+		
 		// Color the layer according to the player's color
-		NSColor* playerColor = [[players objectAtIndex:playerNum] color];
+		NSColor* playerColor = [player color];
 		CGColorRef boxColor = CGColorCreateGenericRGB([playerColor redComponent], [playerColor greenComponent], [playerColor blueComponent], 1.0);
 		[statusBoxLayer setBackgroundColor:boxColor];
 		CGColorRelease(boxColor);
+		
+		// Set the layer's border color, and (if the player is selected) draw it
+		CGColorRef borderColor = CGColorGetConstantColor(kCGColorWhite);
+		[statusBoxLayer setBorderColor:borderColor];
+		if ([player isEqual:initialSelectedPlayer])
+			[statusBoxLayer setBorderWidth:PetriPlayersListContainerLayerSelectedLayerBorderWidth];
 		
 		// Anchor the status box to the left edge of the container
 		[statusBoxLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
@@ -103,6 +123,35 @@
 #pragma mark Accessors
 
 @synthesize playersList;
-@synthesize selectedPlayer; // FIXME: WRITEME: override -setSelectedPlayer: to highlight new current player
+
+- (void)setSelectedPlayer:(PetriPlayer*)newSelectedPlayer
+{
+	// Deselect the old player
+	PetriPlayer* player = nil;
+	for (CALayer* playerBox in [self sublayers])
+	{
+		player = [playerBox valueForKey:PetriPlayersListContainerLayerPlayerKey];
+		if ([player isEqual:selectedPlayer])
+		{
+			[playerBox setBorderWidth:0.0];
+			break;
+		}
+	}
+	
+	// Select the new player
+	for (CALayer* playerBox in [self sublayers])
+	{
+		player = [playerBox valueForKey:PetriPlayersListContainerLayerPlayerKey];
+		if ([player isEqual:newSelectedPlayer])
+		{
+			[playerBox setBorderWidth:PetriPlayersListContainerLayerSelectedLayerBorderWidth];
+			break;
+		}
+	}
+	
+	// Hold a reference to the player
+	selectedPlayer = newSelectedPlayer;
+}
+@synthesize selectedPlayer;
 
 @end
