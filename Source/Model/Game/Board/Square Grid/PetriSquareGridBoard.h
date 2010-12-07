@@ -32,17 +32,6 @@
 - (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates;
 
 /*!
- Override. Checks if a piece can be placed on the board.
- @param piece piece to place
- @param owner player placing the piece
- @param pieceOrigin the coordinates to place the piece's origin
- @return true if the piece can be placed
- */
-- (BOOL)validatePlacementOfPiece:(PetriGridPiece*)piece
-					   withOwner:(PetriPlayer*)owner
-				   atCoordinates:(Petri2DCoordinates*)pieceOrigin;
-
-/*!
  Override. Runs every time a piece is placed and performs all captures that are possible
  recursively until no more captures are available
  */

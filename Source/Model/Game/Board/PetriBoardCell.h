@@ -41,10 +41,10 @@
 				pickUp:(PetriItem*)item;
 
 /*!
- Tests for equality of two PetriBoardCell objects.
- \note This method does \e not test whether a PetriBoardCell object represents the same location on the board as another, merely whether two cells have the same values for their respective properties.
+ Returns \c YES if the specified cell has the same values for its properties as the receiver.
+ Intended for unit testing and debugging.
  */
-- (BOOL)isEqualToCell:(PetriBoardCell*)cell;
+- (BOOL)hasSamePropertiesAsCell:(PetriBoardCell*)otherCell;
 
 @property (readwrite, assign) PetriCellType cellType;
 @property (readwrite, assign) PetriPlayer* owner;

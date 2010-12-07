@@ -15,7 +15,7 @@
 	PetriBoardCell* testCell;
 }
 
-- (void)testCellEquality;
+- (void)testCellPropertyComparison;
 - (void)testCellCopy;
 
 @end

@@ -10,6 +10,7 @@
 
 #import "PetriBoardCell.h"
 #import "PetriSquareGridPiece.h"
+#import "PetriPlayer.h"
 #import "Petri2DCoordinates.h"
 
 #import "PetriBoardParameter.h"
@@ -27,8 +28,8 @@
 
 - (id)initWithParameters:(NSDictionary*)parameters
 {
-	return [self initWithWidth:(NSInteger)[[[parameters objectForKey:@"width"] parameterValue] unsignedIntValue]
-						height:(NSInteger)[[[parameters objectForKey:@"height"] parameterValue] unsignedIntValue]
+	return [self initWithWidth:(NSInteger)[[[parameters objectForKey:@"width"] parameterValue] unsignedIntegerValue]
+						height:(NSInteger)[[[parameters objectForKey:@"height"] parameterValue] unsignedIntegerValue]
 			];
 }
 
@@ -41,39 +42,6 @@
 		@throw exception;
 	}
 	return [super initWithWidth:boardWidth height:boardHeight];
-}
-
-- (BOOL)validatePlacementOfPiece:(PetriGridPiece*)piece
-					   withOwner:(PetriPlayer*)pieceOwner
-				   atCoordinates:(Petri2DCoordinates*)pieceOrigin
-{
-	//If any of the cells to be covered by the body are occupied, or not on the board then we cannot place a piece there
-	for (Petri2DCoordinates* cellOffset in [piece cellCoordinates])
-	{
-		// FIXME check if coordinates are on board
-		
-		PetriBoardCell* cell = [self cellAtCoordinates:[pieceOrigin offsetCoordinates:cellOffset]];
-		if ([cell cellType] != unoccupiedCell)
-		{
-			return FALSE;
-		}
-	}
-	
-	//We now check that at least one cell adjoins a cell owned by the player placing the piece
-	for (Petri2DCoordinates* cellOffset in [piece cellCoordinates])
-	{		
-		NSSet* adjacencies = [self placementCellsAdjacentToCoordinates:[pieceOrigin offsetCoordinates:cellOffset]];
-		
-		for (PetriBoardCell* cell in adjacencies)
-		{
-			if ([cell owner] == pieceOwner)
-			{
-				return TRUE;
-			}
-		}
-	}
-	
-	return FALSE;
 }
 
 - (NSSet*)placementCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
@@ -213,7 +181,6 @@
 	} while (captures == TRUE);
 }
 
-
 - (void)setHeadsForPlayers:(NSArray*)players
 {
 	// Ensure that there are a sane number of players
@@ -231,12 +198,18 @@
 	[headCellsTemp addObject:[self cellAtX:2 Y:height - 3]];
 	[headCellsTemp addObject:[self cellAtX:width - 3 Y:2]];
 	
-	// Incrementally assign each player a potential head as long as you haven't run out of players.
+	PetriBoardCell* cell = nil;
+	PetriPlayer* owner = nil;
 	for (NSUInteger i = 0; i < [players count]; i++)
 	{
-		[[headCellsTemp objectAtIndex:i] setOwner:[players objectAtIndex:i]];
-		[[headCellsTemp objectAtIndex:i] setCellType:headCell];
-		[heads addObject:[headCellsTemp objectAtIndex:i]];
+		cell = [headCellsTemp objectAtIndex:i];
+		owner = [players objectAtIndex:i];
+		[cell setOwner:owner];
+		[cell setCellType:headCell];
+		
+		// Add the cell to the player's set of controlled cells
+		[owner addControlledCellsObject:cell];
+		[heads addObject:cell];
 	}
 }
 

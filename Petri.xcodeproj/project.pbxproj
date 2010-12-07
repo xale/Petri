@@ -577,6 +577,8 @@
 				FAB03385128885A000DC01F0 /* PetriGameGroupTestCases.m */,
 				FAB033301278D71500DC01F0 /* PetriGridBoardTestCases.h */,
 				FAB033311278D71500DC01F0 /* PetriGridBoardTestCases.m */,
+				FAE7603812A46915000F5C77 /* PetriGridPieceTestCases.h */,
+				FAE7603912A46915000F5C77 /* PetriGridPieceTestCases.m */,
 				64C7E6721278F2D600B040F8 /* PetriItemTestCases.h */,
 				64C7E6731278F2D600B040F8 /* PetriItemTestCases.m */,
 				6A21A9F91299CF6B0054B8F0 /* PetriModelTestCases.h */,

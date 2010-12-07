@@ -38,34 +38,11 @@
 #pragma mark -
 #pragma mark Comparators
 
-- (BOOL)isEqual:(id)object
+- (BOOL)hasSamePropertiesAsCell:(PetriBoardCell*)otherCell
 {
-	if (![object isKindOfClass:[self class]])
-		return NO;
-	
-	return [self isEqualToCell:(PetriBoardCell*)object];
-}
-
-- (BOOL)isEqualToCell:(PetriBoardCell*)cell
-{
-	// Compare the type of cell
-	if ([self cellType] != [cell cellType])
-		return NO;
-	
-	// Compare owners
-	if ((([self owner] != nil) || ([cell owner] != nil)) && ![[self owner] isEqual:[cell owner]])
-		return NO;
-	
-	// Compare items
-	if ((([self pickUp] != nil) || ([cell pickUp] != nil)) && ![[self pickUp] isEqual:[cell pickUp]])
-		return NO;
-	
-	return YES;
-}
-
-- (NSUInteger)hash
-{
-	return (cellType * 7) + ([owner hash] * 5) + ([pickUp hash] * 3);
+	return (([self cellType] == [otherCell cellType]) &&
+			(([self owner] == [otherCell owner]) || [[self owner] isEqual:[otherCell owner]]) &&
+			(([self pickUp] == [otherCell pickUp]) || [[self pickUp] isEqual:[otherCell pickUp]]));
 }
 
 #pragma mark -

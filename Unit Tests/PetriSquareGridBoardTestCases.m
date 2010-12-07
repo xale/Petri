@@ -58,6 +58,7 @@
 	PetriBoardCell* cell = [board cellAtX:headX Y:headY];
 	[cell setCellType:headCell];
 	[cell setOwner:player];
+	[player addControlledCellsObject:cell];
 	STAssertFalse([board validatePlacementOfPiece:piece withOwner:player atCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:headX yCoordinate:headY]], @"Overlapping placement should be invalid.");
 	STAssertTrue([board validatePlacementOfPiece:piece withOwner:player atCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:(headX-1) yCoordinate:headY]], @"Adjacent placement should be valid.");
 	STAssertFalse([board validatePlacementOfPiece:piece withOwner:player atCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:(headX-2) yCoordinate:headY]], @"Non-adjacent placement should be invalid.");

@@ -161,6 +161,9 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 		// Create a body cell for the piece's owner
 		[cell setOwner:player];
 		[cell setCellType:bodyCell];
+		
+		// Add the cell to the player's controlled cells
+		[player addControlledCellsObject:cell];
 	}
 }
 
@@ -187,8 +190,44 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 					   withOwner:(PetriPlayer*)pieceOwner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
-	[self doesNotRecognizeSelector:_cmd];
-	return FALSE;
+	// Create the actual set of coordinates where the piece will lie
+	NSMutableSet* placementCoords = [NSMutableSet setWithCapacity:[[piece cellCoordinates] count]];
+	for (Petri2DCoordinates* cellCoord in [piece cellCoordinates])
+	{
+		[placementCoords addObject:[cellCoord offsetCoordinates:pieceOrigin]];
+	}
+	
+	// Test that all coordinates are valid, and the cells are empty
+	NSInteger x, y;
+	for (Petri2DCoordinates* coord in placementCoords)
+	{
+		// Check that the coordinates are on the board
+		x = [coord xCoordinate];
+		y = [coord yCoordinate];
+		if ((x < 0) || (x >= [self width]) || (y < 0) || (y >= [self height]))
+			return NO;
+		
+		// Check that the cell at the coordinates is empty
+		if ([[self cellAtCoordinates:coord] cellType] != unoccupiedCell)
+			return NO;
+	}
+	
+	// Get the cells that will be claimed by the piece
+	NSMutableSet* placementCells = [NSMutableSet setWithCapacity:[placementCoords count]];
+	for (Petri2DCoordinates* cellCoord in placementCoords)
+	{
+		[placementCells addObject:[self cellAtCoordinates:cellCoord]];
+	}
+	
+	// Check that at least one of the cells is adjacent to a cell owned by the player placing the piece
+	for (PetriBoardCell* playerCell in [pieceOwner enumeratorOfControlledCells])
+	{
+		NSSet* adjacentCells = [self placementCellsAdjacentToCell:playerCell];
+		if ([adjacentCells intersectsSet:placementCells])
+			return YES;
+	}
+	
+	return NO;
 }
 
 #pragma mark -
@@ -220,8 +259,8 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	{
 		for (int j = 0; j < height; j++)
 		{
-			// Check if this is the specified cell; uses a literal pointer comparison, since comparing cell attributes is not useful (too many cells are similar)
-			if ([self cellAtX:i Y:j] == cell)
+			// Check if this is the specified cell
+			if ([[self cellAtX:i Y:j] isEqual:cell])
 			{
 				return [Petri2DCoordinates coordinatesWithXCoordinate:i
 														  yCoordinate:j];
