@@ -19,6 +19,24 @@
 #define MAX_DIMENSION 100
 #define DEFAULT_DIMENSION 10
 
+/*!
+ Private interface for PetriSquareGridBoard
+ */
+@interface PetriSquareGridBoard(Private)
+
+/**
+ Capture cells in any possible direction around a given cell
+ 
+ @param x x coordinate of cell to start at
+ @param y y coordinate of cell to start at
+ @param player player that we are having do the capturing
+ */
+- (BOOL)captureInAnyDirectionWithStartingX:(NSInteger)x
+								 startingY:(NSInteger)y
+						   capturingPlayer:(PetriPlayer*)player;
+
+@end
+
 @implementation PetriSquareGridBoard
 
 + (id)boardWithParameters:(NSDictionary*)parameters
@@ -106,79 +124,75 @@
 	return [adjacentCells copy];
 }
 
-- (void)capture
-{	
-	BOOL captures;
-	
-	do
+- (void)performCapturesForPlayer:(PetriPlayer*)player
+{
+	for (int i = 0; i < width; i++)
 	{
-		captures = FALSE;
-		//Check all rows
-		for (int i = 0; i < height; i++)
+		for (int j = 0; j < height; j++)
 		{
-			for (int j = 0; i < width; j++)
+			PetriBoardCell* current = [self cellAtX:i Y:j];
+			if ([current owner] == player)
 			{
-				Petri2DCoordinates* currentCoordinates = [Petri2DCoordinates coordinatesWithXCoordinate:i
-																				   yCoordinate:j];
-				PetriBoardCell* current = [self cellAtX:i Y:j];
-				if ([current cellType] != unoccupiedCell)
-				{
-					//Iterate over all adjacent cells
-					for (PetriBoardCell* cell in [self capturableCellsAdjacentToCoordinates:currentCoordinates])
-					{
-						//If we find an adjacent cell with a different player's piece
-						if ([cell cellType] != unoccupiedCell && [cell owner] != [current owner])
-						{
-							NSMutableSet* capturableCells = [[NSMutableSet alloc] init];
-							
-							NSInteger currentX = [[self coordinatesOfCell:current] xCoordinate];
-							NSInteger cellX = [[self coordinatesOfCell:cell] xCoordinate];
-							
-							NSInteger currentY = [[self coordinatesOfCell:current] yCoordinate];
-							NSInteger cellY = [[self coordinatesOfCell:cell] yCoordinate];
-							
-							NSInteger deltaX = currentX - cellX;
-							NSInteger deltaY = currentY - cellY;
-							
-							for (int q = currentX; (q >= 0 && q < width); q += deltaX)
-							{
-								for (int r = currentY; (r >= 0 && r < height); r += deltaY)
-								{
-									PetriBoardCell* iteratedCell = [self cellAtX:q Y:r];
-									
-									//If we run into our own piece again in the same direction before hitting a null cell
-									if ([iteratedCell cellType] == [current cellType])
-									{
-										//Delete cells in between
-										for (PetriBoardCell* cell in capturableCells)
-										{
-											[cell setOwner:nil];
-											[cell setCellType:unoccupiedCell];
-										}
-										//Set captures to true
-										captures = TRUE;
-										
-										//clear board
-										[self clearDeadCells];
-									}
-									else if ([iteratedCell cellType] != unoccupiedCell)
-									{
-										//Add to set
-										[capturableCells addObject:iteratedCell];
-									}
-									else //break out of these loops, we didn't find a capture
-									{
-										goto emptyCellFound;
-									}
-								}
-							}
-						}
-						emptyCellFound:;
-					}
-				}
+				while ([self captureInAnyDirectionWithStartingX:i
+													  startingY:j
+												capturingPlayer:player]);
 			}
 		}
-	} while (captures == TRUE);
+	}
+}
+
+- (BOOL)captureInAnyDirectionWithStartingX:(NSInteger)x
+								 startingY:(NSInteger)y
+						   capturingPlayer:(PetriPlayer*)player
+{
+	NSMutableSet* offsets = [[NSMutableSet alloc] initWithCapacity:4];
+	
+	//Add the cells to the right, top and diagonals to a set that we can then use to calculate the offsets from
+	[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1]];
+	[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1]];
+	[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0]];
+	[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:-1]];
+	
+	for (Petri2DCoordinates* offset in offsets)
+	{
+		//Iterate over each cell until we hit the edge (we'll break out first)
+		for (int i = x; (i < width && i >= 0); i+= [offset xCoordinate])
+		{
+			for (int j = y; (j < height && j >= 0); j+= [offset yCoordinate])
+			{
+				PetriBoardCell* current = [self cellAtX:i Y:j];
+				NSMutableSet* capturableCells = [[NSMutableSet alloc] init];
+				
+				//If we run into our own piece again in the same direction before hitting a null cell
+				if ([current owner] == player)
+				{
+					//Delete cells in between
+					for (PetriBoardCell* cell in capturableCells)
+					{
+						[cell setOwner:player];
+						[cell setCellType:bodyCell];
+					}
+					
+					//clear board
+					[self clearDeadCells];
+					
+					return YES;
+				}
+				else if ([current cellType] != unoccupiedCell)
+				{
+					//Add to set
+					[capturableCells addObject:current];
+				}
+				else //break out of these loops, we didn't find a capture
+				{
+					goto emptyCellFound;
+				}			
+			}
+		}
+	emptyCellFound:;
+	}
+	
+	return NO;
 }
 
 - (void)setHeadsForPlayers:(NSArray*)players

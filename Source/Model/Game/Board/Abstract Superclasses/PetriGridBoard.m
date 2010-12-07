@@ -399,6 +399,12 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	}
 }
 
+- (void)performCapturesForPlayer:(PetriPlayer*)player
+{
+	[self doesNotRecognizeSelector:_cmd];
+}
+
+
 - (void)setHeadsForPlayers:(NSArray*)players
 {
 	[self doesNotRecognizeSelector:_cmd];

@@ -31,10 +31,12 @@
  */
 - (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates;
 
-/*!
- Override. Runs every time a piece is placed and performs all captures that are possible
+/*
+ Runs every time a piece is placed and performs all captures that are possible
  recursively until no more captures are available
+ 
+ @param player player to perform captures for
  */
-- (void)capture;
+- (void)performCapturesForPlayer:(PetriPlayer*)player;
 
 @end

@@ -92,6 +92,14 @@
 					   withOwner:(PetriPlayer*)pieceOwner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin;
 
+/*
+ Runs every time a piece is placed and performs all captures that are possible
+ recursively until no more captures are available
+ 
+ @param player player to perform captures for
+ */
+- (void)performCapturesForPlayer:(PetriPlayer*)player;
+
 /**
  * Get an immutable set of all cells that are adjacent to the given coordinates for the purposes of piece placement
  * @param cellCoordinates the coordinates of the cell around which to look for adjacent cells
