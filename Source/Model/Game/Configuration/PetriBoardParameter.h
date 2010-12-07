@@ -15,32 +15,32 @@
 {
 	NSString* parameterName;	/*!< The name of the parameter; displayed to the user. */
 	id parameterValue;			/*!< The current value of the parameter. */
-	NSSet* validValues;			/*!< A set of all valid values for the parameter. */
+	NSArray* validValues;		/*!< A list of all valid values for the parameter. */
 }
 
 /*!
  Class method that returns an initialized object with all instance variables set.
  @param name the name of the parameter
  @param value the initial value of the parameter
- @param set a set of all permissible values of the parameter
+ @param allowedValues a set of all permissible values of the parameter
  */
 + (id)boardParameterWithName:(NSString*)name
 					   value:(id)value
-				 validValues:(NSSet*)set;
+				 validValues:(NSArray*)allowedValues;
 
 /*!
  Initializer that sets all the instance variables.
  @param name the name of the parameter
  @param value the initial value of the parameter
- @param set a set of all permissible values of the parameter
+ @param allowedValues an array of all permissible values of the parameter
  */
 
 - (id)initWithName:(NSString*)name
 			 value:(id)value
-	   validValues:(NSSet*)set;
+	   validValues:(NSArray*)allowedValues;
 
 @property (readonly) NSString* parameterName;
 @property (readwrite) id parameterValue;
-@property (readonly) NSSet* validValues;
+@property (readonly) NSArray* validValues;
 
 @end

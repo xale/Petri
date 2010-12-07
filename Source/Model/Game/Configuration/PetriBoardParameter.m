@@ -8,24 +8,24 @@
 
 #import "PetriBoardParameter.h"
 
-
 @implementation PetriBoardParameter
 
 + (id)boardParameterWithName:(NSString*)name
 					   value:(id)value
-				 validValues:(NSSet*)set
+				 validValues:(NSArray*)allowedValues
 {
-	return [[self alloc] initWithName:name value:value validValues:set];
+	return [[self alloc] initWithName:name
+								value:value
+						  validValues:allowedValues];
 }
-
 
 - (id)initWithName:(NSString*)name
 			 value:(id)value
-	   validValues:(NSSet*)set
+	   validValues:(NSArray*)allowedValues
 {
 	parameterName = name;
 	parameterValue = value;
-	validValues = set;
+	validValues = allowedValues;
 	return self;
 }
 

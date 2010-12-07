@@ -33,4 +33,6 @@
 
 @property (readwrite, assign) Class<PetriBoard> boardClass;
 @property (readonly) NSDictionary* setupParameters;
+@property (readonly) NSArray* valuesOfSetupParameters;	/*!< An readonly call-through to [setupParameters allValues], used for bindings. */
+
 @end

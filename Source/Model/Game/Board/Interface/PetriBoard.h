@@ -87,7 +87,7 @@
  */
 - (void)setHeadsForPlayers:(NSArray*)players;
 
-/*
+/*!
  Runs every time a piece is placed and performs all captures that are possible
  recursively until no more captures are available
  

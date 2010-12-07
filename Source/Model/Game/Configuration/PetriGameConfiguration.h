@@ -20,7 +20,7 @@
 	NSUInteger minPlayers;			/*!< The minimum number of players to participate in the game. If the game begins with fewer than this number of human users in the game group, AI players will be added to the game. */
 	NSUInteger maxPlayers;			/*!< The maximum number of players allowed in the game. If the game group contains this many players, new players will not be allowed to join. */
 	NSDictionary* pieceFrequencies;	/*!< Stores probablilities used to choose a piece from the set of pieces at the beginning of each turn. Maps PetriPiece to NSNumber; i.e., piece to probability. */
-	PetriBoardPrototype* prototype;	/*!< Holds the prototype of the board the users will be playing on when the game starts. */
+	PetriBoardPrototype* boardPrototype;	/*!< Holds the prototype of the board the users will be playing on when the game starts. */
 }
 
 /*!
@@ -29,11 +29,10 @@
 + (id)defaultGameConfiguration;
 
 /*!
- Initialize a game configuration with the default configuration for the prototype given.
- 
- @param proto the prototype
+ Initialize a game configuration with the default configuration for the given prototype.
+ @param prototype The prototype from which to infer default configuration values.
  */
-- (id)initWithPrototype:(PetriBoardPrototype*)proto;
+- (id)initWithBoardPrototype:(PetriBoardPrototype*)prototype;
 
 /*!
  Initialize a game configuration with a prototype of an arbitrary registered board.
@@ -43,6 +42,6 @@
 @property (readwrite, assign) NSUInteger minPlayers;
 @property (readwrite, assign) NSUInteger maxPlayers;
 @property (readwrite, copy) NSDictionary* pieceFrequencies;
-@property (readwrite, assign) PetriBoardPrototype* prototype;
+@property (readwrite, assign) PetriBoardPrototype* boardPrototype;
 
 @end

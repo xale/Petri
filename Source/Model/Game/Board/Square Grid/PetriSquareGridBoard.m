@@ -15,9 +15,9 @@
 
 #import "PetriBoardParameter.h"
 
-#define MIN_DIMENSION 8
-#define MAX_DIMENSION 100
-#define DEFAULT_DIMENSION 10
+#define PetriSquareGridBoardMinimumDimension	15
+#define PetriSquareGridBoardMaximumDimension	50
+#define PetriSquareGridBoardDefaultDimension	20
 
 /*!
  Private interface for PetriSquareGridBoard
@@ -54,7 +54,7 @@
 - (id)initWithWidth:(NSInteger)boardWidth
 			 height:(NSInteger)boardHeight
 {
-	if (boardWidth < MIN_DIMENSION || boardHeight < MIN_DIMENSION)
+	if (boardWidth < PetriSquareGridBoardMinimumDimension || boardHeight < PetriSquareGridBoardMinimumDimension)
 	{
 		NSException* exception = [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Board initialized with too small width or height." userInfo:nil];
 		@throw exception;
@@ -245,13 +245,20 @@
 + (NSDictionary*)setupParameters
 {
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithCapacity:2];
-	NSMutableSet* values = [NSMutableSet setWithCapacity:92];
-	for (NSUInteger i = MIN_DIMENSION; i < MAX_DIMENSION; i++)
+	NSMutableArray* values = [NSMutableArray arrayWithCapacity:
+							  ((PetriSquareGridBoardMaximumDimension - PetriSquareGridBoardMinimumDimension) + 1)];
+	for (NSUInteger i = PetriSquareGridBoardMinimumDimension; i < PetriSquareGridBoardMaximumDimension; i++)
 	{
 		[values addObject:[NSNumber numberWithUnsignedInt:i]];
 	}
-	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Height" value:[NSNumber numberWithUnsignedInt:DEFAULT_DIMENSION] validValues:[values copy]] forKey:@"height"];
-	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Width" value:[NSNumber numberWithUnsignedInt:DEFAULT_DIMENSION] validValues:[values copy]] forKey:@"width"];
+	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Height"
+																value:[NSNumber numberWithUnsignedInt:PetriSquareGridBoardDefaultDimension]
+														  validValues:[values copy]]
+				   forKey:@"height"];
+	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Width"
+																value:[NSNumber numberWithUnsignedInt:PetriSquareGridBoardDefaultDimension]
+														  validValues:[values copy]]
+				   forKey:@"width"];
 	return [parameters copy];
 }
 

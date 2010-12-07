@@ -28,18 +28,19 @@
 NSString* const PetriInvalidGameConfigurationExceptionName =			@"invalidGameConfigurationException";
 NSString* const PetriInvalidMinMaxPlayersExceptionDescriptionFormat =	@"Minimum players (%d) greater than maximum players (%d)";
 
-- (id)initWithPrototype:(PetriBoardPrototype*)proto
+- (id)initWithBoardPrototype:(PetriBoardPrototype*)prototype
 {
-	prototype = proto;
+	boardPrototype = prototype;
 	minPlayers = [[prototype boardClass] absoluteMinPlayers];
 	maxPlayers = [[prototype boardClass] absoluteMaxPlayers];
 	pieceFrequencies = [[[prototype boardClass] pieceClass] defaultPieceFrequencies];
+
 	return self;
 }
 
 - (id)init
 {
-	return [self initWithPrototype:[PetriBoardPrototype prototypeForBoardClass:[[[PetriBoardManager sharedManager] registeredBoardClasses] anyObject]]];
+	return [self initWithBoardPrototype:[PetriBoardPrototype prototypeForBoardClass:[[[PetriBoardManager sharedManager] registeredBoardClasses] anyObject]]];
 }
 
 #pragma mark -
@@ -48,6 +49,6 @@ NSString* const PetriInvalidMinMaxPlayersExceptionDescriptionFormat =	@"Minimum 
 @synthesize minPlayers;
 @synthesize maxPlayers;
 @synthesize pieceFrequencies;
-@synthesize prototype;
+@synthesize boardPrototype;
 
 @end

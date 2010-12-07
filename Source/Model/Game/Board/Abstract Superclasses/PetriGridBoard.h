@@ -92,7 +92,7 @@
 					   withOwner:(PetriPlayer*)pieceOwner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin;
 
-/*
+/*!
  Runs every time a piece is placed and performs all captures that are possible
  recursively until no more captures are available
  

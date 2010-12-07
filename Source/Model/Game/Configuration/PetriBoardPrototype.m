@@ -24,18 +24,26 @@
 	return [[PetriBoardPrototype alloc] initWithClass:cls];
 }
 
-- (void) setBoardClass:(Class<PetriBoard>)newClass
+- (void)setBoardClass:(Class<PetriBoard>)newClass
 {
 	boardClass = newClass;
 	setupParameters = [newClass setupParameters];
 }
+@synthesize boardClass;
 
+@synthesize setupParameters;
 + (NSSet*)keyPathsForValuesAffectingSetupParameters
 {
 	return [NSSet setWithObject:@"boardClass"];
 }
 
-@synthesize boardClass;
-@synthesize setupParameters;
+- (NSArray*)valuesOfSetupParameters
+{
+	return [setupParameters allValues];
+}
++ (NSSet*)keyPathsForValuesAffectingValuesOfSetupParameters
+{
+	return [NSSet setWithObject:@"setupParameters"];
+}
 
 @end
