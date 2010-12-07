@@ -17,7 +17,11 @@
 
 + (void)initialize
 {
-	[[PetriBoardManager sharedManager] registerBoardClass:[PetriSquareGridBoard class]];
+	if (self == [PetriGameConfiguration class])
+	{
+		// Register "built-in" board classes
+		[[PetriBoardManager sharedManager] registerBoardClass:[PetriSquareGridBoard class]];
+	}
 }
 
 + (id)defaultGameConfiguration
