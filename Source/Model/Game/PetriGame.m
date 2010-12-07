@@ -59,6 +59,20 @@
 {
 	[self willChangeValueForKey:@"currentPiece"];
 	[self willChangeValueForKey:@"currentPlayer"];
+	
+	// Initialize certain variables for convenience
+	NSUInteger currentPlayerIndex = [players indexOfObject:currentPlayer];
+	NSUInteger playerCount = [players count];
+	
+	// Starting from the current player, going backwards in turn order, perform captures
+	for (NSUInteger i = currentPlayerIndex + playerCount; i > currentPlayerIndex; i--)
+	{
+	    [board performCapturesForPlayer:[players objectAtIndex:(i % playerCount)]];
+	}
+	
+	// Clean up dead cells caused by captures.
+	[board clearDeadCells];
+	
 	currentPlayer = [self nextPlayer];
 	currentPiece = [self nextPiece];
 	[self didChangeValueForKey:@"currentPlayer"];
