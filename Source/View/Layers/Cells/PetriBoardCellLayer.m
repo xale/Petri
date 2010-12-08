@@ -69,16 +69,12 @@
 		  forKey:(NSString*)key
 {
 	// Check for the backgroundColor key, since we need to convert from a CIColor to a CGColor
-	if ([key isEqualToString:@"backgroundColor"])
+	if ([key isEqualToString:@"backgroundColor"] && [value isKindOfClass:[CIColor class]])
 	{
-		// If the value is a CIColor, convert to a CGColor
-		if ([value isKindOfClass:[CIColor class]])
-		{
-			CIColor* colorValue = (CIColor*)value;
-			CGColorRef color = CGColorCreateGenericRGB([colorValue red], [colorValue green], [colorValue blue], [colorValue alpha]);
-			[self setBackgroundColor:color];
-			CGColorRelease(color);
-		}
+		CIColor* colorValue = (CIColor*)value;
+		CGColorRef color = CGColorCreateGenericRGB([colorValue red], [colorValue green], [colorValue blue], [colorValue alpha]);
+		[self setBackgroundColor:color];
+		CGColorRelease(color);
 		return;
 	}
 	
