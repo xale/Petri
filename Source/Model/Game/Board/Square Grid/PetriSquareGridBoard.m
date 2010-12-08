@@ -168,6 +168,12 @@
 	while (![currentCoordinates isEqual:endCoordinates])
 	{
 		currentCell = [self cellAtCoordinates:currentCoordinates];
+		if ([currentCell cellType] == headCell)
+		{
+			PetriPlayer* otherPlayer = [currentCell owner];
+			[player addControlledCells:[otherPlayer controlledCells]];
+			[otherPlayer removeControlledCells:[otherPlayer controlledCells]];
+		}
 		[[currentCell owner] removeControlledCellsObject:currentCell];
 		[currentCell setOwner:player];
 		[player addControlledCellsObject:currentCell];

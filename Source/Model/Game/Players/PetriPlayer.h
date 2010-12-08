@@ -39,11 +39,25 @@
 - (void)addControlledCellsObject:(PetriBoardCell*)cell;
 
 /*!
+ Adds a set of cells to the list of cells controlled by the player.
+ 
+ @param cells the set of cells that the player now controls
+ */
+- (void)addControlledCells:(NSSet*)cells;
+
+/*!
  Removes a cell from the list of cells controlled by the player.
  
  @param cell the PetriBoardCell that the player no longer controls
  */
 - (void)removeControlledCellsObject:(PetriBoardCell*)cell;
+
+/*!
+ Remove a set of cells to the list of cells controlled by the player.
+ 
+ @param cells the set of cells that the player does not control
+ */
+- (void)removeControlledCells:(NSSet*)cells;
 
 /*!
  Returns an enumerator for the cells controlled by the player.
