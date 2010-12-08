@@ -72,7 +72,7 @@
 	[board performCapturesForPlayer:currentPlayer];
 }
 
-- (void)performCapturesForOtherPlayers
+- (void)performAdditionalCaptures
 {
 	// Initialize certain variables for convenience
 	NSUInteger currentPlayerIndex = [players indexOfObject:currentPlayer];

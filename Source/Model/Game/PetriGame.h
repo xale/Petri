@@ -56,7 +56,7 @@
  Tells the board to capture cells for players other than the current player.
  Should be called after player has placed a piece and after his/her captures have occurred, but before nextTurn is called.
  */
-- (void)performCapturesForOtherPlayers;
+- (void)performAdditionalCaptures;
 
 /*!
  Tells the board to remove dead cells.
