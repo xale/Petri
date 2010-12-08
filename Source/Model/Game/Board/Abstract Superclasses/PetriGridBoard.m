@@ -359,14 +359,18 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	
 	PetriBoardCell* cell;
 	NSMutableSet* visiting;
+	
 	while ([unvisited count] > 0) // as long as there are cells whose neighbors we haven't checked
 	{
 		// Take an arbitrary unvisited cell
 		cell = [unvisited pop];
+		// Mark it as visited
+		[visited addObject:cell];
 		// Get all its neighbors
 		visiting = [[self placementCellsAdjacentToCell:cell] mutableCopy];
 		// Remove the ones we've already visited
 		[visiting minusSet:visited];
+		[visiting filterUsingPredicate:[NSPredicate predicateWithFormat:@"(owner == %@)", player]];
 		// Mark them for later visitation
 		[unvisited unionSet:visiting];
 	}

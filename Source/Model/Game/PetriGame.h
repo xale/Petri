@@ -46,6 +46,24 @@
  */
 - (void)rotateCurrentPiece;
 
+/*!
+ Tells the board to capture cells for the current player.
+ Should be called after the player has placed a piece but before nextTurn is called.
+ */
+- (void)performCapturesForCurrentPlayer;
+
+/*!
+ Tells the board to capture cells for players other than the current player.
+ Should be called after player has placed a piece and after his/her captures have occurred, but before nextTurn is called.
+ */
+- (void)performCapturesForOtherPlayers;
+
+/*!
+ Tells the board to remove dead cells.
+ Should be called after the piece has been placed and all captures have occurred, but before nextTurn is called.
+ */
+- (void)clearDeadCells;
+
 @property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
 @property (readonly) id<PetriBoard>  board;
