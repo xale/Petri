@@ -161,10 +161,8 @@
 	for (Petri2DCoordinates* offset in offsets)
 	{
 		//Iterate over each cell until we hit the edge (we'll break out first)
-		for (int i = x; (i < width && i >= 0); i+= [offset xCoordinate])
+		for (int i = x, j = y; (i < width && i >= 0) && (j < height && j >= 0); i+= [offset xCoordinate], j+= [offset yCoordinate])
 		{
-			for (int j = y; (j < height && j >= 0); j+= [offset yCoordinate])
-			{
 				PetriBoardCell* current = [self cellAtX:i Y:j];
 				NSMutableSet* capturableCells = [[NSMutableSet alloc] init];
 				
@@ -188,13 +186,11 @@
 					//Add to set
 					[capturableCells addObject:current];
 				}
-				else //break out of these loops, we didn't find a capture
+				else //break out of this loops, we didn't find a capture
 				{
-					goto emptyCellFound;
+					break;
 				}			
-			}
 		}
-	emptyCellFound:;
 	}
 	
 	return NO;
