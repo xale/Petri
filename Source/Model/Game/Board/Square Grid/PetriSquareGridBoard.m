@@ -172,6 +172,10 @@
 		{
 			PetriPlayer* otherPlayer = [currentCell owner];
 			[player addControlledCells:[otherPlayer controlledCells]];
+			for (PetriBoardCell* tempCell in [otherPlayer controlledCells])
+			{
+				[tempCell setOwner:player];
+			}
 			[otherPlayer removeControlledCells:[otherPlayer controlledCells]];
 		}
 		[[currentCell owner] removeControlledCellsObject:currentCell];
