@@ -133,14 +133,9 @@
 			PetriBoardCell* current = [self cellAtX:i Y:j];
 			if ([current owner] == player)
 			{
-				BOOL capturesMade;
-				do
-				{
-					capturesMade = [self captureInAnyDirectionWithStartingX:i
-																  startingY:j
-															capturingPlayer:player];
-				}
-				while (capturesMade);
+				while ([self captureInAnyDirectionWithStartingX:i
+													  startingY:j
+												capturingPlayer:player]);
 			}
 		}
 	}
