@@ -53,6 +53,9 @@
 	
 	// FIXME: additional bindings
 	
+	// Disable edge antialiasing, since theses layers will abut one another, and antialiasing may create artifacts
+	[self setEdgeAntialiasingMask:0];
+	
 	cell = displayedCell;
 	
 	return self;
