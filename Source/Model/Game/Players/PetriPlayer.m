@@ -40,6 +40,14 @@
 	[self didChangeValueForKey:@"controlledCells"];
 }
 
+- (void)addControlledCells:(NSSet*)cells
+{
+	[self willChangeValueForKey:@"controlledCells"];
+	[controlledCells unionSet:cells];
+	[self didChangeValueForKey:@"controlledCells"];
+}
+
+
 - (void)removeControlledCellsObject:(PetriBoardCell*)cell
 {
 	[self willChangeValueForKey:@"controlledCells"];
@@ -47,6 +55,12 @@
 	[self didChangeValueForKey:@"controlledCells"];
 }
 
+- (void)removeControlledCells:(NSSet*)cells;
+{
+	[self willChangeValueForKey:@"controlledCells"];
+	[controlledCells minusSet:cells];
+	[self didChangeValueForKey:@"controlledCells"];
+}
 - (NSUInteger)countOfControlledCells
 {
 	return [controlledCells count];
