@@ -32,8 +32,8 @@
  @param player player that we are having do the capturing
  */
 - (BOOL)captureStartingWithXCoordinate:(NSInteger)x
-								 yCoordinate:(NSInteger)y
-						   player:(PetriPlayer*)player;
+						   yCoordinate:(NSInteger)y
+								player:(PetriPlayer*)player;
 
 
 - (BOOL)isValidXCoordinate:(NSInteger)xCoordinate;
