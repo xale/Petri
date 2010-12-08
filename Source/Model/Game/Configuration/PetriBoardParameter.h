@@ -14,33 +14,39 @@
 @interface PetriBoardParameter : NSObject
 {
 	NSString* parameterName;	/*!< The name of the parameter; displayed to the user. */
-	id parameterValue;			/*!< The current value of the parameter. */
-	NSArray* validValues;		/*!< A list of all valid values for the parameter. */
+	double parameterValue;		/*!< The current value of the parameter. */
+	double minValidValue;		/*!< The minimum allowed value of the parameter. */
+	double maxValidValue;		/*!< The maximum allowed value of the parameter. */
 }
 
 /*!
  Class method that returns an initialized object with all instance variables set.
- @param name the name of the parameter
- @param value the initial value of the parameter
- @param allowedValues a set of all permissible values of the parameter
+ @param name the name of the parameter displayed to the user
+ @param initialValue the initial value of the parameter
+ @param minValue the minimum allowed value of the parameter
+ @param maxValue the maximum allowed value of the parameter
  */
 + (id)boardParameterWithName:(NSString*)name
-					   value:(id)value
-				 validValues:(NSArray*)allowedValues;
+					   value:(double)initialValue
+					 minimum:(double)minValue
+					 maximum:(double)maxValue;
 
 /*!
  Initializer that sets all the instance variables.
  @param name the name of the parameter
- @param value the initial value of the parameter
- @param allowedValues an array of all permissible values of the parameter
+ @param initialValue the initial value of the parameter
+ @param minValue the minimum allowed value of the parameter
+ @param maxValue the maximum allowed value of the parameter
  */
 
 - (id)initWithName:(NSString*)name
-			 value:(id)value
-	   validValues:(NSArray*)allowedValues;
+			 value:(double)initialValue
+		   minimum:(double)minValue
+		   maximum:(double)maxValue;
 
 @property (readonly) NSString* parameterName;
-@property (readwrite) id parameterValue;
-@property (readonly) NSArray* validValues;
+@property (readwrite) double parameterValue;
+@property (readonly) double minValidValue;
+@property (readonly) double maxValidValue;
 
 @end

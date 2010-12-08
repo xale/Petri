@@ -11,26 +11,32 @@
 @implementation PetriBoardParameter
 
 + (id)boardParameterWithName:(NSString*)name
-					   value:(id)value
-				 validValues:(NSArray*)allowedValues
+					   value:(double)initialValue
+					 minimum:(double)minValue
+					 maximum:(double)maxValue
 {
 	return [[self alloc] initWithName:name
-								value:value
-						  validValues:allowedValues];
+								value:initialValue
+							  minimum:minValue
+							  maximum:maxValue];
 }
 
 - (id)initWithName:(NSString*)name
-			 value:(id)value
-	   validValues:(NSArray*)allowedValues
+			 value:(double)initialValue
+		   minimum:(double)minValue
+		   maximum:(double)maxValue
 {
 	parameterName = name;
-	parameterValue = value;
-	validValues = allowedValues;
+	parameterValue = initialValue;
+	minValidValue = minValue;
+	maxValidValue = maxValue;
+	
 	return self;
 }
 
 @synthesize parameterName;
 @synthesize parameterValue;
-@synthesize validValues;
+@synthesize minValidValue;
+@synthesize maxValidValue;
 
 @end

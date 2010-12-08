@@ -21,8 +21,8 @@ NSString* const PetriSquareGridBoardHeightParameterKey =	@"height";
 NSString* const PetriSquareGridBoardWidthParameterName =	@"Width";
 NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 
-#define PetriSquareGridBoardMinimumDimension	15
-#define PetriSquareGridBoardMaximumDimension	50
+#define PetriSquareGridBoardMinimumDimension	10
+#define PetriSquareGridBoardMaximumDimension	40
 #define PetriSquareGridBoardDefaultDimension	20
 
 /*!
@@ -57,8 +57,8 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 
 - (id)initWithParameters:(NSDictionary*)parameters
 {
-	return [self initWithWidth:(NSInteger)[[[parameters objectForKey:PetriSquareGridBoardWidthParameterKey] parameterValue] unsignedIntegerValue]
-						height:(NSInteger)[[[parameters objectForKey:PetriSquareGridBoardHeightParameterKey] parameterValue] unsignedIntegerValue]];
+	return [self initWithWidth:(NSInteger)[[parameters objectForKey:PetriSquareGridBoardWidthParameterKey] parameterValue]
+						height:(NSInteger)[[parameters objectForKey:PetriSquareGridBoardHeightParameterKey] parameterValue]];
 }
 
 - (id)initWithWidth:(NSInteger)boardWidth
@@ -337,19 +337,15 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 + (NSDictionary*)setupParameters
 {
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithCapacity:2];
-	NSMutableArray* values = [NSMutableArray arrayWithCapacity:
-							  ((PetriSquareGridBoardMaximumDimension - PetriSquareGridBoardMinimumDimension) + 1)];
-	for (NSUInteger i = PetriSquareGridBoardMinimumDimension; i <= PetriSquareGridBoardMaximumDimension; i++)
-	{
-		[values addObject:[NSNumber numberWithUnsignedInt:i]];
-	}
 	[parameters setObject:[PetriBoardParameter boardParameterWithName:PetriSquareGridBoardWidthParameterName
-																value:[NSNumber numberWithUnsignedInt:PetriSquareGridBoardDefaultDimension]
-														  validValues:[values copy]]
+																value:(double)PetriSquareGridBoardDefaultDimension
+															  minimum:(double)PetriSquareGridBoardMinimumDimension
+															  maximum:(double)PetriSquareGridBoardMaximumDimension]
 				   forKey:PetriSquareGridBoardWidthParameterKey];
 	[parameters setObject:[PetriBoardParameter boardParameterWithName:PetriSquareGridBoardHeightParameterName
-																value:[NSNumber numberWithUnsignedInt:PetriSquareGridBoardDefaultDimension]
-														  validValues:[values copy]]
+																value:(double)PetriSquareGridBoardDefaultDimension
+															  minimum:(double)PetriSquareGridBoardMinimumDimension
+															  maximum:(double)PetriSquareGridBoardMaximumDimension]
 				   forKey:PetriSquareGridBoardHeightParameterKey];
 	return [parameters copy];
 }
