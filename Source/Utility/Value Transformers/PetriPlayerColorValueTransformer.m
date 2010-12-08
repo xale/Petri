@@ -47,7 +47,7 @@
 	return [CIColor colorWithRed:[playerColor redComponent]
 						   green:[playerColor greenComponent]
 							blue:[playerColor blueComponent]
-						   alpha:[playerColor alphaComponent]];
+						   alpha:1.0];
 }
 
 @end

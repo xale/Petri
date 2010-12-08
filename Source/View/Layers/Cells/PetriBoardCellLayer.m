@@ -11,6 +11,7 @@
 #import "PetriBoardCell.h"
 
 #import "PetriPlayerColorValueTransformer.h"
+#import "PetriCellTypeDisplayTransformer.h"
 
 @implementation PetriBoardCellLayer
 
@@ -31,25 +32,12 @@
 	   options:[NSDictionary dictionaryWithObject:[PetriPlayerColorValueTransformer valueTransformer]
 										   forKey:NSValueTransformerBindingOption]];
 	
-	/* FIXME: TESTING
-	// Create a filter for the cell's color
-	CIFilter* playerColorFilter = [CIFilter filterWithName:@"CIColorMonochrome"];
-	[playerColorFilter setDefaults];
-	[playerColorFilter setValue:[CIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0]
-						 forKey:kCIInputColorKey];
-	[playerColorFilter setName:@"playerColor"];
-	[playerColorFilter setEnabled:YES];
-	
-	// Add the filter to the background
-	[self setBackgroundFilters:[NSArray arrayWithObject:playerColorFilter]];
-	
-	// Bind the color of the filter to the cell's owner's color
-	[self bind:[NSString stringWithFormat:@"backgroundFilters.%@.%@", [playerColorFilter name], kCIInputColorKey]
+	// FIXME: TESTING: Bind the layer's opacity to the cell's type
+	[self bind:@"opacity"
 	  toObject:displayedCell
-   withKeyPath:@"owner"
-	   options:[NSDictionary dictionaryWithObject:[PetriPlayerColorValueTransformer valueTransformer]
+   withKeyPath:@"cellType"
+	   options:[NSDictionary dictionaryWithObject:[PetriCellTypeDisplayTransformer valueTransformer]
 										   forKey:NSValueTransformerBindingOption]];
-	*/
 	
 	// FIXME: additional bindings
 	
@@ -72,7 +60,7 @@
 	if ([key isEqualToString:@"backgroundColor"] && [value isKindOfClass:[CIColor class]])
 	{
 		CIColor* colorValue = (CIColor*)value;
-		CGColorRef color = CGColorCreateGenericRGB([colorValue red], [colorValue green], [colorValue blue], [colorValue alpha]);
+		CGColorRef color = CGColorCreateGenericRGB([colorValue red], [colorValue green], [colorValue blue], 1.0);
 		[self setBackgroundColor:color];
 		CGColorRelease(color);
 		return;

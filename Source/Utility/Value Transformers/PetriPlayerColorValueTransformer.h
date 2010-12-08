@@ -12,7 +12,7 @@
 /*!
  \brief Maps a PetriPlayer to a CIColor representation of the player's color.
  
- The PetriPlayerColorValueTransformer is an NSValueTransformer subclass which converts takes a PetriPlayer as input and returns the player's \c color as a CIColor as output.
+ The PetriPlayerColorValueTransformer is an NSValueTransformer subclass which takes a PetriPlayer as input and returns the player's \c color as a CIColor as output.
  */
 @interface PetriPlayerColorValueTransformer : NSValueTransformer
 
