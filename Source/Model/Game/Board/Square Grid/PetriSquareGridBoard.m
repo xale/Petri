@@ -173,9 +173,6 @@
 						[cell setCellType:bodyCell];
 					}
 					
-					//clear board
-					[self clearDeadCells];
-					
 					return YES;
 				}
 				else if ([current cellType] != unoccupiedCell)
