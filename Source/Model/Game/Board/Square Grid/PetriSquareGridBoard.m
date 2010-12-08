@@ -15,6 +15,12 @@
 
 #import "PetriBoardParameter.h"
 
+NSString* const PetriSquareGridBoardWidthParameterKey =		@"width";
+NSString* const PetriSquareGridBoardHeightParameterKey =	@"height";
+
+NSString* const PetriSquareGridBoardWidthParameterName =	@"Width";
+NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
+
 #define PetriSquareGridBoardMinimumDimension	15
 #define PetriSquareGridBoardMaximumDimension	50
 #define PetriSquareGridBoardDefaultDimension	20
@@ -51,9 +57,8 @@
 
 - (id)initWithParameters:(NSDictionary*)parameters
 {
-	return [self initWithWidth:(NSInteger)[[[parameters objectForKey:@"width"] parameterValue] unsignedIntegerValue]
-						height:(NSInteger)[[[parameters objectForKey:@"height"] parameterValue] unsignedIntegerValue]
-			];
+	return [self initWithWidth:(NSInteger)[[[parameters objectForKey:PetriSquareGridBoardWidthParameterKey] parameterValue] unsignedIntegerValue]
+						height:(NSInteger)[[[parameters objectForKey:PetriSquareGridBoardHeightParameterKey] parameterValue] unsignedIntegerValue]];
 }
 
 - (id)initWithWidth:(NSInteger)boardWidth
@@ -338,14 +343,14 @@
 	{
 		[values addObject:[NSNumber numberWithUnsignedInt:i]];
 	}
-	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Height"
+	[parameters setObject:[PetriBoardParameter boardParameterWithName:PetriSquareGridBoardWidthParameterName
 																value:[NSNumber numberWithUnsignedInt:PetriSquareGridBoardDefaultDimension]
 														  validValues:[values copy]]
-				   forKey:@"height"];
-	[parameters setObject:[PetriBoardParameter boardParameterWithName:@"Width"
+				   forKey:PetriSquareGridBoardWidthParameterKey];
+	[parameters setObject:[PetriBoardParameter boardParameterWithName:PetriSquareGridBoardHeightParameterName
 																value:[NSNumber numberWithUnsignedInt:PetriSquareGridBoardDefaultDimension]
 														  validValues:[values copy]]
-				   forKey:@"width"];
+				   forKey:PetriSquareGridBoardHeightParameterKey];
 	return [parameters copy];
 }
 
