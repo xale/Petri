@@ -96,22 +96,21 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 			 ofBoard:(id<PetriBoard>)board
 {
 	// Place the piece on the board
+	[gameplayView beginPiecePlacementTransaction];
 	[board placePiece:piece
 			withOwner:pieceOwner
 			   onCell:cell];
+	[gameplayView endPiecePlacementTransaction];
 	
 	// Perform captures for the player who placed the piece
-	// FIXME: not yet written
-	//[board performCapturesForPlayer:pieceOwner]
-	
-	// Perform any secondary captures for other players
-	// FIXME: not yet written
-	// FIXME: additional captures should probably be performed in reverse-turn-order
-	//[board performAdditionalCaptures]
+	[gameplayView beginCaptureTransaction];
+	[[self game] performCapturesForCurrentPlayer];
+	[gameplayView endCaptureTransaction];
 	
 	// Clean up any dead cells
-	// FIXME: not yet written
-	//[board clearDeadCells];
+	[gameplayView beginDeadCellsTransaction];
+	[[self game] clearDeadCells];
+	[gameplayView endDeadCellsTransaction];
 	
 	// Advance to the next player's turn
 	[[self game] nextTurn];
