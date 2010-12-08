@@ -303,6 +303,51 @@
 }
 
 #pragma mark -
+#pragma mark Model-Event Transactions
+
+#define PetriGameplayViewPiecePlacementAnimationDuration	1.0	// Seconds
+
+- (void)beginPiecePlacementTransaction
+{
+	[CATransaction begin];
+	[CATransaction setAnimationDuration:PetriGameplayViewPiecePlacementAnimationDuration];
+	// FIXME: set transaction properties
+}
+- (void)endPiecePlacementTransaction
+{
+	// FIXME: check for balanced piece-placement begin/end
+	[CATransaction commit];
+}
+
+#define PetriGameplayViewCaptureAnimationDuration	2.0	// Seconds
+
+- (void)beginCaptureTransaction
+{
+	[CATransaction begin];
+	[CATransaction setAnimationDuration:PetriGameplayViewCaptureAnimationDuration];
+	// FIXME: set transaction properties
+}
+- (void)endCaptureTransaction
+{
+	// FIXME: check for balanced capture begin/end
+	[CATransaction commit];
+}
+
+#define PetriGameplayViewDeadCellsAnimationDuration	3.0	// Seconds
+
+- (void)beginDeadCellsTransaction
+{
+	[CATransaction begin];
+	[CATransaction setAnimationDuration:PetriGameplayViewDeadCellsAnimationDuration];
+	// FIXME: set transaction properties
+}
+- (void)endDeadCellsTransaction
+{
+	// FIXME: check for balanced dead-cells begin/end
+	[CATransaction commit];
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 @synthesize delegate;

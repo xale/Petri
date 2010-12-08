@@ -72,19 +72,6 @@
 	[board performCapturesForPlayer:currentPlayer];
 }
 
-- (void)performAdditionalCaptures
-{
-	// Initialize certain variables for convenience
-	NSUInteger currentPlayerIndex = [players indexOfObject:currentPlayer];
-	NSUInteger playerCount = [players count];
-	
-	// Starting from the last player to go player, going backwards in turn order, perform captures
-	for (NSUInteger i = currentPlayerIndex + playerCount - 1; i > currentPlayerIndex; i--)
-	{
-	    [board performCapturesForPlayer:[players objectAtIndex:(i % playerCount)]];
-	}
-}
-
 - (void)clearDeadCells
 {
 	// Clean up dead cells caused by captures.
