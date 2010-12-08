@@ -252,7 +252,7 @@
 	NSMutableDictionary* parameters = [NSMutableDictionary dictionaryWithCapacity:2];
 	NSMutableArray* values = [NSMutableArray arrayWithCapacity:
 							  ((PetriSquareGridBoardMaximumDimension - PetriSquareGridBoardMinimumDimension) + 1)];
-	for (NSUInteger i = PetriSquareGridBoardMinimumDimension; i < PetriSquareGridBoardMaximumDimension; i++)
+	for (NSUInteger i = PetriSquareGridBoardMinimumDimension; i <= PetriSquareGridBoardMaximumDimension; i++)
 	{
 		[values addObject:[NSNumber numberWithUnsignedInt:i]];
 	}
