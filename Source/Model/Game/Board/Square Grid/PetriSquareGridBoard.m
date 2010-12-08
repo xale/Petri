@@ -182,6 +182,7 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 				[tempCell setOwner:player];
 			}
 			[otherPlayer removeControlledCells:[otherPlayer controlledCells]];
+			[currentCell setCellType:bodyCell];
 		}
 		[[currentCell owner] removeControlledCellsObject:currentCell];
 		[currentCell setOwner:player];
