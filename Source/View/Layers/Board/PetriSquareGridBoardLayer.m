@@ -12,6 +12,9 @@
 
 #import "PetriSquareGridBoard.h"
 
+#define PetriSquareGridBoardLayerCellSpacing	0.08
+#define PetriSquareGridBoardLayerCellScale		(1.0 - PetriSquareGridBoardLayerCellSpacing)
+
 /*!
  Private methods on PetriSquareGridBoardLayer.
  */
@@ -67,12 +70,12 @@
 			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
 															   relativeTo:@"superlayer"
 																attribute:kCAConstraintWidth
-																	scale:(0.95 / [boardForCells width])
+																	scale:(PetriSquareGridBoardLayerCellScale / [boardForCells width])
 																   offset:0]];
 			[newLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
 															   relativeTo:@"superlayer"
 																attribute:kCAConstraintHeight
-																	scale:(0.95 / [boardForCells height])
+																	scale:(PetriSquareGridBoardLayerCellScale / [boardForCells height])
 																   offset:0]];
 			
 			// Position: spaced evenly across the board's width and height
