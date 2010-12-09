@@ -227,7 +227,7 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 			}
 			
 			// Since this cell is ours and we haven't encountered any empty cells between this one and the starting one, we capture
-			[self forceCaptureCellsFrom:[Petri2DCoordinates coordinatesWithXCoordinate:startingX yCoordinate:startingY]
+			[self forceCaptureCellsFrom:[Petri2DCoordinates coordinatesWithXCoordinate:startingX + xOffset yCoordinate:startingY + yOffset]
 									 to:[Petri2DCoordinates coordinatesWithXCoordinate:currentX yCoordinate:currentY]
 						   usingXOffset:xOffset
 								yOffset:yOffset
