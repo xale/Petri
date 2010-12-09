@@ -8,6 +8,9 @@
 
 #import "PetriBoardLayer.h"
 
+#define PetriSquareGridBoardLayerCellSpacing	0.08
+#define PetriSquareGridBoardLayerCellScale		(1.0 - PetriSquareGridBoardLayerCellSpacing)
+
 @class PetriSquareGridBoard;
 
 /*!

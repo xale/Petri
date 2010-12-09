@@ -11,6 +11,8 @@
 #import "PetriSquareGridPiece.h"
 #import "Petri2DCoordinates.h"
 
+#import "PetriSquareGridBoardLayer.h"
+
 /*!
  Private methods on PetriSquareGridPieceLayer.
  */
@@ -69,12 +71,12 @@
 		[cellLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
 															relativeTo:@"superlayer"
 															 attribute:kCAConstraintWidth
-																 scale:(0.95 / [displayPiece width])
+																 scale:(PetriSquareGridBoardLayerCellScale / [displayPiece width])
 																offset:0.0]];
 		[cellLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
 															relativeTo:@"superlayer"
 															 attribute:kCAConstraintHeight
-																 scale:(0.95 / [displayPiece height])
+																 scale:(PetriSquareGridBoardLayerCellScale / [displayPiece height])
 																offset:0.0]];
 		
 		// Constrain the layer's position according the cell's coordinates

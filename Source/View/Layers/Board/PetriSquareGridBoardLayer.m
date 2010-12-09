@@ -14,10 +14,6 @@
 #import "PetriBoardCellLayer.h"
 #import "PetriSquareGridPieceLayer.h"
 
-
-#define PetriSquareGridBoardLayerCellSpacing	0.08
-#define PetriSquareGridBoardLayerCellScale		(1.0 - PetriSquareGridBoardLayerCellSpacing)
-
 /*!
  Private methods on PetriSquareGridBoardLayer.
  */
