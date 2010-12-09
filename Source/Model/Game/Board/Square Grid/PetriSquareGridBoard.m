@@ -148,13 +148,18 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 			[player addControlledCells:[otherPlayer controlledCells]];
 			for (PetriBoardCell* tempCell in [otherPlayer controlledCells])
 			{
-				[tempCell setOwner:player];
+				[tempCell takeCellForPlayer:player];
 			}
 			[otherPlayer removeControlledCells:[otherPlayer controlledCells]];
-			[currentCell setCellType:bodyCell];
 		}
+		
+		// The current owner no longer controls the cell
 		[[currentCell owner] removeControlledCellsObject:currentCell];
-		[currentCell setOwner:player];
+
+		// Tell the cell it's owned by the new owner
+		[currentCell takeCellForPlayer:player];
+		
+		// Tell the new owner that s/he now owns the cell
 		[player addControlledCellsObject:currentCell];
 		currentCoordinates = [Petri2DCoordinates coordinatesWithXCoordinate:[currentCoordinates xCoordinate] + xOffset yCoordinate:[currentCoordinates yCoordinate] + yOffset];
 	}
@@ -178,7 +183,7 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 		currentCell = [self cellAtCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:currentX yCoordinate:currentY]];
 		
 		// The cell is empty
-		if ([currentCell owner] == nil)
+		if ([currentCell isEmpty])
 		{
 			// We have encountered an empty cell before encountering our own cell
 			// No capture in this direction at this time

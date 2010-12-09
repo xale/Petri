@@ -174,8 +174,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 		PetriBoardCell* cell = [self cellAtCoordinates:[pieceOrigin offsetCoordinates:cellOffset]];
 		
 		// Create a body cell for the piece's owner
-		[cell setOwner:player];
-		[cell setCellType:bodyCell];
+		[cell takeCellForPlayer:player];
 		
 		// Add the cell to the player's controlled cells
 		[player addControlledCellsObject:cell];
@@ -223,7 +222,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 			return NO;
 		
 		// Check that the cell at the coordinates is empty
-		if ([[self cellAtCoordinates:coord] cellType] != unoccupiedCell)
+		if (![[self cellAtCoordinates:coord] isEmpty])
 			return NO;
 	}
 	
@@ -381,8 +380,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 
 - (void)forceClearCell:(PetriBoardCell*)cell
 {
-	[cell setOwner:nil];
-	[cell setCellType:unoccupiedCell];
+	[cell clearCell];
 }
 
 - (void)clearDeadCells
