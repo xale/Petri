@@ -44,23 +44,36 @@
  Creates the layer used as the container for the current piece.
  @param newGame The game whose current piece the container should hold and display.
  */
-- (CALayer*)pieceContainerLayerForGame:(PetriGame*)newGame;
+- (PetriPieceContainerLayer*)pieceContainerLayerForGame:(PetriGame*)newGame;
 
 /*!
  Creates the layer used as the container for the player-status boxes.
  @param newGame The game with which the view is being initialized.
  */
-- (CALayer*)playerBoxesConstainerLayerForGame:(PetriGame*)newGame;
+- (PetriPlayersListContainerLayer*)playersListConstainerLayerForGame:(PetriGame*)newGame;
 
 /*!
  Called when the view receives a -mouseDown: event corresponding to a click on a cell of the board.
  */
-- (void)mouseDownOnBoardCellLayer:(PetriBoardCellLayer*)clickedLayer;
+- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
+	   onBoardCellLayer:(PetriBoardCellLayer*)clickedLayer;
+
+/*!
+ Called when the view recieves a -mouseDown: event corresponding to a click on the layer representing the current piece, if the current piece is not being "carried" by the cursor.
+ */
+- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
+		   onPieceLayer:(PetriPieceLayer*)clickedLayer;
 
 /*!
  Called when the view recieves a -mouseDown: event corresponding to a click on the current-piece container layer.
  */
-- (void)mouseDownOnPieceContainerLayer:(PetriPieceContainerLayer*)clickedLayer;
+- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
+  onPieceContainerLayer:(PetriPieceContainerLayer*)clickedLayer;
+
+/*!
+ Removes the carried piece layer from the cursor, and optionally returns it to its container.
+ */
+- (void)dropCurrentPiece:(BOOL)returnToContainer;
 
 /*!
  Called when the view receives a -keyDown: event corresponding to a press of the spacebar.
@@ -116,22 +129,22 @@
 - (PetriBoardLayer*)createBoardLayerForBoard:(id<PetriBoard>)newBoard
 {
 	// Create a layer for the game board
-	PetriBoardLayer* boardLayer = [PetriBoardLayer boardLayerForBoard:newBoard];
+	PetriBoardLayer* newBoardLayer = [PetriBoardLayer boardLayerForBoard:newBoard];
 	
 	// Anchor the board to the lower-left corner of its superlayer
-	[boardLayer addConstraintsFromSet:[CAConstraint superlayerLowerLeftCornerConstraintSet]];
+	[newBoardLayer addConstraintsFromSet:[CAConstraint superlayerLowerLeftCornerConstraintSet]];
 	
 	// Constrain the board's height to the height of its superlayer
-	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
-														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintHeight]];
-	[boardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
-														 relativeTo:@"superlayer"
-														  attribute:kCAConstraintHeight
-															  scale:[boardLayer aspectRatio]
-															 offset:0.0]];
+	[newBoardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
+															relativeTo:@"superlayer"
+															 attribute:kCAConstraintHeight]];
+	[newBoardLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+															relativeTo:@"superlayer"
+															 attribute:kCAConstraintHeight
+																 scale:[newBoardLayer aspectRatio]
+																offset:0.0]];
 	
-	return boardLayer;
+	return newBoardLayer;
 }
 
 - (CALayer*)createOuterContainerLayerForBoardLayer:(PetriBoardLayer*)newBoardLayer
@@ -147,62 +160,59 @@
 	[newContainer addConstraintsFromSet:[CAConstraint superlayerCenterConstraintSet]];
 	[newContainer addConstraintsFromSet:[CAConstraint superlayerSizeConstraintSet]];
 	
-	// Add the board to the container layer
-	[newContainer addSublayer:newBoardLayer];
-	
 	return newContainer;
 }
 
-- (CALayer*)pieceContainerLayerForGame:(PetriGame*)newGame
+- (PetriPieceContainerLayer*)pieceContainerLayerForGame:(PetriGame*)newGame
 {
 	// Create a layer
-	CALayer* pieceContainerLayer = [[PetriPieceContainerLayer alloc] initWithPiece:[newGame currentPiece]];
+	PetriPieceContainerLayer* containerLayer = [[PetriPieceContainerLayer alloc] initWithPiece:[newGame currentPiece]];
 	
 	// Anchor the layer to the lower-right corner of its superlayer
-	[pieceContainerLayer addConstraintsFromSet:[CAConstraint superlayerLowerRightCornerConstraintSet]];
+	[containerLayer addConstraintsFromSet:[CAConstraint superlayerLowerRightCornerConstraintSet]];
 	
 	// Make the layer square, and size it proportionally to its superlayer
-	[pieceContainerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
-																  relativeTo:@"superlayer"
-																   attribute:kCAConstraintHeight
-																	   scale:PetriGameplayViewSidebarProportion
-																	  offset:0]];
-	[pieceContainerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
-																  relativeTo:@"superlayer"
-																   attribute:kCAConstraintHeight
-																	   scale:PetriGameplayViewSidebarProportion
-																	  offset:0]];
+	[containerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
+															 relativeTo:@"superlayer"
+															  attribute:kCAConstraintHeight
+																  scale:PetriGameplayViewSidebarProportion
+																 offset:0]];
+	[containerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+															 relativeTo:@"superlayer"
+															  attribute:kCAConstraintHeight
+																  scale:PetriGameplayViewSidebarProportion
+																 offset:0]];
 	
 	// Bind the piece displayed in the layer to the current piece in the game
-	[pieceContainerLayer bind:@"piece"
-					 toObject:newGame
-				  withKeyPath:@"currentPiece"
-					  options:nil];
+	[containerLayer bind:@"piece"
+				toObject:newGame
+			 withKeyPath:@"currentPiece"
+				 options:nil];
 	
-	return pieceContainerLayer;
+	return containerLayer;
 }
 
-- (CALayer*)playerBoxesConstainerLayerForGame:(PetriGame*)newGame
+- (PetriPlayersListContainerLayer*)playersListConstainerLayerForGame:(PetriGame*)newGame
 {
 	// Create a container layer
-	CALayer* playerContainerLayer = [[PetriPlayersListContainerLayer alloc] initWithPlayersList:[newGame players]
-																					playerSlots:[[[newGame board] class] absoluteMaxPlayers]
-																				 selectedPlayer:[newGame currentPlayer]];
+	PetriPlayersListContainerLayer* playerContainerLayer = [[PetriPlayersListContainerLayer alloc] initWithPlayersList:[newGame players]
+																										   playerSlots:[[[newGame board] class] absoluteMaxPlayers]
+																										selectedPlayer:[newGame currentPlayer]];
 	
 	// Anchor the container to the top-right corner of its superlayer
 	[playerContainerLayer addConstraintsFromSet:[CAConstraint superlayerUpperRightCornerConstraintSet]];
 	
 	// Constrain the container to fill the right-edge "sidebar" of the superlayer (leaving space for the piece box below)
 	[playerContainerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
-															 relativeTo:@"superlayer"
-															  attribute:kCAConstraintHeight
-																  scale:(1.0 - PetriGameplayViewSidebarProportion)
-																 offset:0]];
+																   relativeTo:@"superlayer"
+																	attribute:kCAConstraintHeight
+																		scale:(1.0 - PetriGameplayViewSidebarProportion)
+																	   offset:0]];
 	[playerContainerLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
-															 relativeTo:@"superlayer"
-															  attribute:kCAConstraintHeight
-																  scale:PetriGameplayViewSidebarProportion
-																 offset:0]];
+																   relativeTo:@"superlayer"
+																	attribute:kCAConstraintHeight
+																		scale:PetriGameplayViewSidebarProportion
+																	   offset:0]];
 	
 	// Bind the container's selected player to the game's current player
 	[playerContainerLayer bind:@"selectedPlayer"
@@ -221,27 +231,44 @@
 - (void)mouseDown:(NSEvent*)mouseEvent
 {
 	// Determine where on the view the click occurred
-	NSPoint clickedPoint = [self convertPoint:[mouseEvent locationInWindow]
-									 fromView:nil];
+	CGPoint clickedPoint = NSPointToCGPoint([self convertPoint:[mouseEvent locationInWindow] fromView:nil]);
+	 
+	// Get the deepest layer in the hierarchy that was clicked
+	CALayer* clickedLayer = [outerContainerLayer hitTest:clickedPoint];
 	
-	// Find the clicked layer
-	CALayer* clickedLayer = [[self layer] hitTest:NSPointToCGPoint(clickedPoint)];
-	
-	// Search the layer's ancestor tree, looking for layers of interest
+	// Search the layer hierarchy under the mouse for layers of interest
 	for (CALayer* searchLayer = clickedLayer; searchLayer != nil; searchLayer = [searchLayer superlayer])
 	{
-		// Cell on the board
+		// Cells on the board
 		if ([searchLayer isKindOfClass:[PetriBoardCellLayer class]])
-			[self mouseDownOnBoardCellLayer:(PetriBoardCellLayer*)searchLayer];
+		{
+			if ([self handleMouseDown:mouseEvent onBoardCellLayer:(PetriBoardCellLayer*)searchLayer])
+				return;
+		}
 		
-		// Piece box
+		// The current piece
+		if ([searchLayer isKindOfClass:[PetriPieceLayer class]])
+		{
+			if ([self handleMouseDown:mouseEvent onPieceLayer:(PetriPieceLayer*)searchLayer])
+				return;
+		}
+		
+		// The piece container
 		if ([searchLayer isKindOfClass:[PetriPieceContainerLayer class]])
-			[self mouseDownOnPieceContainerLayer:(PetriPieceContainerLayer*)searchLayer];
+		{
+			if ([self handleMouseDown:mouseEvent onPieceContainerLayer:(PetriPieceContainerLayer*)searchLayer])
+				return;
+		}
 	}
 }
 
-- (void)mouseDownOnBoardCellLayer:(PetriBoardCellLayer*)clickedLayer
+- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
+	   onBoardCellLayer:(PetriBoardCellLayer*)clickedLayer
 {
+	// If the cursor is not carrying a piece, ignore this event
+	if (carriedPiece == nil)
+		return NO;
+	
 	// Get cell of the board that was clicked
 	PetriBoardCell* clickedCell = [clickedLayer cell];
 	
@@ -261,17 +288,95 @@
 							forPlayer:[[self game] currentPlayer]
 							   onCell:clickedCell
 							  ofBoard:clickedBoard];
+		
+		// "Drop" the carried piece
+		[self dropCurrentPiece:NO];
 	}
+	
+	// Event handled
+	return YES;
 }
 
-- (void)mouseDownOnPieceContainerLayer:(PetriPieceContainerLayer*)clickedLayer
+- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
+		   onPieceLayer:(PetriPieceLayer*)clickedLayer
 {
-	// FIXME: TESTING
+	// If the cursor is already carrying a piece, ignore this event
+	if (carriedPiece != nil)
+		return NO;
+	
+	// "Pick up" the piece layer
+	// Get the piece from the layer
+	id<PetriPiece> piece = [clickedLayer piece];
+	
+	// Create a new layer with the piece
+	carriedPiece = [PetriPieceLayer pieceLayerForPiece:piece];
+	
+	// Resize the piece to match the scale of the board
+	[boardLayer scalePieceLayerToCellSize:carriedPiece];
+	
+	// Place the layer under the cursor
+	NSPoint mousePoint = [self convertPoint:[mouseEvent locationInWindow]
+								   fromView:nil];
+	[carriedPiece setPosition:NSPointToCGPoint(mousePoint)];
+	
+	// Add the layer to the background
+	[[self layer] addSublayer:carriedPiece];
+	
+	// Hide the piece layer in the container
+	[pieceContainerLayer setPieceHidden:YES];
+	
+	// Event handled
+	return YES;
+}
+
+- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
+  onPieceContainerLayer:(PetriPieceContainerLayer*)clickedLayer
+{
+	// If the cursor is not carrying a piece, ignore this event
+	if (carriedPiece == nil)
+		return NO;
+	
+	// Drop the carried piece
+	[self dropCurrentPiece:YES];
+	
+	// Event handled
+	return YES;
+}
+
+- (void)dropCurrentPiece:(BOOL)returnToContainer
+{
+	// If necessary, reveal the piece in the container
+	if (returnToContainer)
+		[pieceContainerLayer setPieceHidden:NO];
+	
+	// Remove the carried piece from the background layer
+	[carriedPiece removeFromSuperlayer];
+	carriedPiece = nil;
+}
+
+- (void)mouseDragged:(NSEvent*)mouseEvent
+{
+	if ([[mouseEvent window] isEqual:[self window]])
+		[self mouseMoved:mouseEvent];
 }
 
 - (void)mouseMoved:(NSEvent*)mouseEvent
 {
-	// FIXME: WRITEME
+	// If the cursor is not carrying a piece, ignore this event
+	if (carriedPiece == nil)
+		return;
+	
+	// Disable movement animation, since it will slow things down and is unnecessary
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanTrue
+					 forKey:kCATransactionDisableActions];
+	
+	// Move the piece with the cursor
+	NSPoint mousePoint = [self convertPoint:[mouseEvent locationInWindow]
+								   fromView:nil];
+	[carriedPiece setPosition:NSPointToCGPoint(mousePoint)];
+	
+	[CATransaction commit];
 }
 
 #pragma mark Keyboard
@@ -365,16 +470,19 @@
 	}
 	
 	// Create the new board layer
-	PetriBoardLayer* boardLayer = [self createBoardLayerForBoard:[newGame board]];
+	boardLayer = [self createBoardLayerForBoard:[newGame board]];
 	
 	// Create the new container layer
-	CALayer* outerContainerLayer = [self createOuterContainerLayerForBoardLayer:boardLayer];
+	outerContainerLayer = [self createOuterContainerLayerForBoardLayer:boardLayer];
+	[outerContainerLayer addSublayer:boardLayer];
 	
 	// Add a layer to hold the piece to be played each turn
-	[outerContainerLayer addSublayer:[self pieceContainerLayerForGame:newGame]];
+	pieceContainerLayer = [self pieceContainerLayerForGame:newGame];
+	[outerContainerLayer addSublayer:pieceContainerLayer];
 	
 	// Add a layer containing the status boxes for the players in the game
-	[outerContainerLayer addSublayer:[self playerBoxesConstainerLayerForGame:newGame]];
+	playersContainerLayer = [self playersListConstainerLayerForGame:newGame];
+	[outerContainerLayer addSublayer:playersContainerLayer];
 	
 	// Add the container to the view
 	[[self layer] addSublayer:outerContainerLayer];

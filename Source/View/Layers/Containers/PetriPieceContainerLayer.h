@@ -26,6 +26,11 @@
  */
 - (id)initWithPiece:(id<PetriPiece>)startingPiece;
 
+/*!
+ Hides or shows the contained piece.
+ */
+- (void)setPieceHidden:(BOOL)hide;
+
 @property (readwrite, assign) id<PetriPiece> piece;	/*!< Computed property. The PetriPiece whose layer is displayed in this container. */
 @property (readonly) PetriPieceLayer* currentPieceLayer;
 

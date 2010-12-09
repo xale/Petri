@@ -57,7 +57,7 @@
 }
 
 #pragma mark -
-#pragma mark Layout
+#pragma mark Layout/Display
 
 - (PetriPieceLayer*)pieceLayerForPiece:(id<PetriPiece>)newPiece
 {
@@ -69,6 +69,11 @@
 	[pieceLayer addConstraintsFromSet:[CAConstraint superlayerSizeConstraintSet]];
 	
 	return pieceLayer;
+}
+
+- (void)setPieceHidden:(BOOL)hide
+{
+	[currentPieceLayer setHidden:hide];
 }
 
 #pragma mark -

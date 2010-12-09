@@ -12,6 +12,11 @@
 
 @class PetriGame;
 
+@class PetriBoardLayer;
+@class PetriPieceLayer;
+@class PetriPieceContainerLayer;
+@class PetriPlayersListContainerLayer;
+
 @protocol PetriGameplayViewDelegate;
 
 /*!
@@ -24,6 +29,14 @@
 	IBOutlet id<PetriGameplayViewDelegate> delegate;	/*!< The delegate object which this view will talk to when attempting to modify the model. */
 	
 	PetriGame* game;	/*!< The game currently displayed on the view. */
+	
+	// Layers:
+	CALayer* outerContainerLayer;	/*!< Sublayer of the background which maintains the aspect ratio of the layer's contents. */
+	PetriBoardLayer* boardLayer;	/*!< Sublayer of the \c outerContainerLayer which displays the board. */
+	PetriPieceContainerLayer* pieceContainerLayer;	/*!< Sublayer of the \c outerContainerLayer which contains the current piece to be played. */
+	PetriPlayersListContainerLayer* playersContainerLayer;	/*!< Sublayer of the \c outerContainerLayer which displays the list of players. */
+	
+	PetriPieceLayer* carriedPiece;	/*!< The piece carried by the user's cursor, if the player has picked it up. */
 }
 
 /*!
