@@ -41,6 +41,23 @@
 				pickUp:(PetriItem*)item;
 
 /*!
+ Clears the current cell
+ */
+- (void)clearCell;
+
+/*!
+ Transfers ownership of cell to player
+ 
+ @param player the player that now owns the cell
+ */
+- (void)takeCellForPlayer:(PetriPlayer*)player;
+
+/*!
+ Returns \c YES if the cells is empty and \c NO otherwise.
+ */
+- (BOOL)isEmpty;
+
+/*!
  Returns \c YES if the specified cell has the same values for its properties as the receiver.
  Intended for unit testing and debugging.
  */

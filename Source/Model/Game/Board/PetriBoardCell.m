@@ -45,6 +45,33 @@
 			(([self pickUp] == [otherCell pickUp]) || [[self pickUp] isEqual:[otherCell pickUp]]));
 }
 
+- (void)clearCell
+{
+	[self setCellType:unoccupiedCell];
+	[self setOwner:nil];
+	[self setPickUp:nil];
+}
+
+- (void)takeCellForPlayer:(PetriPlayer*)player
+{
+	[self setCellType:bodyCell];
+	[self setOwner:player];
+	[self setPickUp:nil];
+}
+
+- (BOOL)isEmpty
+{
+	if ([self cellType] == unoccupiedCell && [self owner] == nil)
+	{
+		return YES;
+	}
+	if ([self cellType] != unoccupiedCell && [self owner] != nil)
+	{
+		return NO;
+	}
+	@throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Schrodinger's cell: it is both empty and not empty." userInfo:nil];
+}
+
 #pragma mark -
 #pragma mark Accessors
 
