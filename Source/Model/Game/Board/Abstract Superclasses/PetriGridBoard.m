@@ -84,11 +84,11 @@
 	// Create the two-dimensional array of board cells
 	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:width];
 	NSMutableArray* column = nil;
-	for (NSInteger x = 0; x < boardWidth; x++)
+	for (NSInteger x = 0; [self isValidXCoordinate:x]; x++)
 	{
 		column = [NSMutableArray arrayWithCapacity:height];
 		
-		for (NSInteger y = 0; y < boardHeight; y++)
+		for (NSInteger y = 0; [self isValidYCoordinate:y]; y++)
 		{
 			[column addObject:[[PetriBoardCell alloc] init]];
 		}
