@@ -8,9 +8,12 @@
 
 #import "PetriSquareGridBoardLayer.h"
 
-#import "PetriBoardCellLayer.h"
-
 #import "PetriSquareGridBoard.h"
+#import "PetriSquareGridPiece.h"
+
+#import "PetriBoardCellLayer.h"
+#import "PetriSquareGridPieceLayer.h"
+
 
 #define PetriSquareGridBoardLayerCellSpacing	0.08
 #define PetriSquareGridBoardLayerCellScale		(1.0 - PetriSquareGridBoardLayerCellSpacing)
@@ -94,6 +97,38 @@
 			[self addSublayer:newLayer];
 		}
 	}
+}
+
+#pragma mark -
+#pragma mark Piece Scaling
+
+NSString* const PetriSquareGridBoardLayerInvalidPieceTypeExceptionDescriptionFormat =	@"Invalid class %@ of piece layer in PetriSquareGridBoardLayer -scalePieceLayerToCellSize:; expected %@ or subclass";
+
+- (void)scalePieceLayerToCellSize:(PetriPieceLayer*)pieceLayer
+{
+	// Check that the piece is of the appropriate type
+	if (![pieceLayer isKindOfClass:[PetriSquareGridPieceLayer class]])
+	{
+		NSString* exceptionDesc = [NSString stringWithFormat:PetriSquareGridBoardLayerInvalidPieceTypeExceptionDescriptionFormat, [pieceLayer class], [PetriSquareGridPieceLayer class]];
+		NSException* invalidLayerClassException = [NSException exceptionWithName:NSInternalInconsistencyException
+																		  reason:exceptionDesc
+																		userInfo:nil];
+		@throw invalidLayerClassException;
+	}
+	
+	// Get the piece from the layer
+	PetriSquareGridPiece* piece = (PetriSquareGridPiece*)[pieceLayer piece];
+	
+	// Get this layer's board
+	PetriSquareGridBoard* scaleBoard = (PetriSquareGridBoard*)[self board];
+	
+	// Calculate the layer's size, based on the piece and board sizes
+	CGRect pieceLayerBounds;
+	pieceLayerBounds.size.width = ([piece width] * (CGRectGetWidth([self bounds]) / [scaleBoard width]));
+	pieceLayerBounds.size.height = ([piece height] * (CGRectGetHeight([self bounds]) / [scaleBoard height]));
+	
+	// Resize the layer
+	[pieceLayer setBounds:pieceLayerBounds];
 }
 
 @end

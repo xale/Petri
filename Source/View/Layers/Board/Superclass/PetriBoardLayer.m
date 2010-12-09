@@ -63,6 +63,14 @@ NSString* const PetriUnknownBoardTypeExceptionDescriptionFormat =	@"Cannot gener
 }
 
 #pragma mark -
+#pragma mark Piece Scaling
+
+- (void)scalePieceLayerToCellSize:(PetriPieceLayer*)pieceLayer
+{
+	[self doesNotRecognizeSelector:_cmd];
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 @synthesize board;

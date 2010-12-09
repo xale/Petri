@@ -8,7 +8,9 @@
 
 #import "PetriAspectRatioLayer.h"
 
-#import "PetriBoard.h"
+@protocol PetriBoard;
+
+@class PetriPieceLayer;
 
 /*!
  \brief An abstract CALayer subclass used to display a PetriBoard.
@@ -34,6 +36,13 @@
  */
 - (id)initWithBoard:(id<PetriBoard>)boardToDisplay
 		aspectRatio:(CGFloat)ratio;
+
+/*!
+ Resizes a PetriPieceLayer such that the size of its cell sublayers match the size of the cell layers of the receiver.
+ \warning Abstract method, subclasses must override.
+ @param pieceLayer The layer whose size should be adjusted.
+ */
+- (void)scalePieceLayerToCellSize:(PetriPieceLayer*)pieceLayer;
 
 @property (readonly) id<PetriBoard> board;
 
