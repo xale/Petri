@@ -47,6 +47,9 @@
 
 - (void)clearCell
 {
+	// Debug statements; break encapsulation
+	NSLog(@"Clearing cell at %@ owned by %@.", [[[[[[NSApp delegate] model] gameGroup] game] board] coordinatesOfCell:self], [self owner]);
+	// end debug
 	[self setCellType:unoccupiedCell];
 	[self setOwner:nil];
 	[self setPickUp:nil];
@@ -54,6 +57,9 @@
 
 - (void)takeCellForPlayer:(PetriPlayer*)player
 {
+	// Debug statements; break encapsulation
+	NSLog(@"Taking cell at %@ owned by %@ for %@.", [[[[[[NSApp delegate] model] gameGroup] game] board] coordinatesOfCell:self], [self owner], player);
+	// end debug
 	[self setCellType:bodyCell];
 	[self setOwner:player];
 	[self setPickUp:nil];
