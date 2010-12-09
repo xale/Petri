@@ -76,12 +76,17 @@
 		return nil;
 	}
 	
+	// Set width and height first
+	// They are used by convenience methods to verify validity of coordinates
+	width = boardWidth;
+	height = boardHeight;
+
 	// Create the two-dimensional array of board cells
-	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:boardWidth];
+	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:width];
 	NSMutableArray* column = nil;
 	for (NSInteger x = 0; x < boardWidth; x++)
 	{
-		column = [NSMutableArray arrayWithCapacity:boardHeight];
+		column = [NSMutableArray arrayWithCapacity:height];
 		
 		for (NSInteger y = 0; y < boardHeight; y++)
 		{
@@ -93,9 +98,6 @@
 	
 	// Assign to local ivar
 	cells = [tempBoard copy];
-	
-	width = boardWidth;
-	height = boardHeight;
 	heads = [NSMutableSet set];
 	
 	return self;
