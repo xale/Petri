@@ -117,11 +117,11 @@
 	// Copy cells from the other board
 	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:width];
 	NSMutableArray* column = nil;
-	for (NSInteger x = 0; x < width; x++)
+	for (NSInteger x = 0; [self isValidXCoordinate:x]; x++)
 	{
 		// Fill the board column-by-column
 		column = [NSMutableArray arrayWithCapacity:height];
-		for (NSInteger y = 0; y < height; y++)
+		for (NSInteger y = 0; [self isValidYCoordinate:y]; y++)
 		{
 			[column addObject:[[board cellAtX:x Y:y] copy]];
 		}
@@ -217,7 +217,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 		// Check that the coordinates are on the board
 		x = [coord xCoordinate];
 		y = [coord yCoordinate];
-		if ((x < 0) || (x >= [self width]) || (y < 0) || (y >= [self height]))
+		if (![self isValidXCoordinate:x] || ![self isValidYCoordinate:y])
 			return NO;
 		
 		// Check that the cell at the coordinates is empty
@@ -268,15 +268,15 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 
 - (Petri2DCoordinates*)coordinatesOfCell:(PetriBoardCell*)cell
 {
-	for (int i = 0; i < width; i++)
+	for (int x = 0; [self isValidXCoordinate:x]; x++)
 	{
-		for (int j = 0; j < height; j++)
+		for (int y = 0; [self isValidYCoordinate:y]; y++)
 		{
 			// Check if this is the specified cell
-			if ([[self cellAtX:i Y:j] isEqual:cell])
+			if ([[self cellAtX:x Y:y] isEqual:cell])
 			{
-				return [Petri2DCoordinates coordinatesWithXCoordinate:i
-														  yCoordinate:j];
+				return [Petri2DCoordinates coordinatesWithXCoordinate:x
+														  yCoordinate:y];
 			}
 		}
 	}
