@@ -420,6 +420,32 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return nil;
 }
 
+- (BOOL)isValidXCoordinate:(NSInteger)xCoordinate
+{
+	if (xCoordinate < 0)
+	{
+		return NO;
+	}
+	if (xCoordinate >= [self width])
+	{
+		return NO;
+	}
+	return YES;
+}
+
+- (BOOL)isValidYCoordinate:(NSInteger)yCoordinate
+{
+	if (yCoordinate < 0)
+	{
+		return NO;
+	}
+	if (yCoordinate >= [self height])
+	{
+		return NO;
+	}
+	return YES;
+}
+
 @synthesize width;
 @synthesize height;
 

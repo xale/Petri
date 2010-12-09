@@ -41,11 +41,6 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 						   yCoordinate:(NSInteger)y
 								player:(PetriPlayer*)player;
 
-
-- (BOOL)isValidXCoordinate:(NSInteger)xCoordinate;
-
-- (BOOL)isValidYCoordinate:(NSInteger)yCoordinate;
-
 @end
 
 @implementation PetriSquareGridBoard
@@ -132,32 +127,6 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 	}	
 	
 	return [adjacentCells copy];
-}
-
-- (BOOL)isValidXCoordinate:(NSInteger)xCoordinate
-{
-	if (xCoordinate < 0)
-	{
-		return NO;
-	}
-	if (xCoordinate >= [self width])
-	{
-		return NO;
-	}
-	return YES;
-}
-
-- (BOOL)isValidYCoordinate:(NSInteger)yCoordinate
-{
-	if (yCoordinate < 0)
-	{
-		return NO;
-	}
-	if (yCoordinate >= [self width])
-	{
-		return NO;
-	}
-	return YES;
 }
 
 // \warning this function does _no_ validation
