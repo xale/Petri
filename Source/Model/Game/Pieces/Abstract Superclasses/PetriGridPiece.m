@@ -112,7 +112,12 @@ NSString* const PetriGridPieceInvalidPieceTypeExceptionFormat =	@"Invalid piece 
 
 - (void)rotate
 {
-	[self doesNotRecognizeSelector:_cmd];
+	[self willChangeValueForKey:@"orientation"];
+	[self willChangeValueForKey:@"cellCoordinates"];
+	orientation = (orientation + 1) % [[self class] orientationsCount];
+	cellCoordinates = [self normalizeCoordinates:[self rotateCoordinatesClockwise:[self cellCoordinates]]];
+	[self didChangeValueForKey:@"cellCoordinates"];
+	[self didChangeValueForKey:@"orientation"];
 }
 
 #pragma mark -
