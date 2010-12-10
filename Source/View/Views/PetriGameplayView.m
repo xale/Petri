@@ -53,13 +53,13 @@
 - (PetriPlayersListContainerLayer*)playersListConstainerLayerForGame:(PetriGame*)newGame;
 
 /*!
- Called when the view receives a -mouseDown: event corresponding to a click on a cell of the board.
+ Called when the view receives a -mouseDown: event corresponding to a click on a the layer representing the board.
  */
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
-	   onBoardCellLayer:(PetriBoardCellLayer*)clickedLayer;
+		   onBoardLayer:(PetriBoardLayer*)clickedLayer;
 
 /*!
- Called when the view recieves a -mouseDown: event corresponding to a click on the layer representing the current piece, if the current piece is not being "carried" by the cursor.
+ Called when the view recieves a -mouseDown: event corresponding to a click on the layer representing the current piece.
  */
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
 		   onPieceLayer:(PetriPieceLayer*)clickedLayer;
@@ -239,10 +239,10 @@
 	// Search the layer hierarchy under the mouse for layers of interest
 	for (CALayer* searchLayer = clickedLayer; searchLayer != nil; searchLayer = [searchLayer superlayer])
 	{
-		// Cells on the board
-		if ([searchLayer isKindOfClass:[PetriBoardCellLayer class]])
+		// The board
+		if ([searchLayer isKindOfClass:[PetriBoardLayer class]])
 		{
-			if ([self handleMouseDown:mouseEvent onBoardCellLayer:(PetriBoardCellLayer*)searchLayer])
+			if ([self handleMouseDown:mouseEvent onBoardLayer:(PetriBoardLayer*)searchLayer])
 				return;
 		}
 		
@@ -263,18 +263,34 @@
 }
 
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
-	   onBoardCellLayer:(PetriBoardCellLayer*)clickedLayer
+		   onBoardLayer:(PetriBoardLayer*)clickedLayer
 {
 	// If the cursor is not carrying a piece, ignore this event
 	if (carriedPiece == nil)
 		return NO;
 	
-	// Get cell of the board that was clicked
-	PetriBoardCell* clickedCell = [clickedLayer cell];
+	// Get the piece's origin, and convert to the background layer's coordinate system
+	CGPoint pieceOrigin = [[self layer] convertPoint:[carriedPiece origin]
+										   fromLayer:carriedPiece];
 	
-	// Get the board from the clicked cell's superlayer
-	id<PetriBoard> clickedBoard = [(PetriBoardLayer*)[clickedLayer superlayer] board];
+	// Convert to the board layer's superlayer's coordinate system
+	pieceOrigin = [[self layer] convertPoint:pieceOrigin
+									 toLayer:outerContainerLayer];
 	
+	// Hit-test the board layer, looking for a cell under the piece's origin
+	CALayer* layerUnderOrigin = [boardLayer hitTest:pieceOrigin];
+	
+	// Check that such a cell exists
+	if ((layerUnderOrigin == nil) || ![layerUnderOrigin isKindOfClass:[PetriBoardCellLayer class]])
+		return NO;
+	
+	// Get the cell from the layer
+	PetriBoardCell* clickedCell = [(PetriBoardCellLayer*)layerUnderOrigin cell];
+	
+	// Get the board from the original clicked layer
+	id<PetriBoard> clickedBoard = [clickedLayer board];
+	 
+	// Check if the piece can be placed at the origin cell
 	BOOL validMove = [[self delegate] gameplayView:self
 									 canPlacePiece:[[self game] currentPiece]
 										 forPlayer:[[self game] currentPlayer]

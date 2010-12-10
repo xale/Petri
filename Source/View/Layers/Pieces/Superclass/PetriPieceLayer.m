@@ -90,4 +90,10 @@ NSString* const PetriUnknownPieceTypeExceptionDescriptionFormat =	@"Cannot gener
 }
 @synthesize orientation;
 
+- (CGPoint)origin
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return CGPointZero;
+}
+
 @end
