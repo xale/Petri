@@ -150,19 +150,6 @@
 #pragma mark -
 #pragma mark Rotation
 
-/*!
- Override. Rotates all coordinates in the piece's set 90° about the pieces origin, and normalizes them. Also updates the piece's \c orientation.
- */
-- (void)rotate
-{
-	[self willChangeValueForKey:@"orientation"];
-	[self willChangeValueForKey:@"cellCoordinates"];
-	orientation = (orientation + 1) % [[self class] orientationsCount];
-	cellCoordinates = [self normalizeCoordinates:[self rotateCoordinatesClockwise:[self cellCoordinates]]];
-	[self didChangeValueForKey:@"cellCoordinates"];
-	[self didChangeValueForKey:@"orientation"];
-}
-
 - (NSSet*)rotateCoordinatesClockwise:(NSSet*)coordinates
 {
 	NSMutableSet* newCoordinates = [NSMutableSet setWithCapacity:[coordinates count]];
