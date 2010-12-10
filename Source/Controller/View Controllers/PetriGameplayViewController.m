@@ -42,6 +42,12 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 			   options:nil];
 }
 
+- (void)didDisplayInWindow
+{
+	// Give first responder status to the gameplay pane
+	[[[self view] window] makeFirstResponder:gameplayPane];
+}
+
 #pragma mark -
 #pragma mark Interface Actions
 
