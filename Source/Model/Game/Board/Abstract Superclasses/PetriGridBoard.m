@@ -426,12 +426,6 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	}
 }
 
-- (void)performCapturesForPlayer:(PetriPlayer*)player
-{
-	[self doesNotRecognizeSelector:_cmd];
-}
-
-
 - (void)setHeadsForPlayers:(NSArray*)players
 {
 	[self doesNotRecognizeSelector:_cmd];
@@ -480,6 +474,135 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
 }
+
+
+// \warning this function does _no_ validation
+- (void)forceCaptureCellsFrom:(Petri2DCoordinates*)startCoordinates
+						   to:(Petri2DCoordinates*)endCoordinates
+				 usingXOffset:(NSInteger)xOffset
+					  yOffset:(NSInteger)yOffset
+					forPlayer:(PetriPlayer*)player
+{
+	Petri2DCoordinates* currentCoordinates = startCoordinates;
+	PetriBoardCell* currentCell;
+	
+	while (![currentCoordinates isEqual:endCoordinates])
+	{
+		currentCell = [self cellAtCoordinates:currentCoordinates];
+		if ([currentCell cellType] == headCell)
+		{
+			PetriPlayer* otherPlayer = [currentCell owner];
+			[player addControlledCells:[otherPlayer controlledCells]];
+			for (PetriBoardCell* tempCell in [otherPlayer controlledCells])
+			{
+				[tempCell takeCellForPlayer:player];
+			}
+			[otherPlayer removeControlledCells:[otherPlayer controlledCells]];
+		}
+		
+		// The current owner no longer controls the cell
+		[[currentCell owner] removeControlledCellsObject:currentCell];
+		
+		// Tell the cell it's owned by the new owner
+		[currentCell takeCellForPlayer:player];
+		
+		// Tell the new owner that s/he now owns the cell
+		[player addControlledCellsObject:currentCell];
+		currentCoordinates = [Petri2DCoordinates coordinatesWithXCoordinate:[currentCoordinates xCoordinate] + xOffset yCoordinate:[currentCoordinates yCoordinate] + yOffset];
+	}
+}
+- (BOOL)captureStartingWithXCoordinate:(NSInteger)startingX
+						   yCoordinate:(NSInteger)startingY
+							   xOffset:(NSInteger)xOffset
+							   yOffset:(NSInteger)yOffset
+								player:(PetriPlayer*)player
+{
+	// Initialize the coordinate values
+	NSInteger currentX = startingX + xOffset;
+	NSInteger currentY = startingY + yOffset;
+	
+	// Declare the current cell
+	PetriBoardCell* currentCell = nil;
+	
+	// as long as x and y are valid, keep going
+	while ([self isValidYCoordinate:currentY] && [self isValidXCoordinate:currentX])
+	{
+		currentCell = [self cellAtCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:currentX yCoordinate:currentY]];
+		
+		// The cell is empty
+		if ([currentCell isEmpty])
+		{
+			// We have encountered an empty cell before encountering our own cell
+			// No capture in this direction at this time
+			return NO;
+		}
+		
+		// The cell is ours
+		if ([currentCell owner] == player)
+		{
+			// Check that there's at least one cell between this and the start
+			if (currentX == (startingX + xOffset) && currentY == (startingY + yOffset))
+			{
+				// There isn't; nothing interesting happens
+				return NO;
+			}
+			
+			// Since this cell is ours and we haven't encountered any empty cells between this one and the starting one, we capture
+			[self forceCaptureCellsFrom:[Petri2DCoordinates coordinatesWithXCoordinate:startingX + xOffset yCoordinate:startingY + yOffset]
+									 to:[Petri2DCoordinates coordinatesWithXCoordinate:currentX yCoordinate:currentY]
+						   usingXOffset:xOffset
+								yOffset:yOffset
+							  forPlayer:player
+			 ];
+			return YES;
+		}
+		// Iteration
+		currentX += xOffset;
+		currentY += yOffset;
+	}
+	// We reached the end of the board without finding a capture
+	return NO;
+}
+- (BOOL)captureStartingWithXCoordinate:(NSInteger)startingX
+						   yCoordinate:(NSInteger)startingY
+								player:(PetriPlayer*)player
+{
+	NSSet* offsets = [[self class] captureOffsets];
+	
+	BOOL didPerformCaptures = NO;
+	for (Petri2DCoordinates* offset in offsets)
+	{
+		didPerformCaptures = [self captureStartingWithXCoordinate:startingX
+													  yCoordinate:startingY
+														  xOffset:[offset xCoordinate]
+														  yOffset:[offset yCoordinate]
+														   player:player
+							  ] || didPerformCaptures;
+	}
+	return didPerformCaptures;
+}
+
+
+- (void)performCapturesForPlayer:(PetriPlayer*)player
+{
+	BOOL didPerformCaptures;
+	Petri2DCoordinates* currentCoordinates;
+	do
+	{
+		// We have not performed any captures on this iteration of capturing
+		didPerformCaptures = NO;
+		
+		for (PetriBoardCell* currentCell in [[player controlledCells] copy])
+		{
+			currentCoordinates = [self coordinatesOfCell:currentCell];
+			didPerformCaptures = [self captureStartingWithXCoordinate:[currentCoordinates xCoordinate]
+														  yCoordinate:[currentCoordinates yCoordinate]
+															   player:player
+								  ] || didPerformCaptures;
+		}
+	} while (didPerformCaptures);
+}
+
 
 @synthesize width;
 @synthesize height;
