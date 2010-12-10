@@ -109,6 +109,10 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 	{
 		[gameplayView beginCaptureTransaction];
 		flag = [[self game] stepCapturesForCurrentPlayer];
+		if(flag)
+		{
+			usleep(300000);
+		}
 		[gameplayView endCaptureTransaction];
 	} while (flag);
 	// Clean up any dead cells
