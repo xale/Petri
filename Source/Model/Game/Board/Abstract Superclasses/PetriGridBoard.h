@@ -123,6 +123,8 @@
 
 - (BOOL)isValidYCoordinate:(NSInteger)yCoordinate;
 
++ (NSSet*)placementOffsets;
++ (NSSet*)captureOffsets;
 
 @property (readonly) NSInteger width;
 @property (readonly) NSInteger height;

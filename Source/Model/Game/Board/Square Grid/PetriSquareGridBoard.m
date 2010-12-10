@@ -21,6 +21,9 @@ NSString* const PetriSquareGridBoardHeightParameterKey =	@"height";
 NSString* const PetriSquareGridBoardWidthParameterName =	@"Width";
 NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 
+NSSet* placementOffsets = nil;
+NSSet* captureOffsets = nil;
+
 #define PetriSquareGridBoardMinimumDimension	10
 #define PetriSquareGridBoardMaximumDimension	40
 #define PetriSquareGridBoardDefaultDimension	20
@@ -323,6 +326,50 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 															  maximum:(double)PetriSquareGridBoardMaximumDimension]
 				   forKey:PetriSquareGridBoardHeightParameterKey];
 	return [parameters copy];
+}
+
++ (NSSet*)placementOffsets
+{
+	@synchronized(self)
+	{
+		if (placementOffsets != nil)
+		{
+			return placementOffsets;
+		}
+		NSMutableSet* offsets = [[NSMutableSet alloc] initWithCapacity:4];
+		
+		// Up, Down, Left, Right
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:-1]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:-1 yCoordinate:0]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0]];
+		placementOffsets = [offsets copy];
+
+		return placementOffsets;
+	}
+}
+
++ (NSSet*)captureOffsets
+{
+	@synchronized(self)
+	{
+		if (captureOffsets != nil)
+		{
+			return captureOffsets;
+		}
+		NSMutableSet* offsets = [[NSMutableSet alloc] initWithCapacity:4];
+		
+		// UR, DR, UL, DL
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:-1]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:-1 yCoordinate:1]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:-1 yCoordinate:-1]];
+		
+		[offsets unionSet:[self placementOffsets]];
+		captureOffsets = [offsets copy];
+		
+		return captureOffsets;
+	}
 }
 
 @end

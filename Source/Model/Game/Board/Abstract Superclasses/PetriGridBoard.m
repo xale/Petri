@@ -446,6 +446,18 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return YES;
 }
 
++ (NSSet*)placementOffsets
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
++ (NSSet*)captureOffsets
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
 @synthesize width;
 @synthesize height;
 
