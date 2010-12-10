@@ -88,10 +88,11 @@
 - (void)setHeadsForPlayers:(NSArray*)players;
 
 /*!
- Runs every time a piece is placed and performs all captures that are possible recursively until no more captures are available.
+ Must be run every time a piece is placed and performs a single step of captures that are possible.
+ Returns \c YES as long as it performed at least one capture; can be run in a while loop until \c NO is returned.
  @param player player to perform captures for
  */
-- (void)performCapturesForPlayer:(PetriPlayer*)player;
+- (BOOL)performCapturesForPlayer:(PetriPlayer*)player;
 
 /*!
  Returns a dictionary of BoardParameter objects mapped by name.

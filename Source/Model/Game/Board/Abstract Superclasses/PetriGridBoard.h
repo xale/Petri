@@ -65,12 +65,6 @@
 - (Petri2DCoordinates*)coordinatesOfCell:(PetriBoardCell*)cell;
 
 /**
- * Runs every time a piece is placed and performs all captures that are possible
- * recursively until no more captures are available
- */
-- (void)capture;
-
-/**
  * Places a given piece on the board.
  * \warning This method does no validation or error checking. Call -validatePlacementOfPiece:withOwner:atCoordinates: first.
  * @param piece piece to place
@@ -91,12 +85,6 @@
 - (BOOL)validatePlacementOfPiece:(PetriGridPiece*)piece
 					   withOwner:(PetriPlayer*)pieceOwner
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin;
-
-/*!
- Runs every time a piece is placed and performs all captures that are possible recursively until no more captures are available
- @param player player to perform captures for
- */
-- (void)performCapturesForPlayer:(PetriPlayer*)player;
 
 /**
  * Get an immutable set of all cells that are adjacent to the given coordinates for the purposes of piece placement
@@ -119,11 +107,25 @@
  */
 - (NSSet*)findLivingCellsForPlayer:(PetriPlayer*)player;
 
+/*!
+ Convenience abstraction; returns (xCoordinate >= 0 && xCoordinate < [self width])
+ @param xCoordinate the coordinate to check
+ */
 - (BOOL)isValidXCoordinate:(NSInteger)xCoordinate;
 
+/*!
+ Convenience abstraction; returns (yCoordinate >= 0 && yCoordinate < [self height])
+ @param yCoordinate the coordinate to check
+ */
 - (BOOL)isValidYCoordinate:(NSInteger)yCoordinate;
 
+/*!
+ Returns a set of coordinates which correspond to directions that count as adjcenct for the purposes of connectivity.
+ */
 + (NSSet*)placementOffsets;
+/*!
+ Returns a set of coordinates which correspond to directions that count as adjacent for the purposes of capture.
+ */
 + (NSSet*)captureOffsets;
 
 @property (readonly) NSInteger width;
