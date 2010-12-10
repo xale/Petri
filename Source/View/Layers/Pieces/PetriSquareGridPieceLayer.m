@@ -55,13 +55,13 @@
 
 - (CGFloat)aspectRatioForPiece:(PetriSquareGridPiece*)displayPiece
 {
-	return ((CGFloat)[displayPiece width] / (CGFloat)[displayPiece height]);
+	return ((CGFloat)[displayPiece baseWidth] / (CGFloat)[displayPiece baseHeight]);
 }
 
 - (void)createCellSublayersForPiece:(PetriSquareGridPiece*)displayPiece
 {
 	// Create a sublayer for each cell in the piece
-	for (Petri2DCoordinates* cellCoord in [displayPiece cellCoordinates])
+	for (Petri2DCoordinates* cellCoord in [displayPiece baseCellCoordinates])
 	{
 		// FIXME: preliminary implementation
 		CALayer* cellLayer = [CALayer layer];
@@ -71,24 +71,24 @@
 		[cellLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
 															relativeTo:@"superlayer"
 															 attribute:kCAConstraintWidth
-																 scale:(PetriSquareGridBoardLayerCellScale / [displayPiece width])
+																 scale:(PetriSquareGridBoardLayerCellScale / [displayPiece baseWidth])
 																offset:0.0]];
 		[cellLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
 															relativeTo:@"superlayer"
 															 attribute:kCAConstraintHeight
-																 scale:(PetriSquareGridBoardLayerCellScale / [displayPiece height])
+																 scale:(PetriSquareGridBoardLayerCellScale / [displayPiece baseHeight])
 																offset:0.0]];
 		
 		// Constrain the layer's position according the cell's coordinates
 		[cellLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX
 															relativeTo:@"superlayer"
 															 attribute:kCAConstraintWidth
-																 scale:(([cellCoord xCoordinate] + 0.5) / [displayPiece width])
+																 scale:(([cellCoord xCoordinate] + 0.5) / [displayPiece baseWidth])
 																offset:0.0]];
 		[cellLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
 															relativeTo:@"superlayer"
 															 attribute:kCAConstraintHeight
-																 scale:(([cellCoord yCoordinate] + 0.5) / [displayPiece height])
+																 scale:(([cellCoord yCoordinate] + 0.5) / [displayPiece baseHeight])
 																offset:0.0]];
 		
 		// Add the layer to this layer's sublayers

@@ -120,8 +120,8 @@ NSString* const PetriSquareGridBoardLayerInvalidPieceTypeExceptionDescriptionFor
 	
 	// Calculate the layer's size, based on the piece and board sizes
 	CGRect pieceLayerBounds;
-	pieceLayerBounds.size.width = ([piece width] * (CGRectGetWidth([self bounds]) / [scaleBoard width]));
-	pieceLayerBounds.size.height = ([piece height] * (CGRectGetHeight([self bounds]) / [scaleBoard height]));
+	pieceLayerBounds.size.width = ([piece baseWidth] * (CGRectGetWidth([self bounds]) / [scaleBoard width]));
+	pieceLayerBounds.size.height = ([piece baseHeight] * (CGRectGetHeight([self bounds]) / [scaleBoard height]));
 	
 	// Resize the layer
 	[pieceLayer setBounds:pieceLayerBounds];
