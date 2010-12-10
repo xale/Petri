@@ -285,15 +285,43 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return nil;
 }
 
-- (NSSet*)placementCellsAdjacentToCell:(PetriBoardCell*)cell
+
+
+- (NSSet*)cellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
+						 withOffsets:(NSSet*)offsets
 {
-	return [self placementCellsAdjacentToCoordinates:[self coordinatesOfCell:cell]];
+	NSMutableSet* adjacentCells = [NSMutableSet set];
+	
+	NSInteger x = [cellCoordinates xCoordinate];
+	NSInteger y = [cellCoordinates yCoordinate];
+	
+	for (Petri2DCoordinates* offset in offsets)
+	{
+		NSInteger xCoordinate = [offset xCoordinate] + x;
+		NSInteger yCoordinate = [offset yCoordinate] + y;
+		
+		if ([self isValidXCoordinate:xCoordinate] && [self isValidYCoordinate:yCoordinate])
+		{
+			[adjacentCells addObject:[self cellAtX:xCoordinate Y:yCoordinate]];
+		}
+	}
+	
+	return [adjacentCells copy];
 }
 
 - (NSSet*)placementCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
 {
-	[self doesNotRecognizeSelector:_cmd];
-	return nil;
+	return [self cellsAdjacentToCoordinates:cellCoordinates withOffsets:[[self class] placementOffsets]];
+}
+
+- (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
+{
+	return [self cellsAdjacentToCoordinates:cellCoordinates withOffsets:[[self class] captureOffsets]];
+}
+
+- (NSSet*)placementCellsAdjacentToCell:(PetriBoardCell*)cell
+{
+	return [self placementCellsAdjacentToCoordinates:[self coordinatesOfCell:cell]];
 }
 
 - (NSSet*)capturableCellsAdjacentToCell:(PetriBoardCell*)cell
@@ -301,11 +329,6 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return [self capturableCellsAdjacentToCoordinates:[self coordinatesOfCell:cell]];
 }
 
-- (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
-{
-	[self doesNotRecognizeSelector:_cmd];
-	return nil;
-}
 
 #pragma mark -
 #pragma mark Other Accessors
