@@ -53,13 +53,13 @@
 - (PetriPlayersListContainerLayer*)playersListConstainerLayerForGame:(PetriGame*)newGame;
 
 /*!
- Called when the view receives a -mouseDown: event corresponding to a click on a cell of the board.
+ Called when the view receives a -mouseDown: event corresponding to a click on a the layer representing the board.
  */
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
-	   onBoardCellLayer:(PetriBoardCellLayer*)clickedLayer;
+		   onBoardLayer:(PetriBoardLayer*)clickedLayer;
 
 /*!
- Called when the view recieves a -mouseDown: event corresponding to a click on the layer representing the current piece, if the current piece is not being "carried" by the cursor.
+ Called when the view recieves a -mouseDown: event corresponding to a click on the layer representing the current piece.
  */
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
 		   onPieceLayer:(PetriPieceLayer*)clickedLayer;
@@ -239,10 +239,10 @@
 	// Search the layer hierarchy under the mouse for layers of interest
 	for (CALayer* searchLayer = clickedLayer; searchLayer != nil; searchLayer = [searchLayer superlayer])
 	{
-		// Cells on the board
-		if ([searchLayer isKindOfClass:[PetriBoardCellLayer class]])
+		// The board
+		if ([searchLayer isKindOfClass:[PetriBoardLayer class]])
 		{
-			if ([self handleMouseDown:mouseEvent onBoardCellLayer:(PetriBoardCellLayer*)searchLayer])
+			if ([self handleMouseDown:mouseEvent onBoardLayer:(PetriBoardLayer*)searchLayer])
 				return;
 		}
 		
@@ -263,7 +263,7 @@
 }
 
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
-	   onBoardCellLayer:(PetriBoardCellLayer*)clickedLayer
+		   onBoardLayer:(PetriBoardLayer*)clickedLayer
 {
 	// If the cursor is not carrying a piece, ignore this event
 	if (carriedPiece == nil)
