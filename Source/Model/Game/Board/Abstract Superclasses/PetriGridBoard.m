@@ -76,14 +76,19 @@
 		return nil;
 	}
 	
+	// Set width and height first
+	// They are used by convenience methods to verify validity of coordinates
+	width = boardWidth;
+	height = boardHeight;
+
 	// Create the two-dimensional array of board cells
-	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:boardWidth];
+	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:width];
 	NSMutableArray* column = nil;
-	for (NSInteger x = 0; x < boardWidth; x++)
+	for (NSInteger x = 0; [self isValidXCoordinate:x]; x++)
 	{
-		column = [NSMutableArray arrayWithCapacity:boardHeight];
+		column = [NSMutableArray arrayWithCapacity:height];
 		
-		for (NSInteger y = 0; y < boardHeight; y++)
+		for (NSInteger y = 0; [self isValidYCoordinate:y]; y++)
 		{
 			[column addObject:[[PetriBoardCell alloc] init]];
 		}
@@ -93,9 +98,6 @@
 	
 	// Assign to local ivar
 	cells = [tempBoard copy];
-	
-	width = boardWidth;
-	height = boardHeight;
 	heads = [NSMutableSet set];
 	
 	return self;
@@ -117,11 +119,11 @@
 	// Copy cells from the other board
 	NSMutableArray* tempBoard = [NSMutableArray arrayWithCapacity:width];
 	NSMutableArray* column = nil;
-	for (NSInteger x = 0; x < width; x++)
+	for (NSInteger x = 0; [self isValidXCoordinate:x]; x++)
 	{
 		// Fill the board column-by-column
 		column = [NSMutableArray arrayWithCapacity:height];
-		for (NSInteger y = 0; y < height; y++)
+		for (NSInteger y = 0; [self isValidYCoordinate:y]; y++)
 		{
 			[column addObject:[[board cellAtX:x Y:y] copy]];
 		}
@@ -172,8 +174,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 		PetriBoardCell* cell = [self cellAtCoordinates:[pieceOrigin offsetCoordinates:cellOffset]];
 		
 		// Create a body cell for the piece's owner
-		[cell setOwner:player];
-		[cell setCellType:bodyCell];
+		[cell takeCellForPlayer:player];
 		
 		// Add the cell to the player's controlled cells
 		[player addControlledCellsObject:cell];
@@ -217,11 +218,11 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 		// Check that the coordinates are on the board
 		x = [coord xCoordinate];
 		y = [coord yCoordinate];
-		if ((x < 0) || (x >= [self width]) || (y < 0) || (y >= [self height]))
+		if (![self isValidXCoordinate:x] || ![self isValidYCoordinate:y])
 			return NO;
 		
 		// Check that the cell at the coordinates is empty
-		if ([[self cellAtCoordinates:coord] cellType] != unoccupiedCell)
+		if (![[self cellAtCoordinates:coord] isEmpty])
 			return NO;
 	}
 	
@@ -268,15 +269,15 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 
 - (Petri2DCoordinates*)coordinatesOfCell:(PetriBoardCell*)cell
 {
-	for (int i = 0; i < width; i++)
+	for (int x = 0; [self isValidXCoordinate:x]; x++)
 	{
-		for (int j = 0; j < height; j++)
+		for (int y = 0; [self isValidYCoordinate:y]; y++)
 		{
 			// Check if this is the specified cell
-			if ([[self cellAtX:i Y:j] isEqual:cell])
+			if ([[self cellAtX:x Y:y] isEqual:cell])
 			{
-				return [Petri2DCoordinates coordinatesWithXCoordinate:i
-														  yCoordinate:j];
+				return [Petri2DCoordinates coordinatesWithXCoordinate:x
+														  yCoordinate:y];
 			}
 		}
 	}
@@ -379,8 +380,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 
 - (void)forceClearCell:(PetriBoardCell*)cell
 {
-	[cell setOwner:nil];
-	[cell setCellType:unoccupiedCell];
+	[cell clearCell];
 }
 
 - (void)clearDeadCells
@@ -418,6 +418,32 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
+}
+
+- (BOOL)isValidXCoordinate:(NSInteger)xCoordinate
+{
+	if (xCoordinate < 0)
+	{
+		return NO;
+	}
+	if (xCoordinate >= [self width])
+	{
+		return NO;
+	}
+	return YES;
+}
+
+- (BOOL)isValidYCoordinate:(NSInteger)yCoordinate
+{
+	if (yCoordinate < 0)
+	{
+		return NO;
+	}
+	if (yCoordinate >= [self height])
+	{
+		return NO;
+	}
+	return YES;
 }
 
 @synthesize width;

@@ -41,11 +41,6 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 						   yCoordinate:(NSInteger)y
 								player:(PetriPlayer*)player;
 
-
-- (BOOL)isValidXCoordinate:(NSInteger)xCoordinate;
-
-- (BOOL)isValidYCoordinate:(NSInteger)yCoordinate;
-
 @end
 
 @implementation PetriSquareGridBoard
@@ -134,32 +129,6 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 	return [adjacentCells copy];
 }
 
-- (BOOL)isValidXCoordinate:(NSInteger)xCoordinate
-{
-	if (xCoordinate < 0)
-	{
-		return NO;
-	}
-	if (xCoordinate >= [self width])
-	{
-		return NO;
-	}
-	return YES;
-}
-
-- (BOOL)isValidYCoordinate:(NSInteger)yCoordinate
-{
-	if (yCoordinate < 0)
-	{
-		return NO;
-	}
-	if (yCoordinate >= [self width])
-	{
-		return NO;
-	}
-	return YES;
-}
-
 // \warning this function does _no_ validation
 - (void)forceCaptureCellsFrom:(Petri2DCoordinates*)startCoordinates
 						   to:(Petri2DCoordinates*)endCoordinates
@@ -179,13 +148,18 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 			[player addControlledCells:[otherPlayer controlledCells]];
 			for (PetriBoardCell* tempCell in [otherPlayer controlledCells])
 			{
-				[tempCell setOwner:player];
+				[tempCell takeCellForPlayer:player];
 			}
 			[otherPlayer removeControlledCells:[otherPlayer controlledCells]];
-			[currentCell setCellType:bodyCell];
 		}
+		
+		// The current owner no longer controls the cell
 		[[currentCell owner] removeControlledCellsObject:currentCell];
-		[currentCell setOwner:player];
+
+		// Tell the cell it's owned by the new owner
+		[currentCell takeCellForPlayer:player];
+		
+		// Tell the new owner that s/he now owns the cell
 		[player addControlledCellsObject:currentCell];
 		currentCoordinates = [Petri2DCoordinates coordinatesWithXCoordinate:[currentCoordinates xCoordinate] + xOffset yCoordinate:[currentCoordinates yCoordinate] + yOffset];
 	}
@@ -209,7 +183,7 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 		currentCell = [self cellAtCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:currentX yCoordinate:currentY]];
 		
 		// The cell is empty
-		if ([currentCell owner] == nil)
+		if ([currentCell isEmpty])
 		{
 			// We have encountered an empty cell before encountering our own cell
 			// No capture in this direction at this time
@@ -227,7 +201,7 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 			}
 			
 			// Since this cell is ours and we haven't encountered any empty cells between this one and the starting one, we capture
-			[self forceCaptureCellsFrom:[Petri2DCoordinates coordinatesWithXCoordinate:startingX yCoordinate:startingY]
+			[self forceCaptureCellsFrom:[Petri2DCoordinates coordinatesWithXCoordinate:startingX + xOffset yCoordinate:startingY + yOffset]
 									 to:[Petri2DCoordinates coordinatesWithXCoordinate:currentX yCoordinate:currentY]
 						   usingXOffset:xOffset
 								yOffset:yOffset

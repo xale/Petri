@@ -119,6 +119,11 @@
  */
 - (NSSet*)findLivingCellsForPlayer:(PetriPlayer*)player;
 
+- (BOOL)isValidXCoordinate:(NSInteger)xCoordinate;
+
+- (BOOL)isValidYCoordinate:(NSInteger)yCoordinate;
+
+
 @property (readonly) NSInteger width;
 @property (readonly) NSInteger height;
 
