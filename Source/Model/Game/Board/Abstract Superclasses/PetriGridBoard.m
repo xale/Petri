@@ -475,6 +475,32 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return nil;
 }
 
+- (BOOL)performQueuedCapturesForPlayer:(PetriPlayer*)player
+{
+	NSMutableSet* set = [stagedCaptures objectAtIndex:0];
+	[stagedCaptures removeObjectAtIndex:0];
+	BOOL didPerformCaptures = NO;
+	for (PetriBoardCell* cell in set)
+	{
+		[cell takeCellForPlayer:player];
+		didPerformCaptures = YES;
+	}
+	return didPerformCaptures;
+}
+
+- (void)queueCellForCapture:(PetriBoardCell*)cell
+{
+	if (stagedCaptures == nil)
+	{
+		stagedCaptures = [NSMutableArray array];
+	}
+	
+	if ([stagedCaptures count] == 0)
+	{
+		[stagedCaptures addObject:[NSMutableSet set]];
+	}
+	[[stagedCaptures objectAtIndex:0] addObject:cell];
+}
 
 // \warning this function does _no_ validation
 - (void)forceCaptureCellsFrom:(Petri2DCoordinates*)startCoordinates
