@@ -36,6 +36,12 @@
 - (id)initWithPiece:(id<PetriPiece>)displayPiece
 		aspectRatio:(CGFloat)ratio;
 
+/*!
+ Returns a point in the receiver's coordinate system located at the center of the represented piece's origin cell.
+ \warning Abstract method; subclasses must override.
+ */
+- (CGPoint)origin;
+
 @property (readonly) id<PetriPiece> piece;
 @property (readwrite, assign) NSUInteger orientation;
 

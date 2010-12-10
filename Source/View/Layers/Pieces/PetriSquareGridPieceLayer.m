@@ -96,4 +96,17 @@
 	}
 }
 
+#pragma mark -
+#pragma mark Accessors
+
+- (CGPoint)origin
+{
+	PetriSquareGridPiece* displayedPiece = (PetriSquareGridPiece*)[self piece];
+	CGSize layerSize = [self bounds].size;
+	CGPoint originPoint;
+	originPoint.x = ((layerSize.width / [displayedPiece baseWidth]) / 2.0);
+	originPoint.y = ((layerSize.height / [displayedPiece baseHeight]) / 2.0);
+	return originPoint;
+}
+
 @end
