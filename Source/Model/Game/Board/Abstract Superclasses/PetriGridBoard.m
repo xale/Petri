@@ -166,7 +166,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	 atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
 	// Iterate over cell-offsets in the piece
-	for (Petri2DCoordinates* cellOffset in [piece cellCoordinates])
+	for (Petri2DCoordinates* cellOffset in [piece currentCellCoordinates])
 	{
 		// Find the cell located at (piece origin) + (cell offset)
 		PetriBoardCell* cell = [self cellAtCoordinates:[pieceOrigin offsetCoordinates:cellOffset]];
@@ -204,8 +204,8 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 				   atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
 	// Create the actual set of coordinates where the piece will lie
-	NSMutableSet* placementCoords = [NSMutableSet setWithCapacity:[[piece cellCoordinates] count]];
-	for (Petri2DCoordinates* cellCoord in [piece cellCoordinates])
+	NSMutableSet* placementCoords = [NSMutableSet setWithCapacity:[[piece currentCellCoordinates] count]];
+	for (Petri2DCoordinates* cellCoord in [piece currentCellCoordinates])
 	{
 		[placementCoords addObject:[cellCoord offsetCoordinates:pieceOrigin]];
 	}

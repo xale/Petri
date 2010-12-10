@@ -16,26 +16,26 @@
  */
 @interface PetriGridPiece : NSObject <PetriPiece>
 {
-	NSSet* cellCoordinates;	/*!< The set of Petri2DCoordinates describing the positions of the cells in this piece, as relative offsets from the piece's placement origin location. */
-	NSUInteger orientation;	/*!< The number of times the piece's coordinates have been rotated, relative to the piece's configuration when it was created. */
+	NSSet* baseCellCoordinates;	/*!< The set of Petri2DCoordinates describing the positions of the cells in this piece, as relative offsets from the piece's origin. */
+	NSUInteger orientation;	/*!< The current orientation of the piece, as a number of clockwise rotations (of arbitrary degrees, defined on a per-class basis) about the origin. */
 }
 
 /*!
- Default constructor. Initializes a PetriGridPiece with a set of coordinates and rotates it the specified number of times.
- @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location. These coordinates will be "normalized" relative to the origin: see the documentation for -normalizeCoordinates:.
- @param rotations The number of times the piece is rotated.
+ Default constructor. Initializes a PetriGridPiece with a set of coordinates and initial orientation.
+ @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its origin. These coordinates will be "normalized" relative to the origin: see the documentation for -normalizeCoordinates:.
+ @param initialOrientation The orientation of the piece when it is created.
  */
 - (id)initWithCellCoordinates:(NSSet*)coordinates
-					rotations:(NSUInteger)rotations;
+				  orientation:(NSUInteger)initialOrientation;
 
 /**
- * Initializes a PetriGridPiece with a specific set of coordinates.
+ * Initializes a PetriGridPiece with a specific set of coordinates. The orientation of the piece will be zero.
  * @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location. These coordinates will be "normalized" relative to the origin: see the documentation for -normalizeCoordinates:.
  */
 - (id)initWithCellCoordinates:(NSSet*)coordinates;
 
 /*!
- Creates a new PetriGridPiece with a specific set of coordinates.
+ Creates a new PetriGridPiece with a specific set of coordinates. The orientation of the new piece will be zero.
  @param coordinates A set of Petri2DCoordinates that specifies the offsets of the cells in this piece relative to its placement location.
  */
 + (id)pieceWithCellCoordinates:(NSSet*)coordinates;
@@ -52,25 +52,24 @@
 - (NSSet*)normalizeCoordinates:(NSSet*)coordinates;
 
 /*!
- Returns YES if the specified piece has the same set of cell offsets as the receiver.
+ Returns YES if the specified piece has the same set of cell offsets, after accounting for orientation, as the receiver.
  @param piece The piece with which to compare.
  */
 - (BOOL)isEqualToGridPiece:(PetriGridPiece*)piece;
 
 /**
- Return the width of the piece
- @return width as NSInteger
+ Calculates and returns the number of columns in the receiver's base coordinate set.
  */
-- (NSInteger)width;
+- (NSInteger)baseWidth;
 
 /**
- Return the height of the piece
- @return height as NSInteger
+ Calculates and returns the number of rows in the receiver's base coordinate set.
  */
-- (NSInteger)height;
+- (NSInteger)baseHeight;
 
 + (NSDictionary*)defaultPieceFrequencies;
 
-@property (readonly) NSSet* cellCoordinates;
+@property (readonly) NSSet* baseCellCoordinates;
+@property (readonly) NSSet* currentCellCoordinates;	/*!< Computed property. The cell coordinates of the piece, after after applying the effects of the piece's \c orientation. */
 
 @end
