@@ -47,10 +47,11 @@
 - (void)rotateCurrentPiece;
 
 /*!
- Tells the board to capture cells for the current player.
+ Tells the board to capture one iteration of cells for the current player.
  Should be called after the player has placed a piece but before nextTurn is called.
+ Should be called in a loop until it returns \c NO.
  */
-- (void)performCapturesForCurrentPlayer;
+- (BOOL)stepCapturesForCurrentPlayer;
 
 /*!
  Tells the board to remove dead cells.

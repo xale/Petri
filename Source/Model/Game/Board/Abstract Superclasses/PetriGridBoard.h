@@ -25,6 +25,7 @@
 	NSInteger width;		/*!< Width of board, as an integer number of columns. */
 	NSInteger height;		/*!< Height of board, as an integer number of rows. */
 	NSMutableSet* heads;	/*!< Store a set of heads for convenience. */
+	NSMutableArray* stagedCaptures;
 }
 
 /**

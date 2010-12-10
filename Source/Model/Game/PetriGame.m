@@ -67,9 +67,9 @@
 	[self didChangeValueForKey:@"currentPiece"];
 }
 
-- (void)performCapturesForCurrentPlayer
+- (BOOL)stepCapturesForCurrentPlayer
 {
-	[board performCapturesForPlayer:currentPlayer];
+	return [board stepCapturesForPlayer:currentPlayer];
 }
 
 - (void)clearDeadCells

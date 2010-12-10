@@ -583,24 +583,20 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 }
 
 
-- (void)performCapturesForPlayer:(PetriPlayer*)player
+- (BOOL)stepCapturesForPlayer:(PetriPlayer*)player
 {
-	BOOL didPerformCaptures;
+	BOOL didPerformCaptures = NO;
 	Petri2DCoordinates* currentCoordinates;
-	do
-	{
-		// We have not performed any captures on this iteration of capturing
-		didPerformCaptures = NO;
 		
-		for (PetriBoardCell* currentCell in [[player controlledCells] copy])
-		{
-			currentCoordinates = [self coordinatesOfCell:currentCell];
-			didPerformCaptures = [self captureStartingWithXCoordinate:[currentCoordinates xCoordinate]
-														  yCoordinate:[currentCoordinates yCoordinate]
-															   player:player
-								  ] || didPerformCaptures;
-		}
-	} while (didPerformCaptures);
+	for (PetriBoardCell* currentCell in [[player controlledCells] copy])
+	{
+		currentCoordinates = [self coordinatesOfCell:currentCell];
+		didPerformCaptures = [self captureStartingWithXCoordinate:[currentCoordinates xCoordinate]
+													  yCoordinate:[currentCoordinates yCoordinate]
+														   player:player
+							  ] || didPerformCaptures;
+	}
+	return didPerformCaptures;
 }
 
 

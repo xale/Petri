@@ -92,7 +92,7 @@
  Returns \c YES as long as it performed at least one capture; can be run in a while loop until \c NO is returned.
  @param player player to perform captures for
  */
-- (BOOL)performCapturesForPlayer:(PetriPlayer*)player;
+- (BOOL)stepCapturesForPlayer:(PetriPlayer*)player;
 
 /*!
  Returns a dictionary of BoardParameter objects mapped by name.
