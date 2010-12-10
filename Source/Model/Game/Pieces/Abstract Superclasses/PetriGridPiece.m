@@ -22,7 +22,7 @@
 }
 
 - (id)initWithCellCoordinates:(NSSet*)coordinates
-					rotations:(NSUInteger)rotations
+				  orientation:(NSUInteger)initialOrientation
 {
 	// Check that we are not instantiating an abstract class
 	if ([self isMemberOfClass:[PetriGridPiece class]])
@@ -31,13 +31,9 @@
 		return nil;
 	}
 	
-	cellCoordinates = [self normalizeCoordinates:coordinates];
-	orientation = 0;
-	//TODO optimization: if rotations is big, reduce to smaller than orientationsCount
-	for (NSUInteger i = rotations; i > 0; i--)
-	{
-		cellCoordinates = [self normalizeCoordinates:[self rotateCoordinatesClockwise:cellCoordinates]];
-	}
+	baseCellCoordinates = [self normalizeCoordinates:coordinates];
+	orientation = (initialOrientation % [[self class] orientationsCount]);
+	
 	return self;
 }
 
@@ -56,14 +52,14 @@ NSString* const PetriGridPieceInvalidPieceTypeExceptionFormat =	@"Invalid piece 
 		@throw invalidPieceTypeException;
 	}
 	
-	return [self initWithCellCoordinates:[(PetriGridPiece*)piece cellCoordinates]
-							   rotations:numRotations];
+	return [self initWithCellCoordinates:[(PetriGridPiece*)piece baseCellCoordinates]
+							 orientation:([piece orientation] + numRotations)];
 }
 
 - (id)initWithCellCoordinates:(NSSet*)coordinates
 {
 	return [self initWithCellCoordinates:coordinates
-							   rotations:0];
+							 orientation:0];
 }
 
 + (id)pieceWithCellCoordinates:(NSSet*)coordinates
@@ -73,8 +69,8 @@ NSString* const PetriGridPieceInvalidPieceTypeExceptionFormat =	@"Invalid piece 
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	return [[[self class] allocWithZone:zone] initWithCellCoordinates:[self cellCoordinates]
-															rotations:0];
+	return [[[self class] allocWithZone:zone] initWithCellCoordinates:[self baseCellCoordinates]
+														  orientation:[self orientation]];
 }
 
 #pragma mark -
@@ -113,10 +109,7 @@ NSString* const PetriGridPieceInvalidPieceTypeExceptionFormat =	@"Invalid piece 
 - (void)rotate
 {
 	[self willChangeValueForKey:@"orientation"];
-	[self willChangeValueForKey:@"cellCoordinates"];
 	orientation = (orientation + 1) % [[self class] orientationsCount];
-	cellCoordinates = [self normalizeCoordinates:[self rotateCoordinatesClockwise:[self cellCoordinates]]];
-	[self didChangeValueForKey:@"cellCoordinates"];
 	[self didChangeValueForKey:@"orientation"];
 }
 
@@ -133,22 +126,22 @@ NSString* const PetriGridPieceInvalidPieceTypeExceptionFormat =	@"Invalid piece 
 
 - (BOOL)isEqualToGridPiece:(PetriGridPiece*)piece
 {
-	return [[self cellCoordinates] isEqualToSet:[piece cellCoordinates]];
+	return [[self currentCellCoordinates] isEqualToSet:[piece currentCellCoordinates]];
 }
 
 - (NSUInteger)hash
 {
-	return [[self cellCoordinates] hash];
+	return [[self currentCellCoordinates] hash];
 }
 
 #pragma mark -
 #pragma mark Accessors
 
-- (NSInteger)width
+- (NSInteger)baseWidth
 {
 	NSInteger maxX = NSIntegerMin;
 	
-	for (Petri2DCoordinates* cell in cellCoordinates)
+	for (Petri2DCoordinates* cell in baseCellCoordinates)
 	{
 		if ([cell xCoordinate] > maxX)
 			maxX = [cell xCoordinate];
@@ -157,11 +150,11 @@ NSString* const PetriGridPieceInvalidPieceTypeExceptionFormat =	@"Invalid piece 
 	return (maxX + 1);
 }
 
-- (NSInteger)height
+- (NSInteger)baseHeight
 {
 	NSInteger maxY = NSIntegerMin;
 	
-	for (Petri2DCoordinates* cell in cellCoordinates)
+	for (Petri2DCoordinates* cell in baseCellCoordinates)
 	{
 		if ([cell yCoordinate] > maxY)
 			maxY = [cell yCoordinate];
@@ -170,18 +163,32 @@ NSString* const PetriGridPieceInvalidPieceTypeExceptionFormat =	@"Invalid piece 
 	return (maxY + 1);
 }
 
-@synthesize cellCoordinates;
+@synthesize baseCellCoordinates;
 @synthesize orientation;
 
-NSString* const PetriGridPieceAbstractMethodExceptionFormat =	@"Attempt to invoke abstract class method %@";
+- (NSSet*)currentCellCoordinates
+{
+	// Start with the base coordinates
+	NSSet* currentCoords = [self baseCellCoordinates];
+	
+	// Rotate the coordinates according to the piece's orientation
+	for (NSUInteger rotations = 0; rotations < [self orientation]; rotations++)
+	{
+		currentCoords = [self rotateCoordinatesClockwise:currentCoords];
+	}
+	
+	// Return to the rotated coordinate set
+	return currentCoords;
+}
++ (NSSet*)keyPathsForValuesAffectingCurrentCellCoordinates
+{
+	return [NSSet setWithObjects:@"baseCellCoordinates", @"orientation", nil];
+}
 
 + (NSUInteger)orientationsCount
 {
-	NSString* exceptionDesc = [NSString stringWithFormat:PetriGridPieceAbstractMethodExceptionFormat, NSStringFromSelector(_cmd)];
-	NSException* abstractMethodException = [NSException exceptionWithName:NSInternalInconsistencyException
-																   reason:exceptionDesc
-																 userInfo:nil];
-	@throw abstractMethodException;
+	[self doesNotRecognizeSelector:_cmd];
+	return 0;
 }
 
 + (NSDictionary*)defaultPieceFrequencies

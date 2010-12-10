@@ -52,104 +52,107 @@
 + (id)line2Piece
 {
 	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-												 nil]];
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+														   nil]];
 }
 
 + (id)jPiece
 {
 	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
-												 nil]];
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
+														   nil]];
 }
 
 + (id)lPiece
 {
 	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:2],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
-												 nil]];
+														   [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:2],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
+														   nil]];
 }
 
 
 + (id)zPiece
 {
 	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
-												 nil]];
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:2],
+														   nil]];
 }
 
 + (id)sPiece
 {
 	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:1],
-												 nil]];
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:1],
+														   nil]];
 }
 
 + (id)line4Piece
 {
 	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:3],
-												 nil]];
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:3],
+														   nil]];
 }
 
 + (id)line5Piece
 {
 	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:3],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:4],
-												 nil]];
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:3],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:4],
+														   nil]];
 }
 
 + (id)squarePiece
 {
 	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0],
-												 nil]];
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0],
+														   nil]];
 }
 
 + (id)l3Piece
 {
 	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
-												 nil]];
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
+														   nil]];
 }
 
 + (id)line3Piece
 {
 	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
-												 [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
-												 nil]];
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:2],
+														   nil]];
 }
 
 #pragma mark -
 #pragma mark Rotation
 
+/*!
+ Override. Rotates a set of coordinates 90° about the origin.
+ */
 - (NSSet*)rotateCoordinatesClockwise:(NSSet*)coordinates
 {
 	NSMutableSet* newCoordinates = [NSMutableSet setWithCapacity:[coordinates count]];
@@ -170,26 +173,6 @@
 + (NSUInteger)orientationsCount
 {
 	return 4;
-}
-
-- (NSString*)description
-{
-	NSMutableString* description = [NSMutableString stringWithFormat:@"%@: {%C", [super description], NSLineSeparatorCharacter];
-	for (NSInteger y = ([self height] - 1); y >= 0; y--)
-	{
-		for (NSInteger x = 0; x < [self width]; x++)
-		{
-			if ([[self cellCoordinates] containsObject:[Petri2DCoordinates coordinatesWithXCoordinate:x yCoordinate:y]])
-				[description appendString:@"o "];
-			else
-				[description appendString:@"  "];
-		}
-		[description appendFormat:@"%C", NSLineSeparatorCharacter];
-	}
-	
-	[description appendString:@"}"];
-	
-	return [description copy];
 }
 
 @end
