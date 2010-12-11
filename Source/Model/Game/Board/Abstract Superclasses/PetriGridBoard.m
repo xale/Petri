@@ -389,8 +389,17 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return [visited copy];
 }
 
+- (void)forceTakeCell:(PetriBoardCell*)cell
+			forPlayer:(PetriPlayer*)player
+{
+	[[cell owner] removeControlledCellsObject:cell];
+	[player addControlledCellsObject:cell];
+	[cell takeCellForPlayer:player];
+}
+
 - (void)forceClearCell:(PetriBoardCell*)cell
 {
+	[[cell owner] removeControlledCellsObject:cell];
 	[cell clearCell];
 }
 
@@ -473,9 +482,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	BOOL didPerformCaptures = NO;
 	for (PetriBoardCell* cell in set)
 	{
-		[[cell owner] removeControlledCellsObject:cell];
-		[cell takeCellForPlayer:player];
-		[player addControlledCellsObject:cell];
+		[self forceTakeCell:cell forPlayer:player];
 		didPerformCaptures = YES;
 	}
 	return didPerformCaptures;
