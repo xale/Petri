@@ -173,11 +173,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 		// Find the cell located at (piece origin) + (cell offset)
 		PetriBoardCell* cell = [self cellAtCoordinates:[pieceOrigin offsetCoordinates:cellOffset]];
 		
-		// Create a body cell for the piece's owner
-		[cell takeCellForPlayer:player];
-		
-		// Add the cell to the player's controlled cells
-		[player addControlledCellsObject:cell];
+		[self queueCellForCapture:cell];
 	}
 }
 
@@ -242,14 +238,6 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	}
 	
 	return NO;
-}
-
-#pragma mark -
-#pragma mark Captures
-
-- (void)capture
-{
-	[self doesNotRecognizeSelector:_cmd];
 }
 
 #pragma mark -
@@ -475,6 +463,9 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return nil;
 }
 
+#pragma mark -
+#pragma mark Captures
+
 - (BOOL)performQueuedCapturesForPlayer:(PetriPlayer*)player
 {
 	NSMutableSet* set = [stagedCaptures objectAtIndex:0];
@@ -482,7 +473,9 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	BOOL didPerformCaptures = NO;
 	for (PetriBoardCell* cell in set)
 	{
+		[[cell owner] removeControlledCellsObject:cell];
 		[cell takeCellForPlayer:player];
+		[player addControlledCellsObject:cell];
 		didPerformCaptures = YES;
 	}
 	return didPerformCaptures;
@@ -502,6 +495,16 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	[[stagedCaptures objectAtIndex:0] addObject:cell];
 }
 
+- (void)queueCellForCapture:(PetriBoardCell*)cell
+					atIndex:(NSUInteger)index
+{
+	while ([stagedCaptures count] <= index)
+	{
+		[stagedCaptures addObject:[NSMutableSet set]];
+	}
+	[[stagedCaptures objectAtIndex:index] addObject:cell];
+}
+
 // \warning this function does _no_ validation
 - (void)forceCaptureCellsFrom:(Petri2DCoordinates*)startCoordinates
 						   to:(Petri2DCoordinates*)endCoordinates
@@ -511,6 +514,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 {
 	Petri2DCoordinates* currentCoordinates = startCoordinates;
 	PetriBoardCell* currentCell;
+	NSMutableArray* cellsToCapture = [NSMutableArray array];
 	
 	while (![currentCoordinates isEqual:endCoordinates])
 	{
@@ -521,20 +525,21 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 			[player addControlledCells:[otherPlayer controlledCells]];
 			for (PetriBoardCell* tempCell in [otherPlayer controlledCells])
 			{
-				[tempCell takeCellForPlayer:player];
+				[self queueCellForCapture:tempCell atIndex:1];
 			}
-			[otherPlayer removeControlledCells:[otherPlayer controlledCells]];
 		}
 		
-		// The current owner no longer controls the cell
-		[[currentCell owner] removeControlledCellsObject:currentCell];
+		[cellsToCapture addObject:currentCell];
 		
-		// Tell the cell it's owned by the new owner
-		[currentCell takeCellForPlayer:player];
-		
-		// Tell the new owner that s/he now owns the cell
-		[player addControlledCellsObject:currentCell];
+		// Iterate
 		currentCoordinates = [Petri2DCoordinates coordinatesWithXCoordinate:[currentCoordinates xCoordinate] + xOffset yCoordinate:[currentCoordinates yCoordinate] + yOffset];
+	}
+	
+	// properly queue captures
+	for (NSUInteger i = 0; i < [cellsToCapture count] - i; i++)
+	{
+		[self queueCellForCapture:[cellsToCapture objectAtIndex:i] atIndex:i];
+		[self queueCellForCapture:[cellsToCapture objectAtIndex:[cellsToCapture count] - 1 - i] atIndex:i];
 	}
 }
 - (BOOL)captureStartingWithXCoordinate:(NSInteger)startingX
@@ -611,16 +616,24 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 
 - (BOOL)stepCapturesForPlayer:(PetriPlayer*)player
 {
-	BOOL didPerformCaptures = NO;
 	Petri2DCoordinates* currentCoordinates;
-		
-	for (PetriBoardCell* currentCell in [[player controlledCells] copy])
+	
+	if (stagedCaptures == nil)
+	{
+		stagedCaptures = [NSMutableArray array];
+	}
+	if ([stagedCaptures count] == 0)
+	{
+		return NO;
+	}
+	NSSet* cellsToCapture = [[stagedCaptures objectAtIndex:0] copy];
+	BOOL didPerformCaptures = [self performQueuedCapturesForPlayer:player];
+	for (PetriBoardCell* currentCell in cellsToCapture)
 	{
 		currentCoordinates = [self coordinatesOfCell:currentCell];
-		didPerformCaptures = [self captureStartingWithXCoordinate:[currentCoordinates xCoordinate]
-													  yCoordinate:[currentCoordinates yCoordinate]
-														   player:player
-							  ] || didPerformCaptures;
+		[self captureStartingWithXCoordinate:[currentCoordinates xCoordinate]
+								 yCoordinate:[currentCoordinates yCoordinate]
+									  player:player];
 	}
 	return didPerformCaptures;
 }
