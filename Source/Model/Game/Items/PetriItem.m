@@ -12,8 +12,10 @@
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	// FIXME: needs a proper override
-	return [[[self class] allocWithZone:zone] init];
+	return [[[self class] allocWithZone:zone] initWithName:[self name]
+												 validator:validator
+												 performer:performer
+										  allowingCaptures:allowingCaptures];
 }
 
 #pragma mark -
@@ -29,14 +31,12 @@
 
 - (BOOL)isEqualToItem:(PetriItem*)item
 {
-	// FIXME: needs a proper implementation
-	return YES;
+	return [[self itemName] isEqual:[item itemName]];
 }
 
 - (NSUInteger)hash
 {
-	// FIXME: needs a proper implementation
-	return 0;
+	return [[self itemName] hash];
 }
 
 @end
