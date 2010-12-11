@@ -72,15 +72,20 @@
 - (BOOL)stepCapturesForCurrentPlayer
 {
 	[self setInCaptureBatch:YES];
-	return [board stepCapturesForPlayer:currentPlayer];
+	NSLog(@">>> + Starting capture batch.");
+	BOOL didPerformCaptures = [board stepCapturesForPlayer:currentPlayer];
+	NSLog(@"<<< + Ending capture batch.");
 	[self setInCaptureBatch:NO];
+	return didPerformCaptures;
 }
 
 - (void)clearDeadCells
 {
 	[self setInClearBatch:YES];
+	NSLog(@">>> - Starting clear batch.");
 	// Clean up dead cells caused by captures.
 	[board clearDeadCells];
+	NSLog(@"<<< - Ending clear batch.");
 	[self setInClearBatch:NO];
 }
 
