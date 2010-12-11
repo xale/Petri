@@ -26,6 +26,8 @@
 	id<PetriBoard> board;			/*!< The game board. */
 	PetriGameConfiguration* gameConfiguration;	/*!< The rules for the game. */
 	id<PetriPiece> currentPiece; /*!< The piece available for use on the current player's move. */
+	BOOL inCaptureBatch;
+	BOOL inClearBatch;
 }
 
 /*!
@@ -64,5 +66,7 @@
 @property (readonly) id<PetriBoard>  board;
 @property (readonly) PetriGameConfiguration* gameConfiguration;
 @property (readonly) id<PetriPiece> currentPiece;
+@property (readwrite) BOOL inCaptureBatch;
+@property (readwrite) BOOL inClearBatch;
 
 @end

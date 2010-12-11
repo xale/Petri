@@ -49,6 +49,8 @@
 	board = [[[configuration boardPrototype] boardClass] boardWithParameters:[[configuration boardPrototype] setupParameters]];
 	[board setHeadsForPlayers:players];
 	currentPiece = [self nextPiece];
+	inCaptureBatch = NO;
+	inClearBatch = NO;
 	return self;
 }
 
@@ -69,13 +71,17 @@
 
 - (BOOL)stepCapturesForCurrentPlayer
 {
+	[self setInCaptureBatch:YES];
 	return [board stepCapturesForPlayer:currentPlayer];
+	[self setInCaptureBatch:NO];
 }
 
 - (void)clearDeadCells
 {
+	[self setInClearBatch:YES];
 	// Clean up dead cells caused by captures.
 	[board clearDeadCells];
+	[self setInClearBatch:NO];
 }
 
 - (void)rotateCurrentPiece
@@ -139,5 +145,7 @@
 @synthesize board;
 @synthesize gameConfiguration;
 @synthesize currentPiece;
+@synthesize inClearBatch;
+@synthesize inCaptureBatch;
 
 @end
