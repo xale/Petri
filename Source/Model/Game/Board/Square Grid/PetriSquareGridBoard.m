@@ -21,6 +21,9 @@ NSString* const PetriSquareGridBoardHeightParameterKey =	@"height";
 NSString* const PetriSquareGridBoardWidthParameterName =	@"Width";
 NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 
+NSSet* placementOffsets = nil;
+NSSet* captureOffsets = nil;
+
 #define PetriSquareGridBoardMinimumDimension	10
 #define PetriSquareGridBoardMaximumDimension	40
 #define PetriSquareGridBoardDefaultDimension	20
@@ -65,201 +68,6 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 		@throw exception;
 	}
 	return [super initWithWidth:boardWidth height:boardHeight];
-}
-
-- (NSSet*)placementCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
-{
-	NSMutableSet* adjacentCells = [NSMutableSet set];
-	
-	//Add and subtract 1 to x and y
-	//Throw out negatives or things outside of bounds
-	NSInteger x = [cellCoordinates xCoordinate];
-	NSInteger y = [cellCoordinates yCoordinate];
-	
-	if ((x - 1) >= 0)
-	{
-		[adjacentCells addObject:[self cellAtX:(x - 1) Y:y]];
-	}
-	if ((x + 1) < width)
-	{
-		[adjacentCells addObject:[self cellAtX:(x + 1) Y:y]];
-	}
-	if ((y - 1) >= 0)
-	{
-		[adjacentCells addObject:[self cellAtX:x Y:(y - 1)]];
-	}
-	if ((y + 1) < height)
-	{
-		[adjacentCells addObject:[self cellAtX:x Y:(y + 1)]];
-	}
-	
-	return [adjacentCells copy];
-}
-
-- (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
-{
-	NSMutableSet* adjacentCells = [NSMutableSet set];
-	
-	//Add and subtract 1 to x and y
-	//Throw out negatives or things outside of bounds
-	NSInteger x = [cellCoordinates xCoordinate];
-	NSInteger y = [cellCoordinates yCoordinate];
-	
-	// Add laterally-adjacent cells
-	[adjacentCells unionSet:[self placementCellsAdjacentToCoordinates:cellCoordinates]];
-	
-	// Add diagonally-adjacent cells
-	if ((x - 1) >= 0 && (y - 1) >= 0)
-	{
-		[adjacentCells addObject:[self cellAtX:(x - 1) Y:(y - 1)]];
-	}
-	if ((x - 1) >= 0 && (y + 1) >= 0)
-	{
-		[adjacentCells addObject:[self cellAtX:(x - 1) Y:(y + 1)]];
-	}
-	if ((x + 1) >= 0 && (y - 1) >= 0)
-	{
-		[adjacentCells addObject:[self cellAtX:(x + 1) Y:(y - 1)]];
-	}
-	if ((x + 1) >= 0 && (y + 1) >= 0)
-	{
-		[adjacentCells addObject:[self cellAtX:(x - 1) Y:(y - 1)]];
-	}	
-	
-	return [adjacentCells copy];
-}
-
-// \warning this function does _no_ validation
-- (void)forceCaptureCellsFrom:(Petri2DCoordinates*)startCoordinates
-						   to:(Petri2DCoordinates*)endCoordinates
-				 usingXOffset:(NSInteger)xOffset
-					  yOffset:(NSInteger)yOffset
-					forPlayer:(PetriPlayer*)player
-{
-	Petri2DCoordinates* currentCoordinates = startCoordinates;
-	PetriBoardCell* currentCell;
-	
-	while (![currentCoordinates isEqual:endCoordinates])
-	{
-		currentCell = [self cellAtCoordinates:currentCoordinates];
-		if ([currentCell cellType] == headCell)
-		{
-			PetriPlayer* otherPlayer = [currentCell owner];
-			[player addControlledCells:[otherPlayer controlledCells]];
-			for (PetriBoardCell* tempCell in [otherPlayer controlledCells])
-			{
-				[tempCell takeCellForPlayer:player];
-			}
-			[otherPlayer removeControlledCells:[otherPlayer controlledCells]];
-		}
-		
-		// The current owner no longer controls the cell
-		[[currentCell owner] removeControlledCellsObject:currentCell];
-
-		// Tell the cell it's owned by the new owner
-		[currentCell takeCellForPlayer:player];
-		
-		// Tell the new owner that s/he now owns the cell
-		[player addControlledCellsObject:currentCell];
-		currentCoordinates = [Petri2DCoordinates coordinatesWithXCoordinate:[currentCoordinates xCoordinate] + xOffset yCoordinate:[currentCoordinates yCoordinate] + yOffset];
-	}
-}
-- (BOOL)captureStartingWithXCoordinate:(NSInteger)startingX
-						   yCoordinate:(NSInteger)startingY
-							   xOffset:(NSInteger)xOffset
-							   yOffset:(NSInteger)yOffset
-								player:(PetriPlayer*)player
-{
-	// Initialize the coordinate values
-	NSInteger currentX = startingX + xOffset;
-	NSInteger currentY = startingY + yOffset;
-	
-	// Declare the current cell
-	PetriBoardCell* currentCell = nil;
-	
-	// as long as x and y are valid, keep going
-	while ([self isValidYCoordinate:currentY] && [self isValidXCoordinate:currentX])
-	{
-		currentCell = [self cellAtCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:currentX yCoordinate:currentY]];
-		
-		// The cell is empty
-		if ([currentCell isEmpty])
-		{
-			// We have encountered an empty cell before encountering our own cell
-			// No capture in this direction at this time
-			return NO;
-		}
-		
-		// The cell is ours
-		if ([currentCell owner] == player)
-		{
-			// Check that there's at least one cell between this and the start
-			if (currentX == (startingX + xOffset) && currentY == (startingY + yOffset))
-			{
-				// There isn't; nothing interesting happens
-				return NO;
-			}
-			
-			// Since this cell is ours and we haven't encountered any empty cells between this one and the starting one, we capture
-			[self forceCaptureCellsFrom:[Petri2DCoordinates coordinatesWithXCoordinate:startingX + xOffset yCoordinate:startingY + yOffset]
-									 to:[Petri2DCoordinates coordinatesWithXCoordinate:currentX yCoordinate:currentY]
-						   usingXOffset:xOffset
-								yOffset:yOffset
-							  forPlayer:player
-			 ];
-			return YES;
-		}
-		// Iteration
-		currentX += xOffset;
-		currentY += yOffset;
-	}
-	// We reached the end of the board without finding a capture
-	return NO;
-}
-- (BOOL)captureStartingWithXCoordinate:(NSInteger)startingX
-						   yCoordinate:(NSInteger)startingY
-								player:(PetriPlayer*)player
-{
-	NSMutableSet* offsets = [[NSMutableSet alloc] initWithCapacity:4];
-	
-	//Add the cells to the right, top and diagonals to a set that we can then use to calculate the offsets from
-	[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1]];
-	[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1]];
-	[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0]];
-	[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:-1]];
-	
-	BOOL didPerformCaptures = NO;
-	for (Petri2DCoordinates* offset in offsets)
-	{
-		didPerformCaptures = [self captureStartingWithXCoordinate:startingX
-													  yCoordinate:startingY
-														  xOffset:[offset xCoordinate]
-														  yOffset:[offset yCoordinate]
-														   player:player
-							  ] || didPerformCaptures;
-	}
-	return didPerformCaptures;
-}
-
-
-- (void)performCapturesForPlayer:(PetriPlayer*)player
-{
-	BOOL didPerformCaptures;
-	Petri2DCoordinates* currentCoordinates;
-	do
-	{
-		// We have not performed any captures on this iteration of capturing
-		didPerformCaptures = NO;
-		
-		for (PetriBoardCell* currentCell in [[player controlledCells] copy])
-		{
-			currentCoordinates = [self coordinatesOfCell:currentCell];
-			didPerformCaptures = [self captureStartingWithXCoordinate:[currentCoordinates xCoordinate]
-														  yCoordinate:[currentCoordinates yCoordinate]
-															   player:player
-								  ] || didPerformCaptures;
-		}
-	} while (didPerformCaptures);
 }
 
 - (void)setHeadsForPlayers:(NSArray*)players
@@ -323,6 +131,50 @@ NSString* const PetriSquareGridBoardHeightParameterName =	@"Height";
 															  maximum:(double)PetriSquareGridBoardMaximumDimension]
 				   forKey:PetriSquareGridBoardHeightParameterKey];
 	return [parameters copy];
+}
+
++ (NSSet*)placementOffsets
+{
+	@synchronized(self)
+	{
+		if (placementOffsets != nil)
+		{
+			return placementOffsets;
+		}
+		NSMutableSet* offsets = [[NSMutableSet alloc] initWithCapacity:4];
+		
+		// Up, Down, Left, Right
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:1]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:-1]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:-1 yCoordinate:0]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0]];
+		placementOffsets = [offsets copy];
+
+		return placementOffsets;
+	}
+}
+
++ (NSSet*)captureOffsets
+{
+	@synchronized(self)
+	{
+		if (captureOffsets != nil)
+		{
+			return captureOffsets;
+		}
+		NSMutableSet* offsets = [[NSMutableSet alloc] initWithCapacity:4];
+		
+		// UR, DR, UL, DL
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:-1]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:-1 yCoordinate:1]];
+		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:-1 yCoordinate:-1]];
+		
+		[offsets unionSet:[self placementOffsets]];
+		captureOffsets = [offsets copy];
+		
+		return captureOffsets;
+	}
 }
 
 @end

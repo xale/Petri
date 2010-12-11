@@ -168,16 +168,37 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	 atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
 	// Iterate over cell-offsets in the piece
+	NSMutableSet* coveredCells = [NSMutableSet set];
 	for (Petri2DCoordinates* cellOffset in [piece currentCellCoordinates])
 	{
 		// Find the cell located at (piece origin) + (cell offset)
 		PetriBoardCell* cell = [self cellAtCoordinates:[pieceOrigin offsetCoordinates:cellOffset]];
-		
-		// Create a body cell for the piece's owner
-		[cell takeCellForPlayer:player];
-		
-		// Add the cell to the player's controlled cells
-		[player addControlledCellsObject:cell];
+		[coveredCells addObject:cell];
+	}
+	
+	// Queue up the first cells to capture
+	for (PetriBoardCell* cell in [coveredCells copy])
+	{
+		if ([[[self placementCellsAdjacentToCell:cell] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"owner == %@", player]] count] > 0)
+		{
+			[self queueCellForCapture:cell];
+			[coveredCells removeObject:cell];
+		}
+	}
+	
+	// Queue up the rest
+	NSUInteger offset = 0;
+	while ([coveredCells count] > 0)
+	{
+		for (PetriBoardCell* cell in [coveredCells copy])
+		{
+			if ([[stagedCaptures objectAtIndex:offset] intersectsSet:[self placementCellsAdjacentToCell:cell]])
+			{
+				[self queueCellForCapture:cell atIndex:offset + 1];
+				[coveredCells removeObject:cell];
+			}
+		}
+		offset++;
 	}
 }
 
@@ -245,14 +266,6 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 }
 
 #pragma mark -
-#pragma mark Captures
-
-- (void)capture
-{
-	[self doesNotRecognizeSelector:_cmd];
-}
-
-#pragma mark -
 #pragma mark Cell Accessors
 
 - (PetriBoardCell*)cellAtCoordinates:(Petri2DCoordinates*)coordinates
@@ -285,15 +298,41 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return nil;
 }
 
-- (NSSet*)placementCellsAdjacentToCell:(PetriBoardCell*)cell
+- (NSSet*)cellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
+						 withOffsets:(NSSet*)offsets
 {
-	return [self placementCellsAdjacentToCoordinates:[self coordinatesOfCell:cell]];
+	NSMutableSet* adjacentCells = [NSMutableSet set];
+	
+	NSInteger x = [cellCoordinates xCoordinate];
+	NSInteger y = [cellCoordinates yCoordinate];
+	
+	for (Petri2DCoordinates* offset in offsets)
+	{
+		NSInteger xCoordinate = [offset xCoordinate] + x;
+		NSInteger yCoordinate = [offset yCoordinate] + y;
+		
+		if ([self isValidXCoordinate:xCoordinate] && [self isValidYCoordinate:yCoordinate])
+		{
+			[adjacentCells addObject:[self cellAtX:xCoordinate Y:yCoordinate]];
+		}
+	}
+	
+	return [adjacentCells copy];
 }
 
 - (NSSet*)placementCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
 {
-	[self doesNotRecognizeSelector:_cmd];
-	return nil;
+	return [self cellsAdjacentToCoordinates:cellCoordinates withOffsets:[[self class] placementOffsets]];
+}
+
+- (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
+{
+	return [self cellsAdjacentToCoordinates:cellCoordinates withOffsets:[[self class] captureOffsets]];
+}
+
+- (NSSet*)placementCellsAdjacentToCell:(PetriBoardCell*)cell
+{
+	return [self placementCellsAdjacentToCoordinates:[self coordinatesOfCell:cell]];
 }
 
 - (NSSet*)capturableCellsAdjacentToCell:(PetriBoardCell*)cell
@@ -301,11 +340,6 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return [self capturableCellsAdjacentToCoordinates:[self coordinatesOfCell:cell]];
 }
 
-- (NSSet*)capturableCellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
-{
-	[self doesNotRecognizeSelector:_cmd];
-	return nil;
-}
 
 #pragma mark -
 #pragma mark Other Accessors
@@ -378,8 +412,17 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return [visited copy];
 }
 
+- (void)forceTakeCell:(PetriBoardCell*)cell
+			forPlayer:(PetriPlayer*)player
+{
+	[[cell owner] removeControlledCellsObject:cell];
+	[player addControlledCellsObject:cell];
+	[cell takeCellForPlayer:player];
+}
+
 - (void)forceClearCell:(PetriBoardCell*)cell
 {
+	[[cell owner] removeControlledCellsObject:cell];
 	[cell clearCell];
 }
 
@@ -402,12 +445,6 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 		}
 	}
 }
-
-- (void)performCapturesForPlayer:(PetriPlayer*)player
-{
-	[self doesNotRecognizeSelector:_cmd];
-}
-
 
 - (void)setHeadsForPlayers:(NSArray*)players
 {
@@ -445,6 +482,192 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	}
 	return YES;
 }
+
++ (NSSet*)placementOffsets
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
++ (NSSet*)captureOffsets
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
+#pragma mark -
+#pragma mark Captures
+
+- (BOOL)performQueuedCapturesForPlayer:(PetriPlayer*)player
+{
+	NSMutableSet* set = [stagedCaptures objectAtIndex:0];
+	[stagedCaptures removeObjectAtIndex:0];
+	BOOL didPerformCaptures = NO;
+	for (PetriBoardCell* cell in set)
+	{
+		[self forceTakeCell:cell forPlayer:player];
+		didPerformCaptures = YES;
+	}
+	return didPerformCaptures;
+}
+
+- (void)queueCellForCapture:(PetriBoardCell*)cell
+{
+	if (stagedCaptures == nil)
+	{
+		stagedCaptures = [NSMutableArray array];
+	}
+	
+	if ([stagedCaptures count] == 0)
+	{
+		[stagedCaptures addObject:[NSMutableSet set]];
+	}
+	[[stagedCaptures objectAtIndex:0] addObject:cell];
+}
+
+- (void)queueCellForCapture:(PetriBoardCell*)cell
+					atIndex:(NSUInteger)index
+{
+	while ([stagedCaptures count] <= index)
+	{
+		[stagedCaptures addObject:[NSMutableSet set]];
+	}
+	[[stagedCaptures objectAtIndex:index] addObject:cell];
+}
+
+// \warning this function does _no_ validation
+- (void)forceCaptureCellsFrom:(Petri2DCoordinates*)startCoordinates
+						   to:(Petri2DCoordinates*)endCoordinates
+				 usingXOffset:(NSInteger)xOffset
+					  yOffset:(NSInteger)yOffset
+					forPlayer:(PetriPlayer*)player
+{
+	Petri2DCoordinates* currentCoordinates = startCoordinates;
+	PetriBoardCell* currentCell;
+	NSMutableArray* cellsToCapture = [NSMutableArray array];
+	
+	while (![currentCoordinates isEqual:endCoordinates])
+	{
+		currentCell = [self cellAtCoordinates:currentCoordinates];
+		if ([currentCell cellType] == headCell)
+		{
+			PetriPlayer* otherPlayer = [currentCell owner];
+			[player addControlledCells:[otherPlayer controlledCells]];
+			for (PetriBoardCell* tempCell in [otherPlayer controlledCells])
+			{
+				[self queueCellForCapture:tempCell atIndex:1];
+			}
+		}
+		
+		[cellsToCapture addObject:currentCell];
+		
+		// Iterate
+		currentCoordinates = [Petri2DCoordinates coordinatesWithXCoordinate:[currentCoordinates xCoordinate] + xOffset yCoordinate:[currentCoordinates yCoordinate] + yOffset];
+	}
+	
+	// properly queue captures
+	for (NSUInteger i = 0; i < [cellsToCapture count] - i; i++)
+	{
+		[self queueCellForCapture:[cellsToCapture objectAtIndex:i] atIndex:i];
+		[self queueCellForCapture:[cellsToCapture objectAtIndex:[cellsToCapture count] - 1 - i] atIndex:i];
+	}
+}
+- (BOOL)captureStartingWithXCoordinate:(NSInteger)startingX
+						   yCoordinate:(NSInteger)startingY
+							   xOffset:(NSInteger)xOffset
+							   yOffset:(NSInteger)yOffset
+								player:(PetriPlayer*)player
+{
+	// Initialize the coordinate values
+	NSInteger currentX = startingX + xOffset;
+	NSInteger currentY = startingY + yOffset;
+	
+	// Declare the current cell
+	PetriBoardCell* currentCell = nil;
+	
+	// as long as x and y are valid, keep going
+	while ([self isValidYCoordinate:currentY] && [self isValidXCoordinate:currentX])
+	{
+		currentCell = [self cellAtCoordinates:[Petri2DCoordinates coordinatesWithXCoordinate:currentX yCoordinate:currentY]];
+		
+		// The cell is empty
+		if ([currentCell isEmpty])
+		{
+			// We have encountered an empty cell before encountering our own cell
+			// No capture in this direction at this time
+			return NO;
+		}
+		
+		// The cell is ours
+		if ([currentCell owner] == player)
+		{
+			// Check that there's at least one cell between this and the start
+			if (currentX == (startingX + xOffset) && currentY == (startingY + yOffset))
+			{
+				// There isn't; nothing interesting happens
+				return NO;
+			}
+			
+			// Since this cell is ours and we haven't encountered any empty cells between this one and the starting one, we capture
+			[self forceCaptureCellsFrom:[Petri2DCoordinates coordinatesWithXCoordinate:startingX + xOffset yCoordinate:startingY + yOffset]
+									 to:[Petri2DCoordinates coordinatesWithXCoordinate:currentX yCoordinate:currentY]
+						   usingXOffset:xOffset
+								yOffset:yOffset
+							  forPlayer:player
+			 ];
+			return YES;
+		}
+		// Iteration
+		currentX += xOffset;
+		currentY += yOffset;
+	}
+	// We reached the end of the board without finding a capture
+	return NO;
+}
+- (BOOL)captureStartingWithXCoordinate:(NSInteger)startingX
+						   yCoordinate:(NSInteger)startingY
+								player:(PetriPlayer*)player
+{
+	NSSet* offsets = [[self class] captureOffsets];
+	
+	BOOL didPerformCaptures = NO;
+	for (Petri2DCoordinates* offset in offsets)
+	{
+		didPerformCaptures = [self captureStartingWithXCoordinate:startingX
+													  yCoordinate:startingY
+														  xOffset:[offset xCoordinate]
+														  yOffset:[offset yCoordinate]
+														   player:player
+							  ] || didPerformCaptures;
+	}
+	return didPerformCaptures;
+}
+
+
+- (BOOL)stepCapturesForPlayer:(PetriPlayer*)player
+{
+	Petri2DCoordinates* currentCoordinates;
+	
+	if (stagedCaptures == nil)
+	{
+		stagedCaptures = [NSMutableArray array];
+	}
+	if ([stagedCaptures count] == 0)
+	{
+		return NO;
+	}
+	NSSet* cellsToCapture = [[stagedCaptures objectAtIndex:0] copy];
+	BOOL didPerformCaptures = [self performQueuedCapturesForPlayer:player];
+	for (PetriBoardCell* currentCell in cellsToCapture)
+	{
+		currentCoordinates = [self coordinatesOfCell:currentCell];
+		[self captureStartingWithXCoordinate:[currentCoordinates xCoordinate]
+								 yCoordinate:[currentCoordinates yCoordinate]
+									  player:player];
+	}
+	return didPerformCaptures;
+}
+
 
 @synthesize width;
 @synthesize height;

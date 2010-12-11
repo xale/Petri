@@ -26,6 +26,8 @@
 	id<PetriBoard> board;			/*!< The game board. */
 	PetriGameConfiguration* gameConfiguration;	/*!< The rules for the game. */
 	id<PetriPiece> currentPiece; /*!< The piece available for use on the current player's move. */
+	BOOL inCaptureBatch;
+	BOOL inClearBatch;
 }
 
 /*!
@@ -47,10 +49,11 @@
 - (void)rotateCurrentPiece;
 
 /*!
- Tells the board to capture cells for the current player.
+ Tells the board to capture one iteration of cells for the current player.
  Should be called after the player has placed a piece but before nextTurn is called.
+ Should be called in a loop until it returns \c NO.
  */
-- (void)performCapturesForCurrentPlayer;
+- (BOOL)stepCapturesForCurrentPlayer;
 
 /*!
  Tells the board to remove dead cells.
@@ -63,5 +66,7 @@
 @property (readonly) id<PetriBoard>  board;
 @property (readonly) PetriGameConfiguration* gameConfiguration;
 @property (readonly) id<PetriPiece> currentPiece;
+@property (readwrite) BOOL inCaptureBatch;
+@property (readwrite) BOOL inClearBatch;
 
 @end

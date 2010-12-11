@@ -109,10 +109,14 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 	[gameplayView endPiecePlacementTransaction];
 	
 	// Perform captures for the player who placed the piece
-	[gameplayView beginCaptureTransaction];
-	[[self game] performCapturesForCurrentPlayer];
-	[gameplayView endCaptureTransaction];
+	BOOL flag = NO;
 	
+	do
+	{
+		[gameplayView beginCaptureTransaction];
+		flag = [[self game] stepCapturesForCurrentPlayer];
+		[gameplayView endCaptureTransaction];
+	} while (flag);
 	// Clean up any dead cells
 	[gameplayView beginDeadCellsTransaction];
 	[[self game] clearDeadCells];
