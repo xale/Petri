@@ -8,9 +8,7 @@
 
 #import "PetriPlayersListContainerLayer.h"
 
-NSString* const PetriPlayersListContainerLayerPlayerKey =	@"player";
-
-#define PetriPlayersListContainerLayerSelectedLayerBorderWidth	4.0
+#import "PetriPlayerStatusLayer.h"
 
 /*!
  Private methods on PetriPlayersListContainerLayer
@@ -71,49 +69,36 @@ NSString* const PetriPlayersListContainerLayerPlayerKey =	@"player";
 	PetriPlayer* player;
 	for (NSUInteger playerNum = 0; playerNum < [players count]; playerNum++)
 	{
+		// Get the player at this index
 		player = [players objectAtIndex:playerNum];
-		CALayer* statusBoxLayer = [CALayer layer];
-		[statusBoxLayer setCornerRadius:8.0];
 		
-		// Associate the player with the layer
-		[statusBoxLayer setValue:player
-						  forKey:PetriPlayersListContainerLayerPlayerKey];
-		
-		// Color the layer according to the player's color
-		NSColor* playerColor = [player color];
-		CGColorRef boxColor = CGColorCreateGenericRGB([playerColor redComponent], [playerColor greenComponent], [playerColor blueComponent], 1.0);
-		[statusBoxLayer setBackgroundColor:boxColor];
-		CGColorRelease(boxColor);
-		
-		// Set the layer's border color, and (if the player is selected) draw it
-		CGColorRef borderColor = CGColorGetConstantColor(kCGColorWhite);
-		[statusBoxLayer setBorderColor:borderColor];
-		if ([player isEqual:initialSelectedPlayer])
-			[statusBoxLayer setBorderWidth:PetriPlayersListContainerLayerSelectedLayerBorderWidth];
+		// Create a status box for the player
+		PetriPlayerStatusLayer* statusBox = [PetriPlayerStatusLayer playerStatusLayerForPlayer:player
+																					  selected:[player isEqual:initialSelectedPlayer]];
 		
 		// Anchor the status box to the left edge of the container
-		[statusBoxLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
-																 relativeTo:@"superlayer"
-																  attribute:kCAConstraintMinX]];
+		[statusBox addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
+															relativeTo:@"superlayer"
+															 attribute:kCAConstraintMinX]];
 		
 		// Position the status box a proportional distance from the top of the container
 		CGFloat topPositionScale = (1.0 - ((CGFloat)playerNum / (CGFloat)playerSlots));
-		[statusBoxLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY
-																 relativeTo:@"superlayer"
-																  attribute:kCAConstraintMaxY
-																	  scale:topPositionScale
-																	 offset:0]];
+		[statusBox addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxY
+															relativeTo:@"superlayer"
+															 attribute:kCAConstraintMaxY
+																 scale:topPositionScale
+																offset:0]];
 		
 		// Size the status box to fill the container layer horizontally
-		[statusBoxLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
-																 relativeTo:@"superlayer"
-																  attribute:kCAConstraintWidth]];
-		[statusBoxLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
-																 relativeTo:@"superlayer"
-																  attribute:kCAConstraintHeight
-																	  scale:(1.0 / playerSlots)
-																	 offset:0]];
-		[statusBoxes addObject:statusBoxLayer];
+		[statusBox addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+															relativeTo:@"superlayer"
+															 attribute:kCAConstraintWidth]];
+		[statusBox addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
+															relativeTo:@"superlayer"
+															 attribute:kCAConstraintHeight
+																 scale:(1.0 / playerSlots)
+																offset:0]];
+		[statusBoxes addObject:statusBox];
 	}
 	
 	return [statusBoxes copy];
@@ -126,27 +111,10 @@ NSString* const PetriPlayersListContainerLayerPlayerKey =	@"player";
 
 - (void)setSelectedPlayer:(PetriPlayer*)newSelectedPlayer
 {
-	// Deselect the old player
-	PetriPlayer* player = nil;
-	for (CALayer* playerBox in [self sublayers])
+	// Select the status box corresponding to the player
+	for (PetriPlayerStatusLayer* statusBox in [self sublayers])
 	{
-		player = [playerBox valueForKey:PetriPlayersListContainerLayerPlayerKey];
-		if ([player isEqual:selectedPlayer])
-		{
-			[playerBox setBorderWidth:0.0];
-			break;
-		}
-	}
-	
-	// Select the new player
-	for (CALayer* playerBox in [self sublayers])
-	{
-		player = [playerBox valueForKey:PetriPlayersListContainerLayerPlayerKey];
-		if ([player isEqual:newSelectedPlayer])
-		{
-			[playerBox setBorderWidth:PetriPlayersListContainerLayerSelectedLayerBorderWidth];
-			break;
-		}
+		[statusBox setSelected:[[statusBox player] isEqual:newSelectedPlayer]];
 	}
 	
 	// Hold a reference to the player
