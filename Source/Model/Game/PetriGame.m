@@ -22,6 +22,12 @@
 @interface PetriGame(Private)
 
 /*!
+ Tells the board to capture one iteration of cells for the current player.
+ Should be called in a loop until it returns \c NO.
+ */
+- (BOOL)stepCapturesForCurrentPlayer;
+
+/*!
  Returns the next PetriPiece to be assigned to \c currentPiece, chosen at random based on the distribution provided at initialization.
  */
 - (id<PetriPiece>)nextPiece;
@@ -67,6 +73,17 @@
 	
 	[self didChangeValueForKey:@"currentPlayer"];
 	[self didChangeValueForKey:@"currentPiece"];
+}
+
+- (void)performCapturesForCurrentPlayer
+{
+	NSLog(@">>> + Starting captures for current player.");
+	BOOL capturesPerformed = NO;
+	do
+	{
+		capturesPerformed = [self stepCapturesForCurrentPlayer];
+	} while (capturesPerformed);
+	NSLog(@"<<< + End of captures for current player.");
 }
 
 - (BOOL)stepCapturesForCurrentPlayer

@@ -49,11 +49,10 @@
 - (void)rotateCurrentPiece;
 
 /*!
- Tells the board to capture one iteration of cells for the current player.
- Should be called after the player has placed a piece but before nextTurn is called.
- Should be called in a loop until it returns \c NO.
+ Tells the game to perform all available captures on the board, batching each step of the captures in a capture transaction by raising and lowering the \c inCaptureBatch flag.
+ Should be called after a piece is placed but before -clearDeadCells and -nextTurn.
  */
-- (BOOL)stepCapturesForCurrentPlayer;
+- (void)performCapturesForCurrentPlayer;
 
 /*!
  Tells the board to remove dead cells.
@@ -66,7 +65,7 @@
 @property (readonly) id<PetriBoard>  board;
 @property (readonly) PetriGameConfiguration* gameConfiguration;
 @property (readonly) id<PetriPiece> currentPiece;
-@property (readwrite) BOOL inCaptureBatch;
-@property (readwrite) BOOL inClearBatch;
+@property (readwrite, getter=isInCaptureBatch) BOOL inCaptureBatch;
+@property (readwrite, getter=isInClearBatch) BOOL inClearBatch;
 
 @end
