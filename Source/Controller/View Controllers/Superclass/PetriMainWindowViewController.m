@@ -60,6 +60,16 @@
 	// Does nothing; subclasses may override
 }
 
+- (void)willHideFromWindow
+{
+	// Does nothing; subclasses may override
+}
+
+- (void)didHideFromWindow
+{
+	// Does nothing; subclasses may override
+}
+
 #pragma mark -
 #pragma mark Interface Validation
 

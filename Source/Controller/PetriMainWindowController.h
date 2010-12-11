@@ -10,6 +10,8 @@
 
 @class PetriModel;
 
+@class PetriMainWindowViewController;
+
 /*!
  \defgroup viewKeyConstants View Key Constants
  @{
@@ -57,7 +59,7 @@ extern NSString* const PetriViewControllerKeyNotificationKey;
 	IBOutlet NSBox* viewBox;	/*!< The box containing swapped views on the window. */
 	
 	NSDictionary* viewControllers;				/*!< The collection of views that can be displayed on the main window. */
-	NSViewController* currentViewController;	/*!< The view currently displayed on the main window. */
+	PetriMainWindowViewController* currentViewController;	/*!< The view currently displayed on the main window. */
 	
 	PetriModel* model;	/*!< The backing model for the application. */
 }
@@ -70,7 +72,7 @@ extern NSString* const PetriViewControllerKeyNotificationKey;
 - (void)displayViewControllerForKey:(NSString*)viewControllerKey;
 
 @property (readwrite, assign) IBOutlet NSWindow* window;
-@property (readwrite, assign) NSViewController* currentViewController;
+@property (readwrite, assign) PetriMainWindowViewController* currentViewController;
 
 @property (readonly) PetriModel* model;
 

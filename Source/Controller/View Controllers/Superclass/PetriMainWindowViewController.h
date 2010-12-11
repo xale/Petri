@@ -49,6 +49,16 @@
  */
 - (void)didDisplayInWindow;
 
+/*!
+ Called by the main window controller when this view controller is about to be removed from the main window. Default implementation does nothing.
+ */
+- (void)willHideFromWindow;
+
+/*!
+ Called by the main window controller when this view controller is has just been removed from the main window. Default implementation does nothing.
+ */
+- (void)didHideFromWindow;
+
 @property (readwrite, assign) PetriMainWindowController* mainWindowController;
 
 @end
