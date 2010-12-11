@@ -39,36 +39,6 @@
 	PetriPieceLayer* carriedPiece;	/*!< The piece carried by the user's cursor, if the player has picked it up. */
 }
 
-/*!
- Informs the gameplay view that a piece is about to be placed on the board, and an appropriate CATransaction should be begun.
- */
-- (void)beginPiecePlacementTransaction;
-
-/*!
- Informs the gameplay view that a piece has been placed, and the corresponding CATransaction should be committed.
- */
-- (void)endPiecePlacementTransaction;
-
-/*!
- Informs the gameplay view that captures are about to be performed on the board, and an appropriate CATransaction should be begun.
- */
-- (void)beginCaptureTransaction;
-
-/*!
- Informs the gameplay view that captures have been completed, and the corresponding CATransaction should be committed.
- */
-- (void)endCaptureTransaction;
-
-/*!
- Informs the gameplay view that dead cells are about to be cleared from the board, and an appropriate CATransaction should be begun.
- */
-- (void)beginDeadCellsTransaction;
-
-/*!
- Informs the gameplay view that dead cells have been cleared, and the corresponding CATransaction should be committed.
- */
-- (void)endDeadCellsTransaction;
-
 @property (readwrite, assign) IBOutlet id<PetriGameplayViewDelegate> delegate;
 @property (readwrite, assign) PetriGame* game;
 

@@ -80,6 +80,26 @@
  */
 - (void)spacebarDown:(NSEvent*)keyEvent;
 
+/*!
+ Called when captures are about to be performed on the board, and an appropriate CATransaction should be begun.
+ */
+- (void)beginCaptureTransaction;
+
+/*!
+ Called when captures have been completed, and the corresponding CATransaction should be committed.
+ */
+- (void)endCaptureTransaction;
+
+/*!
+ Called when dead cells are about to be cleared from the board, and an appropriate CATransaction should be begun.
+ */
+- (void)beginDeadCellsTransaction;
+
+/*!
+ Called when dead cells have been cleared, and the corresponding CATransaction should be committed.
+ */
+- (void)endDeadCellsTransaction;
+
 @end
 
 @implementation PetriGameplayView
@@ -426,20 +446,6 @@
 #pragma mark -
 #pragma mark Model-Event Transactions
 
-#define PetriGameplayViewPiecePlacementAnimationDuration	1.0	// Seconds
-
-- (void)beginPiecePlacementTransaction
-{
-	[CATransaction begin];
-	[CATransaction setAnimationDuration:PetriGameplayViewPiecePlacementAnimationDuration];
-	// FIXME: set transaction properties
-}
-- (void)endPiecePlacementTransaction
-{
-	// FIXME: check for balanced piece-placement begin/end
-	[CATransaction commit];
-}
-
 #define PetriGameplayViewCaptureAnimationDuration	2.0	// Seconds
 
 - (void)beginCaptureTransaction
@@ -469,6 +475,59 @@
 }
 
 #pragma mark -
+#pragma mark Key-Value Observing
+
+- (void)startObservingBatchesForGame:(PetriGame*)gameToObserve
+{
+	[gameToObserve addObserver:self
+					forKeyPath:@"inCaptureBatch"
+					   options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+					   context:NULL];
+	[gameToObserve addObserver:self
+					forKeyPath:@"inClearBatch"
+					   options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+					   context:NULL];
+}
+
+- (void)stopObservingBatchesForGame:(PetriGame*)gameToObserve
+{
+	[gameToObserve removeObserver:self
+					   forKeyPath:@"inCaptureBatch"];
+	[gameToObserve removeObserver:self
+					   forKeyPath:@"inClearBatch"];
+}
+
+- (void)observeValueForKeyPath:(NSString*)keyPath
+					  ofObject:(id)object
+						change:(NSDictionary*)changeDict
+					   context:(void*)context
+{
+	// Get the old and new values of the flag
+	BOOL oldFlagValue = [[changeDict objectForKey:NSKeyValueChangeOldKey] boolValue];
+	BOOL newFlagValue = [[changeDict objectForKey:NSKeyValueChangeNewKey] boolValue];
+	
+	// Check which key changed
+	// Capture batch
+	if ([keyPath isEqualToString:@"inCaptureBatch"])
+	{
+		// Check if this is a rising or falling edge of the flag
+		if (!oldFlagValue && newFlagValue)
+			[self beginCaptureTransaction];
+		else if (oldFlagValue && !newFlagValue)
+			[self endCaptureTransaction];
+	}
+	// Clear batch
+	else if ([keyPath isEqualToString:@"inClearBatch"])
+	{
+		// Check if this is a rising or falling edge of the flag
+		if (!oldFlagValue && newFlagValue)
+			[self beginDeadCellsTransaction];
+		else if (oldFlagValue && !newFlagValue)
+			[self endDeadCellsTransaction];
+	}
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 @synthesize delegate;
@@ -477,6 +536,9 @@
 {
 	// Remove any existing sublayers from the background
 	[[self layer] setSublayers:nil];
+	
+	// Stop observing the old game object
+	[self stopObservingBatchesForGame:game];
 	
 	// If the new game is nil, skip creating new layers
 	if (newGame == nil)
@@ -502,6 +564,9 @@
 	
 	// Add the container to the view
 	[[self layer] addSublayer:outerContainerLayer];
+	
+	// Start observing the new game object for notifications of capture and clear batches
+	[self startObservingBatchesForGame:newGame];
 	
 	// Hold a reference to the game object
 	game = newGame;
