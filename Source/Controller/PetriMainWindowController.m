@@ -71,7 +71,10 @@ NSString* const PetriInvalidViewControllerKeyExceptionDescriptionFormat =	@"No v
 		return;
 	}
 	
-	// Inform the view controller it is about to be displayed
+	// Inform the previous view controller it is about to be removed
+	[[self currentViewController] willHideFromWindow];
+	
+	// Inform the new view controller it is about to be displayed
 	[newViewController willDisplayInWindow];
 	
 	// Get the new view to be displayed from its controller
@@ -100,6 +103,9 @@ NSString* const PetriInvalidViewControllerKeyExceptionDescriptionFormat =	@"No v
 	
 	// Move first-responder status to the new view
 	[[self window] makeFirstResponder:newView];
+	
+	// Inform the old view controller it has been removed
+	[[self currentViewController] didHideFromWindow];
 	
 	// Inform the view controller it is now being displayed
 	[newViewController didDisplayInWindow];
