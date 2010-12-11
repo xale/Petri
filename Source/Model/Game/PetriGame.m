@@ -61,7 +61,7 @@
 {
 	[self willChangeValueForKey:@"currentPiece"];
 	[self willChangeValueForKey:@"currentPlayer"];
-	
+	NSLog(@"--- * Changing turn.");
 	currentPlayer = [self nextPlayer];
 	currentPiece = [self nextPiece];
 	
