@@ -168,12 +168,37 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	 atCoordinates:(Petri2DCoordinates*)pieceOrigin
 {
 	// Iterate over cell-offsets in the piece
+	NSMutableSet* coveredCells = [NSMutableSet set];
 	for (Petri2DCoordinates* cellOffset in [piece currentCellCoordinates])
 	{
 		// Find the cell located at (piece origin) + (cell offset)
 		PetriBoardCell* cell = [self cellAtCoordinates:[pieceOrigin offsetCoordinates:cellOffset]];
-		
-		[self queueCellForCapture:cell];
+		[coveredCells addObject:cell];
+	}
+	
+	// Queue up the first cells to capture
+	for (PetriBoardCell* cell in [coveredCells copy])
+	{
+		if ([[[self placementCellsAdjacentToCell:cell] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"owner == %@", player]] count] > 0)
+		{
+			[self queueCellForCapture:cell];
+			[coveredCells removeObject:cell];
+		}
+	}
+	
+	// Queue up the rest
+	NSUInteger offset = 0;
+	while ([coveredCells count] > 0)
+	{
+		for (PetriBoardCell* cell in [coveredCells copy])
+		{
+			if ([[stagedCaptures objectAtIndex:offset] intersectsSet:[self placementCellsAdjacentToCell:cell]])
+			{
+				[self queueCellForCapture:cell atIndex:offset + 1];
+				[coveredCells removeObject:cell];
+			}
+		}
+		offset++;
 	}
 }
 
@@ -272,8 +297,6 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	
 	return nil;
 }
-
-
 
 - (NSSet*)cellsAdjacentToCoordinates:(Petri2DCoordinates*)cellCoordinates
 						 withOffsets:(NSSet*)offsets
