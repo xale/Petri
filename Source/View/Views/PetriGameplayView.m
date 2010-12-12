@@ -325,6 +325,9 @@
 	// Add the layer to the background
 	[[self layer] addSublayer:carriedPiece];
 	
+	// Set a "grabby hand" cursor
+	[[NSCursor closedHandCursor] push];
+	
 	// Hide the piece layer in the container
 	[pieceContainerLayer setPieceHidden:YES];
 	
@@ -543,6 +546,9 @@
 	// Remove the carried piece from the background layer
 	[carriedPiece removeFromSuperlayer];
 	carriedPiece = nil;
+	
+	// Remove the grabby-hand cursor
+	[NSCursor pop];
 	
 	// Clear the current destination cell
 	destinationCell = nil;
