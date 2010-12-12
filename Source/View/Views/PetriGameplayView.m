@@ -71,9 +71,20 @@
   onPieceContainerLayer:(PetriPieceContainerLayer*)clickedLayer;
 
 /*!
+ Returns a the cell on the board located beneath the origin cell of the carried piece, or nil if no such cell is present.
+ */
+- (PetriBoardCell*)cellUnderCarriedPieceOrigin;
+
+/*!
+ Tests if the current position of the carried piece is valid for placement on the board if the piece's origin lies on the specified cell.
+ @param destinationCell the cell on the board whose position corresponds to that of the piece's origin cell.
+ */
+- (BOOL)canPlaceCarriedPieceOnCell:(PetriBoardCell*)destinationCell;
+
+/*!
  Removes the carried piece layer from the cursor, and optionally returns it to its container.
  */
-- (void)dropCurrentPiece:(BOOL)returnToContainer;
+- (void)dropCarriedPiece:(BOOL)returnToContainer;
 
 /*!
  Called when the view receives a -keyDown: event corresponding to a press of the spacebar.
@@ -289,45 +300,22 @@
 	if (carriedPiece == nil)
 		return NO;
 	
-	// Get the piece's origin, and convert to the background layer's coordinate system
-	CGPoint pieceOrigin = [[self layer] convertPoint:[carriedPiece origin]
-										   fromLayer:carriedPiece];
+	// Get the cell under the piece's origin
+	PetriBoardCell* destinationCell = [self cellUnderCarriedPieceOrigin];
 	
-	// Convert to the board layer's superlayer's coordinate system
-	pieceOrigin = [[self layer] convertPoint:pieceOrigin
-									 toLayer:outerContainerLayer];
-	
-	// Hit-test the board layer, looking for a cell under the piece's origin
-	CALayer* layerUnderOrigin = [boardLayer hitTest:pieceOrigin];
-	
-	// Check that such a cell exists
-	if ((layerUnderOrigin == nil) || ![layerUnderOrigin isKindOfClass:[PetriBoardCellLayer class]])
+	// Check if the piece can be placed at that position
+	if (![self canPlaceCarriedPieceOnCell:destinationCell])
 		return NO;
 	
-	// Get the cell from the layer
-	PetriBoardCell* clickedCell = [(PetriBoardCellLayer*)layerUnderOrigin cell];
+	// Place the current piece on the board
+	[[self delegate] gameplayView:self
+					   placePiece:[[self game] currentPiece]
+						forPlayer:[[self game] currentPlayer]
+						   onCell:destinationCell
+						  ofBoard:[[self game] board]];
 	
-	// Get the board from the original clicked layer
-	id<PetriBoard> clickedBoard = [clickedLayer board];
-	 
-	// Check if the piece can be placed at the origin cell
-	BOOL validMove = [[self delegate] gameplayView:self
-									 canPlacePiece:[[self game] currentPiece]
-										 forPlayer:[[self game] currentPlayer]
-											onCell:clickedCell
-										   ofBoard:clickedBoard];
-	if (validMove)
-	{
-		// Place the current piece on the board
-		[[self delegate] gameplayView:self
-						   placePiece:[[self game] currentPiece]
-							forPlayer:[[self game] currentPlayer]
-							   onCell:clickedCell
-							  ofBoard:clickedBoard];
-		
-		// "Drop" the carried piece
-		[self dropCurrentPiece:NO];
-	}
+	// "Drop" the carried piece
+	[self dropCarriedPiece:NO];
 	
 	// Event handled
 	return YES;
@@ -378,21 +366,10 @@
 		return NO;
 	
 	// Drop the carried piece
-	[self dropCurrentPiece:YES];
+	[self dropCarriedPiece:YES];
 	
 	// Event handled
 	return YES;
-}
-
-- (void)dropCurrentPiece:(BOOL)returnToContainer
-{
-	// If necessary, reveal the piece in the container
-	if (returnToContainer)
-		[pieceContainerLayer setPieceHidden:NO];
-	
-	// Remove the carried piece from the background layer
-	[carriedPiece removeFromSuperlayer];
-	carriedPiece = nil;
 }
 
 - (void)mouseDragged:(NSEvent*)mouseEvent
@@ -446,6 +423,51 @@
 				   rotateCurrentPiece:[[self game] currentPiece]
 							forPlayer:[[self game] currentPlayer]];
 	}
+}
+
+#pragma mark -
+#pragma mark Carried-Piece Methods
+
+- (PetriBoardCell*)cellUnderCarriedPieceOrigin
+{
+	// Get the piece's origin, and convert to the background layer's coordinate system
+	CGPoint pieceOrigin = [[self layer] convertPoint:[carriedPiece origin]
+										   fromLayer:carriedPiece];
+	
+	// Convert to the board layer's superlayer's coordinate system
+	pieceOrigin = [[self layer] convertPoint:pieceOrigin
+									 toLayer:outerContainerLayer];
+	
+	// Hit-test the board layer, looking for a cell under the piece's origin
+	CALayer* layerUnderOrigin = [boardLayer hitTest:pieceOrigin];
+	
+	// Check that such a cell exists
+	if ((layerUnderOrigin == nil) || ![layerUnderOrigin isKindOfClass:[PetriBoardCellLayer class]])
+		return nil;
+	
+	// Get the cell from the layer
+	return [(PetriBoardCellLayer*)layerUnderOrigin cell];
+}
+
+- (BOOL)canPlaceCarriedPieceOnCell:(PetriBoardCell*)destinationCell
+{
+	// Check if the piece can be placed at the origin cell
+	return [[self delegate] gameplayView:self
+						   canPlacePiece:[[self game] currentPiece]
+							   forPlayer:[[self game] currentPlayer]
+								  onCell:destinationCell
+								 ofBoard:[[self game] board]];
+}
+
+- (void)dropCarriedPiece:(BOOL)returnToContainer
+{
+	// If necessary, reveal the piece in the container
+	if (returnToContainer)
+		[pieceContainerLayer setPieceHidden:NO];
+	
+	// Remove the carried piece from the background layer
+	[carriedPiece removeFromSuperlayer];
+	carriedPiece = nil;
 }
 
 #pragma mark -
