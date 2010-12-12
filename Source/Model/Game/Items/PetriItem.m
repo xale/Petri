@@ -12,8 +12,47 @@
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	// FIXME: needs a proper override
 	return [[[self class] allocWithZone:zone] init];
+}
+
+- (id)init
+{
+	// Check that we aren't instantiating an abstract class
+	if ([self isMemberOfClass:[PetriItem class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
+
+	return self;
+}
+
+- (void)useItemOnCells:(NSArray*)cells
+				pieces:(NSArray*)pieces
+			   players:(NSArray*)players
+			  byPlayer:(PetriPlayer*)usingPlayer
+			   onBoard:(id<PetriBoard>)board
+{
+	// Check that we aren't instantiating an abstract class
+	if ([self isMemberOfClass:[PetriItem class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
+}
+
+- (void)useItemOnCells:(NSArray*)cells
+				pieces:(NSArray*)pieces
+			   players:(NSArray*)players
+			  byPlayer:(PetriPlayer*)usingPlayer
+			   onBoard:(id<PetriBoard>)board
+{
+	// Check that we aren't instantiating an abstract class
+	if ([self isMemberOfClass:[PetriItem class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
 }
 
 #pragma mark -
@@ -29,14 +68,15 @@
 
 - (BOOL)isEqualToItem:(PetriItem*)item
 {
-	// FIXME: needs a proper implementation
-	return YES;
+	return [[self itemName] isEqual:[item itemName]];
 }
 
 - (NSUInteger)hash
 {
-	// FIXME: needs a proper implementation
-	return 0;
+	return [[self itemName] hash];
 }
+
+@synthesize itemName;
+@synthesize allowingCaptures;
 
 @end
