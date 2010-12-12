@@ -10,6 +10,9 @@
 
 @protocol PetriBoard;
 
+@class PetriBoardCell;
+
+@class PetriBoardCellLayer;
 @class PetriPieceLayer;
 
 /*!
@@ -52,6 +55,18 @@
  @param pieceLayer The layer whose size should be adjusted.
  */
 - (void)scalePieceLayerToCellSize:(PetriPieceLayer*)pieceLayer;
+
+/*!
+ Returns the PetriBoardCellLayer sublayer of the receiver which represents the specified cell on the board, or nil if the specified cell is not represented on this board.
+ @param cell The cell whose layer the board should attempt to find.
+ */
+- (PetriBoardCellLayer*)cellLayerForCell:(PetriBoardCell*)cell;
+
+/*!
+ Returns a set of PetriBoardCellLayer sublayers of the reciever which correspond to the cells in the specified set, if they are present.
+ @param cells The set of PetriBoardCells whose layers the board should attempt to find.
+ */
+- (NSSet*)cellLayersForCells:(NSSet*)cells;
 
 @property (readonly) id<PetriBoard> board;
 @property (readonly) NSSet* highlightedCells;

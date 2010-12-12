@@ -76,10 +76,9 @@
 - (PetriBoardCell*)cellUnderCarriedPieceOrigin;
 
 /*!
- Tests if the current position of the carried piece is valid for placement on the board if the piece's origin lies on the specified cell.
- @param destinationCell the cell on the board whose position corresponds to that of the piece's origin cell.
+ Tests if the current position of the carried piece is valid for placement on the board.
  */
-- (BOOL)canPlaceCarriedPieceOnCell:(PetriBoardCell*)destinationCell;
+- (BOOL)canPlaceCarriedPiece;
 
 /*!
  Highlights the cells on the board under the cells in the currently-carried piece.
@@ -310,11 +309,8 @@
 	if (carriedPiece == nil)
 		return NO;
 	
-	// Get the cell under the piece's origin
-	PetriBoardCell* destinationCell = [self cellUnderCarriedPieceOrigin];
-	
-	// Check if the piece can be placed at that position
-	if (![self canPlaceCarriedPieceOnCell:destinationCell])
+	// Check if the piece can be placed at the piece's current position
+	if (![self canPlaceCarriedPiece])
 		return NO;
 	
 	// Place the current piece on the board
@@ -465,9 +461,13 @@
 	return [(PetriBoardCellLayer*)layerUnderOrigin cell];
 }
 
-- (BOOL)canPlaceCarriedPieceOnCell:(PetriBoardCell*)destinationCell
+- (BOOL)canPlaceCarriedPiece
 {
-	// Check if the piece can be placed at the origin cell
+	// Check if the piece is aligned with a destination cell
+	if (destinationCell == nil)
+		return NO;
+	
+	// Check if the piece can be placed at the destination cell
 	return [[self delegate] gameplayView:self
 						   canPlacePiece:[[self game] currentPiece]
 							   forPlayer:[[self game] currentPlayer]
@@ -477,36 +477,35 @@
 
 - (void)updatePieceHighlight
 {
-	// Determine which, if any, of the cells in the piece are positioned over cells on the board
-	NSMutableSet* cellsUnderPiece = [NSMutableSet setWithCapacity:[[carriedPiece sublayers] count]];
-	for (CALayer* pieceCellLayer in [carriedPiece sublayers])
+	// Get the cell under the carried piece's origin
+	PetriBoardCell* cellUnderPieceOrigin = [self cellUnderCarriedPieceOrigin];
+	
+	// If the piece isn't over a cell, do nothing
+	if (cellUnderPieceOrigin == nil)
 	{
-		// Get the cell's position, in the background layer's coordinate system
-		CGPoint cellPosition = [[self layer] convertPoint:[pieceCellLayer position]
-												fromLayer:carriedPiece];
-		
-		// Convert to the board layer's superlayer's coordinate system
-		cellPosition = [[self layer] convertPoint:cellPosition
-										  toLayer:outerContainerLayer];
-		
-		// Look for cells on the board at the layer's position
-		CALayer* layerUnderCell = [boardLayer hitTest:cellPosition];
-		if ((layerUnderCell == nil) || ![layerUnderCell isKindOfClass:[PetriBoardCellLayer class]])
-			continue;
-		
-		// Add all cells under the piece to a set
-		[cellsUnderPiece addObject:layerUnderCell];
+		destinationCell = nil;
+		return;
 	}
 	
-	// If the set of cells is already highlighted, don't change anything
-	if ([cellsUnderPiece isEqualToSet:[boardLayer highlightedCells]])
+	// If the piece's position hasn't changed, do nothing
+	if ([cellUnderPieceOrigin isEqual:destinationCell])
 		return;
 	
+	// Update the piece's position
+	destinationCell = cellUnderPieceOrigin;
+	
+	// Get the cells on which the piece would lie if placed
+	NSSet* cellsUnderPiece = [[[self game] board] cellsCoveredByPlacingPiece:[[self game] currentPiece]
+																	  onCell:destinationCell];
+	
+	// Get the corresponding layers on the board
+	NSSet* layersUnderPiece = [boardLayer cellLayersForCells:cellsUnderPiece];
+	
 	// Test if the piece's current position is valid for placement
-	BOOL validPlacementPosition = [self canPlaceCarriedPieceOnCell:[self cellUnderCarriedPieceOrigin]];
+	BOOL validPlacementPosition = [self canPlaceCarriedPiece];
 	
 	// Highlight the set of cells
-	[boardLayer highlightCells:[cellsUnderPiece copy]
+	[boardLayer highlightCells:layersUnderPiece
 					   asValid:validPlacementPosition];
 }
 
@@ -526,6 +525,9 @@
 	// Remove the carried piece from the background layer
 	[carriedPiece removeFromSuperlayer];
 	carriedPiece = nil;
+	
+	// Clear the current destination cell
+	destinationCell = nil;
 	
 	// Clear the highlighted cells under the piece
 	[self clearPieceHighlight];
