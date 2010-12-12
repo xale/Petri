@@ -36,7 +36,7 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	   options:nil];
 	
 	// Bind the gameplay view to this controller
-	[gameplayPane bind:@"game"
+	[gameplayView bind:@"game"
 			  toObject:self
 		   withKeyPath:@"game"
 			   options:nil];
@@ -44,8 +44,8 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 
 - (void)didDisplayInWindow
 {
-	// Give first responder status to the gameplay pane
-	[[[self view] window] makeFirstResponder:gameplayPane];
+	// Give first responder status to the gameplay view
+	[[[self view] window] makeFirstResponder:gameplayView];
 }
 
 #pragma mark -
@@ -61,6 +61,12 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 {
 	// FIXME: testing code; needs to prompt user, check if host, etc.
 	[[self mainWindowController] displayViewControllerForKey:PetriTitleViewControllerKey];
+}
+
+- (IBAction)skipTurn:(id)sender
+{
+	// Ask the game to advance to the next turn
+	[[self game] nextTurn];
 }
 
 #pragma mark -

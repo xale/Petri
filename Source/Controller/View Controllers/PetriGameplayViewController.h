@@ -8,7 +8,7 @@
 
 #import "PetriMainWindowViewController.h"
 
-#import "PetriGameplayView.h"	// Imported here for protocol definition
+#import "PetriGameplayView.h"	// Imported here for delegate protocol definition
 
 @class PetriGame;
 
@@ -19,9 +19,7 @@
  */
 @interface PetriGameplayViewController : PetriMainWindowViewController <PetriGameplayViewDelegate>
 {
-	IBOutlet NSSplitView* panesSplitView;	/*!< The split view containing the gameplay and chat panes. */
-	IBOutlet PetriGameplayView* gameplayPane;	/*!< The layer-hosting view containing the board, next piece, and player information layers. */
-	IBOutlet NSView* chatPane;		/*!< The (standard) view containing the chat box. */
+	IBOutlet PetriGameplayView* gameplayView;	/*!< The main view displaying the board, pieces, players, etc. */
 	
 	PetriGame* game;	/*!< A reference to the current game in progress, which is displayed on this view. */
 }
@@ -35,6 +33,11 @@
  Leaves the game and returns to the Title view.
  */
 - (IBAction)returnToTitleView:(id)sender;
+
+/*!
+ Skips the current player's turn.
+ */
+- (IBAction)skipTurn:(id)sender;
 
 @property (readwrite, assign) PetriGame* game;
 
