@@ -333,6 +333,8 @@
 	return YES;
 }
 
+#define PetriGameplayViewCarriedPieceOpacity	0.75
+
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
 		   onPieceLayer:(PetriPieceLayer*)clickedLayer
 {
@@ -346,6 +348,9 @@
 	
 	// Create a new layer with the piece
 	carriedPiece = [PetriPieceLayer pieceLayerForPiece:piece];
+	
+	// Make the layer semitransparent
+	[carriedPiece setOpacity:PetriGameplayViewCarriedPieceOpacity];
 	
 	// Resize the piece to match the scale of the board
 	[boardLayer scalePieceLayerToCellSize:carriedPiece];
