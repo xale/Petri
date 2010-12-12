@@ -51,12 +51,6 @@
  */
 - (NSSet*)normalizeCoordinates:(NSSet*)coordinates;
 
-/*!
- Returns YES if the specified piece has the same set of cell offsets, after accounting for orientation, as the receiver.
- @param piece The piece with which to compare.
- */
-- (BOOL)isEqualToGridPiece:(PetriGridPiece*)piece;
-
 /**
  Calculates and returns the number of columns in the receiver's base coordinate set.
  */

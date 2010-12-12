@@ -39,6 +39,8 @@
 		6A56904D1285F6F20002C128 /* GameGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A56904C1285F6F20002C128 /* GameGroupView.xib */; };
 		6A5E852412AFD8AA00F4233A /* PetriCellTypeDisplayTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E852312AFD8AA00F4233A /* PetriCellTypeDisplayTransformer.m */; };
 		6A71D27312B2C4C800AC6F2B /* PetriNoLayerResizeAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A71D27212B2C4C800AC6F2B /* PetriNoLayerResizeAnimationView.m */; };
+		6A71D45012B308A600AC6F2B /* PetriPlayerStatusLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A71D44F12B308A600AC6F2B /* PetriPlayerStatusLayer.m */; };
+		6A71D45412B30CEE00AC6F2B /* PetriPlayer+DisplayName.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A71D45312B30CEE00AC6F2B /* PetriPlayer+DisplayName.m */; };
 		6A7D5C8D129C790F00D7243F /* PetriSquareGridPieceLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D5C8C129C790F00D7243F /* PetriSquareGridPieceLayer.m */; };
 		6A9430BE129B3F2A00A9F343 /* PetriSquareGridBoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430B5129B3F2A00A9F343 /* PetriSquareGridBoardLayer.m */; };
 		6A9430BF129B3F2A00A9F343 /* PetriBoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9430B8129B3F2A00A9F343 /* PetriBoardLayer.m */; };
@@ -174,6 +176,10 @@
 		6A5E852312AFD8AA00F4233A /* PetriCellTypeDisplayTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriCellTypeDisplayTransformer.m; sourceTree = "<group>"; };
 		6A71D27112B2C4C800AC6F2B /* PetriNoLayerResizeAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriNoLayerResizeAnimationView.h; sourceTree = "<group>"; };
 		6A71D27212B2C4C800AC6F2B /* PetriNoLayerResizeAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriNoLayerResizeAnimationView.m; sourceTree = "<group>"; };
+		6A71D44E12B308A600AC6F2B /* PetriPlayerStatusLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPlayerStatusLayer.h; sourceTree = "<group>"; };
+		6A71D44F12B308A600AC6F2B /* PetriPlayerStatusLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriPlayerStatusLayer.m; sourceTree = "<group>"; };
+		6A71D45212B30CEE00AC6F2B /* PetriPlayer+DisplayName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PetriPlayer+DisplayName.h"; sourceTree = "<group>"; };
+		6A71D45312B30CEE00AC6F2B /* PetriPlayer+DisplayName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PetriPlayer+DisplayName.m"; sourceTree = "<group>"; };
 		6A7D5C8B129C790F00D7243F /* PetriSquareGridPieceLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriSquareGridPieceLayer.h; sourceTree = "<group>"; };
 		6A7D5C8C129C790F00D7243F /* PetriSquareGridPieceLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriSquareGridPieceLayer.m; sourceTree = "<group>"; };
 		6A9430B4129B3F2A00A9F343 /* PetriSquareGridBoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriSquareGridBoardLayer.h; sourceTree = "<group>"; };
@@ -515,6 +521,17 @@
 			path = Superclass;
 			sourceTree = "<group>";
 		};
+		6A71D44D12B308A600AC6F2B /* Players */ = {
+			isa = PBXGroup;
+			children = (
+				6A71D44E12B308A600AC6F2B /* PetriPlayerStatusLayer.h */,
+				6A71D44F12B308A600AC6F2B /* PetriPlayerStatusLayer.m */,
+				6A71D45212B30CEE00AC6F2B /* PetriPlayer+DisplayName.h */,
+				6A71D45312B30CEE00AC6F2B /* PetriPlayer+DisplayName.m */,
+			);
+			path = Players;
+			sourceTree = "<group>";
+		};
 		6A7D5C8A129C790F00D7243F /* Pieces */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,6 +548,7 @@
 				6A9430B3129B3F2A00A9F343 /* Board */,
 				6A9430B9129B3F2A00A9F343 /* Cells */,
 				6A7D5C8A129C790F00D7243F /* Pieces */,
+				6A71D44D12B308A600AC6F2B /* Players */,
 				6A4722F312A6ECE800D5F67C /* Containers */,
 				6A9430BC129B3F2A00A9F343 /* PetriAspectRatioLayer.h */,
 				6A9430BD129B3F2A00A9F343 /* PetriAspectRatioLayer.m */,
@@ -916,6 +934,8 @@
 				6A48E9BE12AEF34A00DA4B81 /* PetriBoardPrototypeView.m in Sources */,
 				6A5E852412AFD8AA00F4233A /* PetriCellTypeDisplayTransformer.m in Sources */,
 				6A71D27312B2C4C800AC6F2B /* PetriNoLayerResizeAnimationView.m in Sources */,
+				6A71D45012B308A600AC6F2B /* PetriPlayerStatusLayer.m in Sources */,
+				6A71D45412B30CEE00AC6F2B /* PetriPlayer+DisplayName.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

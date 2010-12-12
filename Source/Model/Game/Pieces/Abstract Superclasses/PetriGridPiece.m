@@ -114,27 +114,6 @@ NSString* const PetriGridPieceInvalidPieceTypeExceptionFormat =	@"Invalid piece 
 }
 
 #pragma mark -
-#pragma mark Comparators
-
-- (BOOL)isEqual:(id)object
-{
-	if (![object isKindOfClass:[self class]])
-		return NO;
-	
-	return [self isEqualToGridPiece:(PetriGridPiece*)object];
-}
-
-- (BOOL)isEqualToGridPiece:(PetriGridPiece*)piece
-{
-	return [[self currentCellCoordinates] isEqualToSet:[piece currentCellCoordinates]];
-}
-
-- (NSUInteger)hash
-{
-	return [[self currentCellCoordinates] hash];
-}
-
-#pragma mark -
 #pragma mark Accessors
 
 - (NSInteger)baseWidth
