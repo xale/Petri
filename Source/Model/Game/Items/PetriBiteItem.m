@@ -9,6 +9,7 @@
 #import "PetriBiteItem.h"
 #import "PetriBoardCell.h"
 #import "PetriBoard.h"
+#import "PetriPlayer.h"
 #import "NSArray+Subranges.h"
 
 @implementation PetriBiteItem
@@ -17,6 +18,7 @@
 {
 	itemName = @"Bite";
 	allowsCaptures = NO;
+	return self;
 }
 
 - (void)useItemOnCells:(NSArray*)cells
@@ -32,11 +34,11 @@
 	}
 }
 
-- (void)useItemOnCells:(NSArray*)cells
-				pieces:(NSArray*)pieces
-			   players:(NSArray*)players
-			  byPlayer:(PetriPlayer*)usingPlayer
-			   onBoard:(id<PetriBoard>)board
+- (BOOL)validateItemOnCells:(NSArray*)cells
+					 pieces:(NSArray*)pieces
+					players:(NSArray*)players
+				   byPlayer:(PetriPlayer*)usingPlayer
+					onBoard:(id<PetriBoard>)board
 {
 	if (cells == nil || [cells count] == 0)
 	{
@@ -66,8 +68,10 @@
 		{
 			return NO;
 		}
-		
-		if (![board placementCellsAdjacentToCell:cell] intersectsSet:[[usingPlayer controlledCells] unionSet:[NSSet setWithArray:[cells subarrayToIndex:i]]])
+		NSSet* adjacentCells = [board placementCellsAdjacentToCell:cell];
+		NSArray* firstBiteCells = [cells subarrayToIndex:i];
+		NSSet* playerCells = [usingPlayer controlledCells];
+		if (![adjacentCells intersectsSet:[playerCells setByAddingObjectsFromArray:firstBiteCells]])
 		{
 			return NO;
 		}

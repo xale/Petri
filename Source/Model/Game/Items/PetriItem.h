@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PetriBoard.h"
 
 /*!
  \brief A usuable item that can affect game state.
@@ -44,14 +45,13 @@
 - (void)useItemOnCells:(NSArray*)cells
 				pieces:(NSArray*)pieces
 			   players:(NSArray*)players
-			  byPlayer:(PetriPlayer*)usingPlayer;
-			   onBoard:(id<PetriBoard>)board
+			  byPlayer:(PetriPlayer*)usingPlayer
+			   onBoard:(id<PetriBoard>)board;
 
 /*!
  This is a general method for validating the use of an item.  If a particular parameter doesn't apply, it is ignored and it is safe to pass nil.
  This method will return \c NO if it expects a value and does not receive one or receives one it does not expect.
  The use method should be called afterward with the same arguments to actually use the item.
- Calls the validator.
  
  @param cells the cells the item affects
  @param pieces the pieces the item affects
@@ -59,11 +59,11 @@
  @param usingPlayer the player who is using the item; always required
  @param board the board that the game is being played on; always required
  */
-- (void)useItemOnCells:(NSArray*)cells
-				pieces:(NSArray*)pieces
-			   players:(NSArray*)players
-			  byPlayer:(PetriPlayer*)usingPlayer;
-			   onBoard:(id<PetriBoard>)board
+- (BOOL)validateItemOnCells:(NSArray*)cells
+					 pieces:(NSArray*)pieces
+					players:(NSArray*)players
+				   byPlayer:(PetriPlayer*)usingPlayer
+					onBoard:(id<PetriBoard>)board;
 
 @property (readonly) NSString* itemName;
 @property (readonly) BOOL allowsCaptures;
