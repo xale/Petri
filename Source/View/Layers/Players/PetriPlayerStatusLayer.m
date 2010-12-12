@@ -29,7 +29,7 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	NSString* playerName = [displayedPlayer displayName];
 	
 	// Create a text layer for the player's name
-	CATextLayer* nameLayer = [CATextLayer layer];
+	nameLayer = [CATextLayer layer];
 	[nameLayer setString:playerName];
 	
 	// Set the font to the Petri title font
@@ -73,6 +73,13 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	player = displayedPlayer;
 	
 	return self;
+}
+
+- (void)setBounds:(CGRect)newBounds
+{
+	NSLog(@"MOO");
+	[super setBounds:newBounds];
+	[nameLayer setFontSize:newBounds.size.height/5];
 }
 
 + (id)playerStatusLayerForPlayer:(PetriPlayer*)displayedPlayer

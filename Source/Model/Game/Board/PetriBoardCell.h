@@ -17,18 +17,19 @@
  
  The PetriBoardCell class stores information about an individual "place" (i.e., a single unit in the coordinate system) on a game board, including the type of cell, the which player (if any) controls the cell, and, if present, an item that can be picked up when the cell is claimed.
  */
-@interface PetriBoardCell : NSObject <NSCopying>
+@interface PetriBoardCell : NSObject <NSCopying, NSCoding>
 {
 	PetriCellType cellType;	/*!< The type of cell. */
 	PetriPlayer* owner;		/*!< The player currently controlling the cell, if any. Will be nil if cellType is not headCell or bodyCell. */
 	PetriItem* pickUp;		/*!< The item picked up when this cell is claimed, if any. Will be nil if cellType is not unoccupiedCell. */
+	NSInteger cellId;
 }
 
 /**
  * Default constructor
  * Initializes owner and item to nil and type to unoccupied
  */
-- (id)init;
+- (id)initWithCellID:(NSInteger)ID;
 
 /**
  * Initializes a PetriBoardCell with the specified type, owner, if any, and item, if any.
@@ -38,7 +39,8 @@
  */
 - (id)initWithCellType:(PetriCellType)type
 				 owner:(PetriPlayer*)player
-				pickUp:(PetriItem*)item;
+				pickUp:(PetriItem*)item
+				cellID:(NSInteger)ID;
 
 /*!
  Clears the current cell
@@ -63,8 +65,12 @@
  */
 - (BOOL)hasSamePropertiesAsCell:(PetriBoardCell*)otherCell;
 
+- (void)encodeWithCoder: (NSCoder *)coder;
+- (id)initWithCoder: (NSCoder *)coder;
+
 @property (readwrite, assign) PetriCellType cellType;
 @property (readwrite, assign) PetriPlayer* owner;
 @property (readwrite, copy) PetriItem* pickUp;
+@property (readonly) NSInteger cellId;
 
 @end

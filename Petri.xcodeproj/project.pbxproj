@@ -68,6 +68,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		FA260A2412AD671100B4E9F9 /* PetriBoardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FA260A2312AD671100B4E9F9 /* PetriBoardManager.m */; };
 		FA260A2712AD6A8400B4E9F9 /* PetriBoardManagerTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = FA260A2612AD6A8400B4E9F9 /* PetriBoardManagerTestCases.m */; };
+		FA31882F12B4513D009E7D42 /* PetriBiteItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FA31882E12B4513D009E7D42 /* PetriBiteItem.m */; };
 		FA547A6A12A89BE500F14951 /* PetriBoardPrototype.m in Sources */ = {isa = PBXBuildFile; fileRef = FA547A6912A89BE500F14951 /* PetriBoardPrototype.m */; };
 		FA547A6D12A98D0300F14951 /* PetriBoardParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA547A6C12A98D0300F14951 /* PetriBoardParameter.m */; };
 		FA591AA9129B8D7600210502 /* Petri2DCoordinates.m in Sources */ = {isa = PBXBuildFile; fileRef = FA591AA8129B8D7600210502 /* Petri2DCoordinates.m */; };
@@ -228,6 +229,8 @@
 		FA260A2312AD671100B4E9F9 /* PetriBoardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardManager.m; sourceTree = "<group>"; };
 		FA260A2512AD6A8400B4E9F9 /* PetriBoardManagerTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardManagerTestCases.h; sourceTree = "<group>"; };
 		FA260A2612AD6A8400B4E9F9 /* PetriBoardManagerTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardManagerTestCases.m; sourceTree = "<group>"; };
+		FA31882D12B4513D009E7D42 /* PetriBiteItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBiteItem.h; sourceTree = "<group>"; };
+		FA31882E12B4513D009E7D42 /* PetriBiteItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBiteItem.m; sourceTree = "<group>"; };
 		FA547A6812A89BE500F14951 /* PetriBoardPrototype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardPrototype.h; sourceTree = "<group>"; };
 		FA547A6912A89BE500F14951 /* PetriBoardPrototype.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardPrototype.m; sourceTree = "<group>"; };
 		FA547A6B12A98D0300F14951 /* PetriBoardParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardParameter.h; sourceTree = "<group>"; };
@@ -490,8 +493,9 @@
 		6A4A160012663EFC00429714 /* Items */ = {
 			isa = PBXGroup;
 			children = (
-				6A4A160112663EFC00429714 /* PetriItem.h */,
-				6A4A160212663EFD00429714 /* PetriItem.m */,
+				FA31882C12B45119009E7D42 /* Abstract Superclass */,
+				FA31882D12B4513D009E7D42 /* PetriBiteItem.h */,
+				FA31882E12B4513D009E7D42 /* PetriBiteItem.m */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -737,6 +741,15 @@
 			path = Superclass;
 			sourceTree = "<group>";
 		};
+		FA31882C12B45119009E7D42 /* Abstract Superclass */ = {
+			isa = PBXGroup;
+			children = (
+				6A4A160112663EFC00429714 /* PetriItem.h */,
+				6A4A160212663EFD00429714 /* PetriItem.m */,
+			);
+			name = "Abstract Superclass";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -936,6 +949,7 @@
 				6A71D27312B2C4C800AC6F2B /* PetriNoLayerResizeAnimationView.m in Sources */,
 				6A71D45012B308A600AC6F2B /* PetriPlayerStatusLayer.m in Sources */,
 				6A71D45412B30CEE00AC6F2B /* PetriPlayer+DisplayName.m in Sources */,
+				FA31882F12B4513D009E7D42 /* PetriBiteItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
