@@ -480,9 +480,10 @@
 	// Get the cell under the carried piece's origin
 	PetriBoardCell* cellUnderPieceOrigin = [self cellUnderCarriedPieceOrigin];
 	
-	// If the piece isn't over a cell, do nothing
+	// If the piece isn't over a cell, clear highlighting
 	if (cellUnderPieceOrigin == nil)
 	{
+		[self clearPieceHighlight];
 		destinationCell = nil;
 		return;
 	}
