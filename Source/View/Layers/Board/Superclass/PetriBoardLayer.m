@@ -108,6 +108,32 @@ NSString* const PetriUnknownBoardTypeExceptionDescriptionFormat =	@"Cannot gener
 #pragma mark -
 #pragma mark Accessors
 
+- (PetriBoardCellLayer*)cellLayerForCell:(PetriBoardCell*)cell
+{
+	// Search the sublayers for a cell layer containing the specified cell
+	for (PetriBoardCellLayer* cellLayer in [self sublayers])
+	{
+		if ([[cellLayer cell] isEqual:cell])
+			return cellLayer;
+	}
+	
+	// No corresponding layer found
+	return nil;
+}
+
+- (NSSet*)cellLayersForCells:(NSSet*)cells
+{
+	// Search the sublayers for cell layers containing the one of the specified cells
+	NSMutableSet* cellLayers = [NSMutableSet setWithCapacity:[cells count]];
+	for (PetriBoardCellLayer* cellLayer in [self sublayers])
+	{
+		if ([cells containsObject:[cellLayer cell]])
+			[cellLayers addObject:cellLayer];
+	}
+	
+	return [cellLayers copy];
+}
+
 @synthesize board;
 @synthesize highlightedCells;
 

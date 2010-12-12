@@ -37,6 +37,7 @@
 	PetriPlayersListContainerLayer* playersContainerLayer;	/*!< Sublayer of the \c outerContainerLayer which displays the list of players. */
 	
 	PetriPieceLayer* carriedPiece;	/*!< The piece carried by the user's cursor, if the player has picked it up. */
+	PetriBoardCell* destinationCell;	/*!< The cell over which the carried piece's origin is located, if any. Used primarily as an internal optimization. */
 }
 
 @property (readwrite, assign) IBOutlet id<PetriGameplayViewDelegate> delegate;
