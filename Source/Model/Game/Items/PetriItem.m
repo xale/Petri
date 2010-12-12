@@ -12,10 +12,47 @@
 
 - (id)copyWithZone:(NSZone*)zone
 {
-	return [[[self class] allocWithZone:zone] initWithName:[self name]
-												 validator:validator
-												 performer:performer
-										  allowingCaptures:allowingCaptures];
+	return [[[self class] allocWithZone:zone] init];
+}
+
+- (id)init
+{
+	// Check that we aren't instantiating an abstract class
+	if ([self isMemberOfClass:[PetriItem class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
+
+	return self;
+}
+
+- (void)useItemOnCells:(NSArray*)cells
+				pieces:(NSArray*)pieces
+			   players:(NSArray*)players
+			  byPlayer:(PetriPlayer*)usingPlayer
+			   onBoard:(id<PetriBoard>)board
+{
+	// Check that we aren't instantiating an abstract class
+	if ([self isMemberOfClass:[PetriItem class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
+}
+
+- (void)useItemOnCells:(NSArray*)cells
+				pieces:(NSArray*)pieces
+			   players:(NSArray*)players
+			  byPlayer:(PetriPlayer*)usingPlayer
+			   onBoard:(id<PetriBoard>)board
+{
+	// Check that we aren't instantiating an abstract class
+	if ([self isMemberOfClass:[PetriItem class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
 }
 
 #pragma mark -
@@ -38,5 +75,8 @@
 {
 	return [[self itemName] hash];
 }
+
+@synthesize itemName;
+@synthesize allowingCaptures;
 
 @end
