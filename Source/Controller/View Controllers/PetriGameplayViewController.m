@@ -102,25 +102,15 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 			 ofBoard:(id<PetriBoard>)board
 {
 	// Place the piece on the board
-	[gameplayView beginPiecePlacementTransaction];
 	[board placePiece:piece
 			withOwner:pieceOwner
 			   onCell:cell];
-	[gameplayView endPiecePlacementTransaction];
 	
 	// Perform captures for the player who placed the piece
-	BOOL flag = NO;
+	[[self game] performCapturesForCurrentPlayer];
 	
-	do
-	{
-		[gameplayView beginCaptureTransaction];
-		flag = [[self game] stepCapturesForCurrentPlayer];
-		[gameplayView endCaptureTransaction];
-	} while (flag);
 	// Clean up any dead cells
-	[gameplayView beginDeadCellsTransaction];
 	[[self game] clearDeadCells];
-	[gameplayView endDeadCellsTransaction];
 	
 	// Advance to the next player's turn
 	[[self game] nextTurn];

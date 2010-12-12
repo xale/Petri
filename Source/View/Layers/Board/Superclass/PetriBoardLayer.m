@@ -11,6 +11,8 @@
 #import "PetriSquareGridBoard.h"
 #import "PetriSquareGridBoardLayer.h"
 
+#import "PetriBoardCellLayer.h"
+
 @implementation PetriBoardLayer
 
 NSString* const PetriUnknownBoardTypeExceptionName =				@"unknownBoardTypeException";
@@ -63,6 +65,39 @@ NSString* const PetriUnknownBoardTypeExceptionDescriptionFormat =	@"Cannot gener
 }
 
 #pragma mark -
+#pragma mark Cell Highlights
+
+- (void)highlightCells:(NSSet*)cellsToHighlight
+			   asValid:(BOOL)valid
+{
+	[self willChangeValueForKey:@"highlightedCells"];
+	
+	// Disable animations
+	[CATransaction begin];
+	[CATransaction setValue:(id)kCFBooleanTrue
+					 forKey:kCATransactionDisableActions];
+	
+	// Un-highlight existing highlighted cells
+	for (PetriBoardCellLayer* cellLayer in [self highlightedCells])
+	{
+		[cellLayer setHighlighted:NO];
+	}
+	
+	// Highlight the new cells
+	for (PetriBoardCellLayer* cellLayer in cellsToHighlight)
+	{
+		[cellLayer setHighlightsAsValid:valid];
+		[cellLayer setHighlighted:YES];
+	}
+	
+	[CATransaction commit];
+	
+	highlightedCells = cellsToHighlight;
+	
+	[self didChangeValueForKey:@"highlightedCells"];
+}
+
+#pragma mark -
 #pragma mark Piece Scaling
 
 - (void)scalePieceLayerToCellSize:(PetriPieceLayer*)pieceLayer
@@ -74,5 +109,6 @@ NSString* const PetriUnknownBoardTypeExceptionDescriptionFormat =	@"Cannot gener
 #pragma mark Accessors
 
 @synthesize board;
+@synthesize highlightedCells;
 
 @end

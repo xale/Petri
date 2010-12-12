@@ -18,6 +18,8 @@
 @interface PetriBoardCellLayer : CALayer
 {
 	PetriBoardCell* cell;	/*!< The cell for which this layer provides a graphical representation. */
+	BOOL highlighted;		/*!< Specifies whether the cell should indicate that it is highlighted for piece placment. */
+	BOOL highlightsAsValid;	/*!< Specifies whether the cell, when highlighted, should indicate "valid" or "invalid" for piece placement. */
 }
 
 /*!
@@ -35,5 +37,7 @@
 - (id)initWithCell:(PetriBoardCell*)displayedCell;
 
 @property (readonly) PetriBoardCell* cell;
+@property (readwrite, assign) BOOL highlighted;
+@property (readwrite, assign) BOOL highlightsAsValid;
 
 @end
