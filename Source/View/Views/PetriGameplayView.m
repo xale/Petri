@@ -71,14 +71,55 @@
   onPieceContainerLayer:(PetriPieceContainerLayer*)clickedLayer;
 
 /*!
+ Returns a the cell on the board located beneath the origin cell of the carried piece, or nil if no such cell is present.
+ */
+- (PetriBoardCell*)cellUnderCarriedPieceOrigin;
+
+/*!
+ Tests if the current position of the carried piece is valid for placement on the board if the piece's origin lies on the specified cell.
+ @param destinationCell the cell on the board whose position corresponds to that of the piece's origin cell.
+ */
+- (BOOL)canPlaceCarriedPieceOnCell:(PetriBoardCell*)destinationCell;
+
+/*!
+ Highlights the cells on the board under the cells in the currently-carried piece.
+ */
+- (void)updatePieceHighlight;
+
+/*!
+ Un-highlights any highlighted cells on the board (see -updatePieceHighlight).
+ */
+- (void)clearPieceHighlight;
+
+/*!
  Removes the carried piece layer from the cursor, and optionally returns it to its container.
  */
-- (void)dropCurrentPiece:(BOOL)returnToContainer;
+- (void)dropCarriedPiece:(BOOL)returnToContainer;
 
 /*!
  Called when the view receives a -keyDown: event corresponding to a press of the spacebar.
  */
 - (void)spacebarDown:(NSEvent*)keyEvent;
+
+/*!
+ Called when captures are about to be performed on the board, and an appropriate CATransaction should be begun.
+ */
+- (void)beginCaptureTransaction;
+
+/*!
+ Called when captures have been completed, and the corresponding CATransaction should be committed.
+ */
+- (void)endCaptureTransaction;
+
+/*!
+ Called when dead cells are about to be cleared from the board, and an appropriate CATransaction should be begun.
+ */
+- (void)beginDeadCellsTransaction;
+
+/*!
+ Called when dead cells have been cleared, and the corresponding CATransaction should be committed.
+ */
+- (void)endDeadCellsTransaction;
 
 @end
 
@@ -269,49 +310,28 @@
 	if (carriedPiece == nil)
 		return NO;
 	
-	// Get the piece's origin, and convert to the background layer's coordinate system
-	CGPoint pieceOrigin = [[self layer] convertPoint:[carriedPiece origin]
-										   fromLayer:carriedPiece];
+	// Get the cell under the piece's origin
+	PetriBoardCell* destinationCell = [self cellUnderCarriedPieceOrigin];
 	
-	// Convert to the board layer's superlayer's coordinate system
-	pieceOrigin = [[self layer] convertPoint:pieceOrigin
-									 toLayer:outerContainerLayer];
-	
-	// Hit-test the board layer, looking for a cell under the piece's origin
-	CALayer* layerUnderOrigin = [boardLayer hitTest:pieceOrigin];
-	
-	// Check that such a cell exists
-	if ((layerUnderOrigin == nil) || ![layerUnderOrigin isKindOfClass:[PetriBoardCellLayer class]])
+	// Check if the piece can be placed at that position
+	if (![self canPlaceCarriedPieceOnCell:destinationCell])
 		return NO;
 	
-	// Get the cell from the layer
-	PetriBoardCell* clickedCell = [(PetriBoardCellLayer*)layerUnderOrigin cell];
+	// Place the current piece on the board
+	[[self delegate] gameplayView:self
+					   placePiece:[[self game] currentPiece]
+						forPlayer:[[self game] currentPlayer]
+						   onCell:destinationCell
+						  ofBoard:[[self game] board]];
 	
-	// Get the board from the original clicked layer
-	id<PetriBoard> clickedBoard = [clickedLayer board];
-	 
-	// Check if the piece can be placed at the origin cell
-	BOOL validMove = [[self delegate] gameplayView:self
-									 canPlacePiece:[[self game] currentPiece]
-										 forPlayer:[[self game] currentPlayer]
-											onCell:clickedCell
-										   ofBoard:clickedBoard];
-	if (validMove)
-	{
-		// Place the current piece on the board
-		[[self delegate] gameplayView:self
-						   placePiece:[[self game] currentPiece]
-							forPlayer:[[self game] currentPlayer]
-							   onCell:clickedCell
-							  ofBoard:clickedBoard];
-		
-		// "Drop" the carried piece
-		[self dropCurrentPiece:NO];
-	}
+	// "Drop" the carried piece
+	[self dropCarriedPiece:NO];
 	
 	// Event handled
 	return YES;
 }
+
+#define PetriGameplayViewCarriedPieceOpacity	0.75
 
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
 		   onPieceLayer:(PetriPieceLayer*)clickedLayer
@@ -326,6 +346,9 @@
 	
 	// Create a new layer with the piece
 	carriedPiece = [PetriPieceLayer pieceLayerForPiece:piece];
+	
+	// Make the layer semitransparent
+	[carriedPiece setOpacity:PetriGameplayViewCarriedPieceOpacity];
 	
 	// Resize the piece to match the scale of the board
 	[boardLayer scalePieceLayerToCellSize:carriedPiece];
@@ -353,21 +376,10 @@
 		return NO;
 	
 	// Drop the carried piece
-	[self dropCurrentPiece:YES];
+	[self dropCarriedPiece:YES];
 	
 	// Event handled
 	return YES;
-}
-
-- (void)dropCurrentPiece:(BOOL)returnToContainer
-{
-	// If necessary, reveal the piece in the container
-	if (returnToContainer)
-		[pieceContainerLayer setPieceHidden:NO];
-	
-	// Remove the carried piece from the background layer
-	[carriedPiece removeFromSuperlayer];
-	carriedPiece = nil;
 }
 
 - (void)mouseDragged:(NSEvent*)mouseEvent
@@ -393,6 +405,9 @@
 	[carriedPiece setPosition:NSPointToCGPoint(mousePoint)];
 	
 	[CATransaction commit];
+	
+	// Update the highlighted cells under the piece
+	[self updatePieceHighlight];
 }
 
 #pragma mark Keyboard
@@ -420,25 +435,104 @@
 		[[self delegate] gameplayView:self
 				   rotateCurrentPiece:[[self game] currentPiece]
 							forPlayer:[[self game] currentPlayer]];
+		
+		// Update the highlighted cells under the piece
+		[self updatePieceHighlight];
 	}
 }
 
 #pragma mark -
+#pragma mark Carried-Piece Methods
+
+- (PetriBoardCell*)cellUnderCarriedPieceOrigin
+{
+	// Get the piece's origin, and convert to the background layer's coordinate system
+	CGPoint pieceOrigin = [[self layer] convertPoint:[carriedPiece origin]
+										   fromLayer:carriedPiece];
+	
+	// Convert to the board layer's superlayer's coordinate system
+	pieceOrigin = [[self layer] convertPoint:pieceOrigin
+									 toLayer:outerContainerLayer];
+	
+	// Hit-test the board layer, looking for a cell under the piece's origin
+	CALayer* layerUnderOrigin = [boardLayer hitTest:pieceOrigin];
+	
+	// Check that such a cell exists
+	if ((layerUnderOrigin == nil) || ![layerUnderOrigin isKindOfClass:[PetriBoardCellLayer class]])
+		return nil;
+	
+	// Get the cell from the layer
+	return [(PetriBoardCellLayer*)layerUnderOrigin cell];
+}
+
+- (BOOL)canPlaceCarriedPieceOnCell:(PetriBoardCell*)destinationCell
+{
+	// Check if the piece can be placed at the origin cell
+	return [[self delegate] gameplayView:self
+						   canPlacePiece:[[self game] currentPiece]
+							   forPlayer:[[self game] currentPlayer]
+								  onCell:destinationCell
+								 ofBoard:[[self game] board]];
+}
+
+- (void)updatePieceHighlight
+{
+	// Determine which, if any, of the cells in the piece are positioned over cells on the board
+	NSMutableSet* cellsUnderPiece = [NSMutableSet setWithCapacity:[[carriedPiece sublayers] count]];
+	for (CALayer* pieceCellLayer in [carriedPiece sublayers])
+	{
+		// Get the cell's position, in the background layer's coordinate system
+		CGPoint cellPosition = [[self layer] convertPoint:[pieceCellLayer position]
+												fromLayer:carriedPiece];
+		
+		// Convert to the board layer's superlayer's coordinate system
+		cellPosition = [[self layer] convertPoint:cellPosition
+										  toLayer:outerContainerLayer];
+		
+		// Look for cells on the board at the layer's position
+		CALayer* layerUnderCell = [boardLayer hitTest:cellPosition];
+		if ((layerUnderCell == nil) || ![layerUnderCell isKindOfClass:[PetriBoardCellLayer class]])
+			continue;
+		
+		// Add all cells under the piece to a set
+		[cellsUnderPiece addObject:layerUnderCell];
+	}
+	
+	// If the set of cells is already highlighted, don't change anything
+	if ([cellsUnderPiece isEqualToSet:[boardLayer highlightedCells]])
+		return;
+	
+	// Test if the piece's current position is valid for placement
+	BOOL validPlacementPosition = [self canPlaceCarriedPieceOnCell:[self cellUnderCarriedPieceOrigin]];
+	
+	// Highlight the set of cells
+	[boardLayer highlightCells:[cellsUnderPiece copy]
+					   asValid:validPlacementPosition];
+}
+
+- (void)clearPieceHighlight
+{
+	// Un-highlight the highlighted cells
+	[boardLayer highlightCells:nil
+					   asValid:YES];
+}
+
+- (void)dropCarriedPiece:(BOOL)returnToContainer
+{
+	// If necessary, reveal the piece in the container
+	if (returnToContainer)
+		[pieceContainerLayer setPieceHidden:NO];
+	
+	// Remove the carried piece from the background layer
+	[carriedPiece removeFromSuperlayer];
+	carriedPiece = nil;
+	
+	// Clear the highlighted cells under the piece
+	[self clearPieceHighlight];
+}
+
+#pragma mark -
 #pragma mark Model-Event Transactions
-
-#define PetriGameplayViewPiecePlacementAnimationDuration	1.0	// Seconds
-
-- (void)beginPiecePlacementTransaction
-{
-	[CATransaction begin];
-	[CATransaction setAnimationDuration:PetriGameplayViewPiecePlacementAnimationDuration];
-	// FIXME: set transaction properties
-}
-- (void)endPiecePlacementTransaction
-{
-	// FIXME: check for balanced piece-placement begin/end
-	[CATransaction commit];
-}
 
 #define PetriGameplayViewCaptureAnimationDuration	2.0	// Seconds
 
@@ -469,6 +563,59 @@
 }
 
 #pragma mark -
+#pragma mark Key-Value Observing
+
+- (void)startObservingBatchesForGame:(PetriGame*)gameToObserve
+{
+	[gameToObserve addObserver:self
+					forKeyPath:@"inCaptureBatch"
+					   options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+					   context:NULL];
+	[gameToObserve addObserver:self
+					forKeyPath:@"inClearBatch"
+					   options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+					   context:NULL];
+}
+
+- (void)stopObservingBatchesForGame:(PetriGame*)gameToObserve
+{
+	[gameToObserve removeObserver:self
+					   forKeyPath:@"inCaptureBatch"];
+	[gameToObserve removeObserver:self
+					   forKeyPath:@"inClearBatch"];
+}
+
+- (void)observeValueForKeyPath:(NSString*)keyPath
+					  ofObject:(id)object
+						change:(NSDictionary*)changeDict
+					   context:(void*)context
+{
+	// Get the old and new values of the flag
+	BOOL oldFlagValue = [[changeDict objectForKey:NSKeyValueChangeOldKey] boolValue];
+	BOOL newFlagValue = [[changeDict objectForKey:NSKeyValueChangeNewKey] boolValue];
+	
+	// Check which key changed
+	// Capture batch
+	if ([keyPath isEqualToString:@"inCaptureBatch"])
+	{
+		// Check if this is a rising or falling edge of the flag
+		if (!oldFlagValue && newFlagValue)
+			[self beginCaptureTransaction];
+		else if (oldFlagValue && !newFlagValue)
+			[self endCaptureTransaction];
+	}
+	// Clear batch
+	else if ([keyPath isEqualToString:@"inClearBatch"])
+	{
+		// Check if this is a rising or falling edge of the flag
+		if (!oldFlagValue && newFlagValue)
+			[self beginDeadCellsTransaction];
+		else if (oldFlagValue && !newFlagValue)
+			[self endDeadCellsTransaction];
+	}
+}
+
+#pragma mark -
 #pragma mark Accessors
 
 @synthesize delegate;
@@ -477,6 +624,9 @@
 {
 	// Remove any existing sublayers from the background
 	[[self layer] setSublayers:nil];
+	
+	// Stop observing the old game object
+	[self stopObservingBatchesForGame:game];
 	
 	// If the new game is nil, skip creating new layers
 	if (newGame == nil)
@@ -502,6 +652,9 @@
 	
 	// Add the container to the view
 	[[self layer] addSublayer:outerContainerLayer];
+	
+	// Start observing the new game object for notifications of capture and clear batches
+	[self startObservingBatchesForGame:newGame];
 	
 	// Hold a reference to the game object
 	game = newGame;

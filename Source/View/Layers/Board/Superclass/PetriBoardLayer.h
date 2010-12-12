@@ -19,7 +19,8 @@
  */
 @interface PetriBoardLayer : PetriAspectRatioLayer
 {
-	id<PetriBoard> board;	/*!< A reference to the board this layer displays. */
+	id<PetriBoard> board;		/*!< A reference to the board this layer displays. */
+	NSSet* highlightedCells;	/*!< A set of cell sublayers of this board which are currently highlighted for piece placement. */
 }
 
 /*!
@@ -38,6 +39,14 @@
 		aspectRatio:(CGFloat)ratio;
 
 /*!
+ Specfies a set of cells on the board to highlight, indicating the validity of placing a piece on them. Also un-highlights any currently-highlighted cells.
+ @param cellsToHighlight A set of PetriBoardCellLayer sublayers of this board layer to highlight. Pass \c nil to highlight no cells.
+ @param valid Specifies whether or not the cells should be highlighted as valid for the placement of a piece.
+ */
+- (void)highlightCells:(NSSet*)cellsToHighlight
+			   asValid:(BOOL)valid;
+
+/*!
  Resizes a PetriPieceLayer such that the size of its cell sublayers match the size of the cell layers of the receiver.
  \warning Abstract method, subclasses must override.
  @param pieceLayer The layer whose size should be adjusted.
@@ -45,5 +54,6 @@
 - (void)scalePieceLayerToCellSize:(PetriPieceLayer*)pieceLayer;
 
 @property (readonly) id<PetriBoard> board;
+@property (readonly) NSSet* highlightedCells;
 
 @end
