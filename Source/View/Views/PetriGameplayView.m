@@ -82,6 +82,16 @@
 - (BOOL)canPlaceCarriedPieceOnCell:(PetriBoardCell*)destinationCell;
 
 /*!
+ Highlights the cells on the board under the cells in the currently-carried piece.
+ */
+- (void)updatePieceHighlight;
+
+/*!
+ Un-highlights any highlighted cells on the board (see -updatePieceHighlight).
+ */
+- (void)clearPieceHighlight;
+
+/*!
  Removes the carried piece layer from the cursor, and optionally returns it to its container.
  */
 - (void)dropCarriedPiece:(BOOL)returnToContainer;
@@ -395,6 +405,9 @@
 	[carriedPiece setPosition:NSPointToCGPoint(mousePoint)];
 	
 	[CATransaction commit];
+	
+	// Update the highlighted cells under the piece
+	[self updatePieceHighlight];
 }
 
 #pragma mark Keyboard
@@ -422,6 +435,9 @@
 		[[self delegate] gameplayView:self
 				   rotateCurrentPiece:[[self game] currentPiece]
 							forPlayer:[[self game] currentPlayer]];
+		
+		// Update the highlighted cells under the piece
+		[self updatePieceHighlight];
 	}
 }
 
@@ -459,6 +475,48 @@
 								 ofBoard:[[self game] board]];
 }
 
+- (void)updatePieceHighlight
+{
+	// Determine which, if any, of the cells in the piece are positioned over cells on the board
+	NSMutableSet* cellsUnderPiece = [NSMutableSet setWithCapacity:[[carriedPiece sublayers] count]];
+	for (CALayer* pieceCellLayer in [carriedPiece sublayers])
+	{
+		// Get the cell's position, in the background layer's coordinate system
+		CGPoint cellPosition = [[self layer] convertPoint:[pieceCellLayer position]
+												fromLayer:carriedPiece];
+		
+		// Convert to the board layer's superlayer's coordinate system
+		cellPosition = [[self layer] convertPoint:cellPosition
+										  toLayer:outerContainerLayer];
+		
+		// Look for cells on the board at the layer's position
+		CALayer* layerUnderCell = [boardLayer hitTest:cellPosition];
+		if ((layerUnderCell == nil) || ![layerUnderCell isKindOfClass:[PetriBoardCellLayer class]])
+			continue;
+		
+		// Add all cells under the piece to a set
+		[cellsUnderPiece addObject:layerUnderCell];
+	}
+	
+	// If the set of cells is already highlighted, don't change anything
+	if ([cellsUnderPiece isEqualToSet:[boardLayer highlightedCells]])
+		return;
+	
+	// Test if the piece's current position is valid for placement
+	BOOL validPlacementPosition = [self canPlaceCarriedPieceOnCell:[self cellUnderCarriedPieceOrigin]];
+	
+	// Highlight the set of cells
+	[boardLayer highlightCells:[cellsUnderPiece copy]
+					   asValid:validPlacementPosition];
+}
+
+- (void)clearPieceHighlight
+{
+	// Un-highlight the highlighted cells
+	[boardLayer highlightCells:nil
+					   asValid:YES];
+}
+
 - (void)dropCarriedPiece:(BOOL)returnToContainer
 {
 	// If necessary, reveal the piece in the container
@@ -468,6 +526,9 @@
 	// Remove the carried piece from the background layer
 	[carriedPiece removeFromSuperlayer];
 	carriedPiece = nil;
+	
+	// Clear the highlighted cells under the piece
+	[self clearPieceHighlight];
 }
 
 #pragma mark -

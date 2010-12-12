@@ -72,4 +72,36 @@
 
 @synthesize cell;
 
+#define PetriBoardCellLayerHighlightBorderWidth 2.0
+
+- (void)setHighlighted:(BOOL)highlightCell
+{
+	// Show or hide the border to indicate highlight
+	// FIXME: this should be a temporary highlight mechanism; a filter would be better
+	[self setBorderWidth:(highlightCell ? PetriBoardCellLayerHighlightBorderWidth : 0.0)];
+	
+	highlighted = highlightCell;
+}
+@synthesize highlighted;
+
+- (void)setHighlightsAsValid:(BOOL)valid
+{
+	// Pick a highlight color depending on the validity
+	CGColorRef highlightColor = NULL;
+	if (valid)
+		highlightColor = CGColorCreateGenericRGB(0.0, 1.0, 0.0, 1.0); // Green
+	else
+		highlightColor = CGColorCreateGenericRGB(1.0, 0.0, 0.0, 1.0); // Red
+	
+	// Change the border color to the highlight color
+	// FIXME: this should be a temporary highlight mechanism; a filter would be better
+	[self setBorderColor:highlightColor];
+	
+	// Release the highlight color
+	CGColorRelease(highlightColor);
+	
+	highlightsAsValid = valid;
+}
+@synthesize highlightsAsValid;
+
 @end
