@@ -638,6 +638,15 @@
 #pragma mark -
 #pragma mark Accessors
 
+- (void)setFrame:(NSRect)frameRect
+{
+	[super setFrame:frameRect];
+	
+	// If the cursor is carrying a piece, resize it
+	if (carriedPiece != nil)
+		[boardLayer scalePieceLayerToCellSize:carriedPiece];
+}
+
 @synthesize delegate;
 
 - (void)setGame:(PetriGame*)newGame
