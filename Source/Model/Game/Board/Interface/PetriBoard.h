@@ -45,6 +45,16 @@
 - (NSSet*)capturableCellsAdjacentToCell:(PetriBoardCell*)cell;
 
 /*!
+ Returns a set of cells that placing a piece would cover.
+ Does not check if the piece can actually be placed there.
+ 
+ @param piece the piece to place
+ @param cell the cell on the board on which the origin of the piece would be placed
+ */
+- (NSSet*)cellsCoveredByPlacingPiece:(id<PetriPiece>)piece
+							  onCell:(PetriBoardCell*)cell;
+
+/*!
  Method called on board to validate piece placement.
  @param piece the piece to place
  @param owner the player attempting to place the piece
@@ -53,6 +63,7 @@
 - (BOOL)validatePlacementOfPiece:(id<PetriPiece>)piece
 					   withOwner:(PetriPlayer*)owner
 						  onCell:(PetriBoardCell*)cell;
+
 /*!
  Method called on board to place piece.
  \warning This method does no validation; call -validatePlacementOfPiece:withOwner:onCell: first.

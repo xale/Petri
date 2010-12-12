@@ -202,6 +202,19 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	}
 }
 
+- (NSSet*)cellsCoveredByPlacingPiece:(PetriGridPiece*)piece
+							  onCell:(PetriBoardCell*)cell
+{
+	Petri2DCoordinates* pieceOrigin = [self coordinatesOfCell:cell];
+	// Create the actual set of coordinates where the piece will lie
+	NSMutableSet* placementCoords = [NSMutableSet setWithCapacity:[[piece currentCellCoordinates] count]];
+	for (Petri2DCoordinates* cellCoord in [piece currentCellCoordinates])
+	{
+		[placementCoords addObject:[cellCoord offsetCoordinates:pieceOrigin]];
+	}
+	return [placementCoords copy];
+}
+
 - (BOOL)validatePlacementOfPiece:(id<PetriPiece>)piece
 					   withOwner:(PetriPlayer*)owner
 						  onCell:(PetriBoardCell*)cell
