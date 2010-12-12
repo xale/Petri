@@ -33,26 +33,27 @@
 			  byPlayer:(PetriPlayer*)usingPlayer
 			   onBoard:(id<PetriBoard>)board
 {
-	// Check that we aren't instantiating an abstract class
+	// Check that we aren't using an abstract class
 	if ([self isMemberOfClass:[PetriItem class]])
 	{
 		[self doesNotRecognizeSelector:_cmd];
-		return nil;
+		return;
 	}
 }
 
-- (void)useItemOnCells:(NSArray*)cells
-				pieces:(NSArray*)pieces
-			   players:(NSArray*)players
-			  byPlayer:(PetriPlayer*)usingPlayer
-			   onBoard:(id<PetriBoard>)board
+- (BOOL)validateItemOnCells:(NSArray*)cells
+					 pieces:(NSArray*)pieces
+					players:(NSArray*)players
+				   byPlayer:(PetriPlayer*)usingPlayer
+					onBoard:(id<PetriBoard>)board
 {
-	// Check that we aren't instantiating an abstract class
+	// Check that we aren't using an abstract class
 	if ([self isMemberOfClass:[PetriItem class]])
 	{
 		[self doesNotRecognizeSelector:_cmd];
-		return nil;
+		return NO;
 	}
+	return NO;
 }
 
 #pragma mark -
@@ -77,6 +78,6 @@
 }
 
 @synthesize itemName;
-@synthesize allowingCaptures;
+@synthesize allowsCaptures;
 
 @end

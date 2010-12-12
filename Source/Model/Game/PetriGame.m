@@ -11,6 +11,7 @@
 #import "PetriGameConfiguration.h"
 #import "PetriSquareGridBoard.h"
 #import "PetriPiece.h"
+#import "PetriPlayer.h"
 #import "PetriBoardCell.h"
 #import "PetriCellType.h"
 

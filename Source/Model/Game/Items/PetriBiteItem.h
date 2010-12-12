@@ -10,6 +10,9 @@
 #import "PetriItem.h"
 #import "PetriBoard.h"
 
+/*!
+ Item which allows a user to perform a bite.
+ */
 @interface PetriBiteItem : PetriItem
 {
 
