@@ -12,6 +12,8 @@
 #import "PetriGridPiece.h"
 #import "PetriPlayer.h"
 
+NSInteger nextCellId = 0;
+
 @interface NSMutableSet(Pop)
 - (id)pop;
 @end
@@ -90,7 +92,7 @@
 		
 		for (NSInteger y = 0; [self isValidYCoordinate:y]; y++)
 		{
-			[column addObject:[[PetriBoardCell alloc] init]];
+			[column addObject:[[PetriBoardCell alloc] initWithCellID:nextCellId++]];
 		}
 		
 		[tempBoard addObject:[column copy]];

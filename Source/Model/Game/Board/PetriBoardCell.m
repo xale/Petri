@@ -10,21 +10,24 @@
 
 @implementation PetriBoardCell
 
-- (id)init
+- (id)initWithCellID:(NSInteger)ID;
 {
 	cellType = unoccupiedCell;
 	owner = nil;
 	pickUp = nil;
+	cellId = ID;
 	return self;
 }
 
 - (id)initWithCellType:(PetriCellType)type
 				 owner:(PetriPlayer*)player
 				pickUp:(PetriItem*)item
+				cellID:(NSInteger)ID
 {
 	cellType = type;
 	owner = player;
 	pickUp = [item copy];
+	cellId = ID;
 	return self;
 }
 
@@ -32,7 +35,8 @@
 {
 	return [[[self class] allocWithZone:zone] initWithCellType:[self cellType]
 														 owner:[self owner]
-														pickUp:[self pickUp]];
+														pickUp:[self pickUp]
+														cellID:[self cellId]];
 }
 
 #pragma mark -
@@ -86,10 +90,25 @@
 @synthesize cellType;
 @synthesize owner;
 @synthesize pickUp;
+@synthesize cellId;
 
 - (NSString*)description
 {
 	return [NSString stringWithFormat:@"%@: type %d; owner: %@; pickup: %@", [super description], [self cellType], [self owner], [self pickUp]];
+}
+
+- (void)encodeWithCoder: (NSCoder *)coder
+{
+	[coder encodeInteger:[self cellId] forKey: @"cellId"];
+}
+
+- (id)initWithCoder: (NSCoder *)coder
+{
+	if((self = [self init]))
+	{
+		cellId = [coder decodeIntegerForKey:@"cellId"];
+	}
+	return self;
 }
 
 @end
