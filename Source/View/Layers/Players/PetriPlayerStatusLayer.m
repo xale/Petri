@@ -11,6 +11,9 @@
 #import "PetriPlayer+DisplayName.h"
 
 NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold";
+#define PetriPlayerStatusLayerNicknameFontScale			0.20
+#define PetriPlayerStatusLayerNicknamePositionScale		0.80
+#define PetriPlayerStatusLayerNicknameFieldWidthScale	0.88
 
 #define PetriPlayerStatusLayerSelectionBorderWidth	4.0
 
@@ -48,7 +51,12 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	[nameLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
 														relativeTo:@"superlayer"
 														 attribute:kCAConstraintHeight
-															 scale:0.75
+															 scale:PetriPlayerStatusLayerNicknamePositionScale
+															offset:0.0]];
+	[nameLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+														relativeTo:@"superlayer"
+														 attribute:kCAConstraintWidth
+															 scale:PetriPlayerStatusLayerNicknameFieldWidthScale
 															offset:0.0]];
 	[self addSublayer:nameLayer];
 	
@@ -75,11 +83,13 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	return self;
 }
 
+
+
 - (void)setBounds:(CGRect)newBounds
 {
-	NSLog(@"MOO");
 	[super setBounds:newBounds];
-	[nameLayer setFontSize:newBounds.size.height/5];
+	
+	[nameLayer setFontSize:(newBounds.size.height * PetriPlayerStatusLayerNicknameFontScale)];
 }
 
 + (id)playerStatusLayerForPlayer:(PetriPlayer*)displayedPlayer
