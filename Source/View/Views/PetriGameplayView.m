@@ -55,8 +55,8 @@
 /*!
  Called when the view receives a -mouseDown: event corresponding to a click on a the layer representing the board.
  */
-- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
-		   onBoardLayer:(PetriBoardLayer*)clickedLayer;
+- (BOOL)handleMouseUp:(NSEvent*)mouseEvent
+	   overBoardLayer:(PetriBoardLayer*)clickedLayer;
 
 /*!
  Called when the view recieves a -mouseDown: event corresponding to a click on the layer representing the current piece.
@@ -266,7 +266,7 @@
 #pragma mark -
 #pragma mark Input Events
 
-#pragma mark Mouse
+#pragma mark Mouse Down
 
 - (void)mouseDown:(NSEvent*)mouseEvent
 {
@@ -279,13 +279,6 @@
 	// Search the layer hierarchy under the mouse for layers of interest
 	for (CALayer* searchLayer = clickedLayer; searchLayer != nil; searchLayer = [searchLayer superlayer])
 	{
-		// The board
-		if ([searchLayer isKindOfClass:[PetriBoardLayer class]])
-		{
-			if ([self handleMouseDown:mouseEvent onBoardLayer:(PetriBoardLayer*)searchLayer])
-				return;
-		}
-		
 		// The current piece
 		if ([searchLayer isKindOfClass:[PetriPieceLayer class]])
 		{
@@ -300,31 +293,6 @@
 				return;
 		}
 	}
-}
-
-- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
-		   onBoardLayer:(PetriBoardLayer*)clickedLayer
-{
-	// If the cursor is not carrying a piece, ignore this event
-	if (carriedPiece == nil)
-		return NO;
-	
-	// Check if the piece can be placed at the piece's current position
-	if (![self canPlaceCarriedPiece])
-		return NO;
-	
-	// Place the current piece on the board
-	[[self delegate] gameplayView:self
-					   placePiece:[[self game] currentPiece]
-						forPlayer:[[self game] currentPlayer]
-						   onCell:destinationCell
-						  ofBoard:[[self game] board]];
-	
-	// "Drop" the carried piece
-	[self dropCarriedPiece:NO];
-	
-	// Event handled
-	return YES;
 }
 
 #define PetriGameplayViewCarriedPieceOpacity	0.75
@@ -377,6 +345,55 @@
 	// Event handled
 	return YES;
 }
+
+#pragma mark Mouse Up
+
+- (void)mouseUp:(NSEvent*)mouseEvent
+{
+	// Determine where on the view the mouse was released
+	CGPoint releasePoint = NSPointToCGPoint([self convertPoint:[mouseEvent locationInWindow] fromView:nil]);
+	
+	// Get the deepest layer in the hierarchy that was clicked
+	CALayer* layerUnderCursor = [outerContainerLayer hitTest:releasePoint];
+	
+	// Search the layer hierarchy under the mouse for layers of interest
+	for (CALayer* searchLayer = layerUnderCursor; searchLayer != nil; searchLayer = [searchLayer superlayer])
+	{
+		// The board
+		if ([searchLayer isKindOfClass:[PetriBoardLayer class]])
+		{
+			if ([self handleMouseUp:mouseEvent overBoardLayer:(PetriBoardLayer*)searchLayer])
+				return;
+		}
+	}
+}
+
+- (BOOL)handleMouseUp:(NSEvent*)mouseEvent
+	   overBoardLayer:(PetriBoardLayer*)clickedLayer
+{
+	// If the cursor is not carrying a piece, ignore this event
+	if (carriedPiece == nil)
+		return NO;
+	
+	// Check if the piece can be placed at the piece's current position
+	if (![self canPlaceCarriedPiece])
+		return NO;
+	
+	// Place the current piece on the board
+	[[self delegate] gameplayView:self
+					   placePiece:[[self game] currentPiece]
+						forPlayer:[[self game] currentPlayer]
+						   onCell:destinationCell
+						  ofBoard:[[self game] board]];
+	
+	// "Drop" the carried piece
+	[self dropCarriedPiece:NO];
+	
+	// Event handled
+	return YES;
+}
+
+#pragma mark Mouse Tracking
 
 - (void)mouseDragged:(NSEvent*)mouseEvent
 {
