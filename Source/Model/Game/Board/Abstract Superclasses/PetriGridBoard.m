@@ -211,8 +211,8 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 
 	for (Petri2DCoordinates* cellCoord in [piece currentCellCoordinates])
 	{
-		if (![self isValidXCoordinate:[[cellCoord offsetCoordinates:pieceOrigin] xCoordinate]] ||
-			![self isValidYCoordinate:[[cellCoord offsetCoordinates:pieceOrigin] yCoordinate]])
+		if ([self isValidXCoordinate:[[cellCoord offsetCoordinates:pieceOrigin] xCoordinate]] &&
+			[self isValidYCoordinate:[[cellCoord offsetCoordinates:pieceOrigin] yCoordinate]])
 		{
 			[placementCells addObject:[self cellAtCoordinates:[cellCoord offsetCoordinates:pieceOrigin]]];
 		}
