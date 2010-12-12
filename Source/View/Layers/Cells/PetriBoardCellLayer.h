@@ -37,7 +37,7 @@
 - (id)initWithCell:(PetriBoardCell*)displayedCell;
 
 @property (readonly) PetriBoardCell* cell;
-@property (readwrite, assign) BOOL highlighted;
+@property (readwrite, assign, getter=isHighlighted) BOOL highlighted;
 @property (readwrite, assign) BOOL highlightsAsValid;
 
 @end
