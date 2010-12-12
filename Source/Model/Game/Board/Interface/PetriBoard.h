@@ -18,7 +18,7 @@
  
  The PetriBoard protocol defines how the game interacts with the state of the board, such as placing pieces, checking for and making captures, using items, etc.
  */
-@protocol PetriBoard <NSObject, NSCopying>
+@protocol PetriBoard <NSObject, NSCopying, NSCoding>
 
 /*!
  Returns a board initialized with the parameters given.
@@ -114,5 +114,8 @@
 
 + (NSUInteger)absoluteMinPlayers;	/*!< Returns the minimum number of players that a board of this type can accommodate. */
 + (NSUInteger)absoluteMaxPlayers;	/*!< Returns the maximum number of players that a board of this type can accommodate. */
+
+- (void)encodeWithCoder: (NSCoder *)coder;
+- (id)initWithCoder: (NSCoder *)coder;
 
 @end
