@@ -68,7 +68,10 @@
 	[self willChangeValueForKey:@"currentPiece"];
 	[self willChangeValueForKey:@"currentPlayer"];
 	NSLog(@"--- * Changing turn.");
-	currentPlayer = [self nextPlayer];
+	do
+	{
+		currentPlayer = [self nextPlayer];
+	} while ([[currentPlayer controlledCells] count] == 0);
 	currentPiece = [self nextPiece];
 	
 	[self didChangeValueForKey:@"currentPlayer"];
