@@ -50,6 +50,8 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 														 attribute:kCAConstraintHeight
 															 scale:0.75
 															offset:0.0]];
+
+	[nameLayer bind:@"fontSize" toObject:self withKeyPath:@"nameFontSize" options:nil];
 	[self addSublayer:nameLayer];
 	
 	// Set the background color of the layer to the player's color
@@ -98,5 +100,6 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	selected = playerSelected;
 }
 @synthesize selected;
+@synthesize nameFontSize;
 
 @end

@@ -18,6 +18,7 @@
 {
 	PetriPlayer* player;	/*!< A reference to the player whose information is displayed on this layer. */
 	BOOL selected;			/*!< If \c YES this piece draws a white border to indicate that it is this player's turn. */
+	CGFloat nameFontSize;	/*!< The size with which to display the player's names. */
 }
 
 /*!
@@ -38,5 +39,6 @@
 
 @property (readonly) PetriPlayer* player;
 @property (readwrite, assign) BOOL selected;
+@property (readwrite, assign) CGFloat nameFontSize;
 
 @end
