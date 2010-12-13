@@ -14,6 +14,7 @@
 #import "PetriPlayer.h"
 #import "PetriBoardCell.h"
 #import "PetriCellType.h"
+#import "PetriBiteItem.h"
 
 #import "PetriBoardPrototype.h"
 
@@ -67,6 +68,17 @@
 
 - (void)nextTurn
 {
+	if ([[players lastObject] isEqual:currentPlayer])
+	{
+		if (random() % 5 == 0)
+		{
+			for (PetriPlayer* player in players)
+			{
+				[player addItemsObject:[PetriBiteItem item]];
+			}
+		}
+	}
+	
 	[self willChangeValueForKey:@"currentPiece"];
 	[self willChangeValueForKey:@"currentPlayer"];
 
