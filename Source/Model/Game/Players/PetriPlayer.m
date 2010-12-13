@@ -11,6 +11,9 @@
 
 //Create playerId counter
 NSInteger nextPlayerId = 0;
+// FIXME: TESTING
+#import "PetriBiteItem.h"
+// FIXME: TESTING
 
 @implementation PetriPlayer
 
@@ -29,7 +32,12 @@ NSInteger nextPlayerId = 0;
 	}
 	
 	playerId = nextPlayerId++;
-	items = [NSMutableDictionary dictionary];
+
+	// FIXME: TESTING
+	items = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:4]
+											   forKey:[PetriBiteItem item]];
+	// FIXME: TESTING
+	
 	controlledCells = [NSMutableSet set];
 	color = [playerColor copy];
 	return self;

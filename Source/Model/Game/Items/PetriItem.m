@@ -10,9 +10,9 @@
 
 @implementation PetriItem
 
-- (id)copyWithZone:(NSZone*)zone
++ (id)item
 {
-	return [[[self class] allocWithZone:zone] init];
+	return [[self alloc] init];
 }
 
 - (id)init
@@ -25,6 +25,11 @@
 	}
 
 	return self;
+}
+
+- (id)copyWithZone:(NSZone*)zone
+{
+	return [[[self class] allocWithZone:zone] init];
 }
 
 - (void)useItemOnCells:(NSArray*)cells
@@ -77,7 +82,24 @@
 	return [[self itemName] hash];
 }
 
-@synthesize itemName;
-@synthesize allowsCaptures;
+#pragma mark -
+#pragma mark Accessors
+
+- (NSString*)itemName
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
+- (BOOL)allowsCaptures
+{
+	return NO;
+}
+
+- (NSImage*)icon
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
 
 @end

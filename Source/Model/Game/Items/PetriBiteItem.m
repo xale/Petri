@@ -14,13 +14,6 @@
 
 @implementation PetriBiteItem
 
-- (id)init
-{
-	itemName = @"Bite";
-	allowsCaptures = NO;
-	return self;
-}
-
 - (void)useItemOnCells:(NSArray*)cells
 				pieces:(NSArray*)pieces
 			   players:(NSArray*)players
@@ -77,6 +70,23 @@
 		}
 	}
 	return YES;
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+NSString* const PetriBiteItemName =	@"Bite";
+
+- (NSString*)itemName
+{
+	return PetriBiteItemName;
+}
+
+NSString* const PetriBiteItemIconName =	@"BiteIcon";
+
+- (NSImage*)icon
+{
+	return [NSImage imageNamed:PetriBiteItemIconName];
 }
 
 @end

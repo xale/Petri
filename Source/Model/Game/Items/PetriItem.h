@@ -7,7 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PetriBoard.h"
+
+@protocol PetriBoard;
+
+@class PetriPlayer;
 
 /*!
  \brief A usuable item that can affect game state.
@@ -16,20 +19,13 @@
  */
 @interface PetriItem : NSObject <NSCopying>
 {
-	NSString* itemName;			/*!< Name of the item; displayed and used for equality checking. */
-	BOOL allowsCaptures;		/*!< \c YES if captures should be attempted after this item is used, \c NO otherwise. */
+	
 }
 
 /*!
- Tests for the equality of two PetriItem objects.
+ Creates a new item of the reciever's type.
  */
-- (BOOL)isEqualToItem:(PetriItem*)item;
-
-/*!
- Default initilaizer.
- Needs override.
- */
-- (id)init;
++ (id)item;
 
 /*!
  This is a general method for using an item.  If a particular parameter doesn't apply, it is ignored and it is safe to pass nil.
@@ -65,7 +61,13 @@
 				   byPlayer:(PetriPlayer*)usingPlayer
 					onBoard:(id<PetriBoard>)board;
 
-@property (readonly) NSString* itemName;
-@property (readonly) BOOL allowsCaptures;
+/*!
+ Tests for the equality of two PetriItem objects.
+ */
+- (BOOL)isEqualToItem:(PetriItem*)item;
+
+@property (readonly) NSString* itemName;	/*!< Name of the item; displayed and used for equality checking. Subclasses must override to provide the item's name. */
+@property (readonly) BOOL allowsCaptures;	/*!< Subclasses may override to return \c YES if captures should be attempted after this item is used. Defaults to \c NO. */
+@property (readonly) NSImage* icon;			/*!< An icon to display on the view when representing this item in a player's inventory. Subclasses must override to provide an image. */
 
 @end
