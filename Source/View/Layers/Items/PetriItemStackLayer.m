@@ -120,9 +120,6 @@ NSString* const PetriItemStackLayerCountLabelFontName =		@"Arial Rounded MT Bold
 	[label addConstraintsFromSet:[CAConstraint superlayerLowerRightCornerConstraintSet]];
 	[label setCornerRadius:3.0];
 	
-	// Conditionally show or hide the label
-	[label setHidden:(count <= PetriItemStackLayerMaxStackedLayers)];
-	
 	return label;
 }
 
