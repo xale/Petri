@@ -23,15 +23,9 @@
 }
 
 /*!
- Tests for the equality of two PetriItem objects.
+ Creates a new item of the reciever's type.
  */
-- (BOOL)isEqualToItem:(PetriItem*)item;
-
-/*!
- Default initilaizer.
- Needs override.
- */
-- (id)init;
++ (id)item;
 
 /*!
  This is a general method for using an item.  If a particular parameter doesn't apply, it is ignored and it is safe to pass nil.
@@ -66,6 +60,11 @@
 					players:(NSArray*)players
 				   byPlayer:(PetriPlayer*)usingPlayer
 					onBoard:(id<PetriBoard>)board;
+
+/*!
+ Tests for the equality of two PetriItem objects.
+ */
+- (BOOL)isEqualToItem:(PetriItem*)item;
 
 @property (readonly) NSString* itemName;	/*!< Name of the item; displayed and used for equality checking. Subclasses must override to provide the item's name. */
 @property (readonly) BOOL allowsCaptures;	/*!< Subclasses may override to return \c YES if captures should be attempted after this item is used. Defaults to \c NO. */
