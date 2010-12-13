@@ -43,12 +43,13 @@
 	PetriBoardCell* destinationCell;	/*!< The cell over which the carried piece's origin is located, if any. Used primarily as an internal optimization. */
 	
 	PetriItem* carriedItem;			/*!< The item carried by the user's cursor, if the player has picked one up. */
+	NSMutableArray* itemTargets;	/*!< The list of layers targeted by the user for the use of an item. */
 }
 
 /*!
  Instructs the view to drop whatever layer is carried by the cursor, if any.
  */
-- (IBAction)dropCarriedLayer:(id)sender;
+- (IBAction)dropCarriedObjects:(id)sender;
 
 @property (readwrite, assign) IBOutlet id<PetriGameplayViewDelegate> delegate;
 @property (readwrite, assign) PetriGame* game;
@@ -106,6 +107,34 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 		  placePiece:(id<PetriPiece>)piece
 		   forPlayer:(PetriPlayer*)pieceOwner
 			  onCell:(PetriBoardCell*)originCell
+			 ofBoard:(id<PetriBoard>)board;
+
+/*!
+ Queries the delegate for the validity of using an item on the specified cells of a board.
+ @param gameplayView The view requesting the validation.
+ @param item The item the user is attempting to use.
+ @param itemUser The player attempting to use the item.
+ @param cells The list of PetriBoardCells on which the player is attempting to use the item.
+ @param board The board on which the item will be used.
+ */
+- (BOOL)gameplayView:(PetriGameplayView*)gameplayView
+		  canUseItem:(PetriItem*)item
+		   forPlayer:(PetriPlayer*)itemUser
+			 onCells:(NSArray*)cells
+			 ofBoard:(id<PetriBoard>)board;
+
+/*!
+ Informs the delegate that an item has been used on the board.
+ @param gameplayView The view on which the item's use was performed.
+ @param item The item used.
+ @param itemUser The player using the item.
+ @param cells The list of PetriBoardCells on which the item was used.
+ @param board The board on which the item was used.
+ */
+- (void)gameplayView:(PetriGameplayView*)gameplayView
+			 useItem:(PetriItem*)item
+		   forPlayer:(PetriPlayer*)itemUser
+			 onCells:(NSArray*)cells
 			 ofBoard:(id<PetriBoard>)board;
 
 @end

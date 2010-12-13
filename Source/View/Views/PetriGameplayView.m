@@ -25,12 +25,15 @@
 #import "PetriItemLayer.h"
 #import "PetriItemStackLayer.h"
 
+#import "NSArray+Subranges.h"
 #import "CALayer+ConstraintSets.h"
 
 /*!
  Private methods on PetriGameplayView.
  */
 @interface PetriGameplayView(Private)
+
+#pragma mark View Layout
 
 /*!
  Creates a new board layer for the specified board, set up for display on this view as a sublayer of the outer container layer.
@@ -55,6 +58,19 @@
  @param newGame The game with which the view is being initialized.
  */
 - (PetriPlayersListContainerLayer*)playersListConstainerLayerForGame:(PetriGame*)newGame;
+
+#pragma mark Input Events
+
+/*!
+ Returns the deepest layer in the outer container layer's ancestor tree whose bounds contain the specified point in the window's coordinate system.
+ */
+- (CALayer*)hitTestContainerLayerAtWindowLocation:(NSPoint)locationInWindow;
+
+/*!
+ Called when the view receives a -mouseDown: event corresponding to a click on a layer representing a cell of the board.
+ */
+- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
+	   onBoardCellLayer:(PetriBoardCellLayer*)clickedLayer;
 
 /*!
  Called when the view recieves a -mouseDown: event corresponding to a click on the layer representing the current piece.
@@ -81,6 +97,13 @@
 	   overBoardLayer:(PetriBoardLayer*)clickedLayer;
 
 /*!
+ Called when the view receives a -keyDown: event corresponding to a press of the spacebar.
+ */
+- (void)spacebarDown:(NSEvent*)keyEvent;
+
+#pragma mark Carried-Piece Methods
+
+/*!
  Returns a the cell on the board located beneath the origin cell of the carried piece, or nil if no such cell is present.
  */
 - (PetriBoardCell*)cellUnderCarriedPieceOrigin;
@@ -96,24 +119,35 @@
 - (void)updatePieceHighlight;
 
 /*!
- Un-highlights any highlighted cells on the board (see -updatePieceHighlight).
- */
-- (void)clearPieceHighlight;
-
-/*!
  Removes the carried piece layer, if any, from the cursor, and optionally returns it to its container.
  */
-- (void)dropCarriedPiece:(BOOL)returnToContainer;
+- (void)dropCarriedPieceAndReturnToContainer:(BOOL)returnToContainer;
+
+#pragma mark Carried-Item Methods
+
+/*!
+ Tests if the current item targets are valid for using the currently-carried item.
+ */
+- (BOOL)canUseCarriedItem;
+
+/*!
+ Highlights the cells on the board targeted by the currently-carried item.
+ */
+- (void)updateItemTargetHighlight;
 
 /*!
  Removes the carried item, if any, from the cursor.
  */
 - (void)dropCarriedItem;
 
+#pragma mark Clearing Highlights
+
 /*!
- Called when the view receives a -keyDown: event corresponding to a press of the spacebar.
+ Un-highlights any highlighted cells on the board.
  */
-- (void)spacebarDown:(NSEvent*)keyEvent;
+- (void)clearBoardHighlight;
+
+#pragma mark Model-Event Transactions
 
 /*!
  Called when captures are about to be performed on the board, and an appropriate CATransaction should be begun.
@@ -281,26 +315,38 @@
 #pragma mark -
 #pragma mark Input Events
 
-- (IBAction)dropCarriedLayer:(id)sender
+- (IBAction)dropCarriedObjects:(id)sender
 {
-	// FIXME: generalize
-	[self dropCarriedPiece:YES];
+	[self dropCarriedPieceAndReturnToContainer:YES];
 	[self dropCarriedItem];
+}
+
+- (CALayer*)hitTestContainerLayerAtWindowLocation:(NSPoint)locationInWindow
+{
+	// Determine where on the view the click occurred
+	CGPoint clickedPoint = NSPointToCGPoint([self convertPoint:locationInWindow fromView:nil]);
+	
+	// Get the deepest layer in the hierarchy that was clicked
+	return [outerContainerLayer hitTest:clickedPoint];
 }
 
 #pragma mark Mouse Down
 
 - (void)mouseDown:(NSEvent*)mouseEvent
 {
-	// Determine where on the view the click occurred
-	CGPoint clickedPoint = NSPointToCGPoint([self convertPoint:[mouseEvent locationInWindow] fromView:nil]);
-	 
 	// Get the deepest layer in the hierarchy that was clicked
-	CALayer* clickedLayer = [outerContainerLayer hitTest:clickedPoint];
+	CALayer* clickedLayer = [self hitTestContainerLayerAtWindowLocation:[mouseEvent locationInWindow]];
 	
 	// Search the layer hierarchy under the mouse for layers of interest
 	for (CALayer* searchLayer = clickedLayer; searchLayer != nil; searchLayer = [searchLayer superlayer])
 	{
+		// Cell on the board
+		if ([searchLayer isKindOfClass:[PetriBoardCellLayer class]])
+		{
+			if ([self handleMouseDown:mouseEvent onBoardCellLayer:(PetriBoardCellLayer*)searchLayer])
+				return;
+		}
+		
 		// The current piece
 		if ([searchLayer isKindOfClass:[PetriPieceLayer class]])
 		{
@@ -322,6 +368,25 @@
 				return;
 		}
 	}
+}
+
+- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
+	   onBoardCellLayer:(PetriBoardCellLayer*)clickedLayer
+{
+	// If the cursor is not carrying an item, ignore this event
+	if (carriedItem == nil)
+		return NO;
+	
+	// Add this cell to a list of targeted cells
+	if (itemTargets == nil)
+		itemTargets = [NSMutableArray array];
+	[itemTargets addObject:clickedLayer];
+	
+	// Update item-target highlighting
+	[self updateItemTargetHighlight];
+	
+	// Event handled
+	return YES;
 }
 
 #define PetriGameplayViewCarriedPieceOpacity	0.75
@@ -375,7 +440,7 @@
 		return NO;
 	
 	// Drop the carried piece
-	[self dropCarriedPiece:YES];
+	[self dropCarriedPieceAndReturnToContainer:YES];
 	
 	// Event handled
 	return YES;
@@ -385,7 +450,7 @@
 	   onItemStackLayer:(PetriItemStackLayer*)clickedLayer
 {
 	// If the cursor is carrying a piece, drop it
-	[self dropCarriedPiece:YES];
+	[self dropCarriedPieceAndReturnToContainer:YES];
 	
 	// Get the player box containing this layer
 	PetriPlayerStatusLayer* playerBox = (PetriPlayerStatusLayer*)[clickedLayer superlayer];
@@ -426,11 +491,8 @@
 
 - (void)mouseUp:(NSEvent*)mouseEvent
 {
-	// Determine where on the view the mouse was released
-	CGPoint releasePoint = NSPointToCGPoint([self convertPoint:[mouseEvent locationInWindow] fromView:nil]);
-	
 	// Get the deepest layer in the hierarchy that was clicked
-	CALayer* layerUnderCursor = [outerContainerLayer hitTest:releasePoint];
+	CALayer* layerUnderCursor = [self hitTestContainerLayerAtWindowLocation:[mouseEvent locationInWindow]];
 	
 	// Search the layer hierarchy under the mouse for layers of interest
 	for (CALayer* searchLayer = layerUnderCursor; searchLayer != nil; searchLayer = [searchLayer superlayer])
@@ -447,34 +509,109 @@
 - (BOOL)handleMouseUp:(NSEvent*)mouseEvent
 	   overBoardLayer:(PetriBoardLayer*)clickedLayer
 {
-	// If the cursor is not carrying a piece, ignore this event
-	if (carriedPiece == nil)
-		return NO;
+	// Check if the cursor is carrying a piece
+	if (carriedPiece != nil)
+	{
+		// Check if the piece can be placed at the piece's current position
+		if (![self canPlaceCarriedPiece])
+			return NO;
+		
+		// Place the current piece on the board
+		[[self delegate] gameplayView:self
+						   placePiece:[[self game] currentPiece]
+							forPlayer:[[self game] currentPlayer]
+							   onCell:destinationCell
+							  ofBoard:[[self game] board]];
+		
+		// "Drop" the carried piece, and do not return it to its container
+		[self dropCarriedPieceAndReturnToContainer:NO];
+		
+		// Event handled
+		return YES;
+	}
+	// Check if the cursor is carrying an item
+	else if (carriedItem != nil)
+	{
+		// Check if the item can be used on the current list of targets
+		if (![self canUseCarriedItem])
+		{
+			// If the item can't be used here, clear the list of targets
+			[itemTargets removeAllObjects];
+			
+			// Clear highlighting
+			[self clearBoardHighlight];
+			
+			return YES;	// Event handled
+		}
+		
+		// If the item can be used, use it
+		// Get the cells from the targeted layers
+		NSMutableArray* targetedCells = [NSMutableArray arrayWithCapacity:[itemTargets count]];
+		for (PetriBoardCellLayer* cellLayer in itemTargets)
+		{
+			[targetedCells addObject:[cellLayer cell]];
+		}
+		
+		// Use the item
+		[[self delegate] gameplayView:self
+							  useItem:carriedItem
+							forPlayer:[[self game] currentPlayer]
+							  onCells:targetedCells
+							  ofBoard:[[self game] board]];
+		
+		// Drop the used item from the cursor
+		[self dropCarriedItem];
+		
+		// Event handled
+		return YES;
+	}
 	
-	// Check if the piece can be placed at the piece's current position
-	if (![self canPlaceCarriedPiece])
-		return NO;
-	
-	// Place the current piece on the board
-	[[self delegate] gameplayView:self
-					   placePiece:[[self game] currentPiece]
-						forPlayer:[[self game] currentPlayer]
-						   onCell:destinationCell
-						  ofBoard:[[self game] board]];
-	
-	// "Drop" the carried piece
-	[self dropCarriedPiece:NO];
-	
-	// Event handled
-	return YES;
+	// Nothing to do; event not handled
+	return NO;
 }
 
 #pragma mark Mouse Tracking
 
 - (void)mouseDragged:(NSEvent*)mouseEvent
 {
-	if ([[mouseEvent window] isEqual:[self window]])
+	// If the cursor is carrying a piece, treat this as a mouse-move event
+	if (carriedPiece != nil)
+	{
 		[self mouseMoved:mouseEvent];
+		return;
+	}
+	
+	// If the cursor is not carrying a piece or an item, disregard this event
+	if (carriedItem == nil)
+		return;
+	
+	// Check the location under the cursor for board cell layers
+	CALayer* layerUnderCursor = [self hitTestContainerLayerAtWindowLocation:[mouseEvent locationInWindow]];
+	
+	// If the layer is not a cell of the board, ignore this event
+	if (![layerUnderCursor isKindOfClass:[PetriBoardCellLayer class]])
+		return;
+	
+	// Determine if this layer is already in the list of targeted layers
+	PetriBoardCellLayer* cellLayer = (PetriBoardCellLayer*)layerUnderCursor;
+	NSUInteger targetIndex = [itemTargets indexOfObject:cellLayer];
+	
+	// If the layer is not in the list of targeted layers, add it
+	if (targetIndex == NSNotFound)
+	{
+		[itemTargets addObject:cellLayer];
+		
+		// Update highlighting for the item targets
+		[self updateItemTargetHighlight];
+	}
+	// If the layer is in the list, (and not the last item) truncate the list to make this the last object
+	else if (targetIndex != ([itemTargets count] - 1))
+	{
+		itemTargets = [NSMutableArray arrayWithArray:[itemTargets subarrayToIndex:(targetIndex + 1)]];
+		
+		// Update highlighting for the item targets
+		[self updateItemTargetHighlight];
+	}
 }
 
 - (void)mouseMoved:(NSEvent*)mouseEvent
@@ -483,7 +620,7 @@
 	if (carriedPiece == nil)
 		return;
 	
-	// Disable movement animation, since it will slow things down and is unnecessary
+	// Disable movement animation for the carried piece, since it will slow things down and is unnecessary
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanTrue
 					 forKey:kCATransactionDisableActions];
@@ -576,7 +713,7 @@
 	// If the piece isn't over a cell, clear highlighting
 	if (cellUnderPieceOrigin == nil)
 	{
-		[self clearPieceHighlight];
+		[self clearBoardHighlight];
 		destinationCell = nil;
 		return;
 	}
@@ -603,14 +740,7 @@
 					   asValid:validPlacementPosition];
 }
 
-- (void)clearPieceHighlight
-{
-	// Un-highlight the highlighted cells
-	[boardLayer highlightCells:nil
-					   asValid:YES];
-}
-
-- (void)dropCarriedPiece:(BOOL)returnToContainer
+- (void)dropCarriedPieceAndReturnToContainer:(BOOL)returnToContainer
 {
 	// If not carrying a piece, do nothing
 	if (carriedPiece == nil)
@@ -631,11 +761,36 @@
 	destinationCell = nil;
 	
 	// Clear the highlighted cells under the piece
-	[self clearPieceHighlight];
+	[self clearBoardHighlight];
 }
 
 #pragma mark -
 #pragma mark Carried-Item Methods
+
+- (BOOL)canUseCarriedItem
+{
+	// FIXME: needs to account for different types of target layers
+	// Get the cells associated with the target layers
+	NSMutableArray* cells = [NSMutableArray arrayWithCapacity:[itemTargets count]];
+	for (PetriBoardCellLayer* cellLayer in itemTargets)
+	{
+		[cells addObject:[cellLayer cell]];
+	}
+	
+	// Ask the delegate for validation
+	return [[self delegate] gameplayView:self
+							  canUseItem:carriedItem
+							   forPlayer:[[self game] currentPlayer]
+								 onCells:cells
+								 ofBoard:[[self game] board]];
+}
+
+- (void)updateItemTargetHighlight
+{
+	// FIXME: needs to account for different types of target layers; for now, assume all are board cells
+	[boardLayer highlightCells:[NSSet setWithArray:itemTargets]
+					   asValid:[self canUseCarriedItem]];
+}
 
 - (void)dropCarriedItem
 {
@@ -649,8 +804,24 @@
 	
 	// Remove the item from the cursor
 	[NSCursor pop];
-	
 	carriedItem = nil;
+	
+	// Clear the list of targeted layers
+	[itemTargets removeAllObjects];
+	
+	// Clear any highlighted cells
+	[self clearBoardHighlight];
+	
+}
+
+#pragma mark -
+#pragma mark Clearing Highlights
+
+- (void)clearBoardHighlight
+{
+	// Un-highlight the highlighted cells
+	[boardLayer highlightCells:nil
+					   asValid:YES];
 }
 
 #pragma mark -
