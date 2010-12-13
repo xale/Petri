@@ -12,8 +12,12 @@
 
 @implementation PetriClientNetworkController
 
-- (void)initWithServerHost:(NSString*)serverIpAddr
+- (id)initWithServerHost:(NSString*)serverIpAddr
+				 GameGroup:(PetriGameGroup*)GameGroup;
 {
+	//Set GameGroup
+	gameGroup = GameGroup;
+	
 	//Instantiate a distributed server object
 	id PetriServerNetworkControllerProxy;
 	PetriServerNetworkControllerProxy = [[NSConnection
@@ -40,6 +44,8 @@
 	//Pass host to server to make host connect to DO
 	
 	[PetriServerNetworkControllerProxy addClientByIpAddr:[[NSHost currentHost] address]];
+	
+	return self;
 }
 	
 @end

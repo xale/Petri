@@ -24,7 +24,7 @@
 /*!
  Method creates an distributed object that clients can connect to
  */
-- (void)init;
+- (id)initWithGameGroup:(PetriGameGroup*)GameGroup;
 
 /*!
  Register a client with this server by an IP address string

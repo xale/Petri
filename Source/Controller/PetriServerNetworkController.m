@@ -12,8 +12,11 @@
 
 @implementation PetriServerNetworkController
 
-- (void)init
+- (id)initWithGameGroup:(PetriGameGroup*)GameGroup
 {
+	//Set gameGroup
+	gameGroup = GameGroup;
+	
 	NSSocketPort *port = [[NSSocketPort alloc] initWithTCPPort:PETRI_SERVER_PORT];
 	
 	NSConnection *connection;
@@ -26,6 +29,8 @@
 	}
 	
 	[[NSRunLoop currentRunLoop] run];
+	
+	return self;
 }
 
 - (void)addClientByIpAddr:(NSString*)clientIpAddr
