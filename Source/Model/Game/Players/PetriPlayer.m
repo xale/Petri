@@ -122,7 +122,7 @@ NSInteger nextPlayerId = 0;
 	
 	if ([count intValue] == 1)
 	{
-		[items removeObjectForKey:count];
+		[items removeObjectForKey:item];
 		return;
 	}
 	[items setObject:[NSNumber numberWithInt:([count intValue] - 1)] forKey:item];
