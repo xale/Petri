@@ -145,11 +145,11 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 			 ofBoard:(id<PetriBoard>)board
 {
 	// Use the item
-	[item useItemOnCells:cells
-				  pieces:nil
-				 players:nil
-				byPlayer:itemUser
-				 onBoard:board];
+	[game useItem:item
+		  onCells:cells
+		   pieces:nil
+		  players:nil
+		 byPlayer:itemUser];
 	
 	// If the item can create captures, perform them
 	if ([item allowsCaptures])

@@ -10,6 +10,7 @@
 
 @class PetriPlayer;
 @class PetriGameConfiguration;
+@class PetriItem;
 
 @protocol PetriBoard;
 @protocol PetriPiece;
@@ -60,6 +61,12 @@
  Should be called after the piece has been placed and all captures have occurred, but before nextTurn is called.
  */
 - (void)clearDeadCells;
+
+- (void)useItem:(PetriItem*)item
+		onCells:(NSArray*)cells
+		 pieces:(NSArray*)pieces
+		players:(NSArray*)targetPlayers
+	   byPlayer:(PetriPlayer*)usingPlayer;
 
 @property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;

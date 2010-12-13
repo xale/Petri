@@ -186,6 +186,16 @@
 	return [players objectAtIndex:((index + 1) % [players count])];
 }
 
+- (void)useItem:(PetriItem*)item
+		onCells:(NSArray*)cells
+		 pieces:(NSArray*)pieces
+		players:(NSArray*)targetPlayers
+	   byPlayer:(PetriPlayer*)usingPlayer
+{
+	[usingPlayer removeItemsObject:item];
+	[item useItemOnCells:cells pieces:pieces players:targetPlayers byPlayer:usingPlayer onBoard:board];
+}
+
 @synthesize players;
 @synthesize currentPlayer;
 @synthesize board;
