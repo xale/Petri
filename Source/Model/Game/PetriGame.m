@@ -70,7 +70,7 @@
 {
 	if ([[players lastObject] isEqual:currentPlayer])
 	{
-		if (random() % 5 == 0)
+		if ((random() % 5) == 0)
 		{
 			for (PetriPlayer* player in players)
 			{

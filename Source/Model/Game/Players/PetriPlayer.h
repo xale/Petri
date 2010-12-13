@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class PetriBoardCell;
+@class PetriItem;
 
 /*!
  \brief Object representing a player in a Petri game.
@@ -31,6 +32,11 @@
  @param playerColor The new player's color.
  */
 - (id)initWithColor:(NSColor*)playerColor;
+
+/*!
+ Gives the player the item.
+ */
+- (void)addItemsObject:(PetriItem*)item;
 
 /*!
  Adds a cell to the list of cells controlled by the player.
