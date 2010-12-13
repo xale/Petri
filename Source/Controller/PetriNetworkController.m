@@ -21,46 +21,46 @@
 	return nil;
 }
 
-- (void)updateCellId:(NSInteger)cellId
-	  withNewOwnerId:(NSInteger)ownerId
+- (void)updateCellID:(NSInteger)cellID
+	  withNewOwnerID:(NSInteger)ownerID
 {
 	PetriGame* myGame = [[self gameGroup] game];
-	[[[myGame board] cellById:cellId] setOwner:[myGame playerById:ownerId]];
+	[[[myGame board] cellByID:cellID] setOwner:[myGame playerByID:ownerID]];
 }
 
-- (void)updateCellId:(NSInteger)cellId
+- (void)updateCellID:(NSInteger)cellID
 		 withNewItem:(PetriItem*)item
 {
 	PetriGame* myGame = [[self gameGroup] game];
 	NSLog(@"FIXME: not implemented.");
-	//[[[myGame board] cellById:cellId] setItem:item];
+	//[[[myGame board] cellByID:cellID] setItem:item];
 }
 
-- (void)updateCellId:(NSInteger)cellId
+- (void)updateCellID:(NSInteger)cellID
 	 withNewCellType:(PetriCellType)cellType
 {
 	PetriGame* myGame = [[self gameGroup] game];
-	[[[myGame board] cellById:cellId] setCellType:cellType];
+	[[[myGame board] cellByID:cellID] setCellType:cellType];
 }
 
-- (void)updatePlayerWithId:(NSInteger)playerId
+- (void)updatePlayerWithID:(NSInteger)playerID
 		  withAcquiredItem:(PetriItem*)item
 {
 	PetriGame* myGame = [[self gameGroup] game];
-	[[myGame playerById:playerId] addItemsObject:item];
+	[[myGame playerByID:playerID] addItemsObject:item];
 }
 
-- (void)updatePlayerWithId:(NSInteger)playerId
+- (void)updatePlayerWithID:(NSInteger)playerID
 			  withLostItem:(PetriItem*)item
 {
 	PetriGame* myGame = [[self gameGroup] game];
-	[[myGame playerById:playerId] removeItemsObject:item];
+	[[myGame playerByID:playerID] removeItemsObject:item];
 }
 
-- (void)changeTurnToNewPlayerWithId:(NSInteger)playerId
+- (void)changeTurnToNewPlayerWithID:(NSInteger)playerID
 {
 	PetriGame* myGame = [[self gameGroup] game];
-	[myGame setCurrentPlayer:[myGame playerById:playerId]];
+	[myGame setCurrentPlayer:[myGame playerByID:playerID]];
 }
 
 @synthesize gameGroup;

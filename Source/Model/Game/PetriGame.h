@@ -35,9 +35,9 @@
 /*!
  Retrns a player with a given id
  
- @param Id id of player to return
+ @param ID id of player to return
  */
-- (PetriPlayer*)playerById:(NSInteger)Id;
+- (PetriPlayer*)playerByID:(NSInteger)ID;
 
 
 /*!

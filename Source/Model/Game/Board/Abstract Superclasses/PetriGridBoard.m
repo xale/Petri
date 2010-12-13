@@ -12,7 +12,7 @@
 #import "PetriGridPiece.h"
 #import "PetriPlayer.h"
 
-NSInteger nextCellId = 0;
+NSInteger nextCellID = 0;
 
 @interface NSMutableSet(Pop)
 - (id)pop;
@@ -98,7 +98,7 @@ NSInteger nextCellId = 0;
 		
 		for (NSInteger y = 0; [self isValidYCoordinate:y]; y++)
 		{
-			[column addObject:[[PetriBoardCell alloc] initWithCellID:nextCellId++]];
+			[column addObject:[[PetriBoardCell alloc] initWithCellID:nextCellID++]];
 		}
 		
 		[tempBoard addObject:[column copy]];
@@ -306,13 +306,13 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return [[cells objectAtIndex:x] objectAtIndex:y];
 }
 
-- (PetriBoardCell*)cellById:(NSInteger)Id
+- (PetriBoardCell*)cellByID:(NSInteger)ID
 {
 	for (NSArray* ar in cells)
 	{
 		for (PetriBoardCell* cell in ar)
 		{
-			if ([cell cellId] == Id)
+			if ([cell cellID] == ID)
 			{
 				return cell;
 			}

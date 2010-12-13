@@ -63,17 +63,17 @@
 	return self;
 }
 
-- (PetriPlayer*)playerById:(NSInteger)Id
+- (PetriPlayer*)playerByID:(NSInteger)ID
 {
 	for (PetriPlayer* player in players)
 	{
-		if ([player playerId] == Id)
+		if ([player playerID] == ID)
 		{
 			return player;
 		}
 	}
 	
-	/* Something went wrong if we don't have this playerId stored */
+	/* Something went wrong if we don't have this playerID stored */
 	return nil;
 }
 

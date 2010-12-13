@@ -28,54 +28,54 @@
 /*!
  Changes the owner on the cell with the given ID
  
- @param cellId id of cell to update owner on
- @param ownerId id of new owner of cell
+ @param cellID id of cell to update owner on
+ @param ownerID id of new owner of cell
  */
-- (void)updateCellId:(NSInteger)cellId
-	  withNewOwnerId:(NSInteger)ownerId;
+- (void)updateCellID:(NSInteger)cellID
+	  withNewOwnerID:(NSInteger)ownerID;
 
 /*!
  Changes the item on the cell with the given ID
  
- @param cellId id of cell to change pickup on
+ @param cellID id of cell to change pickup on
  @param item serialized item to add as a pickup on the given cell, or nil to clear pickup
  */
-- (void)updateCellId:(NSInteger)cellId
+- (void)updateCellID:(NSInteger)cellID
 		 withNewItem:(PetriItem*)item;
 
 /*!
  Changes the type of the cell with the given ID
  
- @param cellId id of cell to change type of
+ @param cellID id of cell to change type of
  @param cellType new celltype
  */
-- (void)updateCellId:(NSInteger)cellId
+- (void)updateCellID:(NSInteger)cellID
 	 withNewCellType:(PetriCellType)cellType;
 
 /*!
  Gives an item to the player with the given ID
  
- @param playerId id of player to give item to
+ @param playerID id of player to give item to
  @param item serialized item to give to player
  */
-- (void)updatePlayerWithId:(NSInteger)playerId
+- (void)updatePlayerWithID:(NSInteger)playerID
 		  withAcquiredItem:(PetriItem*)item;
 
 /*!
  Takes an item from the player with the given ID
  
- @param playerId id of player to take item from
+ @param playerID id of player to take item from
  @param item serialized item to take from player
  */
-- (void)updatePlayerWithId:(NSInteger)playerId
+- (void)updatePlayerWithID:(NSInteger)playerID
 			  withLostItem:(PetriItem*)item;
 
 /*!
- Changes the turn to the player with a given playerId
+ Changes the turn to the player with a given playerID
  
- @param playerId playerId of player whose turn it is
+ @param playerID playerID of player whose turn it is
  */
-- (void)changeTurnToNewPlayerWithId:(NSInteger)playerId;
+- (void)changeTurnToNewPlayerWithID:(NSInteger)playerID;
 
 @property (readonly) PetriGameGroup* gameGroup;
 

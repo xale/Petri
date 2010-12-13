@@ -57,9 +57,9 @@
 /*!
  Returns a cell with a given id
  
- @param Id id of cell to return
+ @param ID id of cell to return
  */
-- (PetriBoardCell*)cellById:(NSInteger)Id;
+- (PetriBoardCell*)cellByID:(NSInteger)ID;
 
 /*!
  Method called on board to validate piece placement.
