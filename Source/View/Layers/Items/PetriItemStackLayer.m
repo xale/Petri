@@ -163,8 +163,14 @@ NSString* const PetriItemStackLayerCountLabelFormat =	@"x%d";
 
 - (PetriItemLayer*)topItemLayer
 {
-	// (Text layer should always be on top)
-	return [[self sublayers] objectAtIndex:([[self sublayers] count] - 1)];
+	for (CALayer* sublayer in [[self sublayers] reverseObjectEnumerator])
+	{
+		if ([sublayer isKindOfClass:[PetriItemLayer class]])
+			return (PetriItemLayer*)sublayer;
+	}
+	
+	// FIXME: should throw an NSInternalInconsistencyException
+	return nil;	// Note that this should never happen, since this layer should not exist if the number of items in the stack is zero
 }
 
 @synthesize item;

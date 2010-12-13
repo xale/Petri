@@ -13,13 +13,17 @@
 #import "PetriBoard.h"
 #import "PetriBoardCell.h"
 #import "PetriPiece.h"
+#import "PetriItem.h"
 
 #import "PetriAspectRatioLayer.h"
 #import "PetriBoardLayer.h"
 #import "PetriBoardCellLayer.h"
+#import "PetriPlayerStatusLayer.h"
 #import "PetriPlayersListContainerLayer.h"
 #import "PetriPieceLayer.h"
 #import "PetriPieceContainerLayer.h"
+#import "PetriItemLayer.h"
+#import "PetriItemStackLayer.h"
 
 #import "CALayer+ConstraintSets.h"
 
@@ -53,12 +57,6 @@
 - (PetriPlayersListContainerLayer*)playersListConstainerLayerForGame:(PetriGame*)newGame;
 
 /*!
- Called when the view receives a -mouseDown: event corresponding to a click on a the layer representing the board.
- */
-- (BOOL)handleMouseUp:(NSEvent*)mouseEvent
-	   overBoardLayer:(PetriBoardLayer*)clickedLayer;
-
-/*!
  Called when the view recieves a -mouseDown: event corresponding to a click on the layer representing the current piece.
  */
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
@@ -69,6 +67,18 @@
  */
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
   onPieceContainerLayer:(PetriPieceContainerLayer*)clickedLayer;
+
+/*!
+ Called when the view recieves a -mouseDown: event corresponding to a click on a stack of items in a player's inventory.
+ */
+- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
+	   onItemStackLayer:(PetriItemStackLayer*)clickedLayer;
+
+/*!
+ Called when the view receives a -mouseUp: event corresponding to a click-release over the layer representing the board.
+ */
+- (BOOL)handleMouseUp:(NSEvent*)mouseEvent
+	   overBoardLayer:(PetriBoardLayer*)clickedLayer;
 
 /*!
  Returns a the cell on the board located beneath the origin cell of the carried piece, or nil if no such cell is present.
@@ -91,9 +101,14 @@
 - (void)clearPieceHighlight;
 
 /*!
- Removes the carried piece layer from the cursor, and optionally returns it to its container.
+ Removes the carried piece layer, if any, from the cursor, and optionally returns it to its container.
  */
 - (void)dropCarriedPiece:(BOOL)returnToContainer;
+
+/*!
+ Removes the carried item, if any, from the cursor.
+ */
+- (void)dropCarriedItem;
 
 /*!
  Called when the view receives a -keyDown: event corresponding to a press of the spacebar.
@@ -270,6 +285,7 @@
 {
 	// FIXME: generalize
 	[self dropCarriedPiece:YES];
+	[self dropCarriedItem];
 }
 
 #pragma mark Mouse Down
@@ -298,6 +314,13 @@
 			if ([self handleMouseDown:mouseEvent onPieceContainerLayer:(PetriPieceContainerLayer*)searchLayer])
 				return;
 		}
+		
+		// A stack of items
+		if ([searchLayer isKindOfClass:[PetriItemStackLayer class]])
+		{
+			if ([self handleMouseDown:mouseEvent onItemStackLayer:(PetriItemStackLayer*)searchLayer])
+				return;
+		}
 	}
 }
 
@@ -309,6 +332,9 @@
 	// If the cursor is already carrying a piece, ignore this event
 	if (carriedPiece != nil)
 		return NO;
+	
+	// If the cursor is carrying an item, drop it
+	[self dropCarriedItem];
 	
 	// "Pick up" the piece layer
 	// Get the piece from the layer
@@ -350,6 +376,47 @@
 	
 	// Drop the carried piece
 	[self dropCarriedPiece:YES];
+	
+	// Event handled
+	return YES;
+}
+
+- (BOOL)handleMouseDown:(NSEvent*)mouseEvent
+	   onItemStackLayer:(PetriItemStackLayer*)clickedLayer
+{
+	// If the cursor is carrying a piece, drop it
+	[self dropCarriedPiece:YES];
+	
+	// Get the player box containing this layer
+	PetriPlayerStatusLayer* playerBox = (PetriPlayerStatusLayer*)[clickedLayer superlayer];
+	
+	// If it is not this player's turn, ignore event
+	if (![[playerBox player] isEqual:[[self game] currentPlayer]])
+		return NO;
+	
+	// If the cursor is already carrying an item, drop it
+	if (carriedItem != nil)
+	{
+		PetriItem* temp = carriedItem;
+		[self dropCarriedItem];
+		
+		// If the clicked item is the carried one, don't pick up a new one
+		if ([temp isEqual:[clickedLayer item]])
+			return YES;	// Event handled
+	}
+	
+	// "Pick up" the item in the clicked stack
+	carriedItem = [clickedLayer item];
+	
+	// Use the item's icon as a cursor
+	NSImage* itemIcon = [carriedItem icon];
+	NSCursor* itemCursor = [[NSCursor alloc] initWithImage:itemIcon
+												   hotSpot:NSMakePoint(([itemIcon size].width / 2),
+																	   ([itemIcon size].height / 2))];
+	[itemCursor push];
+	
+	// Highlight the picked-up item in the stack
+	[playerBox highlightTopItemOfStack:clickedLayer];
 	
 	// Event handled
 	return YES;
@@ -545,6 +612,10 @@
 
 - (void)dropCarriedPiece:(BOOL)returnToContainer
 {
+	// If not carrying a piece, do nothing
+	if (carriedPiece == nil)
+		return;
+	
 	// If necessary, reveal the piece in the container
 	if (returnToContainer)
 		[pieceContainerLayer setPieceHidden:NO];
@@ -561,6 +632,25 @@
 	
 	// Clear the highlighted cells under the piece
 	[self clearPieceHighlight];
+}
+
+#pragma mark -
+#pragma mark Carried-Item Methods
+
+- (void)dropCarriedItem
+{
+	// If not carrying an item, do nothing
+	if (carriedItem == nil)
+		return;
+	
+	// FIXME: hacky
+	for (PetriPlayerStatusLayer* playerBox in [playersContainerLayer sublayers])
+		[playerBox highlightTopItemOfStack:nil];
+	
+	// Remove the item from the cursor
+	[NSCursor pop];
+	
+	carriedItem = nil;
 }
 
 #pragma mark -
