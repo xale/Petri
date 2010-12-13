@@ -10,22 +10,28 @@
 
 @implementation PetriUserPlayer
 
-- (id)initWithColor:(NSColor*)playerColor
+/*!
+ Override. Throws an exception; use -initWithPlayerID:controllingUser:color: instead.
+ */
+- (id)initWithPlayerID:(NSInteger)ID
+				 color:(NSColor*)playerColor
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
 }
 
-- (id)initWithControllingUser:(PetriUser*)user
-						color:(NSColor*)playerColor
+- (id)initWithPlayerID:(NSInteger)ID
+	   controllingUser:(PetriUser*)user
+				 color:(NSColor*)playerColor
 {
-	if (![super initWithColor:playerColor])
-	{
+	if (![super initWithPlayerID:ID color:playerColor])
 		return nil;
-	}
 
 	if (user == nil)
-		[NSException raise:@"user must not be nil" format:@""];
+	{
+		[NSException raise:NSInternalInconsistencyException
+					format:@"User must not be nil."];
+	}
 	
 	controllingUser = user;
 	
