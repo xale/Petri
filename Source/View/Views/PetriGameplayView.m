@@ -57,6 +57,11 @@
 - (PetriPlayersListContainerLayer*)playersListConstainerLayerForGame:(PetriGame*)newGame;
 
 /*!
+ Returns the deepest layer in the outer container layer's ancestor tree whose bounds contain the specified point in the window's coordinate system.
+ */
+- (CALayer*)hitTestContainerLayerAtWindowLocation:(NSPoint)locationInWindow;
+
+/*!
  Called when the view recieves a -mouseDown: event corresponding to a click on the layer representing the current piece.
  */
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
@@ -288,15 +293,21 @@
 	[self dropCarriedItem];
 }
 
+- (CALayer*)hitTestContainerLayerAtWindowLocation:(NSPoint)locationInWindow
+{
+	// Determine where on the view the click occurred
+	CGPoint clickedPoint = NSPointToCGPoint([self convertPoint:locationInWindow fromView:nil]);
+	
+	// Get the deepest layer in the hierarchy that was clicked
+	return [outerContainerLayer hitTest:clickedPoint];
+}
+
 #pragma mark Mouse Down
 
 - (void)mouseDown:(NSEvent*)mouseEvent
 {
-	// Determine where on the view the click occurred
-	CGPoint clickedPoint = NSPointToCGPoint([self convertPoint:[mouseEvent locationInWindow] fromView:nil]);
-	 
 	// Get the deepest layer in the hierarchy that was clicked
-	CALayer* clickedLayer = [outerContainerLayer hitTest:clickedPoint];
+	CALayer* clickedLayer = [self hitTestContainerLayerAtWindowLocation:[mouseEvent locationInWindow]];
 	
 	// Search the layer hierarchy under the mouse for layers of interest
 	for (CALayer* searchLayer = clickedLayer; searchLayer != nil; searchLayer = [searchLayer superlayer])
@@ -426,11 +437,8 @@
 
 - (void)mouseUp:(NSEvent*)mouseEvent
 {
-	// Determine where on the view the mouse was released
-	CGPoint releasePoint = NSPointToCGPoint([self convertPoint:[mouseEvent locationInWindow] fromView:nil]);
-	
 	// Get the deepest layer in the hierarchy that was clicked
-	CALayer* layerUnderCursor = [outerContainerLayer hitTest:releasePoint];
+	CALayer* layerUnderCursor = [self hitTestContainerLayerAtWindowLocation:[mouseEvent locationInWindow]];
 	
 	// Search the layer hierarchy under the mouse for layers of interest
 	for (CALayer* searchLayer = layerUnderCursor; searchLayer != nil; searchLayer = [searchLayer superlayer])
