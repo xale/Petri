@@ -115,6 +115,7 @@
 + (NSUInteger)absoluteMinPlayers;	/*!< Returns the minimum number of players that a board of this type can accommodate. */
 + (NSUInteger)absoluteMaxPlayers;	/*!< Returns the maximum number of players that a board of this type can accommodate. */
 
+
 - (void)encodeWithCoder: (NSCoder *)coder;
 - (id)initWithCoder: (NSCoder *)coder;
 

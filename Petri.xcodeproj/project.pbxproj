@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		641D429E12B5797900DE0F7E /* PetriNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 641D429D12B5797900DE0F7E /* PetriNetworkController.m */; };
+		645E0FEE12B58719007BA92D /* PetriServerNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645E0FED12B58719007BA92D /* PetriServerNetworkController.m */; };
+		645E0FF112B58720007BA92D /* PetriClientNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645E0FF012B58720007BA92D /* PetriClientNetworkController.m */; };
 		6491819A1279228900A185C2 /* PetriBoardCellTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C7E66A1278F1F800B040F8 /* PetriBoardCellTestCases.m */; };
 		64C7E66E1278F24200B040F8 /* PetriSquareGridPieceTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C7E66D1278F24200B040F8 /* PetriSquareGridPieceTestCases.m */; };
 		64C7E6741278F2D600B040F8 /* PetriItemTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C7E6731278F2D600B040F8 /* PetriItemTestCases.m */; };
@@ -112,6 +115,12 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		641D429C12B5797900DE0F7E /* PetriNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriNetworkController.h; sourceTree = "<group>"; };
+		641D429D12B5797900DE0F7E /* PetriNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriNetworkController.m; sourceTree = "<group>"; };
+		645E0FEC12B58719007BA92D /* PetriServerNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriServerNetworkController.h; sourceTree = "<group>"; };
+		645E0FED12B58719007BA92D /* PetriServerNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriServerNetworkController.m; sourceTree = "<group>"; };
+		645E0FEF12B58720007BA92D /* PetriClientNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriClientNetworkController.h; sourceTree = "<group>"; };
+		645E0FF012B58720007BA92D /* PetriClientNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriClientNetworkController.m; sourceTree = "<group>"; };
 		64C7E6691278F1F800B040F8 /* PetriBoardCellTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardCellTestCases.h; sourceTree = "<group>"; };
 		64C7E66A1278F1F800B040F8 /* PetriBoardCellTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardCellTestCases.m; sourceTree = "<group>"; };
 		64C7E66C1278F24200B040F8 /* PetriSquareGridPieceTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriSquareGridPieceTestCases.h; sourceTree = "<group>"; };
@@ -323,6 +332,19 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		641D428512B4868A00DE0F7E /* Network Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				641D429C12B5797900DE0F7E /* PetriNetworkController.h */,
+				641D429D12B5797900DE0F7E /* PetriNetworkController.m */,
+				645E0FEC12B58719007BA92D /* PetriServerNetworkController.h */,
+				645E0FED12B58719007BA92D /* PetriServerNetworkController.m */,
+				645E0FEF12B58720007BA92D /* PetriClientNetworkController.h */,
+				645E0FF012B58720007BA92D /* PetriClientNetworkController.m */,
+			);
+			name = "Network Controllers";
 			sourceTree = "<group>";
 		};
 		6A03C3C112A41E95001F243A /* Superclass */ = {
@@ -680,6 +702,7 @@
 		6AA738E91265FBB7003ABB43 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				641D428512B4868A00DE0F7E /* Network Controllers */,
 				6A5690331285DC9A0002C128 /* View Controllers */,
 				6AA738EA1265FBB7003ABB43 /* PetriMainWindowController.h */,
 				6AA738EB1265FBB7003ABB43 /* PetriMainWindowController.m */,
@@ -936,6 +959,9 @@
 				6A71D27312B2C4C800AC6F2B /* PetriNoLayerResizeAnimationView.m in Sources */,
 				6A71D45012B308A600AC6F2B /* PetriPlayerStatusLayer.m in Sources */,
 				6A71D45412B30CEE00AC6F2B /* PetriPlayer+DisplayName.m in Sources */,
+				641D429E12B5797900DE0F7E /* PetriNetworkController.m in Sources */,
+				645E0FEE12B58719007BA92D /* PetriServerNetworkController.m in Sources */,
+				645E0FF112B58720007BA92D /* PetriClientNetworkController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

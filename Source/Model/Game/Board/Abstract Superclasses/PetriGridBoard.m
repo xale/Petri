@@ -688,6 +688,18 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return didPerformCaptures;
 }
 
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeObject:cells forKey: @"cells"];
+}
+- (id)initWithCoder:(NSCoder *)coder
+{
+	if((self = [self init]))
+	{
+		cells = [coder decodeObjectForKey:@"cells"];
+	}
+	return self;	
+}
 
 @synthesize width;
 @synthesize height;
