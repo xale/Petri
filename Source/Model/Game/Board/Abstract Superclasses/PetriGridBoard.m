@@ -312,7 +312,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	{
 		for (PetriBoardCell* cell in ar)
 		{
-			if ([cell cellId] == Id)
+			if ([cell cellID] == Id)
 			{
 				return cell;
 			}

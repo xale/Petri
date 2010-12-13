@@ -23,7 +23,7 @@
 /*!
  Constructor throws an exception.  Don't use it.
  */
-- (id)init;
+- (id)initWithGameGroup:(PetriGameGroup*)GameGroup;
 
 /*!
  Changes the owner on the cell with the given ID

@@ -67,7 +67,7 @@
 {
 	for (PetriPlayer* player in players)
 	{
-		if ([player playerId] == Id)
+		if ([player playerID] == Id)
 		{
 			return player;
 		}
