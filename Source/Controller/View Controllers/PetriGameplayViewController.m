@@ -10,7 +10,7 @@
 
 #import "PetriGame.h"
 #import "PetriBoard.h"
-#import "PetriGridBoard.h"
+#import "PetriItem.h"
 
 NSString* const PetriGameplayViewNibName =	@"GameplayView";
 
@@ -123,6 +123,33 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 	
 	// Advance to the next player's turn
 	[[self game] nextTurn];
+}
+
+- (BOOL)gameplayView:(PetriGameplayView*)gameplayView
+		  canUseItem:(PetriItem*)item
+		   forPlayer:(PetriPlayer*)itemUser
+			 onCells:(NSArray*)cells
+			 ofBoard:(id<PetriBoard>)board
+{
+	return [item validateItemOnCells:cells
+							  pieces:nil
+							 players:nil
+							byPlayer:itemUser
+							 onBoard:board];
+}
+
+- (void)gameplayView:(PetriGameplayView*)gameplayView
+			 useItem:(PetriItem*)item
+		   forPlayer:(PetriPlayer*)itemUser
+			 onCells:(NSArray*)cells
+			 ofBoard:(id<PetriBoard>)board
+{
+	// Use the item
+	[item useItemOnCells:cells
+				  pieces:nil
+				 players:nil
+				byPlayer:itemUser
+				 onBoard:board];
 }
 
 #pragma mark -
