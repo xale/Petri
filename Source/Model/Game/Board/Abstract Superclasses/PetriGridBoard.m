@@ -300,6 +300,23 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	return [[cells objectAtIndex:x] objectAtIndex:y];
 }
 
+- (PetriBoardCell*)cellById:(NSInteger)Id
+{
+	for (NSArray* ar in cells)
+	{
+		for (PetriBoardCell* cell in ar)
+		{
+			if ([cell cellId] == Id)
+			{
+				return cell;
+			}
+		}
+	}
+	
+	/* This is an error */
+	return nil;
+}
+
 - (Petri2DCoordinates*)coordinatesOfCell:(PetriBoardCell*)cell
 {
 	for (int x = 0; [self isValidXCoordinate:x]; x++)
