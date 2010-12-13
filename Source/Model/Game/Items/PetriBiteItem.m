@@ -61,6 +61,10 @@
 		{
 			return NO;
 		}
+		if ([cell isEmpty])
+		{
+			return NO;
+		}
 		NSSet* adjacentCells = [board placementCellsAdjacentToCell:cell];
 		NSArray* firstBiteCells = [cells subarrayToIndex:i];
 		NSSet* playerCells = [usingPlayer controlledCells];
