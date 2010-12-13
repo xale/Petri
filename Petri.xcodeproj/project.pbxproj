@@ -138,6 +138,7 @@
 		6A21A80E1299A2370054B8F0 /* PetriSquareGridBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriSquareGridBoard.m; sourceTree = "<group>"; };
 		6A21A9F91299CF6B0054B8F0 /* PetriModelTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriModelTestCases.h; sourceTree = "<group>"; };
 		6A21A9FA1299CF6B0054B8F0 /* PetriModelTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriModelTestCases.m; sourceTree = "<group>"; };
+		6A2519A112B5BB4F00195244 /* BiteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BiteIcon.png; sourceTree = "<group>"; };
 		6A3DB093129B9D2B00D37405 /* PetriGameplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameplayView.h; sourceTree = "<group>"; };
 		6A3DB094129B9D2B00D37405 /* PetriGameplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameplayView.m; sourceTree = "<group>"; };
 		6A4722F412A6ECE800D5F67C /* PetriPieceContainerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPieceContainerLayer.h; sourceTree = "<group>"; };
@@ -412,6 +413,14 @@
 			path = "Square Grid";
 			sourceTree = "<group>";
 		};
+		6A2519A012B5BB4F00195244 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				6A2519A112B5BB4F00195244 /* BiteIcon.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		6A3DB08F129B9CD900D37405 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +666,7 @@
 		6AA738DF1265FB97003ABB43 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6A2519A012B5BB4F00195244 /* Images */,
 				6A9DE89D1275F95000020AB9 /* Petri Unit Tests-Info.plist */,
 				6AA738E01265FB97003ABB43 /* InfoPlist.strings */,
 				6AA738E21265FB97003ABB43 /* MainMenu.xib */,
@@ -838,6 +848,7 @@
 				6A56904D1285F6F20002C128 /* GameGroupView.xib in Resources */,
 				6A56904B1285F6EA0002C128 /* GameplayView.xib in Resources */,
 				6AE75E7E128B171C009F6BC5 /* JoinGameView.xib in Resources */,
+				6A2519A212B5BB4F00195244 /* BiteIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
