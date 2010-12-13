@@ -12,11 +12,10 @@
 
 - (id)initWithCellID:(NSInteger)ID;
 {
-	cellType = unoccupiedCell;
-	owner = nil;
-	pickUp = nil;
-	cellID = ID;
-	return self;
+	return [self initWithCellType:unoccupiedCell
+							owner:nil
+						   pickUp:nil
+						   cellID:ID];
 }
 
 - (id)initWithCellType:(PetriCellType)type
