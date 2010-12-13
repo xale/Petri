@@ -53,6 +53,8 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 		[self addSublayer:layer];
 	}
 	
+	[displayedPlayer addObserver:self forKeyPath:@"items" options:0 context:nil];
+	
 	// Set the background color of the layer to the player's color
 	NSColor* playerColor = [displayedPlayer color];
 	CGColorRef color = CGColorCreateGenericRGB([playerColor redComponent], [playerColor greenComponent], [playerColor blueComponent], 1.0);
@@ -67,8 +69,6 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 		[self setBorderWidth:PetriPlayerStatusLayerSelectionBorderWidth];
 	else
 		[self setBorderWidth:0.0];
-	
-	// FIXME: bindings for items
 	
 	// Maintain a reference to the player
 	player = displayedPlayer;
@@ -163,6 +163,26 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	}
 	
 	return layers;
+}
+
+
+- (void)observeValueForKeyPath:(NSString*)keyPath
+					  ofObject:(id)object
+                        change:(NSDictionary*)change
+                       context:(void*)context
+{
+	if ([keyPath isEqual:@"items"])
+	{
+		for (CALayer* layer in itemStacks)
+		{
+			[layer removeFromSuperlayer];
+		}
+		itemStacks = [self itemStacksForPlayer:object];
+		for (CALayer* layer in itemStacks)
+		{
+			[self addSublayer:layer];
+		}
+	}
 }
 
 - (void)layoutSublayers
