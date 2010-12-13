@@ -43,6 +43,7 @@
 	PetriBoardCell* destinationCell;	/*!< The cell over which the carried piece's origin is located, if any. Used primarily as an internal optimization. */
 	
 	PetriItem* carriedItem;			/*!< The item carried by the user's cursor, if the player has picked one up. */
+	NSMutableArray* itemTargets;	/*!< The list of layers targeted by the user for the use of an item. */
 }
 
 /*!
