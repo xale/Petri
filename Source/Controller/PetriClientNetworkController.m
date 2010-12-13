@@ -8,6 +8,7 @@
 
 #import "PetriClientNetworkController.h"
 
+#import "PetriServerNetworkController.h"
 
 @implementation PetriClientNetworkController
 

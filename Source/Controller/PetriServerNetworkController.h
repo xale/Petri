@@ -18,7 +18,7 @@
  */
 @interface PetriServerNetworkController : PetriNetworkController
 {
-	NSMutableSet* clientNCs; /*! list of clients that are registered with this server */
+	NSMutableSet* clientNCs; /*!< list of clients that are registered with this server */
 }
 
 /*!
@@ -35,9 +35,8 @@
 - (void)addClientByIpAddr:(NSString*)clientIpAddr;
 
 
-/*
+/*!
  Search for a client object to remove from the set of listening clients
- 
  @param clientNC client network controller to remove from the set of client networks controllers
  */
 - (void)removeClient:(NSDistantObject*)clientNC;
