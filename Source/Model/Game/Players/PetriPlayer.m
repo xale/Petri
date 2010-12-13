@@ -101,9 +101,9 @@ NSInteger nextPlayerId = 0;
 	NSNumber* count = [items objectForKey:item];
 	if (count == nil)
 	{
-		[items setObject:item forKey:[NSNumber numberWithInt:1]];
+		[items setObject:[NSNumber numberWithInt:1] forKey:item];
 	}
-	[items setObject:item forKey:[NSNumber numberWithInt:([count intValue] + 1)]];
+	[items setObject:[NSNumber numberWithInt:([count intValue] + 1)] forKey:item];
 	
 	[self didChangeValueForKey:@"item"];
 }
