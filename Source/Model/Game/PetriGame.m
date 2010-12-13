@@ -63,6 +63,20 @@
 	return self;
 }
 
+- (PetriPlayer*)playerById:(NSInteger)Id
+{
+	for (PetriPlayer* player in players)
+	{
+		if ([player playerId] == Id)
+		{
+			return player;
+		}
+	}
+	
+	/* Something went wrong if we don't have this playerId stored */
+	return nil;
+}
+
 #pragma mark -
 #pragma mark Game-State Actions
 

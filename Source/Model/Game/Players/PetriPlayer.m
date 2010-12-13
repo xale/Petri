@@ -9,12 +9,6 @@
 #import "PetriPlayer.h"
 @class PetriItem;
 
-//Create playerId counter
-NSInteger nextPlayerId = 0;
-// FIXME: TESTING
-#import "PetriBiteItem.h"
-// FIXME: TESTING
-
 @implementation PetriPlayer
 
 - (id)init
@@ -23,7 +17,8 @@ NSInteger nextPlayerId = 0;
 	return nil;
 }
 
-- (id)initWithColor:(NSColor*)playerColor
+- (id)initWithPlayerID:(NSInteger)ID
+				 color:(NSColor*)playerColor
 {
 	if ([self isMemberOfClass:[PetriPlayer class]])
 	{
@@ -31,20 +26,55 @@ NSInteger nextPlayerId = 0;
 		return nil;
 	}
 	
-	playerId = nextPlayerId++;
-
-	// FIXME: TESTING
-	items = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:4]
-											   forKey:[PetriBiteItem item]];
-	// FIXME: TESTING
-	
+	playerID = ID;
+	items = [NSMutableDictionary dictionary];
 	controlledCells = [NSMutableSet set];
 	color = [playerColor copy];
 	return self;
 }
 
 #pragma mark -
+#pragma mark NSCoding
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeInteger:playerID forKey:@"playerID"];
+	[coder encodeObject:color forKey: @"color"];
+}
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+	return [self initWithPlayerID:[coder decodeIntegerForKey:@"playerID"]
+							color:[coder decodeObjectForKey:@"color"]];
+}
+
+#pragma mark -
+#pragma mark Comparators
+
+- (BOOL)isEqual:(id)otherObject
+{
+	if ([otherObject isKindOfClass:[self class]])
+	{
+		return [self isEqualToPlayer:(PetriPlayer*)otherObject];
+	}
+	
+	return NO;
+}
+
+- (NSUInteger)hash
+{
+	return (NSUInteger)[self playerID];
+}
+
+- (BOOL)isEqualToPlayer:(PetriPlayer*)otherPlayer
+{
+	return ([self playerID] == [otherPlayer playerID]);
+}
+
+#pragma mark -
 #pragma mark Accessors
+
+#pragma mark Cells
 
 - (void)addControlledCellsObject:(PetriBoardCell*)cell
 {
@@ -59,7 +89,6 @@ NSInteger nextPlayerId = 0;
 	[controlledCells unionSet:cells];
 	[self didChangeValueForKey:@"controlledCells"];
 }
-
 
 - (void)removeControlledCellsObject:(PetriBoardCell*)cell
 {
@@ -88,6 +117,13 @@ NSInteger nextPlayerId = 0;
 {
     return [controlledCells member:cell];
 }
+
+- (NSSet*)controlledCells
+{
+	return [controlledCells copy];
+}
+
+#pragma mark Items
 
 - (NSDictionary*)items
 {
@@ -130,35 +166,9 @@ NSInteger nextPlayerId = 0;
 	[self didChangeValueForKey:@"items"];
 }
 
-- (NSSet*)controlledCells
-{
-	return [controlledCells copy];
-}
-
-
-- (void)encodeWithCoder:(NSCoder *)coder
-{
-	[coder encodeInteger:playerId forKey:@"playerId"];
-	[coder encodeObject:color forKey: @"color"];
-}
-
-- (id)initWithCoder:(NSCoder *)coder
-{
-	if ([self isMemberOfClass:[PetriPlayer class]])
-	{
-		[self doesNotRecognizeSelector:_cmd];
-		return nil;
-	}
-	
-	if((self = [self init]))
-	{
-		playerId = [coder decodeIntegerForKey:@"playerId"];
-		color = [coder decodeObjectForKey:@"color"];
-	}
-	return self;	
-}
+#pragma mark Others
 
 @synthesize color;
-@synthesize playerId;
+@synthesize playerID;
 
 @end

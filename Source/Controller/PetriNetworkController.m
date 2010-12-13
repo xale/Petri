@@ -15,6 +15,12 @@
 
 @implementation PetriNetworkController
 
+- (id)init
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
 - (void)updateCellId:(NSInteger)cellId
 	  withNewOwnerId:(NSInteger)ownerId
 {
@@ -56,4 +62,6 @@
 	PetriGame* myGame = [[self gameGroup] game];
 	[myGame setCurrentPlayer:[myGame playerById:playerId]];
 }
+
+@synthesize gameGroup;
 @end

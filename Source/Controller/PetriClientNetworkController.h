@@ -18,13 +18,12 @@
  */
 @interface PetriClientNetworkController : PetriNetworkController
 {
-	NSDistantObject* serverNC; /*! Server client is connceted to */
+	NSDistantObject* serverNC; /*!< Server client is connceted to */
 }
 
 /*!
  Initialize the client and connect to a distributed object of the server RPC interface being hosted on the server
  The client then vends itself as a distributed object and tells the server to initiate a connection to it.
- 
  @param serverIpAddr ip address of server to connect to
  */
 - (void)initWithServerHost:(NSString*)serverIpAddr;

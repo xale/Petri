@@ -21,18 +21,14 @@
 }
 
 /*!
- Override. Throws an exception; use -initWithControllingUser:color: instead.
- */
-- (id)initWithColor:(NSColor*)playerColor;
-
-/*!
  Creates a new PetriUserPlayer controlled by the specified PetriUser.
- 
+ @param ID The player's game-unique identifier.
  @param user The user controlling this player's actions. Must not be nil.
  @param playerColor The new player's color.
  */
-- (id)initWithControllingUser:(PetriUser*)user
-						color:(NSColor*)playerColor;
+- (id)initWithPlayerID:(NSInteger)ID
+	   controllingUser:(PetriUser*)user
+				 color:(NSColor*)playerColor;
 
 @property (readonly) PetriUser* controllingUser;
 
