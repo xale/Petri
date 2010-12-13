@@ -446,6 +446,23 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 	[cell clearCell];
 }
 
+- (void)forceTakeCells:(NSSet *)capturedCells
+			 forPlayer:(PetriPlayer *)player
+{
+	for (PetriBoardCell* cell in capturedCells)
+	{
+		[self forceTakeCell:cell forPlayer:player];
+	}
+}
+
+- (void)forceClearCells:(NSSet *)clearedCells
+{
+	for (PetriBoardCell* cell in clearedCells)
+	{
+		[self forceClearCell:cell];
+	}
+}
+
 - (void)clearDeadCells
 {
 	PetriPlayer* player;

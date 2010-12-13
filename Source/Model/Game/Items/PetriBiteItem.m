@@ -20,11 +20,7 @@
 			  byPlayer:(PetriPlayer*)usingPlayer
 			   onBoard:(id<PetriBoard>)board
 {
-	for (PetriBoardCell* cell in cells)
-	{
-		[usingPlayer removeControlledCellsObject:cell];
-		[cell clearCell];
-	}
+	[board forceClearCells:[NSSet setWithArray:cells]];
 }
 
 - (BOOL)validateItemOnCells:(NSArray*)cells

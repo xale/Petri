@@ -82,6 +82,20 @@
 - (void)clearDeadCells;
 
 /*!
+ Mark the cells as cleared.
+ @param clearedCells the cells to clear
+ */
+- (void)forceClearCells:(NSSet*)clearedCells;
+
+/*!
+ Mark the cells as belonging to player.
+ @param capturedCells the cells to mark
+ @param player the player to give the cells to;
+ */
+- (void)forceTakeCells:(NSSet*)capturedCells
+			 forPlayer:(PetriPlayer*)player;
+
+/*!
  Returns a set of all head cells on the board.
  */
 - (NSSet*)heads;
