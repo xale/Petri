@@ -9,6 +9,9 @@
 #import "PetriPlayer.h"
 @class PetriItem;
 
+//Create playerId counter
+NSInteger nextPlayerId = 0;
+
 @implementation PetriPlayer
 
 - (id)init
@@ -24,6 +27,8 @@
 		[self doesNotRecognizeSelector:_cmd];
 		return nil;
 	}
+	
+	playerId = nextPlayerId++;
 	items = [NSMutableDictionary dictionary];
 	controlledCells = [NSMutableSet set];
 	color = [playerColor copy];
@@ -122,6 +127,30 @@
 	return [controlledCells copy];
 }
 
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeInteger:playerId forKey:@"playerId"];
+	[coder encodeObject:color forKey: @"color"];
+}
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+	if ([self isMemberOfClass:[PetriPlayer class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
+	
+	if((self = [self init]))
+	{
+		playerId = [coder decodeIntegerForKey:@"playerId"];
+		color = [coder decodeObjectForKey:@"color"];
+	}
+	return self;	
+}
+
 @synthesize color;
+@synthesize playerId;
 
 @end
