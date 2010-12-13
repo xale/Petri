@@ -65,10 +65,19 @@
 		{
 			return NO;
 		}
-		NSSet* adjacentCells = [board placementCellsAdjacentToCell:cell];
-		NSArray* firstBiteCells = [cells subarrayToIndex:i];
-		NSSet* playerCells = [usingPlayer controlledCells];
-		if (![adjacentCells intersectsSet:[playerCells setByAddingObjectsFromArray:firstBiteCells]])
+		
+		// One of these cells must be adjacent to the current cell
+		NSSet* adjacentCells;
+		if (i == 0)
+		{
+			adjacentCells = [usingPlayer controlledCells];
+		}
+		else
+		{
+			adjacentCells = [NSSet setWithObject:[cells objectAtIndex:i - 1]];
+		}
+
+		if (![adjacentCells intersectsSet:[board placementCellsAdjacentToCell:cell])
 		{
 			return NO;
 		}
