@@ -9,6 +9,10 @@
 #import "PetriPlayer.h"
 @class PetriItem;
 
+// FIXME: TESTING
+#import "PetriBiteItem.h"
+// FIXME: TESTING
+
 @implementation PetriPlayer
 
 - (id)init
@@ -24,7 +28,12 @@
 		[self doesNotRecognizeSelector:_cmd];
 		return nil;
 	}
-	items = [NSMutableDictionary dictionary];
+	
+	// FIXME: TESTING
+	items = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:4]
+											   forKey:[PetriBiteItem item]];
+	// FIXME: TESTING
+	
 	controlledCells = [NSMutableSet set];
 	color = [playerColor copy];
 	return self;
