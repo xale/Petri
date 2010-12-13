@@ -28,6 +28,7 @@
 	id<PetriPiece> currentPiece; /*!< The piece available for use on the current player's move. */
 	BOOL inCaptureBatch;
 	BOOL inClearBatch;
+	BOOL gameOver;
 }
 
 /*!
@@ -67,5 +68,7 @@
 @property (readonly) id<PetriPiece> currentPiece;
 @property (readwrite, getter=isInCaptureBatch) BOOL inCaptureBatch;
 @property (readwrite, getter=isInClearBatch) BOOL inClearBatch;
+@property (readonly, getter=isGameOver) BOOL gameOver;
+
 
 @end

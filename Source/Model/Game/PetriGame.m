@@ -58,6 +58,7 @@
 	currentPiece = [self nextPiece];
 	inCaptureBatch = NO;
 	inClearBatch = NO;
+	gameOver = NO;
 	return self;
 }
 
@@ -68,11 +69,18 @@
 {
 	[self willChangeValueForKey:@"currentPiece"];
 	[self willChangeValueForKey:@"currentPlayer"];
+
+	PetriPlayer* previousPlayer = currentPlayer;
 	NSLog(@"--- * Changing turn.");
 	do
 	{
 		currentPlayer = [self nextPlayer];
 	} while ([[currentPlayer controlledCells] count] == 0);
+	
+	if ([previousPlayer isEqual:currentPlayer])
+	{
+		gameOver = YES;
+	}
 	currentPiece = [self nextPiece];
 	
 	[self didChangeValueForKey:@"currentPlayer"];
@@ -173,5 +181,6 @@
 @synthesize currentPiece;
 @synthesize inClearBatch;
 @synthesize inCaptureBatch;
+@synthesize gameOver;
 
 @end
