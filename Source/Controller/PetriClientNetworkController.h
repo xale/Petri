@@ -18,7 +18,7 @@
  */
 @interface PetriClientNetworkController : PetriNetworkController
 {
-	NSDistantObject* serverNC; /*! Server client is connceted to */
+	NSDistantObject* serverNC; /*!< Server client is connceted to */
 }
 
 /*!

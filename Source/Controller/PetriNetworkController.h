@@ -16,8 +16,13 @@
  */
 @interface PetriNetworkController : NSObject
 {
-
+	PetriGameGroup* gameGroup;
 }
+
+/*!
+ Constructor throws an exception.  Don't use it.
+ */
+- (id)init;
 
 /*!
  Changes the owner on the cell with the given ID
@@ -70,5 +75,7 @@
  @param playerId playerId of player whose turn it is
  */
 - (void)changeTurnToNewPlayerWithId:(NSInteger)playerId;
+
+@property (readonly) PetriGameGroup* gameGroup;
 
 @end
