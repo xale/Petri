@@ -55,6 +55,13 @@
 							  onCell:(PetriBoardCell*)cell;
 
 /*!
+ Returns a cell with a given id
+ 
+ @param Id id of cell to return
+ */
+- (PetriBoardCell*)cellById:(NSInteger)Id;
+
+/*!
  Method called on board to validate piece placement.
  @param piece the piece to place
  @param owner the player attempting to place the piece
