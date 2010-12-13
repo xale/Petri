@@ -195,6 +195,17 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 #pragma mark -
 #pragma mark Accessors
 
+- (void)highlightTopItemOfStack:(PetriItemStackLayer*)stack
+{
+	// Un-highlight the old stack, if necessary
+	[[highlightedStack topItemLayer] setHighlighted:NO];
+	
+	// Highlight the top item of the new stack
+	[[stack topItemLayer] setHighlighted:YES];
+	
+	highlightedStack = stack;
+}
+
 @synthesize player;
 
 - (void)setSelected:(BOOL)playerSelected

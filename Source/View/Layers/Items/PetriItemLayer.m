@@ -54,7 +54,7 @@
 	// If the item is highlighted, draw a highlight
 	if (isHighlighted)
 	{
-		CGColorRef highlightColor = CGColorCreateGenericRGB(0.0, 0.6, 0.0, 1.0);
+		CGColorRef highlightColor = CGColorCreateGenericRGB(0.0, 1.0, 0.1, 1.0);
 		[self setBackgroundColor:highlightColor];
 		CGColorRelease(highlightColor);
 	}

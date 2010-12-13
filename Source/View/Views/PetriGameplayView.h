@@ -8,9 +8,12 @@
 
 #import "PetriNoLayerResizeAnimationView.h"
 
-#import "PetriBoard.h"
-
 @class PetriGame;
+@class PetriPlayer;
+@protocol PetriBoard;
+@class PetriBoardCell;
+@protocol PetriPiece;
+@class PetriItem;
 
 @class PetriBoardLayer;
 @class PetriPieceLayer;
@@ -38,6 +41,8 @@
 	
 	PetriPieceLayer* carriedPiece;	/*!< The piece carried by the user's cursor, if the player has picked it up. */
 	PetriBoardCell* destinationCell;	/*!< The cell over which the carried piece's origin is located, if any. Used primarily as an internal optimization. */
+	
+	PetriItem* carriedItem;			/*!< The item carried by the user's cursor, if the player has picked one up. */
 }
 
 /*!

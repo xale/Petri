@@ -10,6 +10,7 @@
 #import <Quartz/Quartz.h>
 
 @class PetriPlayer;
+@class PetriItemStackLayer;
 
 /*!
  \brief A CALayer subclass that displays information about a player in the game.
@@ -20,6 +21,7 @@
 	BOOL selected;			/*!< If \c YES this piece draws a white border to indicate that it is this player's turn. */
 	
 	NSArray* itemStacks;	/*!< Sublayers on which the player's items are displayed. */
+	PetriItemStackLayer* highlightedStack;	/*!< Which stack, if any, of the player's items is selected for use. */
 	CATextLayer* nameLayer;	/*!< Sublayer on which the player's name is stored. */
 }
 
@@ -39,7 +41,13 @@
 + (id)playerStatusLayerForPlayer:(PetriPlayer*)displayedPlayer
 						selected:(BOOL)initiallySelected;
 
+/*!
+ Highlights the top item in the specified stack of items, indicating that the player has it selected for use. Also un-highlights the currently-highlighted stack, if any.
+ @param stack The stack of items in which to highlight the top item. Pass \c nil to un-highlight all stacks.
+ */
+- (void)highlightTopItemOfStack:(PetriItemStackLayer*)stack;
+
 @property (readonly) PetriPlayer* player;
-@property (readwrite, assign) BOOL selected;
+@property (readwrite, assign, getter=isSelected) BOOL selected;
 
 @end

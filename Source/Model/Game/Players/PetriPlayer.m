@@ -96,7 +96,7 @@ NSInteger nextPlayerId = 0;
 
 - (void)addItemsObject:(PetriItem*)item
 {
-	[self willChangeValueForKey:@"item"];
+	[self willChangeValueForKey:@"items"];
 	
 	NSNumber* count = [items objectForKey:item];
 	if (count == nil)
@@ -105,12 +105,12 @@ NSInteger nextPlayerId = 0;
 	}
 	[items setObject:[NSNumber numberWithInt:([count intValue] + 1)] forKey:item];
 	
-	[self didChangeValueForKey:@"item"];
+	[self didChangeValueForKey:@"items"];
 }
 
 - (void)removeItemsObject:(PetriItem*)item
 {
-	[self willChangeValueForKey:@"item"];
+	[self willChangeValueForKey:@"items"];
 	
 	NSNumber* count = [items objectForKey:item];
 	if (count == nil)
@@ -127,7 +127,7 @@ NSInteger nextPlayerId = 0;
 	}
 	[items setObject:item forKey:[NSNumber numberWithInt:([count intValue] - 1)]];
 
-	[self didChangeValueForKey:@"item"];
+	[self didChangeValueForKey:@"items"];
 }
 
 - (NSSet*)controlledCells
