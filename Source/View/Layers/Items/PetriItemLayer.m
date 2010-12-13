@@ -10,8 +10,8 @@
 
 #import "PetriItem.h"
 
-#define PetriItemLayerBorderWidth	2.0
-#define PetriItemLayerOpacity		0.9
+#define PetriItemLayerBorderWidth	1.5
+#define PetriItemLayerOpacity		0.80
 
 @implementation PetriItemLayer
 
