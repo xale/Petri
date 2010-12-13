@@ -9,6 +9,9 @@
 #import "PetriPlayerStatusLayer.h"
 
 #import "PetriPlayer+DisplayName.h"
+#import "PetriItem.h"
+
+#import "PetriItemStackLayer.h"
 
 NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold";
 #define PetriPlayerStatusLayerNicknameFontScale			0.20
@@ -16,6 +19,17 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 #define PetriPlayerStatusLayerNicknameFieldWidthScale	0.88
 
 #define PetriPlayerStatusLayerSelectionBorderWidth	4.0
+
+/*!
+ Private methods on PetriPlayerStatusLayer
+ */
+@interface PetriPlayerStatusLayer(Private)
+
+- (CATextLayer*)nameLayerForPlayer:(PetriPlayer*)displayedPlayer;
+
+- (NSArray*)itemStacksForPlayer:(PetriPlayer*)displayedPlayer;
+
+@end
 
 @implementation PetriPlayerStatusLayer
 
@@ -28,37 +42,16 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	// Create a layout manager
 	[self setLayoutManager:[CAConstraintLayoutManager layoutManager]];
 	
-	// Get the player's name
-	NSString* playerName = [displayedPlayer displayName];
-	
 	// Create a text layer for the player's name
-	nameLayer = [CATextLayer layer];
-	[nameLayer setString:playerName];
-	
-	// Set the font to the Petri title font
-	CTFontRef nicknameFont = CTFontCreateWithName((CFStringRef)PetriPlayerStatusLayerNicknameFontName, 0.0, NULL);
-	[nameLayer setFont:nicknameFont];
-	CFRelease(nicknameFont);
-	
-	// Set the text color to white
-	[nameLayer setForegroundColor:CGColorGetConstantColor(kCGColorWhite)];
-	
-	// Configure the size and position of the layer
-	[nameLayer setTruncationMode:kCATruncationEnd];
-	[nameLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX
-														relativeTo:@"superlayer"
-														 attribute:kCAConstraintMidX]];
-	[nameLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
-														relativeTo:@"superlayer"
-														 attribute:kCAConstraintHeight
-															 scale:PetriPlayerStatusLayerNicknamePositionScale
-															offset:0.0]];
-	[nameLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
-														relativeTo:@"superlayer"
-														 attribute:kCAConstraintWidth
-															 scale:PetriPlayerStatusLayerNicknameFieldWidthScale
-															offset:0.0]];
+	nameLayer = [self nameLayerForPlayer:displayedPlayer];
 	[self addSublayer:nameLayer];
+	
+	// Create "stacks" of the player's items
+	itemStacks = [self itemStacksForPlayer:displayedPlayer];
+	for (CALayer* layer in itemStacks)
+	{
+		[self addSublayer:layer];
+	}
 	
 	// Set the background color of the layer to the player's color
 	NSColor* playerColor = [displayedPlayer color];
@@ -75,7 +68,7 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	else
 		[self setBorderWidth:0.0];
 	
-	// FIXME: bindings
+	// FIXME: bindings for items
 	
 	// Maintain a reference to the player
 	player = displayedPlayer;
@@ -83,20 +76,100 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	return self;
 }
 
-
-
-- (void)setBounds:(CGRect)newBounds
-{
-	[super setBounds:newBounds];
-	
-	[nameLayer setFontSize:(newBounds.size.height * PetriPlayerStatusLayerNicknameFontScale)];
-}
-
 + (id)playerStatusLayerForPlayer:(PetriPlayer*)displayedPlayer
 						selected:(BOOL)initiallySelected
 {
 	return [[self alloc] initWithPlayer:displayedPlayer
 							   selected:initiallySelected];
+}
+
+#pragma mark -
+#pragma mark Layout
+
+- (CATextLayer*)nameLayerForPlayer:(PetriPlayer*)displayedPlayer
+{
+	CATextLayer* layer = [CATextLayer layer];
+	[layer setString:[displayedPlayer displayName]];
+	
+	// Set the font to the Petri title font
+	CTFontRef nicknameFont = CTFontCreateWithName((CFStringRef)PetriPlayerStatusLayerNicknameFontName, 0.0, NULL);
+	[layer setFont:nicknameFont];
+	CFRelease(nicknameFont);
+	
+	// Set the text color to white
+	[layer setForegroundColor:CGColorGetConstantColor(kCGColorWhite)];
+	
+	// Configure the size and position of the layer
+	[layer setTruncationMode:kCATruncationEnd];
+	[layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX
+													relativeTo:@"superlayer"
+													 attribute:kCAConstraintMidX]];
+	[layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
+													relativeTo:@"superlayer"
+													 attribute:kCAConstraintHeight
+														 scale:PetriPlayerStatusLayerNicknamePositionScale
+														offset:0.0]];
+	[layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+													relativeTo:@"superlayer"
+													 attribute:kCAConstraintWidth
+														 scale:PetriPlayerStatusLayerNicknameFieldWidthScale
+														offset:0.0]];
+	
+	return layer;
+}
+
+#define PetriPlayerStatusLayerItemStackSublayerSizeScale		0.45
+#define PetriPlayerStatusLayerItemStackSublayerPositionScale	0.1
+
+- (NSArray*)itemStacksForPlayer:(PetriPlayer*)displayedPlayer
+{
+	// Create stacks of items for each type in the player's inventory
+	NSArray* items = [[displayedPlayer items] allKeys];
+	NSUInteger itemTypesCount = [items count];
+	NSMutableArray* layers = [NSMutableArray arrayWithCapacity:itemTypesCount];
+	for (NSUInteger itemTypeIndex = 0; itemTypeIndex < itemTypesCount; itemTypeIndex++)
+	{
+		// Get an item from the collection
+		PetriItem* item = [items objectAtIndex:itemTypeIndex];
+		
+		// Create a "stack" of that type of item
+		PetriItemStackLayer* stackLayer = [PetriItemStackLayer itemStackWithItem:item
+																		   count:[[[displayedPlayer items] objectForKey:item] unsignedIntegerValue]];
+		
+		// Configure the stack's size and position
+		[stackLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+															 relativeTo:@"superlayer"
+															  attribute:kCAConstraintHeight
+																  scale:PetriPlayerStatusLayerItemStackSublayerSizeScale
+																 offset:0.0]];
+		[stackLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintHeight
+															 relativeTo:@"superlayer"
+															  attribute:kCAConstraintHeight
+																  scale:PetriPlayerStatusLayerItemStackSublayerSizeScale
+																 offset:0.0]];
+		[stackLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
+															 relativeTo:@"superlayer"
+															  attribute:kCAConstraintHeight
+																  scale:PetriPlayerStatusLayerItemStackSublayerPositionScale
+																 offset:0.0]];
+		// FIXME: DOES NOT SCALE
+		[stackLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
+															 relativeTo:@"superlayer"
+															  attribute:kCAConstraintWidth
+																  scale:(PetriPlayerStatusLayerItemStackSublayerPositionScale * (itemTypeIndex + 1))
+																 offset:0.0]];
+		
+		[layers addObject:stackLayer];
+	}
+	
+	return layers;
+}
+
+- (void)layoutSublayers
+{
+	[nameLayer setFontSize:(CGRectGetHeight([self bounds]) * PetriPlayerStatusLayerNicknameFontScale)];
+	
+	[super layoutSublayers];
 }
 
 #pragma mark -
