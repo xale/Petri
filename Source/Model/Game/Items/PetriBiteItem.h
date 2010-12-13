@@ -6,9 +6,7 @@
 //  Copyright 2010 Alex Heinz, Paul Martin, and Alex Rozenshteyn. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import "PetriItem.h"
-#import "PetriBoard.h"
 
 /*!
  Item which allows a user to perform a bite.

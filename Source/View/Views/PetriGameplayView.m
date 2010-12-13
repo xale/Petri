@@ -266,6 +266,12 @@
 #pragma mark -
 #pragma mark Input Events
 
+- (IBAction)dropCarriedLayer:(id)sender
+{
+	// FIXME: generalize
+	[self dropCarriedPiece:YES];
+}
+
 #pragma mark Mouse Down
 
 - (void)mouseDown:(NSEvent*)mouseEvent
@@ -324,6 +330,9 @@
 	
 	// Add the layer to the background
 	[[self layer] addSublayer:carriedPiece];
+	
+	// Set a "grabby hand" cursor
+	[[NSCursor closedHandCursor] push];
 	
 	// Hide the piece layer in the container
 	[pieceContainerLayer setPieceHidden:YES];
@@ -544,6 +553,9 @@
 	[carriedPiece removeFromSuperlayer];
 	carriedPiece = nil;
 	
+	// Remove the grabby-hand cursor
+	[NSCursor pop];
+	
 	// Clear the current destination cell
 	destinationCell = nil;
 	
@@ -637,6 +649,15 @@
 
 #pragma mark -
 #pragma mark Accessors
+
+- (void)setFrame:(NSRect)frameRect
+{
+	[super setFrame:frameRect];
+	
+	// If the cursor is carrying a piece, resize it
+	if (carriedPiece != nil)
+		[boardLayer scalePieceLayerToCellSize:carriedPiece];
+}
 
 @synthesize delegate;
 

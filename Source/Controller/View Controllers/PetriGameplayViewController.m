@@ -67,6 +67,9 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 {
 	// Ask the game to advance to the next turn
 	[[self game] nextTurn];
+	
+	// If the gameplay view has a layer on the cursor, drop it
+	[gameplayView dropCarriedLayer:self];
 }
 
 #pragma mark -

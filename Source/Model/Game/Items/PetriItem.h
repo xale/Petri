@@ -7,7 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PetriBoard.h"
+
+@protocol PetriBoard;
+
+@class PetriPlayer;
 
 /*!
  \brief A usuable item that can affect game state.
@@ -16,8 +19,7 @@
  */
 @interface PetriItem : NSObject <NSCopying>
 {
-	NSString* itemName;			/*!< Name of the item; displayed and used for equality checking. */
-	BOOL allowsCaptures;		/*!< \c YES if captures should be attempted after this item is used, \c NO otherwise. */
+	
 }
 
 /*!
@@ -65,7 +67,8 @@
 				   byPlayer:(PetriPlayer*)usingPlayer
 					onBoard:(id<PetriBoard>)board;
 
-@property (readonly) NSString* itemName;
-@property (readonly) BOOL allowsCaptures;
+@property (readonly) NSString* itemName;	/*!< Name of the item; displayed and used for equality checking. Subclasses must override to provide the item's name. */
+@property (readonly) BOOL allowsCaptures;	/*!< Subclasses may override to return \c YES if captures should be attempted after this item is used. Defaults to \c NO. */
+@property (readonly) NSImage* icon;			/*!< An icon to display on the view when representing this item in a player's inventory. Subclasses must override to provide an image. */
 
 @end

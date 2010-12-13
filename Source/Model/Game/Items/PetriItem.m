@@ -77,7 +77,24 @@
 	return [[self itemName] hash];
 }
 
-@synthesize itemName;
-@synthesize allowsCaptures;
+#pragma mark -
+#pragma mark Accessors
+
+- (NSString*)itemName
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
+
+- (BOOL)allowsCaptures
+{
+	return NO;
+}
+
+- (NSImage*)icon
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return nil;
+}
 
 @end

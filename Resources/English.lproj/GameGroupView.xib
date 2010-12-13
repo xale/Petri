@@ -23,7 +23,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="340"/>
+			<integer value="326"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -480,16 +480,16 @@
 																	<object class="NSCustomView" id="875237446">
 																		<reference key="NSNextResponder" ref="426707517"/>
 																		<int key="NSvFlags">274</int>
-																		<string key="NSFrame">{{0, -8}, {519, 237}}</string>
+																		<string key="NSFrameSize">{519, 242}</string>
 																		<reference key="NSSuperview" ref="426707517"/>
 																		<string key="NSClassName">PetriBoardPrototypeView</string>
 																	</object>
 																</object>
-																<string key="NSFrame">{{1, 1}, {517, 228}}</string>
+																<string key="NSFrame">{{1, 1}, {517, 240}}</string>
 																<reference key="NSSuperview" ref="765516623"/>
 															</object>
 														</object>
-														<string key="NSFrame">{{20, 20}, {519, 230}}</string>
+														<string key="NSFrame">{{20, 8}, {519, 242}}</string>
 														<reference key="NSSuperview" ref="398884385"/>
 														<string key="NSOffsets">{0, 0}</string>
 														<object class="NSTextFieldCell" key="NSTitleCell">
@@ -606,7 +606,7 @@
 									<object class="NSButton" id="607990950">
 										<reference key="NSNextResponder" ref="787107104"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{26, 19}, {26, 25}}</string>
+										<string key="NSFrame">{{26, 8}, {26, 25}}</string>
 										<reference key="NSSuperview" ref="787107104"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="BGHUDButtonCell" key="NSCell" id="355082738">
@@ -635,7 +635,7 @@
 									<object class="NSButton" id="314085077">
 										<reference key="NSNextResponder" ref="787107104"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{0, 19}, {26, 25}}</string>
+										<string key="NSFrame">{{0, 8}, {26, 25}}</string>
 										<reference key="NSSuperview" ref="787107104"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="BGHUDButtonCell" key="NSCell" id="321743591">
@@ -660,7 +660,7 @@
 									<object class="NSCustomView" id="506485328">
 										<reference key="NSNextResponder" ref="787107104"/>
 										<int key="NSvFlags">274</int>
-										<string key="NSFrame">{{0, 51}, {220, 444}}</string>
+										<string key="NSFrame">{{0, 40}, {220, 455}}</string>
 										<reference key="NSSuperview" ref="787107104"/>
 										<string key="NSClassName">NSView</string>
 									</object>
@@ -1460,12 +1460,12 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwiQAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwigAAA</bytes>
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABB0AAAwiQAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABB0AAAwigAAA</bytes>
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 				</object>
