@@ -39,6 +39,11 @@
 - (void)addItemsObject:(PetriItem*)item;
 
 /*!
+ Takes the players item; e.g. after use.
+ */
+- (void)removeItemsObject:(PetriItem*)item;
+
+/*!
  Adds a cell to the list of cells controlled by the player.
 
  @param cell the PetriBoardCell that the player now controls

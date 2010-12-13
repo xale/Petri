@@ -125,7 +125,7 @@ NSInteger nextPlayerId = 0;
 		[items removeObjectForKey:count];
 		return;
 	}
-	[items setObject:item forKey:[NSNumber numberWithInt:([count intValue] - 1)]];
+	[items setObject:[NSNumber numberWithInt:([count intValue] - 1)] forKey:item];
 
 	[self didChangeValueForKey:@"items"];
 }
