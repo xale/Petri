@@ -8,6 +8,7 @@
 
 #import "PetriServerNetworkController.h"
 
+#import "PetriGameGroup.h"
 
 @implementation PetriServerNetworkController
 

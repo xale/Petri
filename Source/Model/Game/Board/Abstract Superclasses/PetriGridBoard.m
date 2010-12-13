@@ -692,6 +692,7 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 {
 	[coder encodeObject:cells forKey: @"cells"];
 }
+
 - (id)initWithCoder:(NSCoder *)coder
 {
 	if((self = [self init]))

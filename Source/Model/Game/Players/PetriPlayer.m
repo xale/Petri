@@ -9,6 +9,8 @@
 #import "PetriPlayer.h"
 @class PetriItem;
 
+//Create playerId counter
+NSInteger nextPlayerId = 0;
 // FIXME: TESTING
 #import "PetriBiteItem.h"
 // FIXME: TESTING
@@ -29,6 +31,8 @@
 		return nil;
 	}
 	
+	playerId = nextPlayerId++;
+
 	// FIXME: TESTING
 	items = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:4]
 											   forKey:[PetriBiteItem item]];
@@ -131,6 +135,30 @@
 	return [controlledCells copy];
 }
 
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+	[coder encodeInteger:playerId forKey:@"playerId"];
+	[coder encodeObject:color forKey: @"color"];
+}
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+	if ([self isMemberOfClass:[PetriPlayer class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
+	
+	if((self = [self init]))
+	{
+		playerId = [coder decodeIntegerForKey:@"playerId"];
+		color = [coder decodeObjectForKey:@"color"];
+	}
+	return self;	
+}
+
 @synthesize color;
+@synthesize playerId;
 
 @end
