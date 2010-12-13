@@ -77,7 +77,7 @@
 			adjacentCells = [NSSet setWithObject:[cells objectAtIndex:i - 1]];
 		}
 
-		if (![adjacentCells intersectsSet:[board placementCellsAdjacentToCell:cell])
+		if (![adjacentCells intersectsSet:[board placementCellsAdjacentToCell:cell]])
 		{
 			return NO;
 		}
