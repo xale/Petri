@@ -82,14 +82,16 @@
 	// Add a player to the game representing each user in the group
 	for (NSUInteger playerNum = 0; playerNum < [users count]; playerNum++)
 	{
-		[players addObject:[[PetriUserPlayer alloc] initWithControllingUser:[users objectAtIndex:playerNum]
-																	  color:[playerColors objectAtIndex:playerNum]]];
+		[players addObject:[[PetriUserPlayer alloc] initWithPlayerID:playerNum
+													 controllingUser:[users objectAtIndex:playerNum]
+															   color:[playerColors objectAtIndex:playerNum]]];
 	}
 	
 	// Fill any remaining "player slots" in the game with AI players
 	for (NSUInteger playerNum = [players count]; playerNum < [gameConfiguration minPlayers]; playerNum++)
 	{
-		[players addObject:[[PetriAIPlayer alloc] initWithColor:[playerColors objectAtIndex:playerNum]]];
+		[players addObject:[[PetriAIPlayer alloc] initWithPlayerID:playerNum
+															 color:[playerColors objectAtIndex:playerNum]]];
 	}
 	
 	// Create new game with the list of players and the currently-configured rules
