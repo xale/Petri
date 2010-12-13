@@ -54,7 +54,7 @@
 
 - (NSUInteger)hash
 {
-	return (NSUInteger)cellID;
+	return (NSUInteger)[self cellID];
 }
 
 - (BOOL)isEqualToCell:(PetriBoardCell*)otherCell
