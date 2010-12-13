@@ -150,6 +150,13 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 				 players:nil
 				byPlayer:itemUser
 				 onBoard:board];
+	
+	// If the item can create captures, perform them
+	if ([item allowsCaptures])
+		[[self game] performCapturesForCurrentPlayer];
+	
+	// Clean up any dead cells
+	[[self game] clearDeadCells];
 }
 
 #pragma mark -
