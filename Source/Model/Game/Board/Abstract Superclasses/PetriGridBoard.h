@@ -129,9 +129,6 @@
  */
 + (NSSet*)captureOffsets;
 
-- (void)encodeWithCoder: (NSCoder *)coder;
-- (id)initWithCoder: (NSCoder *)coder;
-
 @property (readonly) NSInteger width;
 @property (readonly) NSInteger height;
 

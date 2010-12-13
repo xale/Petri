@@ -37,12 +37,18 @@ NSInteger nextCellId = 0;
  Private methods for PetriGridBoard
  */
 @interface PetriGridBoard(Private)
+
 /*!
  Make the cell passed in owned by noone and of empty type
- 
  @param cell the cell to clear
  */
 - (void)forceClearCell:(PetriBoardCell*)cell;
+
+- (void)queueCellForCapture:(PetriBoardCell*)cell;
+
+- (void)queueCellForCapture:(PetriBoardCell*)cell
+					atIndex:(NSUInteger)index;
+
 @end
 
 @implementation PetriGridBoard

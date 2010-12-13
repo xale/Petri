@@ -20,14 +20,15 @@
 @interface PetriBoardCell : NSObject <NSCopying, NSCoding>
 {
 	PetriCellType cellType;	/*!< The type of cell. */
-	PetriPlayer* owner;		/*!< The player currently controlling the cell, if any. Will be nil if cellType is not headCell or bodyCell. */
-	PetriItem* pickUp;		/*!< The item picked up when this cell is claimed, if any. Will be nil if cellType is not unoccupiedCell. */
-	NSInteger cellId;
+	PetriPlayer* owner;		/*!< The player currently controlling the cell, if any. Should be nil if cellType is not headCell or bodyCell. */
+	PetriItem* pickUp;		/*!< The item picked up when this cell is claimed, if any. Should be nil if cellType is not unoccupiedCell. */
+	NSInteger cellID;		/*!< A unique identifier, assigned by the board when the cell is created, and used to determine cell equality. */
 }
 
 /**
  * Default constructor
  * Initializes owner and item to nil and type to unoccupied
+ * @param ID A unique identifier for the cell on its board.
  */
 - (id)initWithCellID:(NSInteger)ID;
 
@@ -36,6 +37,7 @@
  * @param type The type of cell
  * @param player The player currently controlling the cell; may be nil.
  * @param item The item picked up when this cell is claimed; may be nil.
+ * @param ID A unique identifier for the cell on its board.
  */
 - (id)initWithCellType:(PetriCellType)type
 				 owner:(PetriPlayer*)player
@@ -49,7 +51,6 @@
 
 /*!
  Transfers ownership of cell to player
- 
  @param player the player that now owns the cell
  */
 - (void)takeCellForPlayer:(PetriPlayer*)player;
@@ -60,17 +61,19 @@
 - (BOOL)isEmpty;
 
 /*!
- Returns \c YES if the specified cell has the same values for its properties as the receiver.
+ Returns \c YES if the specified cell has the same \c cellID as the receiver.
+ */
+- (BOOL)isEqualToCell:(PetriBoardCell*)otherCell;
+
+/*!
+ Returns \c YES if the specified cell has the same values for its properties (except \c cellID) as the receiver.
  Intended for unit testing and debugging.
  */
 - (BOOL)hasSamePropertiesAsCell:(PetriBoardCell*)otherCell;
 
-- (void)encodeWithCoder: (NSCoder *)coder;
-- (id)initWithCoder: (NSCoder *)coder;
-
 @property (readwrite, assign) PetriCellType cellType;
 @property (readwrite, assign) PetriPlayer* owner;
 @property (readwrite, copy) PetriItem* pickUp;
-@property (readonly) NSInteger cellId;
+@property (readonly) NSInteger cellID;
 
 @end
