@@ -33,6 +33,14 @@
 }
 
 /*!
+ Retrns a player with a given id
+ 
+ @param Id id of player to return
+ */
+- (PetriPlayer*)playerById:(NSInteger)Id;
+
+
+/*!
  Creates a new game with the specified players and rules.
  @param playersInGame NSArray of player objects
  @param configuration The configuration specifying the layout of the game board, piece frequencies, etc.
