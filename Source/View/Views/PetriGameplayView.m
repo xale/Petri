@@ -266,6 +266,12 @@
 #pragma mark -
 #pragma mark Input Events
 
+- (IBAction)dropCarriedLayer:(id)sender
+{
+	// FIXME: generalize
+	[self dropCarriedPiece:YES];
+}
+
 #pragma mark Mouse Down
 
 - (void)mouseDown:(NSEvent*)mouseEvent

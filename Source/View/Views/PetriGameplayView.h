@@ -40,6 +40,11 @@
 	PetriBoardCell* destinationCell;	/*!< The cell over which the carried piece's origin is located, if any. Used primarily as an internal optimization. */
 }
 
+/*!
+ Instructs the view to drop whatever layer is carried by the cursor, if any.
+ */
+- (IBAction)dropCarriedLayer:(id)sender;
+
 @property (readwrite, assign) IBOutlet id<PetriGameplayViewDelegate> delegate;
 @property (readwrite, assign) PetriGame* game;
 
