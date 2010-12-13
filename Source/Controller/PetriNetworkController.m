@@ -82,4 +82,5 @@
 {
 }
 
+@synthesize gameGroup;
 @end

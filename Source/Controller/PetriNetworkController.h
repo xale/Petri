@@ -10,6 +10,7 @@
 
 #import "PetriItem.h"
 #import "PetriCellType.h"
+#import "PetriGameGroup.h"
 
 /*!
  Abstract superclass for RPC interface on network controller objects
