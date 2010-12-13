@@ -69,7 +69,7 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 	[[self game] nextTurn];
 	
 	// If the gameplay view has a layer on the cursor, drop it
-	[gameplayView dropCarriedLayer:self];
+	[gameplayView dropCarriedObjects:self];
 }
 
 #pragma mark -

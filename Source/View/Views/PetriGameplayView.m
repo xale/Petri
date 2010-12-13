@@ -281,7 +281,7 @@
 #pragma mark -
 #pragma mark Input Events
 
-- (IBAction)dropCarriedLayer:(id)sender
+- (IBAction)dropCarriedObjects:(id)sender
 {
 	// FIXME: generalize
 	[self dropCarriedPiece:YES];

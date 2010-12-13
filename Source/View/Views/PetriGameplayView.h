@@ -48,7 +48,7 @@
 /*!
  Instructs the view to drop whatever layer is carried by the cursor, if any.
  */
-- (IBAction)dropCarriedLayer:(id)sender;
+- (IBAction)dropCarriedObjects:(id)sender;
 
 @property (readwrite, assign) IBOutlet id<PetriGameplayViewDelegate> delegate;
 @property (readwrite, assign) PetriGame* game;
