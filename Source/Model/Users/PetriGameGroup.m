@@ -105,6 +105,6 @@
 @synthesize gameConfiguration;
 @synthesize game;
 @synthesize defaultPlayerColors;
-@synthesize isLocalGameGroup;
+@synthesize localGameGroup;
 
 @end
