@@ -9,6 +9,7 @@
 #import "PetriMainWindowViewController.h"
 
 @class PetriGameGroup;
+@class PetriGameGroupUsersArrayController;
 
 /*!
  \brief The controller for the Game Group view.
@@ -17,6 +18,8 @@
  */
 @interface PetriGameGroupViewController : PetriMainWindowViewController
 {
+	IBOutlet PetriGameGroupUsersArrayController* usersListController;	/*!< The Array Controller for the list of users in the game group. */
+	
 	PetriGameGroup* gameGroup;	/*!< A reference to the game group whose state is reflected on this view. */
 }
 

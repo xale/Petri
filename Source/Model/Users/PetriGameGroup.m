@@ -28,7 +28,8 @@
 	// FIXME: default values, for testing
 	gameConfiguration = [PetriGameConfiguration defaultGameConfiguration];
 	
-	users = [NSMutableArray arrayWithObject:gameHost];
+	// FIXME: adds a second player to meet minPlayers requirement; this should be removed when AI players are working
+	users = [NSMutableArray arrayWithObjects:gameHost, [[PetriUser alloc] initWithNickname:@"Player 2" playerColor:[NSColor blueColor]], nil];
 	game = nil;
 	localGameGroup = YES; //FIXME: When we get networking, there actually needs to be some logic here.
 	// Create an array of colors for the players

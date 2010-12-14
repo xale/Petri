@@ -41,6 +41,7 @@
 		6A56904D1285F6F20002C128 /* GameGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A56904C1285F6F20002C128 /* GameGroupView.xib */; };
 		6A5E852412AFD8AA00F4233A /* PetriCellTypeDisplayTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E852312AFD8AA00F4233A /* PetriCellTypeDisplayTransformer.m */; };
 		6A6594EA12B7F2E1000E9F61 /* PetriClientNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA67BB112B7D260005A3221 /* PetriClientNetworkController.m */; };
+		6A65952A12B7F89D000E9F61 /* PetriGameGroupUsersArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A65952912B7F89D000E9F61 /* PetriGameGroupUsersArrayController.m */; };
 		6A71D27312B2C4C800AC6F2B /* PetriNoLayerResizeAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A71D27212B2C4C800AC6F2B /* PetriNoLayerResizeAnimationView.m */; };
 		6A71D45012B308A600AC6F2B /* PetriPlayerStatusLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A71D44F12B308A600AC6F2B /* PetriPlayerStatusLayer.m */; };
 		6A71D45412B30CEE00AC6F2B /* PetriPlayer+DisplayName.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A71D45312B30CEE00AC6F2B /* PetriPlayer+DisplayName.m */; };
@@ -186,6 +187,8 @@
 		6A5690481285F6E00002C128 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GameplayView.xib; sourceTree = "<group>"; };
 		6A5E852212AFD8AA00F4233A /* PetriCellTypeDisplayTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriCellTypeDisplayTransformer.h; sourceTree = "<group>"; };
 		6A5E852312AFD8AA00F4233A /* PetriCellTypeDisplayTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriCellTypeDisplayTransformer.m; sourceTree = "<group>"; };
+		6A65952812B7F89D000E9F61 /* PetriGameGroupUsersArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriGameGroupUsersArrayController.h; sourceTree = "<group>"; };
+		6A65952912B7F89D000E9F61 /* PetriGameGroupUsersArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriGameGroupUsersArrayController.m; sourceTree = "<group>"; };
 		6A71D27112B2C4C800AC6F2B /* PetriNoLayerResizeAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriNoLayerResizeAnimationView.h; sourceTree = "<group>"; };
 		6A71D27212B2C4C800AC6F2B /* PetriNoLayerResizeAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriNoLayerResizeAnimationView.m; sourceTree = "<group>"; };
 		6A71D44E12B308A600AC6F2B /* PetriPlayerStatusLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriPlayerStatusLayer.h; sourceTree = "<group>"; };
@@ -554,6 +557,15 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
+		6A65952712B7F89D000E9F61 /* Array Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6A65952812B7F89D000E9F61 /* PetriGameGroupUsersArrayController.h */,
+				6A65952912B7F89D000E9F61 /* PetriGameGroupUsersArrayController.m */,
+			);
+			path = "Array Controllers";
+			sourceTree = "<group>";
+		};
 		6A71D27012B2C4C800AC6F2B /* Superclass */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,6 +750,7 @@
 		6AA738E91265FBB7003ABB43 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				6A65952712B7F89D000E9F61 /* Array Controllers */,
 				6AA67BAF12B7D260005A3221 /* Network Controllers */,
 				6A5690331285DC9A0002C128 /* View Controllers */,
 				6AA738EA1265FBB7003ABB43 /* PetriMainWindowController.h */,
@@ -1012,6 +1025,7 @@
 				6AA67BB712B7D260005A3221 /* PetriNetworkController.m in Sources */,
 				6AA67BB812B7D260005A3221 /* PetriServerNetworkController.m in Sources */,
 				6A6594EA12B7F2E1000E9F61 /* PetriClientNetworkController.m in Sources */,
+				6A65952A12B7F89D000E9F61 /* PetriGameGroupUsersArrayController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
