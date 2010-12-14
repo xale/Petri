@@ -85,6 +85,10 @@
 {
 	[[self layer] setSublayers:nil];
 	
+	// If either the board class or parameters are nil, do not generate a new board preview
+	if ((boardClass == Nil) || (boardParameters == nil))
+		return;
+	
 	// Create a new board layer, using the current class and parameters
 	id<PetriBoard> board = [[self boardClass] boardWithParameters:[self boardParameters]];
 	
