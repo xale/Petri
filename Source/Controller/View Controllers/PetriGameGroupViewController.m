@@ -33,6 +33,12 @@ NSString* const PetriGameGroupViewNibName =	@"GameGroupView";
 	  toObject:[self mainWindowController]
    withKeyPath:@"model.gameGroup"
 	   options:nil];
+	
+	// Bind the users list array-controller to the model
+	[usersListController bind:@"gameGroup"
+					 toObject:self
+				  withKeyPath:@"gameGroup"
+					  options:nil];
 }
 
 #pragma mark -

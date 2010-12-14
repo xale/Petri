@@ -53,7 +53,15 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 		[self addSublayer:layer];
 	}
 	
-	[displayedPlayer addObserver:self forKeyPath:@"items" options:0 context:nil];
+	// Monitor the player's list of items and number of controlled cells
+	[displayedPlayer addObserver:self
+					  forKeyPath:@"items"
+						 options:0
+						 context:nil];
+	[displayedPlayer addObserver:self
+					  forKeyPath:@"controlledCells"
+						 options:0
+						 context:nil];
 	
 	// Set the background color of the layer to the player's color
 	NSColor* playerColor = [displayedPlayer color];
@@ -165,13 +173,14 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	return layers;
 }
 
+#define PetriPlayerStatusLayerDeadPlayerOpacity 0.4
 
 - (void)observeValueForKeyPath:(NSString*)keyPath
 					  ofObject:(id)object
                         change:(NSDictionary*)change
                        context:(void*)context
 {
-	if ([keyPath isEqual:@"items"])
+	if ([keyPath isEqualToString:@"items"])
 	{
 		for (CALayer* layer in itemStacks)
 		{
@@ -182,6 +191,10 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 		{
 			[self addSublayer:layer];
 		}
+	}
+	else if ([keyPath isEqualToString:@"controlledCells"])
+	{
+		[self setOpacity:(([[self player] countOfControlledCells] == 0) ? PetriPlayerStatusLayerDeadPlayerOpacity : 1.0)];
 	}
 }
 

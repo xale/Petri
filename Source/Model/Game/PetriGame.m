@@ -105,7 +105,9 @@
 	
 	if ([previousPlayer isEqual:currentPlayer])
 	{
+		[self willChangeValueForKey:@"gameOver"];
 		gameOver = YES;
+		[self didChangeValueForKey:@"gameOver"];
 	}
 	currentPiece = [self nextPiece];
 	NSLog([NSString stringWithFormat:@"Current player has %u cells, %u cells are on the board.", [currentPlayer countOfControlledCells], [board countOfCells]]);

@@ -77,7 +77,7 @@
 								<int key="NSfFlags">16</int>
 							</object>
 							<string key="NSAlternateContents"/>
-							<string key="NSKeyEquivalent"/>
+							<string key="NSKeyEquivalent">s</string>
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 							<string key="themeKey">gradientTheme</string>
