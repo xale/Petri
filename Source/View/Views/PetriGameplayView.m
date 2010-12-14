@@ -509,6 +509,10 @@
 				return;
 		}
 	}
+	
+	// If we were in the middle of an item-target-selection drag, clear targets
+	[itemTargets removeAllObjects];
+	[self updateItemTargetHighlight];
 }
 
 - (BOOL)handleMouseUp:(NSEvent*)mouseEvent
