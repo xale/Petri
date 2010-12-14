@@ -83,8 +83,7 @@
 	for (NSUInteger playerNum = 0; playerNum < [users count]; playerNum++)
 	{
 		[players addObject:[[PetriUserPlayer alloc] initWithPlayerID:playerNum
-													 controllingUser:[users objectAtIndex:playerNum]
-															   color:[playerColors objectAtIndex:playerNum]]];
+													 controllingUser:[users objectAtIndex:playerNum]]];
 	}
 	
 	// Fill any remaining "player slots" in the game with AI players

@@ -22,14 +22,16 @@
 - (void)createLocalGameGroup
 {
 	// Create a game group with the local user as the host
-	PetriUser* hostUser = [[PetriUser alloc] initWithNickname:NSFullUserName()];
+	PetriUser* hostUser = [[PetriUser alloc] initWithNickname:NSFullUserName()
+												  playerColor:[NSColor redColor]];
 	[self setGameGroup:[[PetriGameGroup alloc] initWithHost:hostUser]];
 }
 
 - (void)createNetworkGameGroup
 {
 	// Create a game group with the local user as the host
-	PetriUser* hostUser = [[PetriUser alloc] initWithNickname:NSFullUserName()];
+	PetriUser* hostUser = [[PetriUser alloc] initWithNickname:NSFullUserName()
+												  playerColor:[NSColor redColor]];
 	[self setGameGroup:[[PetriGameGroup alloc] initWithHost:hostUser]];
 	
 	// Create a network controller

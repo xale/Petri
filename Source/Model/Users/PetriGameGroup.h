@@ -25,7 +25,7 @@
 	PetriUser* host;			/*!< User that created and manages this group. */
 	PetriGameConfiguration*	gameConfiguration;	/*!< Rules used for games played by this group. May be changed by the host. */
 	PetriGame* game;			/*!< Game in progress, if any. */
-	NSArray* playerColors;		/*!< The array of NSColors assigned to the players (in order) when the game begins. */
+	NSArray* playerColors;	/*!< The list of NSColors assigned to new players (in order) as they are created. */
 	BOOL localGameGroup;		/*!< Boolean that is true if the game group is local and false if it is remote. */
 }
 
