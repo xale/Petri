@@ -34,6 +34,7 @@
 	
 	// Create a network controller
 	networkController = [[PetriServerNetworkController alloc] initWithGameGroup:[self gameGroup]];
+	[[PetriClientNetworkController alloc] initWithGameGroup:<#(PetriGameGroup *)GameGroup#>
 }
 
 - (void)joinGameGroupWithHost:(NSString*)hostnameOrIP

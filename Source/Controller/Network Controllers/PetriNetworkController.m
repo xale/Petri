@@ -15,7 +15,7 @@
 
 @implementation PetriNetworkController
 
-- (id)initWithGameGroup:(PetriGameGroup*)GameGroup
+- (id)init
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
