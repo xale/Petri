@@ -21,7 +21,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="107"/>
+			<integer value="105"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -56,7 +56,7 @@
 					<object class="NSButton" id="789264147">
 						<reference key="NSNextResponder" ref="945562097"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{660, 6}, {120, 25}}</string>
+						<string key="NSFrame">{{660, 18}, {120, 25}}</string>
 						<reference key="NSSuperview" ref="945562097"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="BGHUDButtonCell" key="NSCell" id="253828346">
@@ -86,7 +86,7 @@
 					<object class="NSButton" id="864648879">
 						<reference key="NSNextResponder" ref="945562097"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 6}, {120, 25}}</string>
+						<string key="NSFrame">{{20, 18}, {120, 25}}</string>
 						<reference key="NSSuperview" ref="945562097"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="BGHUDButtonCell" key="NSCell" id="211208102">
@@ -108,7 +108,7 @@
 					<object class="NSCustomView" id="381797311">
 						<reference key="NSNextResponder" ref="945562097"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 38}, {800, 540}}</string>
+						<string key="NSFrame">{{0, 50}, {800, 528}}</string>
 						<reference key="NSSuperview" ref="945562097"/>
 						<string key="NSClassName">PetriGameplayView</string>
 					</object>
@@ -195,8 +195,8 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="381797311"/>
-							<reference ref="789264147"/>
 							<reference ref="864648879"/>
+							<reference ref="789264147"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -253,7 +253,7 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{200, 170}, {800, 578}}</string>
+					<string>{{200, 236}, {800, 578}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableDictionary">
 						<string key="NS.key.0">AccessibilityDescription</string>
@@ -269,12 +269,12 @@
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABBoAAAwiQAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABBoAAAwegAAA</bytes>
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABEJQAAwiQAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABEJQAAwegAAA</bytes>
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 				</object>
@@ -303,6 +303,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">PetriGameplayView</string>
 					<string key="superclassName">PetriNoLayerResizeAnimationView</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">dropCarriedObjects:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">dropCarriedObjects:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">dropCarriedObjects:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">delegate</string>
 						<string key="NS.object.0">id</string>
