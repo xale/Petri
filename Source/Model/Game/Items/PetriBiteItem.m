@@ -36,11 +36,13 @@
 	// FIXME: this bite hardcodes values
 	
 	NSUInteger cellsBitten = 1;
-	if ([[usingPlayer controlledCells] count] > 20)
+	NSUInteger numberOfCellsOnBoard = [board countOfCells];
+	NSUInteger numberOfCellsControlledByPlayer = [[usingPlayer controlledCells] count];
+	if (numberOfCellsOnBoard / numberOfCellsControlledByPlayer < 4)
 	{
 		cellsBitten = 2;
 	}
-	else if ([[usingPlayer controlledCells] count] > 35)
+	if (numberOfCellsOnBoard / numberOfCellsControlledByPlayer < 3)
 	{
 		cellsBitten = 3;
 	}

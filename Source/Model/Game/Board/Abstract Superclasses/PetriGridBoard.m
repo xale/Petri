@@ -111,6 +111,11 @@ NSInteger nextCellID = 0;
 	return self;
 }
 
+- (NSUInteger)countOfCells
+{
+	return width * height;
+}
+
 - (id)initWithGridBoard:(PetriGridBoard*)board
 {
 	// Check that we aren't instantiating an abstract class

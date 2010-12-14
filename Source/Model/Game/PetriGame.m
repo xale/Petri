@@ -108,7 +108,7 @@
 		gameOver = YES;
 	}
 	currentPiece = [self nextPiece];
-	
+	NSLog([NSString stringWithFormat:@"Current player has %u cells, %u cells are on the board.", [currentPlayer countOfControlledCells], [board countOfCells]]);
 	[self didChangeValueForKey:@"currentPlayer"];
 	[self didChangeValueForKey:@"currentPiece"];
 }
