@@ -938,7 +938,7 @@ NSString* const PetriGameplayViewGameOverOverlayFontName =	@"Arial Rounded MT Bo
 	[CATransaction commit];
 }
 
-#define PetriGameplayViewDeadCellsAnimationDuration	3.0	// Seconds
+#define PetriGameplayViewDeadCellsAnimationDuration	2.5	// Seconds
 
 - (void)beginDeadCellsTransaction
 {
