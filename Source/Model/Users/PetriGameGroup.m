@@ -33,14 +33,16 @@
 	localGameGroup = YES; //FIXME: When we get networking, there actually needs to be some logic here.
 	// Create an array of colors for the players
 	// FIXME: hardcoded
-	playerColors = [NSArray arrayWithObjects:
-					[NSColor redColor],
-					[NSColor blueColor],
-					[NSColor greenColor],
-					[NSColor yellowColor],
-					[NSColor purpleColor],
-					[NSColor orangeColor],
-					nil];
+	defaultPlayerColors = [NSArray arrayWithObjects:
+						   [NSColor redColor],
+						   [NSColor blueColor],
+						   [NSColor greenColor],
+						   [NSColor yellowColor],
+						   [NSColor purpleColor],
+						   [NSColor orangeColor],
+						   [NSColor cyanColor],
+						   [NSColor magentaColor],
+						   nil];
 	
 	return self;
 }
@@ -83,15 +85,14 @@
 	for (NSUInteger playerNum = 0; playerNum < [users count]; playerNum++)
 	{
 		[players addObject:[[PetriUserPlayer alloc] initWithPlayerID:playerNum
-													 controllingUser:[users objectAtIndex:playerNum]
-															   color:[playerColors objectAtIndex:playerNum]]];
+													 controllingUser:[users objectAtIndex:playerNum]]];
 	}
 	
 	// Fill any remaining "player slots" in the game with AI players
 	for (NSUInteger playerNum = [players count]; playerNum < [gameConfiguration minPlayers]; playerNum++)
 	{
 		[players addObject:[[PetriAIPlayer alloc] initWithPlayerID:playerNum
-															 color:[playerColors objectAtIndex:playerNum]]];
+															 color:[defaultPlayerColors objectAtIndex:playerNum]]];
 	}
 	
 	// Create new game with the list of players and the currently-configured rules
@@ -102,7 +103,7 @@
 @synthesize host;
 @synthesize gameConfiguration;
 @synthesize game;
-@synthesize playerColors;
+@synthesize defaultPlayerColors;
 @synthesize isLocalGameGroup;
 
 @end

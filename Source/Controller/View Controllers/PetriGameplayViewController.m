@@ -8,6 +8,7 @@
 
 #import "PetriGameplayViewController.h"
 
+#import "PetriModel.h"
 #import "PetriGame.h"
 #import "PetriBoard.h"
 #import "PetriItem.h"
@@ -54,13 +55,18 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 - (IBAction)endGame:(id)sender
 {
 	// FIXME: testing code; needs to prompt user, etc.
+	// Return to the game group view
 	[[self mainWindowController] displayViewControllerForKey:PetriGameGroupViewControllerKey];
 }
 
 - (IBAction)returnToTitleView:(id)sender
 {
 	// FIXME: testing code; needs to prompt user, check if host, etc.
+	// Return to the title view
 	[[self mainWindowController] displayViewControllerForKey:PetriTitleViewControllerKey];
+	
+	// Leave/tear down the game group
+	[[[self mainWindowController] model] leaveGameGroup];
 }
 
 - (IBAction)skipTurn:(id)sender
@@ -135,11 +141,11 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 			 ofBoard:(id<PetriBoard>)board
 {
 	// Use the item
-	[game useItem:item
-		  onCells:cells
-		   pieces:nil
-		  players:nil
-		 byPlayer:itemUser];
+	[[self game] useItem:item
+				 onCells:cells
+				  pieces:nil
+				 players:nil
+				byPlayer:itemUser];
 
 }
 

@@ -8,6 +8,8 @@
 
 #import "PetriJoinGameViewController.h"
 
+#import "PetriModel.h"
+
 NSString* const PetriJoinGameViewNibName =	@"JoinGameView";
 
 @implementation PetriJoinGameViewController
@@ -30,7 +32,13 @@ NSString* const PetriJoinGameViewNibName =	@"JoinGameView";
 - (IBAction)joinGameGroup:(id)sender
 {
 	// FIXME: testing code
-	[[self mainWindowController] displayViewControllerForKey:PetriGameGroupViewControllerKey];
+	//[[self mainWindowController] displayViewControllerForKey:PetriGameGroupViewControllerKey];
+	
+	// Get the hostname from the text field
+	NSString* hostname = [hostnameField stringValue];
+	
+	// Attempt to join a game group at that hostname
+	[[[self mainWindowController] model] joinGameGroupWithHost:hostname];
 }
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "PetriGameGroupViewController.h"
+
+#import "PetriModel.h"
 #import "PetriGameGroup.h"
 
 NSString* const PetriGameGroupViewNibName =	@"GameGroupView";
@@ -39,7 +41,11 @@ NSString* const PetriGameGroupViewNibName =	@"GameGroupView";
 - (IBAction)returnToTitleView:(id)sender
 {
 	// FIXME: testing code; should check if the player is the host of a network game before closing
+	// Return to the title view
 	[[self mainWindowController] displayViewControllerForKey:PetriTitleViewControllerKey];
+	
+	// Leave/tear down the game group
+	[[[self mainWindowController] model] leaveGameGroup];
 }
 
 - (IBAction)startGame:(id)sender
