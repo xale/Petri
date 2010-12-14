@@ -15,7 +15,7 @@
  */
 @interface PetriJoinGameViewController : PetriMainWindowViewController
 {
-	
+	IBOutlet NSTextField* hostnameField;
 }
 
 /*!
