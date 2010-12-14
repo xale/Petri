@@ -25,22 +25,25 @@ NSString* const PetriTitleViewNibName =	@"TitleView";
 
 - (IBAction)createLocalGameGroup:(id)sender
 {
-	// FIXME: testing code
-	[[self mainWindowController] displayViewControllerForKey:PetriGameGroupViewControllerKey];
-	
 	// Create a game group
-	[[mainWindowController model] createLocalGameGroup];
+	[[[self mainWindowController] model] createLocalGameGroup];
+	
+	// Switch to the game group view
+	[[self mainWindowController] displayViewControllerForKey:PetriGameGroupViewControllerKey];
 }
 
 - (IBAction)createNetworkGameGroup:(id)sender
 {
-	// FIXME: testing code
+	// Create a game group and host it as a server
+	[[[self mainWindowController] model] createNetworkGameGroup];
+	
+	// Switch to the game group view
 	[[self mainWindowController] displayViewControllerForKey:PetriGameGroupViewControllerKey];
 }
 
 - (IBAction)joinNetworkGameGroup:(id)sender
 {
-	// FIXME: testing code
+	// Switch to the join view
 	[[self mainWindowController] displayViewControllerForKey:PetriJoinGameViewControllerKey];
 }
 
