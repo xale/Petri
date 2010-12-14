@@ -3,7 +3,7 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
 		<string key="IBDocument.SystemVersion">10H574</string>
-		<string key="IBDocument.InterfaceBuilderVersion">804</string>
+		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
@@ -15,7 +15,7 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>804</string>
+				<string>823</string>
 				<string>1</string>
 			</object>
 		</object>
@@ -56,11 +56,11 @@
 					<object class="NSButton" id="784282043">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{443, 23}, {175, 25}}</string>
+						<string key="NSFrame">{{605, 23}, {175, 25}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="BGHUDButtonCell" key="NSCell" id="617362794">
-							<int key="NSCellFlags">604110336</int>
+							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">134217728</int>
 							<string key="NSContents">Join Network Game</string>
 							<object class="NSFont" key="NSSupport" id="434189794">
@@ -86,11 +86,11 @@
 					<object class="NSButton" id="729174757">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">293</int>
-						<string key="NSFrame">{{231, 23}, {175, 25}}</string>
+						<string key="NSFrame">{{312.5, 23}, {175, 25}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="BGHUDButtonCell" key="NSCell" id="634183420">
-							<int key="NSCellFlags">604110336</int>
+							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">134217728</int>
 							<string key="NSContents">New Network Game</string>
 							<reference key="NSSupport" ref="434189794"/>
@@ -130,7 +130,7 @@
 					<object class="NSTextField" id="1047416723">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{17, 367}, {604, 91}}</string>
+						<string key="NSFrame">{{17, 467}, {766, 91}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="926696790">
@@ -164,7 +164,7 @@
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{638, 478}</string>
+				<string key="NSFrameSize">{800, 578}</string>
 				<reference key="NSSuperview"/>
 				<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				<string key="NSClassName">NSView</string>
@@ -196,6 +196,14 @@
 						<reference key="destination" ref="47199518"/>
 					</object>
 					<int key="connectionID">37</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">joinNetworkGameGroup:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="784282043"/>
+					</object>
+					<int key="connectionID">38</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -231,8 +239,8 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="47199518"/>
-							<reference ref="729174757"/>
 							<reference ref="784282043"/>
+							<reference ref="729174757"/>
 							<reference ref="1047416723"/>
 						</object>
 						<reference key="parent" ref="0"/>
@@ -323,7 +331,7 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{218, 228}, {638, 478}}</string>
+					<string>{{241, 221}, {800, 578}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -339,7 +347,7 @@
 					<string>{{217, 442}, {480, 272}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABBiAAAw+QAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABBiAAAxAsAAA</bytes>
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<object class="NSAffineTransform">
@@ -347,7 +355,7 @@
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABDXQAAwjgAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABDm4AAwjgAAA</bytes>
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<object class="NSAffineTransform">
@@ -375,7 +383,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">37</int>
+			<int key="maxID">38</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
