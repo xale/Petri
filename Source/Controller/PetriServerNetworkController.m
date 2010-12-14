@@ -49,7 +49,7 @@
 {
 	for (NSDistantObject* current in clientNCs)
 	{
-		if (current == client)
+		if ([current isEqual:client])
 		{
 			[clientNCs removeObject:current];
 		}
