@@ -110,19 +110,9 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 			  onCell:(PetriBoardCell*)cell
 			 ofBoard:(id<PetriBoard>)board
 {
-	// Place the piece on the board
-	[board placePiece:piece
-			withOwner:pieceOwner
-			   onCell:cell];
-	
-	// Perform captures for the player who placed the piece
-	[[self game] performCapturesForCurrentPlayer];
-	
-	// Clean up any dead cells
-	[[self game] clearDeadCells];
-	
-	// Advance to the next player's turn
-	[[self game] nextTurn];
+	[[self game] placePiece:piece
+				  forPlayer:pieceOwner
+					 onCell:cell];
 }
 
 - (BOOL)gameplayView:(PetriGameplayView*)gameplayView
@@ -150,13 +140,7 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 		   pieces:nil
 		  players:nil
 		 byPlayer:itemUser];
-	
-	// If the item can create captures, perform them
-	if ([item allowsCaptures])
-		[[self game] performCapturesForCurrentPlayer];
-	
-	// Clean up any dead cells
-	[[self game] clearDeadCells];
+
 }
 
 #pragma mark -

@@ -208,6 +208,28 @@
 {
 	[usingPlayer removeItemsObject:item];
 	[item useItemOnCells:cells pieces:pieces players:targetPlayers byPlayer:usingPlayer onBoard:board];
+	
+	// If the item can create captures, perform them
+	if ([item allowsCaptures])
+		[self performCapturesForCurrentPlayer];
+	
+	// Clean up any dead cells
+	[self clearDeadCells];
+}
+
+- (void)placePiece:(id<PetriPiece>)piece
+         forPlayer:(PetriPlayer*)pieceOwner
+            onCell:(PetriBoardCell*)cell
+{
+	[[self board] placePiece:piece
+	               withOwner:pieceOwner
+	                  onCell:cell];
+	
+	[self performCapturesForCurrentPlayer];
+
+	[self clearDeadCells];
+
+	[self nextTurn];
 }
 
 @synthesize players;
