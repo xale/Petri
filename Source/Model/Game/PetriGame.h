@@ -11,6 +11,7 @@
 @class PetriPlayer;
 @class PetriGameConfiguration;
 @class PetriItem;
+@class PetriBoardCell;
 
 @protocol PetriBoard;
 @protocol PetriPiece;
@@ -75,6 +76,10 @@
 		 pieces:(NSArray*)pieces
 		players:(NSArray*)targetPlayers
 	   byPlayer:(PetriPlayer*)usingPlayer;
+
+- (void)placePiece:(id<PetriPiece>)piece
+         forPlayer:(PetriPlayer*)pieceOwner
+            onCell:(PetriBoardCell*)cell;
 
 @property (readonly) NSArray* players;
 @property (readwrite, assign) PetriPlayer* currentPlayer;
