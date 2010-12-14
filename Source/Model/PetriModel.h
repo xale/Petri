@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class PetriGameGroup;
+@class PetriNetworkController;
 
 /*!
  \brief Top-level model-encapsulation class.
@@ -18,12 +19,29 @@
 @interface PetriModel : NSObject
 {
 	PetriGameGroup* gameGroup;	/*!< The current game group at the top level of the model. May be nil. */
+	
+	PetriNetworkController* networkController;	/*!< The current client or server network controller. May be nil. */
 }
 
 /*!
  Instructs the model to generate a new Game Group, intended for play on the local machine.
  */
 - (void)createLocalGameGroup;
+
+/*!
+ Instructs the model to generate a new Game Group, intended for play over a network, and a network controller to advertise the group.
+ */
+- (void)createNetworkGameGroup;
+
+/*!
+ Attempts to join a game group at the specified hostname or IP address.
+ */
+- (void)joinGameGroupWithHost:(NSString*)hostnameOrIP;
+
+/*!
+ Tears down the game group, and the network controller, if one exists.
+ */
+- (void)leaveGameGroup;
 
 @property (readwrite, assign) PetriGameGroup* gameGroup;
 

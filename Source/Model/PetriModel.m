@@ -11,6 +11,9 @@
 #import "PetriGameGroup.h"
 #import "PetriUser.h"
 
+#import "PetriServerNetworkController.h"
+#import "PetriClientNetworkController.h"
+
 @implementation PetriModel
 
 #pragma mark -
@@ -18,9 +21,32 @@
 
 - (void)createLocalGameGroup
 {
-	PetriUser* hostUser = [[PetriUser alloc] initWithNickname:NSUserName()];
-	
+	// Create a game group with the local user as the host
+	PetriUser* hostUser = [[PetriUser alloc] initWithNickname:NSFullUserName()];
 	[self setGameGroup:[[PetriGameGroup alloc] initWithHost:hostUser]];
+}
+
+- (void)createNetworkGameGroup
+{
+	// Create a game group with the local user as the host
+	PetriUser* hostUser = [[PetriUser alloc] initWithNickname:NSFullUserName()];
+	[self setGameGroup:[[PetriGameGroup alloc] initWithHost:hostUser]];
+	
+	// Create a network controller
+	networkController = [[PetriServerNetworkController alloc] initWithGameGroup:[self gameGroup]];
+}
+
+- (void)joinGameGroupWithHost:(NSString*)hostnameOrIP
+{
+	// Create a client network controller and attempt to connect
+	networkController = [[PetriClientNetworkController alloc] initWithServerHost:hostnameOrIP];
+}
+
+- (void)leaveGameGroup
+{
+	// Remove the game group, and network controller, if one exists
+	[self setGameGroup:nil];
+	networkController = nil;
 }
 
 #pragma mark -
