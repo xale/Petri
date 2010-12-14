@@ -476,6 +476,10 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 - (void)forceClearCell:(PetriBoardCell*)cell
 {
 	[[cell owner] removeControlledCellsObject:cell];
+	if ([cell isEmpty])
+	{
+		return;
+	}
 	[cell clearCell];
 }
 
