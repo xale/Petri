@@ -660,6 +660,9 @@
 
 - (void)spacebarDown:(NSEvent*)keyEvent
 {
+	// If carrying an item, drop it (shortcut)
+	[self dropCarriedItem];
+	
 	// Check if the user can rotate the current piece
 	BOOL rotationAllowed = [[self delegate] gameplayView:self
 								   canRotateCurrentPiece:[[self game] currentPiece]
