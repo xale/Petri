@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		641D429E12B5797900DE0F7E /* PetriNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 641D429D12B5797900DE0F7E /* PetriNetworkController.m */; };
-		645E0FEE12B58719007BA92D /* PetriServerNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645E0FED12B58719007BA92D /* PetriServerNetworkController.m */; };
-		645E0FF112B58720007BA92D /* PetriClientNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 645E0FF012B58720007BA92D /* PetriClientNetworkController.m */; };
 		6491819A1279228900A185C2 /* PetriBoardCellTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C7E66A1278F1F800B040F8 /* PetriBoardCellTestCases.m */; };
 		64C7E66E1278F24200B040F8 /* PetriSquareGridPieceTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C7E66D1278F24200B040F8 /* PetriSquareGridPieceTestCases.m */; };
 		64C7E6741278F2D600B040F8 /* PetriItemTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C7E6731278F2D600B040F8 /* PetriItemTestCases.m */; };
@@ -56,6 +53,9 @@
 		6A9DE8D31276020200020AB9 /* PetriUserTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DE8D21276020200020AB9 /* PetriUserTestCases.m */; };
 		6AA28D16129B76DB006FDE1F /* PetriMockGridBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA28D13129B76DB006FDE1F /* PetriMockGridBoard.m */; };
 		6AA28D17129B76DB006FDE1F /* PetriMockPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA28D15129B76DB006FDE1F /* PetriMockPlayer.m */; };
+		6AA67BB612B7D260005A3221 /* PetriClientNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA67BB112B7D260005A3221 /* PetriClientNetworkController.m */; };
+		6AA67BB712B7D260005A3221 /* PetriNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA67BB312B7D260005A3221 /* PetriNetworkController.m */; };
+		6AA67BB812B7D260005A3221 /* PetriServerNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA67BB512B7D260005A3221 /* PetriServerNetworkController.m */; };
 		6AA738E51265FB97003ABB43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6AA738E01265FB97003ABB43 /* InfoPlist.strings */; };
 		6AA738E61265FB97003ABB43 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AA738E21265FB97003ABB43 /* MainMenu.xib */; };
 		6AA738F71265FBB7003ABB43 /* PetriMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA738EB1265FBB7003ABB43 /* PetriMainWindowController.m */; };
@@ -119,12 +119,6 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		641D429C12B5797900DE0F7E /* PetriNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriNetworkController.h; sourceTree = "<group>"; };
-		641D429D12B5797900DE0F7E /* PetriNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriNetworkController.m; sourceTree = "<group>"; };
-		645E0FEC12B58719007BA92D /* PetriServerNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriServerNetworkController.h; sourceTree = "<group>"; };
-		645E0FED12B58719007BA92D /* PetriServerNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriServerNetworkController.m; sourceTree = "<group>"; };
-		645E0FEF12B58720007BA92D /* PetriClientNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriClientNetworkController.h; sourceTree = "<group>"; };
-		645E0FF012B58720007BA92D /* PetriClientNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriClientNetworkController.m; sourceTree = "<group>"; };
 		64C7E6691278F1F800B040F8 /* PetriBoardCellTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriBoardCellTestCases.h; sourceTree = "<group>"; };
 		64C7E66A1278F1F800B040F8 /* PetriBoardCellTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriBoardCellTestCases.m; sourceTree = "<group>"; };
 		64C7E66C1278F24200B040F8 /* PetriSquareGridPieceTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriSquareGridPieceTestCases.h; sourceTree = "<group>"; };
@@ -219,6 +213,12 @@
 		6AA28D13129B76DB006FDE1F /* PetriMockGridBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriMockGridBoard.m; sourceTree = "<group>"; };
 		6AA28D14129B76DB006FDE1F /* PetriMockPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriMockPlayer.h; sourceTree = "<group>"; };
 		6AA28D15129B76DB006FDE1F /* PetriMockPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriMockPlayer.m; sourceTree = "<group>"; };
+		6AA67BB012B7D260005A3221 /* PetriClientNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriClientNetworkController.h; sourceTree = "<group>"; };
+		6AA67BB112B7D260005A3221 /* PetriClientNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriClientNetworkController.m; sourceTree = "<group>"; };
+		6AA67BB212B7D260005A3221 /* PetriNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriNetworkController.h; sourceTree = "<group>"; };
+		6AA67BB312B7D260005A3221 /* PetriNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriNetworkController.m; sourceTree = "<group>"; };
+		6AA67BB412B7D260005A3221 /* PetriServerNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriServerNetworkController.h; sourceTree = "<group>"; };
+		6AA67BB512B7D260005A3221 /* PetriServerNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriServerNetworkController.m; sourceTree = "<group>"; };
 		6AA738E11265FB97003ABB43 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6AA738E31265FB97003ABB43 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		6AA738E41265FB97003ABB43 /* Petri-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Petri-Info.plist"; sourceTree = "<group>"; };
@@ -343,19 +343,6 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		641D428512B4868A00DE0F7E /* Network Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				641D429C12B5797900DE0F7E /* PetriNetworkController.h */,
-				641D429D12B5797900DE0F7E /* PetriNetworkController.m */,
-				645E0FEC12B58719007BA92D /* PetriServerNetworkController.h */,
-				645E0FED12B58719007BA92D /* PetriServerNetworkController.m */,
-				645E0FEF12B58720007BA92D /* PetriClientNetworkController.h */,
-				645E0FF012B58720007BA92D /* PetriClientNetworkController.m */,
-			);
-			name = "Network Controllers";
 			sourceTree = "<group>";
 		};
 		6A03C3C112A41E95001F243A /* Superclass */ = {
@@ -704,6 +691,19 @@
 			path = "Mock Classes";
 			sourceTree = "<group>";
 		};
+		6AA67BAF12B7D260005A3221 /* Network Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6AA67BB012B7D260005A3221 /* PetriClientNetworkController.h */,
+				6AA67BB112B7D260005A3221 /* PetriClientNetworkController.m */,
+				6AA67BB212B7D260005A3221 /* PetriNetworkController.h */,
+				6AA67BB312B7D260005A3221 /* PetriNetworkController.m */,
+				6AA67BB412B7D260005A3221 /* PetriServerNetworkController.h */,
+				6AA67BB512B7D260005A3221 /* PetriServerNetworkController.m */,
+			);
+			path = "Network Controllers";
+			sourceTree = "<group>";
+		};
 		6AA738DF1265FB97003ABB43 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -735,7 +735,7 @@
 		6AA738E91265FBB7003ABB43 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				641D428512B4868A00DE0F7E /* Network Controllers */,
+				6AA67BAF12B7D260005A3221 /* Network Controllers */,
 				6A5690331285DC9A0002C128 /* View Controllers */,
 				6AA738EA1265FBB7003ABB43 /* PetriMainWindowController.h */,
 				6AA738EB1265FBB7003ABB43 /* PetriMainWindowController.m */,
@@ -1003,11 +1003,11 @@
 				6A71D45012B308A600AC6F2B /* PetriPlayerStatusLayer.m in Sources */,
 				6A71D45412B30CEE00AC6F2B /* PetriPlayer+DisplayName.m in Sources */,
 				FA31882F12B4513D009E7D42 /* PetriBiteItem.m in Sources */,
-				641D429E12B5797900DE0F7E /* PetriNetworkController.m in Sources */,
-				645E0FEE12B58719007BA92D /* PetriServerNetworkController.m in Sources */,
-				645E0FF112B58720007BA92D /* PetriClientNetworkController.m in Sources */,
 				6A25199C12B5B3AD00195244 /* PetriItemLayer.m in Sources */,
 				6A25199F12B5B44400195244 /* PetriItemStackLayer.m in Sources */,
+				6AA67BB612B7D260005A3221 /* PetriClientNetworkController.m in Sources */,
+				6AA67BB712B7D260005A3221 /* PetriNetworkController.m in Sources */,
+				6AA67BB812B7D260005A3221 /* PetriServerNetworkController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
