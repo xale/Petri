@@ -31,8 +31,9 @@
 - (void)updateCellID:(NSInteger)cellID
 		 withNewItem:(PetriItem*)item
 {
-	PetriGame* myGame = [[self gameGroup] game];
 	NSLog(@"FIXME: not implemented.");
+	// FIXME: cells do not currently have support for adding items
+	//PetriGame* myGame = [[self gameGroup] game];
 	//[[[myGame board] cellByID:cellID] setItem:item];
 }
 

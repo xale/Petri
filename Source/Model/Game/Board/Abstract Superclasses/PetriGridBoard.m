@@ -171,6 +171,16 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 			  atCoordinates:[self coordinatesOfCell:cell]];
 }
 
+- (NSEnumerator*)enumeratorOfCells
+{
+	NSMutableSet* set = [NSMutableSet set];
+	for (NSArray* row in cells)
+	{
+		[set unionSet:[NSSet setWithArray:row]];
+	}
+	return [set objectEnumerator];
+}
+
 - (void)placePiece:(PetriGridPiece*)piece
 		 withOwner:(PetriPlayer*)player
 	 atCoordinates:(Petri2DCoordinates*)pieceOrigin
@@ -466,6 +476,10 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 - (void)forceClearCell:(PetriBoardCell*)cell
 {
 	[[cell owner] removeControlledCellsObject:cell];
+	if ([cell isEmpty])
+	{
+		return;
+	}
 	[cell clearCell];
 }
 
@@ -489,21 +503,22 @@ NSString* const PetriGridBoardInvalidPieceTypeExceptionDescriptionFormat =	@"Att
 - (void)clearDeadCells
 {
 	PetriPlayer* player;
-	NSMutableSet* owned;
+	NSMutableSet* live = [NSMutableSet set];
 	for (PetriBoardCell* head in [self heads])
 	{
 		// Get the player who owns this particular head
 		player = [head owner];
-		// Get all cells the player owns
-		owned = [[player controlledCells] mutableCopy];
-		// Remove all living cells the player owns
-		[owned minusSet:[self findLivingCellsForPlayer:player]];
-		// Clear all the rest
-		for (PetriBoardCell* cell in owned)
+		// Store all living cells the player owns
+		[live unionSet:[self findLivingCellsForPlayer:player]];
+	}
+	for (PetriBoardCell* cell in [self enumeratorOfCells])
+	{
+		if (! [live member:cell])
 		{
 			[self forceClearCell:cell];
 		}
 	}
+	
 }
 
 - (void)setHeadsForPlayers:(NSArray*)players

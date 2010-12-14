@@ -13,16 +13,10 @@
 @implementation PetriClientNetworkController
 
 - (id)initWithServerHost:(NSString*)serverIpAddr
-				 GameGroup:(PetriGameGroup*)GameGroup;
 {
-	//Set GameGroup
-	gameGroup = GameGroup;
-	
 	//Instantiate a distributed server object
-	id PetriServerNetworkControllerProxy;
-	PetriServerNetworkControllerProxy = [[NSConnection
-		rootProxyForConnectionWithRegisteredName:@"PetriServerListenConnection"
-		host:serverIpAddr] retain];
+	id PetriServerNetworkControllerProxy = [NSConnection rootProxyForConnectionWithRegisteredName:@"PetriServerListenConnection"
+																							 host:serverIpAddr];
 	
 	//Now set pointer to PetriServerNetworkControllerProxy
 	serverNC = PetriServerNetworkControllerProxy;
@@ -38,8 +32,6 @@
 	{
 		/* Handle error. */
 	}
-	
-	[[NSRunLoop currentRunLoop] run];
 
 	//Pass host to server to make host connect to DO
 	

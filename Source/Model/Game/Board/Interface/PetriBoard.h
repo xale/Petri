@@ -108,6 +108,11 @@
 - (NSSet*)heads;
 
 /*!
+ Returns an enumerator of all the cells in the board.
+ */
+- (NSEnumerator*)enumeratorOfCells;
+
+/*!
  Returns the head cell owned by the player, or nil if none exists.
  
  @param player the player whose head cell is of interest.

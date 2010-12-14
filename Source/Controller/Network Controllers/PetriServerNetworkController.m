@@ -28,8 +28,6 @@
 		/* Handle error. */
 	}
 	
-	[[NSRunLoop currentRunLoop] run];
-	
 	return self;
 }
 
@@ -37,9 +35,8 @@
 {
 	//Instantiate a distributed server object
 	id PetriClientNetworkControllerProxy;
-	PetriClientNetworkControllerProxy = [[NSConnection
-										  rootProxyForConnectionWithRegisteredName:@"PetriClientListenConnection"
-										  host:clientIpAddr] retain];
+	PetriClientNetworkControllerProxy = [NSConnection rootProxyForConnectionWithRegisteredName:@"PetriClientListenConnection"
+																						  host:clientIpAddr];
 	
 	//Now set pointer to PetriServerNetworkControllerProxy
 	[clientNCs addObject:PetriClientNetworkControllerProxy];
@@ -49,7 +46,7 @@
 {
 	for (NSDistantObject* current in clientNCs)
 	{
-		if (current == client)
+		if ([current isEqual:client])
 		{
 			[clientNCs removeObject:current];
 		}
