@@ -82,26 +82,14 @@
 
 - (void)nextTurn
 {
-	if ([[players lastObject] isEqual:currentPlayer])
-	{
-		if ((random() % 5) == 0)
-		{
-			for (PetriPlayer* player in players)
-			{
-				[player addItemsObject:[PetriBiteItem item]];
-			}
-		}
-	}
-	
-	[self willChangeValueForKey:@"currentPiece"];
-	[self willChangeValueForKey:@"currentPlayer"];
-
 	PetriPlayer* previousPlayer = currentPlayer;
+	[self willChangeValueForKey:@"currentPlayer"];
 	NSLog(@"--- * Changing turn.");
 	do
 	{
 		currentPlayer = [self nextPlayer];
-	} while ([[currentPlayer controlledCells] count] == 0);
+	} while ([currentPlayer countOfControlledCells] == 0);
+	[self didChangeValueForKey:@"currentPlayer"];
 	
 	if ([previousPlayer isEqual:currentPlayer])
 	{
@@ -109,10 +97,21 @@
 		gameOver = YES;
 		[self didChangeValueForKey:@"gameOver"];
 	}
+	
+	[self willChangeValueForKey:@"currentPiece"];
 	currentPiece = [self nextPiece];
-	NSLog(@"Current player has %lu cells, %lu cells are on the board.", [currentPlayer countOfControlledCells], [board countOfCells]);
-	[self didChangeValueForKey:@"currentPlayer"];
 	[self didChangeValueForKey:@"currentPiece"];
+	
+	NSLog(@"Current player has %lu cells, %lu cells are on the board.", [currentPlayer countOfControlledCells], [board countOfCells]);
+	
+	if ((random() % 10) == 0)
+	{
+		for (PetriPlayer* player in players)
+		{
+			if ([player countOfControlledCells] > 0)
+				[player addItemsObject:[PetriBiteItem item]];
+		}
+	}
 }
 
 - (void)performCapturesForCurrentPlayer
