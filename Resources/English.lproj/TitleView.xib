@@ -56,7 +56,7 @@
 					<object class="NSButton" id="784282043">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{605, 23}, {175, 25}}</string>
+						<string key="NSFrame">{{605, 18}, {175, 25}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="BGHUDButtonCell" key="NSCell" id="617362794">
@@ -86,7 +86,7 @@
 					<object class="NSButton" id="729174757">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">293</int>
-						<string key="NSFrame">{{312.5, 23}, {175, 25}}</string>
+						<string key="NSFrame">{{312, 18}, {175, 25}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="BGHUDButtonCell" key="NSCell" id="634183420">
@@ -108,7 +108,7 @@
 					<object class="NSButton" id="47199518">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 23}, {175, 25}}</string>
+						<string key="NSFrame">{{20, 18}, {175, 25}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="BGHUDButtonCell" key="NSCell" id="182560601">
@@ -238,10 +238,10 @@
 						<reference key="object" ref="1005"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="47199518"/>
-							<reference ref="784282043"/>
-							<reference ref="729174757"/>
 							<reference ref="1047416723"/>
+							<reference ref="47199518"/>
+							<reference ref="729174757"/>
+							<reference ref="784282043"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -351,15 +351,15 @@
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABAoAAAwjgAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABBoAAAwjgAAA</bytes>
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABDm4AAwjgAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABDnEAAwjgAAA</bytes>
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABD2wAAwjgAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABEF0AAwjgAAA</bytes>
 					</object>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>
 					<string>com.binarymethod.BGHUDAppKitPlugin</string>

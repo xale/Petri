@@ -12,8 +12,10 @@
 @implementation PetriUser
 
 - (id)initWithNickname:(NSString*)userNickname
+		   playerColor:(NSColor*)color
 {
 	nickname = [userNickname copy];
+	playerColor = [color copy];
 	
 	return self;
 }
@@ -22,5 +24,6 @@
 #pragma mark Accessors
 
 @synthesize nickname;
+@synthesize playerColor;
 
 @end

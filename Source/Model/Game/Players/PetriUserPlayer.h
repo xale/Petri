@@ -24,11 +24,9 @@
  Creates a new PetriUserPlayer controlled by the specified PetriUser.
  @param ID The player's game-unique identifier.
  @param user The user controlling this player's actions. Must not be nil.
- @param playerColor The new player's color.
  */
 - (id)initWithPlayerID:(NSInteger)ID
-	   controllingUser:(PetriUser*)user
-				 color:(NSColor*)playerColor;
+	   controllingUser:(PetriUser*)user;
 
 @property (readonly) PetriUser* controllingUser;
 

@@ -141,11 +141,11 @@ canRotateCurrentPiece:(id<PetriPiece>)piece
 			 ofBoard:(id<PetriBoard>)board
 {
 	// Use the item
-	[game useItem:item
-		  onCells:cells
-		   pieces:nil
-		  players:nil
-		 byPlayer:itemUser];
+	[[self game] useItem:item
+				 onCells:cells
+				  pieces:nil
+				 players:nil
+				byPlayer:itemUser];
 
 }
 

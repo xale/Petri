@@ -8,6 +8,8 @@
 
 #import "PetriUserPlayer.h"
 
+#import "PetriUser.h"
+
 @implementation PetriUserPlayer
 
 /*!
@@ -22,16 +24,15 @@
 
 - (id)initWithPlayerID:(NSInteger)ID
 	   controllingUser:(PetriUser*)user
-				 color:(NSColor*)playerColor
 {
-	if (![super initWithPlayerID:ID color:playerColor])
-		return nil;
-
 	if (user == nil)
 	{
 		[NSException raise:NSInternalInconsistencyException
 					format:@"User must not be nil."];
 	}
+	
+	if (![super initWithPlayerID:ID color:[user playerColor]])
+		return nil;
 	
 	controllingUser = user;
 	

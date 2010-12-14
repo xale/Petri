@@ -15,15 +15,19 @@
  */
 @interface PetriUser : NSObject
 {
-	NSString* nickname;	/*!< The user's name or nickname, visible to other users during a network game. */
+	NSString* nickname;		/*!< The user's name or nickname, visible to other users during a network game. */
+	NSColor* playerColor;	/*!< The color that will be used for the player's color in a game. */
 }
 
 /*!
- Creates a new PetriUser object with the specified nickname.
- @param userNickname the user's nickname, chosen (presumably) by the human being at the keyboard.
+ Creates a new PetriUser object with the specified nickname and color.
+ @param userNickname The user's nickname, chosen (presumably) by the human being at the keyboard.
+ @param color The color of the user's player.
  */
-- (id)initWithNickname:(NSString*)userNickname;
+- (id)initWithNickname:(NSString*)userNickname
+		   playerColor:(NSColor*)color;
 
 @property (readwrite, copy) NSString* nickname;
+@property (readwrite, copy) NSColor* playerColor;
 
 @end
