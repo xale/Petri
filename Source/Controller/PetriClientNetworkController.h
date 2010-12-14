@@ -26,8 +26,7 @@
  The client then vends itself as a distributed object and tells the server to initiate a connection to it.
  @param serverIpAddr ip address of server to connect to
  */
-- (id)initWithServerHost:(NSString*)serverIpAddr
-				 GameGroup:(PetriGameGroup*)gameGroup;
+- (id)initWithServerHost:(NSString*)serverIpAddr;
 
 /*!
  @deprecated
