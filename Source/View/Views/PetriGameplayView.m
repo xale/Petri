@@ -59,6 +59,11 @@
  */
 - (PetriPlayersListContainerLayer*)playersListConstainerLayerForGame:(PetriGame*)newGame;
 
+/*!
+ Creates a layer used as an overlay when the game ends, displaying the "game over" message.
+ */
+- (CALayer*)gameOverLayerForGame:(PetriGame*)newGame;
+
 #pragma mark Input Events
 
 /*!
@@ -317,6 +322,57 @@
 	return playerContainerLayer;
 }
 
+#define PetriGameplayViewGameOverOverlayOpacity	0.5
+
+NSString* const PetriGameplayViewGameOverOverlayString =	@"Game Over";
+NSString* const PetriGameplayViewGameOverOverlayFontName =	@"Arial Rounded MT Bold";
+#define	PetriGameplayViewGameOverOverlayFontSize	60.0
+
+- (CALayer*)gameOverLayerForGame:(PetriGame*)newGame
+{
+	// Create a (hidden) overlay layer
+	CALayer* overlayLayer = [CALayer layer];
+	[overlayLayer setLayoutManager:[CAConstraintLayoutManager layoutManager]];
+	
+	// Give the layer a semitransparent black background
+	CGColorRef overlayColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, PetriGameplayViewGameOverOverlayOpacity);
+	[overlayLayer setBackgroundColor:overlayColor];
+	CGColorRelease(overlayColor);
+	
+	// Size the layer to the full size of the view
+	[overlayLayer addConstraintsFromSet:[CAConstraint superlayerSizeConstraintSet]];
+	[overlayLayer addConstraintsFromSet:[CAConstraint superlayerCenterConstraintSet]];
+	
+	// Create a text sublayer
+	CATextLayer* gameOverTextLayer = [CATextLayer layer];
+	[gameOverTextLayer setString:PetriGameplayViewGameOverOverlayString];
+	
+	// Configure the text attributes
+	CTFontRef gameOverFont = CTFontCreateWithName((CFStringRef)PetriGameplayViewGameOverOverlayFontName, 0.0, NULL);
+	[gameOverTextLayer setFont:gameOverFont];
+	CFRelease(gameOverFont);
+	[gameOverTextLayer setFontSize:PetriGameplayViewGameOverOverlayFontSize];
+	[gameOverTextLayer setAlignmentMode:kCAAlignmentCenter];
+	
+	// Size the text layer to center on the overlay
+	[gameOverTextLayer addConstraintsFromSet:[CAConstraint superlayerCenterConstraintSet]];
+	[gameOverTextLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+																relativeTo:@"superlayer"
+																 attribute:kCAConstraintWidth]];
+	 
+	// Add the text sublayer to the overlay
+	[overlayLayer addSublayer:gameOverTextLayer];
+	
+	// Make the overlay visible only when the game ends
+	[overlayLayer bind:@"hidden"
+			  toObject:newGame
+		   withKeyPath:@"gameOver"
+			   options:[NSDictionary dictionaryWithObject:NSNegateBooleanTransformerName
+												   forKey:NSValueTransformerNameBindingOption]];
+	
+	return overlayLayer;
+}
+
 #pragma mark -
 #pragma mark Input Events
 
@@ -339,6 +395,10 @@
 
 - (void)mouseDown:(NSEvent*)mouseEvent
 {
+	// If the game is over, disregard input events
+	if ([[self game] isGameOver])
+		return;
+	
 	// Get the deepest layer in the hierarchy that was clicked
 	CALayer* clickedLayer = [self hitTestContainerLayerAtWindowLocation:[mouseEvent locationInWindow]];
 	
@@ -496,6 +556,10 @@
 
 - (void)mouseUp:(NSEvent*)mouseEvent
 {
+	// If the game is over, disregard input events
+	if ([[self game] isGameOver])
+		return;
+	
 	// Get the deepest layer in the hierarchy that was clicked
 	CALayer* layerUnderCursor = [self hitTestContainerLayerAtWindowLocation:[mouseEvent locationInWindow]];
 	
@@ -583,6 +647,10 @@
 
 - (void)mouseDragged:(NSEvent*)mouseEvent
 {
+	// If the game is over, disregard input events
+	if ([[self game] isGameOver])
+		return;
+	
 	// If the cursor is carrying a piece, treat this as a mouse-move event
 	if (carriedPiece != nil)
 	{
@@ -625,6 +693,10 @@
 
 - (void)mouseMoved:(NSEvent*)mouseEvent
 {
+	// If the game is over, disregard input events
+	if ([[self game] isGameOver])
+		return;
+	
 	// If the cursor is not carrying a piece, ignore this event
 	if (carriedPiece == nil)
 		return;
@@ -649,12 +721,19 @@
 
 - (void)keyDown:(NSEvent*)keyEvent
 {
+	// If the game is over, disregard input events
+	if ([[self game] isGameOver])
+		return;
+	
+	// Check for specific keys of interest
+	// Spacebar (rotate piece)
 	if ([[keyEvent characters] isEqualToString:@" "])
 	{
 		[self spacebarDown:keyEvent];
 		return;
 	}
 	
+	// Not of interest, see if our superclass cares
 	[super keyDown:keyEvent];
 }
 
@@ -972,6 +1051,9 @@
 	
 	// Add the container to the view
 	[[self layer] addSublayer:outerContainerLayer];
+	
+	// Add the "game over" overlay (hidden) to the view
+	[[self layer] addSublayer:[self gameOverLayerForGame:newGame]];
 	
 	// Start observing the new game object for notifications of capture and clear batches
 	[self startObservingBatchesForGame:newGame];
