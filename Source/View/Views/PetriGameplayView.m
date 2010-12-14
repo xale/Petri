@@ -114,9 +114,14 @@
 - (BOOL)canPlaceCarriedPiece;
 
 /*!
- Highlights the cells on the board under the cells in the currently-carried piece.
+ Checks if the carried piece's origin has moved from the previous highlighted placement location, and highlights the new location if necessary.
  */
 - (void)updatePieceHighlight;
+
+/*!
+ Highlights cells on the board in the shape of the current piece, with its origin at the specified cell.
+ */
+- (void)forceUpdatePieceHighlightForDestinationCell:(PetriBoardCell*)cell;
 
 /*!
  Removes the carried piece layer, if any, from the cursor, and optionally returns it to its container.
@@ -663,7 +668,8 @@
 							forPlayer:[[self game] currentPlayer]];
 		
 		// Update the highlighted cells under the piece
-		[self updatePieceHighlight];
+		// Uses a forced update, since the piece's origin may be in the same cell as before the rotation, but the piece's configuration has changed
+		[self forceUpdatePieceHighlightForDestinationCell:[self cellUnderCarriedPieceOrigin]];
 	}
 }
 
@@ -710,20 +716,25 @@
 	// Get the cell under the carried piece's origin
 	PetriBoardCell* cellUnderPieceOrigin = [self cellUnderCarriedPieceOrigin];
 	
+	// If the piece's position hasn't changed, do nothing
+	if (((cellUnderPieceOrigin == nil) && (destinationCell == nil)) || [cellUnderPieceOrigin isEqual:destinationCell])
+		return;
+	
+	[self forceUpdatePieceHighlightForDestinationCell:cellUnderPieceOrigin];
+}
+
+- (void)forceUpdatePieceHighlightForDestinationCell:(PetriBoardCell*)cell
+{
 	// If the piece isn't over a cell, clear highlighting
-	if (cellUnderPieceOrigin == nil)
+	if (cell == nil)
 	{
 		[self clearBoardHighlight];
 		destinationCell = nil;
 		return;
 	}
 	
-	// If the piece's position hasn't changed, do nothing
-	if ([cellUnderPieceOrigin isEqual:destinationCell])
-		return;
-	
 	// Update the piece's position
-	destinationCell = cellUnderPieceOrigin;
+	destinationCell = cell;
 	
 	// Get the cells on which the piece would lie if placed
 	NSSet* cellsUnderPiece = [[[self game] board] cellsCoveredByPlacingPiece:[[self game] currentPiece]
