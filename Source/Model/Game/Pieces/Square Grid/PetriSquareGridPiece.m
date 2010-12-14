@@ -30,6 +30,7 @@
 						   [PetriSquareGridPiece zPiece],
 						   [PetriSquareGridPiece lPiece],
 						   [PetriSquareGridPiece jPiece],
+						   [PetriSquareGridPiece tPiece],
 						   [PetriSquareGridPiece squarePiece],
 						   [PetriSquareGridPiece line5Piece],
 						   nil];
@@ -95,6 +96,16 @@
 														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0],
 														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
 														   [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:1],
+														   nil]];
+}
+
++ (id)tPiece
+{
+	return [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObjects:
+														   [Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:1],
+														   [Petri2DCoordinates coordinatesWithXCoordinate:2 yCoordinate:0],
 														   nil]];
 }
 

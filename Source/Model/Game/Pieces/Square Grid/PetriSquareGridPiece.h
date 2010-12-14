@@ -33,6 +33,7 @@
 + (id)lPiece;		/*!< Returns a PetriSquareGridPiece shaped like the 'L' tetromino. */
 + (id)zPiece;		/*!< Returns a PetriSquareGridPiece shaped like the 'Z' tetromino. */
 + (id)sPiece;		/*!< Returns a PetriSquareGridPiece shaped like the 'S' tetromino. */
++ (id)tPiece;		/*!< Returns a PetriSquareGridPiece shaped like the 'T' tetromino. */
 + (id)line5Piece;	/*!< Returns a PetriSquareGridPiece consisting of five cells in a line. */
 
 @end
