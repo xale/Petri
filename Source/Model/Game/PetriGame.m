@@ -121,7 +121,7 @@
 	
 	NSLog(@"Current player has %lu cells, %lu cells are on the board.", [currentPlayer countOfControlledCells], [board countOfCells]);
 	
-	if ((random() % 10) == 0)
+	if ((random() % 12) == 0)
 	{
 		for (PetriPlayer* player in players)
 		{
