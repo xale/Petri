@@ -39,6 +39,11 @@
  */
 - (PetriPlayer*)nextPlayer;
 
+/*!
+ Updates the controlled percentages of the board for all players in the game.
+ */
+- (void)updateControlPercentages;
+
 @end
 
 @implementation PetriGame
@@ -51,15 +56,27 @@
 		NSString* reason = @"Attempted to create game with no players or nil players array";
 		[[NSException exceptionWithName:NSInternalInconsistencyException reason:reason userInfo:nil] raise];
 	}
+	
+	// Copy the players array, and assign the first player
 	players = [playersInGame copy];
 	currentPlayer = [players objectAtIndex:0];
+	
+	// Hold a reference to the game configuration
 	gameConfiguration = configuration;
+	
+	// Create a board, set up the player's heads, and update the player's initial controlled percentages of it
 	board = [[[configuration boardPrototype] boardClass] boardWithParameters:[[configuration boardPrototype] setupParameters]];
 	[board setHeadsForPlayers:players];
+	[self updateControlPercentages];
+	
+	// Create the first piece
 	currentPiece = [self nextPiece];
+	
+	// Set initial flag states
 	inCaptureBatch = NO;
 	inClearBatch = NO;
 	gameOver = NO;
+	
 	return self;
 }
 
@@ -104,7 +121,7 @@
 	
 	NSLog(@"Current player has %lu cells, %lu cells are on the board.", [currentPlayer countOfControlledCells], [board countOfCells]);
 	
-	if ((random() % 10) == 0)
+	if ((random() % 12) == 0)
 	{
 		for (PetriPlayer* player in players)
 		{
@@ -121,6 +138,7 @@
 	do
 	{
 		capturesPerformed = [self stepCapturesForCurrentPlayer];
+		[self updateControlPercentages];
 	} while (capturesPerformed);
 	NSLog(@"<<< + End of captures for current player.");
 }
@@ -129,9 +147,13 @@
 {
 	[self setInCaptureBatch:YES];
 	NSLog(@">>> + Starting capture batch.");
+	
+	// Perform a step of the captures
 	BOOL didPerformCaptures = [board stepCapturesForPlayer:currentPlayer];
+	
 	NSLog(@"<<< + Ending capture batch.");
 	[self setInCaptureBatch:NO];
+	
 	return didPerformCaptures;
 }
 
@@ -143,6 +165,18 @@
 	[board clearDeadCells];
 	NSLog(@"<<< - Ending clear batch.");
 	[self setInClearBatch:NO];
+	
+	[self updateControlPercentages];
+}
+
+- (void)updateControlPercentages
+{
+	// Determine what percentage of the board each player controls
+	for (PetriPlayer* player in [self players])
+	{
+		double controlPercentage = (100.0 * ((double)[player countOfControlledCells] / (double)[board countOfCells]));
+		[player setControlPercentage:(NSUInteger)lround(controlPercentage)];
+	}
 }
 
 - (void)rotateCurrentPiece

@@ -12,6 +12,7 @@
 
 #import "PetriPlayerColorValueTransformer.h"
 #import "PetriCellTypeDisplayTransformer.h"
+#import "PetriItemIconDisplayTransformer.h"
 
 @implementation PetriBoardCellLayer
 
@@ -39,7 +40,13 @@
 	   options:[NSDictionary dictionaryWithObject:[PetriCellTypeDisplayTransformer valueTransformer]
 										   forKey:NSValueTransformerBindingOption]];
 	
-	// FIXME: additional bindings
+	// Bind the layer's contents to the icon for the cell's item pickup, if any
+	[self bind:@"contents"
+	  toObject:displayedCell
+   withKeyPath:@"pickUp"
+	   options:[NSDictionary dictionaryWithObject:[PetriItemIconDisplayTransformer valueTransformer]
+										   forKey:NSValueTransformerBindingOption]];
+	[self setContentsGravity:kCAGravityResizeAspect];
 	
 	// Disable edge antialiasing, since theses layers will abut one another, and antialiasing may create artifacts
 	[self setEdgeAntialiasingMask:0];

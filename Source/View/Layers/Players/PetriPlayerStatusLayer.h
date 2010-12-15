@@ -22,7 +22,8 @@
 	
 	NSArray* itemStacks;	/*!< Sublayers on which the player's items are displayed. */
 	PetriItemStackLayer* highlightedStack;	/*!< Which stack, if any, of the player's items is selected for use. */
-	CATextLayer* nameLayer;	/*!< Sublayer on which the player's name is stored. */
+	CATextLayer* nameLayer;	/*!< Sublayer on which the player's name is displayed. */
+	CATextLayer* percentageLayer; /*!< Sublayer on which the player's controlled percentage of the board is displayed. */
 }
 
 /*!
