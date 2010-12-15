@@ -199,6 +199,7 @@
 								</object>
 								<object class="NSMenuItem" id="722745758">
 									<reference key="NSMenu" ref="720053764"/>
+									<bool key="NSIsDisabled">YES</bool>
 									<string key="NSTitle">Host Network Game</string>
 									<string key="NSKeyEquiv">N</string>
 									<int key="NSKeyEquivModMask">1048576</int>
@@ -208,6 +209,7 @@
 								</object>
 								<object class="NSMenuItem" id="776162233">
 									<reference key="NSMenu" ref="720053764"/>
+									<bool key="NSIsDisabled">YES</bool>
 									<string key="NSTitle">Join Network Game</string>
 									<string key="NSKeyEquiv">j</string>
 									<int key="NSKeyEquivModMask">1048576</int>
@@ -264,6 +266,7 @@
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
 							</object>
+							<bool key="NSNoAutoenable">YES</bool>
 						</object>
 					</object>
 					<object class="NSMenuItem" id="713487014">
