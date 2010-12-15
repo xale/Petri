@@ -14,6 +14,7 @@
 #import "Petri2DCoordinates.h"
 
 #import "PetriBoardParameter.h"
+#import "PetriBiteItem.h"
 
 NSString* const PetriSquareGridBoardWidthParameterKey =		@"width";
 NSString* const PetriSquareGridBoardHeightParameterKey =	@"height";
@@ -67,6 +68,10 @@ NSSet* captureOffsets = nil;
 		NSException* exception = [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Board initialized with too small width or height." userInfo:nil];
 		@throw exception;
 	}
+	[[self cellAtX:0           Y:0]            setPickUp:[PetriBiteItem item]];
+	[[self cellAtX:(width - 1) Y:0]            setPickUp:[PetriBiteItem item]];
+	[[self cellAtX:0           Y:(height - 1)] setPickUp:[PetriBiteItem item]];
+	[[self cellAtX:(width - 1) Y:(height - 1)] setPickUp:[PetriBiteItem item]];
 	return [super initWithWidth:boardWidth height:boardHeight];
 }
 
