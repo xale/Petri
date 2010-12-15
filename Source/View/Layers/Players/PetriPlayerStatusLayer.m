@@ -36,6 +36,11 @@
 - (NSString*)controlPercentageStringForPlayer:(PetriPlayer*)displayedPlayer;
 
 /*!
+ Returns a constant CGColorRef (either kCGColorBlack or kCGColorWhite) depending on which shows up better on the specified player's color.
+ */
+- (CGColorRef)contrastColorForPlayerColor:(NSColor*)playerColor;
+
+/*!
  Creates an array of PetriItemStackLayers displaying the specified player's inventory, and arranged across the bottom of their superlayer.
  */
 - (NSArray*)itemStacksForPlayer:(PetriPlayer*)displayedPlayer;
@@ -88,7 +93,7 @@
 	CGColorRelease(color);
 	
 	// Set the border color for when the player is selected
-	[self setBorderColor:CGColorGetConstantColor(kCGColorWhite)];
+	[self setBorderColor:[self contrastColorForPlayerColor:[displayedPlayer color]]];
 	
 	// If the layer is selected, draw the border
 	if (initiallySelected)
@@ -127,8 +132,8 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	[layer setFont:nicknameFont];
 	CFRelease(nicknameFont);
 	
-	// Set the text color to white
-	[layer setForegroundColor:CGColorGetConstantColor(kCGColorWhite)];
+	// Set the text color to be visible against the player's color
+	[layer setForegroundColor:[self contrastColorForPlayerColor:[displayedPlayer color]]];
 	
 	// Configure the size and position of the layer
 	[layer setAlignmentMode:kCAAlignmentLeft];
@@ -154,7 +159,7 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 
 NSString* const PetriPlayerStatusLayerPercentageFontName =	@"Arial Rounded MT Bold";
 #define PetriPlayerStatusLayerPercentageVerticalPositionScale	0.80
-#define PetriPlayerStatusLayerPercentageFieldLeftEdgeScale		0.80
+#define PetriPlayerStatusLayerPercentageFieldLeftEdgeScale		0.78
 #define PetriPlayerStatusLayerPercentageFieldRightEdgeScale		0.95
 
 - (CATextLayer*)percentageLayerForPlayer:(PetriPlayer*)displayedPlayer
@@ -168,8 +173,8 @@ NSString* const PetriPlayerStatusLayerPercentageFontName =	@"Arial Rounded MT Bo
 	[layer setFont:percentageFont];
 	CFRelease(percentageFont);
 	
-	// Set the text color to white
-	[layer setForegroundColor:CGColorGetConstantColor(kCGColorWhite)];
+	// Set the text color to be visible against the player's color
+	[layer setForegroundColor:[self contrastColorForPlayerColor:[displayedPlayer color]]];
 	
 	// Configure the size and position of the layer
 	[layer setAlignmentMode:kCAAlignmentRight];
@@ -197,6 +202,29 @@ NSString* const PetriPlayerStatusLayerControlPercentageFormat =	@"%d%%";
 - (NSString*)controlPercentageStringForPlayer:(PetriPlayer*)displayedPlayer
 {
 	return [NSString stringWithFormat:PetriPlayerStatusLayerControlPercentageFormat, [displayedPlayer controlPercentage]];
+}
+
+#define PercievedBrightnessRedWeight	299
+#define PercievedBrightnessGreenWeight	587
+#define PercievedBrightnessBlueWeight	114
+#define PercievedBrightnessTotalWeight	(PercievedBrightnessRedWeight + PercievedBrightnessGreenWeight + PercievedBrightnessBlueWeight)
+
+- (CGColorRef)contrastColorForPlayerColor:(NSColor*)playerColor
+{
+	// Use a weighted average to determine the perceived brightness of the player's color
+	// Percieved Brightness = ((Red value X 299) + (Green value X 587) + (Blue value X 114)) / 1000
+	// Note: This algorithm is taken from a formula for converting RGB values to YIQ values. This brightness value gives a perceived brightness for a color.
+	// See http://www.w3.org/TR/2000/WD-AERT-20000426#color-contrast for more information
+	CGFloat percievedBrightness = ((([playerColor redComponent] * PercievedBrightnessRedWeight) +
+									([playerColor greenComponent] * PercievedBrightnessGreenWeight) +
+									([playerColor blueComponent] * PercievedBrightnessBlueWeight))
+								   / PercievedBrightnessTotalWeight);
+	
+	// Use the perceived brightness to determine the higher-contrast text color
+	if (percievedBrightness > 0.5)
+		return CGColorGetConstantColor(kCGColorBlack);
+	
+	return CGColorGetConstantColor(kCGColorWhite);
 }
 
 #define PetriPlayerStatusLayerItemStackSublayerSizeScale				0.40
