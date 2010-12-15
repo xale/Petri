@@ -48,6 +48,18 @@
 }
 
 #pragma mark -
+#pragma mark HORRIBLE HORRIBLE HAX
+
+- (IBAction)createLocalGameGroup:(id)sender {}
+- (IBAction)createNetworkGameGroup:(id)sender {}
+- (IBAction)joinNetworkGameGroup:(id)sender {}
+- (IBAction)returnToTitleView:(id)sender {}
+- (IBAction)joinGameGroup:(id)sender {}
+- (IBAction)startGame:(id)sender {}
+- (IBAction)endGame:(id)sender {}
+- (IBAction)skipTurn:(id)sender {}
+
+#pragma mark -
 #pragma mark Display Notifications
 
 - (void)willDisplayInWindow
