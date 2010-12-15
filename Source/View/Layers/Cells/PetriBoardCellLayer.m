@@ -20,12 +20,12 @@
 @interface PetriBoardCellLayer(Private)
 
 /*!
- Creates a CIFilter suitable for use in highlighting the layer. Specifically, this filter is a CIExposureAdjust filter, whose inputEV can be raised or lowered to darken or brighten the cell.
+ Creates a CIFilter suitable for use in highlighting the layer.
  */
 - (CIFilter*)highlightFilter;
 
 /*!
- Returns a CABasicAnimation used to animate the inputEV parameter of the cell's highlighting filter. Highlighting the cell as valid produces a fast-pulsing animation which brightens the cell; highlighting as invalid produces a slower-pulsing darkening animation.
+ Returns a CABasicAnimation used to animate a specific parameter of the cell's highlighting filter. Highlighting the cell as valid produces a fast-pulsing animation which brightens the cell; highlighting as invalid produces a slower-pulsing darkening animation.
  */
 - (CAAnimation*)highlightAnimationForValidHighlight:(BOOL)valid;
 
@@ -82,48 +82,50 @@
 #pragma mark -
 #pragma mark Highlighting
 
-NSString* const PetriBoardCellLayerHighlightFilterName =	@"highlightFilter";
+NSString* const PetriBoardCellLayerHighlightFilterTypeName =		@"CIGammaAdjust";
+NSString* const PetriBoardCellLayerHighlightFilterNameKey =			@"highlightFilter";
+NSString* const PetriBoardCellLayerHighlightFilterParameterKey =	@"inputPower";
 
 - (CIFilter*)highlightFilter
 {
-	CIFilter* filter = [CIFilter filterWithName:@"CIExposureAdjust"];
+	CIFilter* filter = [CIFilter filterWithName:PetriBoardCellLayerHighlightFilterTypeName];
 	[filter setDefaults];
-	[filter setValue:[NSNumber numberWithDouble:0.0]
-			  forKey:kCIInputEVKey];
-	[filter setName:PetriBoardCellLayerHighlightFilterName];
+	[filter setValue:[NSNumber numberWithDouble:1.0]
+			  forKey:PetriBoardCellLayerHighlightFilterParameterKey];
+	[filter setName:PetriBoardCellLayerHighlightFilterNameKey];
 	
 	return filter;
 }
 
-NSString* const PetriBoardCellLayerHighlightAnimationKey =	@"highlightAnimation";
+NSString* const PetriBoardCellLayerHighlightAnimationKey =				@"highlightAnimation";
 NSString* const PetriBoardCellLayerHighlightAnimationKeyPathFormat =	@"filters.%@.%@";
 
-#define PetriBoardCellLayerValidHighlightAnimationFilterExposureFromValue	(1.0)
-#define PetriBoardCellLayerValidHighlightAnimationFilterExposureToValue		(-0.2)
+#define PetriBoardCellLayerValidHighlightAnimationFilterParameterFromValue		0.10
+#define PetriBoardCellLayerValidHighlightAnimationFilterParameterToValue		0.60
 
-#define PetriBoardCellLayerInvalidHighlightAnimationFilterExposureFromValue	(-2.0)
-#define PetriBoardCellLayerInvalidHighlightAnimationFilterExposureToValue	(-0.5)
+#define PetriBoardCellLayerInvalidHighlightAnimationFilterParameterFromValue	4.00
+#define PetriBoardCellLayerInvalidHighlightAnimationFilterParameterToValue		2.00
 
 #define PetriBoardCellLayerValidHighlightAnimationDuration		0.5		// Seconds
 #define PetriBoardCellLayerInvalidHighlightAnimationDuration	0.75
 
 - (CAAnimation*)highlightAnimationForValidHighlight:(BOOL)valid
 {
-	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:[NSString stringWithFormat:PetriBoardCellLayerHighlightAnimationKeyPathFormat, PetriBoardCellLayerHighlightFilterName, kCIInputEVKey]];
+	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:[NSString stringWithFormat:PetriBoardCellLayerHighlightAnimationKeyPathFormat, PetriBoardCellLayerHighlightFilterNameKey, PetriBoardCellLayerHighlightFilterParameterKey]];
 	
 	// Set the endpoint values of the animation to be lighter or darker, and the animation duration, depending on the validity of the highlight
 	NSNumber* fromValue = nil, * toValue = nil;
 	NSTimeInterval animationDuration;
 	if (valid)
 	{
-		fromValue = [NSNumber numberWithDouble:PetriBoardCellLayerValidHighlightAnimationFilterExposureFromValue];
-		toValue = [NSNumber numberWithDouble:PetriBoardCellLayerValidHighlightAnimationFilterExposureToValue];
+		fromValue = [NSNumber numberWithDouble:PetriBoardCellLayerValidHighlightAnimationFilterParameterFromValue];
+		toValue = [NSNumber numberWithDouble:PetriBoardCellLayerValidHighlightAnimationFilterParameterToValue];
 		animationDuration = PetriBoardCellLayerValidHighlightAnimationDuration;
 	}
 	else
 	{
-		fromValue = [NSNumber numberWithDouble:PetriBoardCellLayerInvalidHighlightAnimationFilterExposureFromValue];
-		toValue = [NSNumber numberWithDouble:PetriBoardCellLayerInvalidHighlightAnimationFilterExposureToValue];
+		fromValue = [NSNumber numberWithDouble:PetriBoardCellLayerInvalidHighlightAnimationFilterParameterFromValue];
+		toValue = [NSNumber numberWithDouble:PetriBoardCellLayerInvalidHighlightAnimationFilterParameterToValue];
 		animationDuration = PetriBoardCellLayerInvalidHighlightAnimationDuration;
 	}
 	[animation setFromValue:fromValue];
