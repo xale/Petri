@@ -13,11 +13,6 @@
 
 #import "PetriItemStackLayer.h"
 
-NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold";
-#define PetriPlayerStatusLayerNicknameFontScale			0.20
-#define PetriPlayerStatusLayerNicknamePositionScale		0.80
-#define PetriPlayerStatusLayerNicknameFieldWidthScale	0.88
-
 #define PetriPlayerStatusLayerSelectionBorderWidth	4.0
 
 /*!
@@ -25,8 +20,24 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
  */
 @interface PetriPlayerStatusLayer(Private)
 
+/*!
+ Creates a CATextLayer configured to display the specified player's nickname, positioned in the top-left corner of its superlayer.
+ */
 - (CATextLayer*)nameLayerForPlayer:(PetriPlayer*)displayedPlayer;
 
+/*!
+ Creates a CATextLayer configured to display the specified player's controlled percentage of the board, positioned in the top-right corner of its superlayer.
+ */
+- (CATextLayer*)percentageLayerForPlayer:(PetriPlayer*)displayedPlayer;
+
+/*!
+ Returns a string of the format X%, where X is the specified player's controlled percentage of the board.
+ */
+- (NSString*)controlPercentageStringForPlayer:(PetriPlayer*)displayedPlayer;
+
+/*!
+ Creates an array of PetriItemStackLayers displaying the specified player's inventory, and arranged across the bottom of their superlayer.
+ */
 - (NSArray*)itemStacksForPlayer:(PetriPlayer*)displayedPlayer;
 
 @end
@@ -46,6 +57,9 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	nameLayer = [self nameLayerForPlayer:displayedPlayer];
 	[self addSublayer:nameLayer];
 	
+	percentageLayer = [self percentageLayerForPlayer:displayedPlayer];
+	[self addSublayer:percentageLayer];
+	
 	// Create "stacks" of the player's items
 	itemStacks = [self itemStacksForPlayer:displayedPlayer];
 	for (CALayer* layer in itemStacks)
@@ -53,15 +67,19 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 		[self addSublayer:layer];
 	}
 	
-	// Monitor the player's list of items and number of controlled cells
+	// Monitor the player's list of items and number and percentage of controlled cells
 	[displayedPlayer addObserver:self
 					  forKeyPath:@"items"
 						 options:0
-						 context:nil];
+						 context:NULL];
 	[displayedPlayer addObserver:self
 					  forKeyPath:@"controlledCells"
 						 options:0
-						 context:nil];
+						 context:NULL];
+	[displayedPlayer addObserver:self
+					  forKeyPath:@"controlPercentage"
+						 options:0
+						 context:NULL];
 	
 	// Set the background color of the layer to the player's color
 	NSColor* playerColor = [displayedPlayer color];
@@ -94,6 +112,11 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 #pragma mark -
 #pragma mark Layout
 
+NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold";
+#define PetriPlayerStatusLayerNicknameVerticalPositionScale	0.80
+#define PetriPlayerStatusLayerNicknameFieldLeftEdgeScale	0.05
+#define PetriPlayerStatusLayerNicknameFieldRightEdgeScale	0.75
+
 - (CATextLayer*)nameLayerForPlayer:(PetriPlayer*)displayedPlayer
 {
 	CATextLayer* layer = [CATextLayer layer];
@@ -108,22 +131,72 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	[layer setForegroundColor:CGColorGetConstantColor(kCGColorWhite)];
 	
 	// Configure the size and position of the layer
+	[layer setAlignmentMode:kCAAlignmentLeft];
 	[layer setTruncationMode:kCATruncationEnd];
-	[layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidX
-													relativeTo:@"superlayer"
-													 attribute:kCAConstraintMidX]];
 	[layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
 													relativeTo:@"superlayer"
 													 attribute:kCAConstraintHeight
-														 scale:PetriPlayerStatusLayerNicknamePositionScale
+														 scale:PetriPlayerStatusLayerNicknameVerticalPositionScale
 														offset:0.0]];
-	[layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintWidth
+	[layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
 													relativeTo:@"superlayer"
 													 attribute:kCAConstraintWidth
-														 scale:PetriPlayerStatusLayerNicknameFieldWidthScale
+														 scale:PetriPlayerStatusLayerNicknameFieldLeftEdgeScale
+														offset:0.0]];
+	[layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
+													relativeTo:@"superlayer"
+													 attribute:kCAConstraintWidth
+														 scale:PetriPlayerStatusLayerNicknameFieldRightEdgeScale
 														offset:0.0]];
 	
 	return layer;
+}
+
+NSString* const PetriPlayerStatusLayerPercentageFontName =	@"Arial Rounded MT Bold";
+#define PetriPlayerStatusLayerPercentageVerticalPositionScale	0.80
+#define PetriPlayerStatusLayerPercentageFieldLeftEdgeScale		0.80
+#define PetriPlayerStatusLayerPercentageFieldRightEdgeScale		0.95
+
+- (CATextLayer*)percentageLayerForPlayer:(PetriPlayer*)displayedPlayer
+{
+	// Create a text layer
+	CATextLayer* layer = [CATextLayer layer];
+	[layer setString:[self controlPercentageStringForPlayer:displayedPlayer]];
+	
+	// Set the font to the Petri title font
+	CTFontRef percentageFont = CTFontCreateWithName((CFStringRef)PetriPlayerStatusLayerPercentageFontName, 0.0, NULL);
+	[layer setFont:percentageFont];
+	CFRelease(percentageFont);
+	
+	// Set the text color to white
+	[layer setForegroundColor:CGColorGetConstantColor(kCGColorWhite)];
+	
+	// Configure the size and position of the layer
+	[layer setAlignmentMode:kCAAlignmentRight];
+	[layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMidY
+													relativeTo:@"superlayer"
+													 attribute:kCAConstraintHeight
+														 scale:PetriPlayerStatusLayerPercentageVerticalPositionScale
+														offset:0.0]];
+	[layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
+													relativeTo:@"superlayer"
+													 attribute:kCAConstraintWidth
+														 scale:PetriPlayerStatusLayerPercentageFieldLeftEdgeScale
+														offset:0.0]];
+	[layer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
+													relativeTo:@"superlayer"
+													 attribute:kCAConstraintWidth
+														 scale:PetriPlayerStatusLayerPercentageFieldRightEdgeScale
+														offset:0.0]];
+	
+	return layer;
+}
+
+NSString* const PetriPlayerStatusLayerControlPercentageFormat =	@"%d%%";
+
+- (NSString*)controlPercentageStringForPlayer:(PetriPlayer*)displayedPlayer
+{
+	return [NSString stringWithFormat:PetriPlayerStatusLayerControlPercentageFormat, [displayedPlayer controlPercentage]];
 }
 
 #define PetriPlayerStatusLayerItemStackSublayerSizeScale				0.40
@@ -197,11 +270,21 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	{
 		[self setOpacity:(([[self player] countOfControlledCells] == 0) ? PetriPlayerStatusLayerDeadPlayerOpacity : 1.0)];
 	}
+	else if ([keyPath isEqualToString:@"controlPercentage"])
+	{
+		[percentageLayer setString:[self controlPercentageStringForPlayer:[self player]]];
+	}
 }
+
+#define PetriPlayerStatusLayerNicknameFontScale		0.18
+#define PetriPlayerStatusLayerPercentageFontScale	0.12
 
 - (void)layoutSublayers
 {
-	[nameLayer setFontSize:(CGRectGetHeight([self bounds]) * PetriPlayerStatusLayerNicknameFontScale)];
+	// Resize the font size of the text layers
+	CGFloat height = CGRectGetHeight([self bounds]);
+	[nameLayer setFontSize:(height * PetriPlayerStatusLayerNicknameFontScale)];
+	[percentageLayer setFontSize:(height * PetriPlayerStatusLayerPercentageFontScale)];
 	
 	[super layoutSublayers];
 }

@@ -168,6 +168,7 @@
 
 #pragma mark Others
 
+@synthesize controlPercentage;
 @synthesize color;
 @synthesize playerID;
 
