@@ -38,11 +38,12 @@
 	NSUInteger cellsBitten = 1;
 	NSUInteger numberOfCellsOnBoard = [board countOfCells];
 	NSUInteger numberOfCellsControlledByPlayer = [[usingPlayer controlledCells] count];
-	if (numberOfCellsOnBoard / numberOfCellsControlledByPlayer < 4)
+	double boardProportion = (double)numberOfCellsControlledByPlayer / (double)numberOfCellsOnBoard;
+	if (boardProportion >= .12)
 	{
 		cellsBitten = 2;
 	}
-	if (numberOfCellsOnBoard / numberOfCellsControlledByPlayer < 3)
+	if (boardProportion >= .30)
 	{
 		cellsBitten = 3;
 	}
