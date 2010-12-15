@@ -71,11 +71,27 @@ NSString* const PetriGameplayViewNibName =	@"GameplayView";
 
 - (IBAction)skipTurn:(id)sender
 {
+	// If the game is over, ignore this action
+	if ([[self game] isGameOver])
+		return;
+	
 	// Ask the game to advance to the next turn
 	[[self game] nextTurn];
 	
 	// If the gameplay view has a layer on the cursor, drop it
-	[gameplayView dropCarriedObjects:self];
+	[gameplayView dropCarriedObjects:sender];
+}
+
+#pragma mark -
+#pragma mark Interface Validation
+
+// FIXME: this isn't working
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item
+{
+	if (([item action] == @selector(skipTurn:)) && [[self game] isGameOver])
+		return NO;
+	
+	return [super validateUserInterfaceItem:item];
 }
 
 #pragma mark -

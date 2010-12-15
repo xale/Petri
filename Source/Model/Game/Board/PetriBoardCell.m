@@ -7,6 +7,7 @@
 //
 
 #import "PetriBoardCell.h"
+#import "PetriPlayer.h"
 
 @implementation PetriBoardCell
 
@@ -88,6 +89,11 @@
 	// Abusing key-value coding and dynamic method dispatch
 	NSLog(@"Taking cell at %@ owned by %@ for %@.", [[NSApp valueForKeyPath:@"delegate.model.gameGroup.game.board"] performSelector:@selector(coordinatesOfCell:) withObject:self], [self owner], player);
 	// end debug
+	if ([self pickUp] != nil)
+	{
+		[player addItemsObject:[self pickUp]];
+		NSLog(@"Taking item %@ for player %@.", pickUp, player);
+	}
 	[self setCellType:bodyCell];
 	[self setOwner:player];
 	[self setPickUp:nil];

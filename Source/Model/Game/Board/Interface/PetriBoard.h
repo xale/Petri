@@ -113,6 +113,11 @@
 - (NSEnumerator*)enumeratorOfCells;
 
 /*!
+ Returns the number of cells that the board has.
+ */
+- (NSUInteger)countOfCells;
+
+/*!
  Returns the head cell owned by the player, or nil if none exists.
  
  @param player the player whose head cell is of interest.

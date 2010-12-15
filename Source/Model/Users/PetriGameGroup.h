@@ -59,6 +59,6 @@
 @property (readwrite, assign) PetriGameConfiguration* gameConfiguration;
 @property (readwrite, assign) PetriGame* game;
 @property (readwrite, copy) NSArray* defaultPlayerColors;
-@property (readonly) BOOL isLocalGameGroup;		/*!< True if the gamegroup is local and false otherwise. */
+@property (readonly, getter=isLocalGameGroup) BOOL localGameGroup;
 
 @end

@@ -61,6 +61,11 @@
 	return NO;
 }
 
+- (NSString*)description
+{
+	return [self itemName];
+}
+
 #pragma mark -
 #pragma mark Comparators
 

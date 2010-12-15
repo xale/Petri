@@ -21,6 +21,7 @@
 	NSInteger playerID;				/*!< A unique per-game identifier. */
 	NSMutableDictionary* items;		/*!< The items currently possessed by the player. Maps PetriItem to NSNumber; i.e., item type to quantity. */
 	NSMutableSet* controlledCells;	/*!< The set of cells curently controlled by the player. */
+	NSUInteger controlPercentage;	/*!< The percentage of the board that this player controls, rounded to the nearest integer. */
 	NSColor* color;					/*!< The player's color. */
 }
 
@@ -102,6 +103,7 @@
  Returns immutable copy of controlledCells set.
  */
 @property (readonly) NSSet* controlledCells;
+@property (readwrite, assign) NSUInteger controlPercentage;
 @property (readwrite, copy) NSColor* color;
 
 @end
