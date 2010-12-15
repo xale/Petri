@@ -126,8 +126,9 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 	return layer;
 }
 
-#define PetriPlayerStatusLayerItemStackSublayerSizeScale		0.45
-#define PetriPlayerStatusLayerItemStackSublayerPositionScale	0.1
+#define PetriPlayerStatusLayerItemStackSublayerSizeScale				0.40
+#define PetriPlayerStatusLayerItemStackSublayerVerticalPositionScale	0.12
+#define PetriPlayerStatusLayerItemStackSublayerHorizontalPositionScale	0.07
 
 - (NSArray*)itemStacksForPlayer:(PetriPlayer*)displayedPlayer
 {
@@ -158,13 +159,13 @@ NSString* const PetriPlayerStatusLayerNicknameFontName =	@"Arial Rounded MT Bold
 		[stackLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
 															 relativeTo:@"superlayer"
 															  attribute:kCAConstraintHeight
-																  scale:PetriPlayerStatusLayerItemStackSublayerPositionScale
+																  scale:PetriPlayerStatusLayerItemStackSublayerVerticalPositionScale
 																 offset:0.0]];
 		// FIXME: DOES NOT SCALE
 		[stackLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
 															 relativeTo:@"superlayer"
 															  attribute:kCAConstraintWidth
-																  scale:(PetriPlayerStatusLayerItemStackSublayerPositionScale * (itemTypeIndex + 1))
+																  scale:(PetriPlayerStatusLayerItemStackSublayerHorizontalPositionScale * (itemTypeIndex + 1))
 																 offset:0.0]];
 		
 		[layers addObject:stackLayer];
