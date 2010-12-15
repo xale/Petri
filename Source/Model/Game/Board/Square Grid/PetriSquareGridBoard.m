@@ -161,9 +161,9 @@ NSSet* captureOffsets = nil;
 		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:-1 yCoordinate:0]];
 		[offsets addObject:[Petri2DCoordinates coordinatesWithXCoordinate:1 yCoordinate:0]];
 		placementOffsets = [offsets copy];
-
-		return placementOffsets;
 	}
+	
+	return placementOffsets;
 }
 
 + (NSSet*)captureOffsets
@@ -184,9 +184,9 @@ NSSet* captureOffsets = nil;
 		
 		[offsets unionSet:[self placementOffsets]];
 		captureOffsets = [offsets copy];
-		
-		return captureOffsets;
 	}
+	
+	return captureOffsets;
 }
 
 @end
