@@ -104,41 +104,38 @@ NSString* const PetriBoardCellLayerHighlightAnimationKeyPathFormat =	@"filters.%
 #define PetriBoardCellLayerInvalidHighlightAnimationFilterExposureFromValue	(-2.0)
 #define PetriBoardCellLayerInvalidHighlightAnimationFilterExposureToValue	(-0.5)
 
-#define PetriBoardCellLayerValidHighlightAnimationDuration		0.5	// Seconds
+#define PetriBoardCellLayerValidHighlightAnimationDuration		0.5		// Seconds
 #define PetriBoardCellLayerInvalidHighlightAnimationDuration	0.75
 
 - (CAAnimation*)highlightAnimationForValidHighlight:(BOOL)valid
 {
 	CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:[NSString stringWithFormat:PetriBoardCellLayerHighlightAnimationKeyPathFormat, PetriBoardCellLayerHighlightFilterName, kCIInputEVKey]];
 	
-	// Set the endpoint values of the animation to be lighter or darker, depending on the validity of the highlight
+	// Set the endpoint values of the animation to be lighter or darker, and the animation duration, depending on the validity of the highlight
 	NSNumber* fromValue = nil, * toValue = nil;
+	NSTimeInterval animationDuration;
 	if (valid)
 	{
 		fromValue = [NSNumber numberWithDouble:PetriBoardCellLayerValidHighlightAnimationFilterExposureFromValue];
 		toValue = [NSNumber numberWithDouble:PetriBoardCellLayerValidHighlightAnimationFilterExposureToValue];
+		animationDuration = PetriBoardCellLayerValidHighlightAnimationDuration;
 	}
 	else
 	{
 		fromValue = [NSNumber numberWithDouble:PetriBoardCellLayerInvalidHighlightAnimationFilterExposureFromValue];
 		toValue = [NSNumber numberWithDouble:PetriBoardCellLayerInvalidHighlightAnimationFilterExposureToValue];
+		animationDuration = PetriBoardCellLayerInvalidHighlightAnimationDuration;
 	}
 	[animation setFromValue:fromValue];
 	[animation setToValue:toValue];
+	[animation setDuration:animationDuration];
 	
 	// Make the animation autoreverse and repeat forever
 	[animation setRepeatCount:HUGE_VALF];	// CAMediaTiming interprets this as "infinity"
 	[animation setAutoreverses:YES];
 	
 	// Make the animation use "ease-in ease-out" timing
-	// FIXME: TESTING
 	[animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-	
-	// Make the animation faster if the highlight is valid
-	if (valid)
-		[animation setDuration:PetriBoardCellLayerValidHighlightAnimationDuration];
-	else
-		[animation setDuration:PetriBoardCellLayerInvalidHighlightAnimationDuration];
 	
 	return animation;
 }
