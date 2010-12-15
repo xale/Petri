@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Quartz/Quartz.h>
 
 @class PetriBoardCell;
 
@@ -20,6 +21,9 @@
 	PetriBoardCell* cell;	/*!< The cell for which this layer provides a graphical representation. */
 	BOOL highlighted;		/*!< Specifies whether the cell should indicate that it is highlighted for piece placment. */
 	BOOL highlightsAsValid;	/*!< Specifies whether the cell, when highlighted, should indicate "valid" or "invalid" for piece placement. */
+	
+	CIFilter* highlightFilter;	/*!< The filter used to indicate the presence and type of highlight on the cell. */
+	CAAnimation* highlightAnimation;	/*!< The animation, if any, applied to the highlight filter. */
 }
 
 /*!

@@ -454,7 +454,7 @@ NSString* const PetriGameplayViewGameOverOverlayFontName =	@"Arial Rounded MT Bo
 	return YES;
 }
 
-#define PetriGameplayViewCarriedPieceOpacity	0.75
+#define PetriGameplayViewCarriedPieceOpacity	0.5
 
 - (BOOL)handleMouseDown:(NSEvent*)mouseEvent
 		   onPieceLayer:(PetriPieceLayer*)clickedLayer
