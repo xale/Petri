@@ -33,10 +33,6 @@
 	PetriUser* hostUser = [[PetriUser alloc] initWithNickname:NSFullUserName()
 												  playerColor:[NSColor redColor]];
 	[self setGameGroup:[[PetriGameGroup alloc] initWithHost:hostUser]];
-	
-	// Create a network controller
-	networkController = [[PetriServerNetworkController alloc] initWithGameGroup:[self gameGroup]];
-	[[PetriClientNetworkController alloc] initWithGameGroup:<#(PetriGameGroup *)GameGroup#>
 }
 
 - (void)joinGameGroupWithHost:(NSString*)hostnameOrIP

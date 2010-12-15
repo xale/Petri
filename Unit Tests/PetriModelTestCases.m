@@ -28,7 +28,8 @@
 	[testModel createLocalGameGroup];
 	STAssertNotNil([testModel gameGroup], @"Creation of local Game Group by PetriModel unsuccessful");
 	
-	// FIXME: test that created group is a "local" group
+	// FIXED: test that created group is a "local" group
+	STAssertTrue([[testModel gameGroup] isLocalGameGroup], @"Created game group is not local");
 }
 
 @end
