@@ -94,10 +94,12 @@ NSSet* captureOffsets = nil;
 	NSMutableArray* headCellsTemp = [NSMutableArray arrayWithCapacity:4];
 	
 	// Up to four heads can exist; they are added in this order so that two players start diagonally across from each other.
-	[headCellsTemp addObject:[self cellAtX:2 Y:2]];
-	[headCellsTemp addObject:[self cellAtX:width - 3 Y:height - 3]];
-	[headCellsTemp addObject:[self cellAtX:2 Y:height - 3]];
-	[headCellsTemp addObject:[self cellAtX:width - 3 Y:2]];
+	NSInteger distanceOfHeadFromHorizontalEdge = ceil((double) width / 5.0);
+	NSInteger distanceOfHeadFromVerticalEdge = ceil((double)height / 5.0);
+	[headCellsTemp addObject:[self cellAtX:distanceOfHeadFromHorizontalEdge - 1 Y:distanceOfHeadFromVerticalEdge - 1]];
+	[headCellsTemp addObject:[self cellAtX:width - distanceOfHeadFromHorizontalEdge Y:height - distanceOfHeadFromVerticalEdge]];
+	[headCellsTemp addObject:[self cellAtX:distanceOfHeadFromHorizontalEdge - 1 Y:height - distanceOfHeadFromVerticalEdge]];
+	[headCellsTemp addObject:[self cellAtX:width - distanceOfHeadFromHorizontalEdge Y:distanceOfHeadFromVerticalEdge - 1]];
 	
 	PetriBoardCell* cell = nil;
 	PetriPlayer* owner = nil;
