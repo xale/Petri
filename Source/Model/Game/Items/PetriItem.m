@@ -63,7 +63,7 @@
 
 - (NSString*)description
 {
-	return itemName;
+	return [self itemName];
 }
 
 #pragma mark -
