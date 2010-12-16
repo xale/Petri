@@ -96,4 +96,10 @@ NSString* const PetriUnknownPieceTypeExceptionDescriptionFormat =	@"Cannot gener
 	return CGPointZero;
 }
 
+- (CGSize)cellSize
+{
+	[self doesNotRecognizeSelector:_cmd];
+	return CGSizeZero;
+}
+
 @end

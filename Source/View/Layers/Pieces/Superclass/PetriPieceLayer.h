@@ -42,6 +42,12 @@
  */
 - (CGPoint)origin;
 
+/*!
+ Returns the current size of the receiver's cell sublayers.
+ \warning Abstract method; subclasses must override.
+ */
+- (CGSize)cellSize;
+
 @property (readonly) id<PetriPiece> piece;
 @property (readwrite, assign) NSUInteger orientation;
 

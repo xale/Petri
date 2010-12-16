@@ -9,7 +9,9 @@
 #import "PetriPieceContainerLayer.h"
 
 #import "PetriPiece.h"
+
 #import "PetriPieceLayer.h"
+#import "PetriBoardCellLayer.h"
 
 #import "CALayer+ConstraintSets.h"
 
@@ -74,6 +76,33 @@
 - (void)setPieceHidden:(BOOL)hide
 {
 	[currentPieceLayer setHidden:hide];
+}
+
+- (void)layoutSublayers
+{
+	// Layout the sublayers as normal
+	[super layoutSublayers];
+	
+	// Calculate the maximum allowed size for the piece's cell sublayers
+	// FIXME: hardcoded value
+	CGFloat maxCellSize = MIN((CGRectGetWidth([self bounds]) / 4.0), (CGRectGetHeight([self bounds]) / 4.0));
+	
+	// Get the size of the piece's cell sublayers
+	CGSize cellSize = [currentPieceLayer cellSize];
+	CGFloat currentCellSize = MAX(cellSize.width, cellSize.height);
+	
+	// Check if the cells are larger than the target size
+	if (currentCellSize <= maxCellSize)
+		return;
+	
+	// Determine the amount to scale the piece
+	CGFloat scale = (maxCellSize / currentCellSize);
+	
+	// Scale the piece up or down
+	CGRect scaledBounds = [currentPieceLayer bounds];
+	scaledBounds.size.width *= scale;
+	scaledBounds.size.height *= scale;
+	[currentPieceLayer setBounds:scaledBounds];
 }
 
 #pragma mark -

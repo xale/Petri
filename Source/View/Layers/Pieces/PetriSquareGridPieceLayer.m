@@ -109,4 +109,12 @@
 	return originPoint;
 }
 
+- (CGSize)cellSize
+{
+	CGSize size = [self bounds].size;
+	size.width /= [(PetriSquareGridPiece*)[self piece] baseWidth];
+	size.height /= [(PetriSquareGridPiece*)[self piece] baseHeight];
+	return size;
+}
+
 @end
