@@ -74,10 +74,6 @@
 
 - (void)clearCell
 {
-	// Debug statements; break encapsulation
-	// Abusing key-value coding and dynamic method dispatch
-	NSLog(@"Clearing cell at %@ owned by %@.", [[NSApp valueForKeyPath:@"delegate.model.gameGroup.game.board"] performSelector:@selector(coordinatesOfCell:) withObject:self], [self owner]);
-	// end debug
 	[self setCellType:unoccupiedCell];
 	[self setOwner:nil];
 	[self setPickUp:nil];
@@ -85,10 +81,6 @@
 
 - (void)takeCellForPlayer:(PetriPlayer*)player
 {
-	// Debug statements; break encapsulation
-	// Abusing key-value coding and dynamic method dispatch
-	NSLog(@"Taking cell at %@ owned by %@ for %@.", [[NSApp valueForKeyPath:@"delegate.model.gameGroup.game.board"] performSelector:@selector(coordinatesOfCell:) withObject:self], [self owner], player);
-	// end debug
 	if ([self pickUp] != nil)
 	{
 		[player addItemsObject:[self pickUp]];

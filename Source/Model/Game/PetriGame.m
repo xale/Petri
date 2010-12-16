@@ -105,7 +105,6 @@
 - (void)nextTurn
 {
 	[self willChangeValueForKey:@"currentPlayer"];
-	NSLog(@"--- * Changing turn.");
 	do
 	{
 		currentPlayer = [self nextPlayer];
@@ -115,8 +114,6 @@
 	[self willChangeValueForKey:@"currentPiece"];
 	currentPiece = [self nextPiece];
 	[self didChangeValueForKey:@"currentPiece"];
-	
-	NSLog(@"Current player has %lu cells, %lu cells are on the board.", [currentPlayer countOfControlledCells], [board countOfCells]);
 	
 	if ((random() % 12) == 0)
 	{
@@ -130,25 +127,21 @@
 
 - (void)performCapturesForCurrentPlayer
 {
-	NSLog(@">>> + Starting captures for current player.");
 	BOOL capturesPerformed = NO;
 	do
 	{
 		capturesPerformed = [self stepCapturesForCurrentPlayer];
 		[self updateControlPercentages];
 	} while (capturesPerformed);
-	NSLog(@"<<< + End of captures for current player.");
 }
 
 - (BOOL)stepCapturesForCurrentPlayer
 {
 	[self setInCaptureBatch:YES];
-	NSLog(@">>> + Starting capture batch.");
 	
 	// Perform a step of the captures
 	BOOL didPerformCaptures = [board stepCapturesForPlayer:currentPlayer];
 	
-	NSLog(@"<<< + Ending capture batch.");
 	[self setInCaptureBatch:NO];
 	
 	return didPerformCaptures;
@@ -157,10 +150,8 @@
 - (void)clearDeadCells
 {
 	[self setInClearBatch:YES];
-	NSLog(@">>> - Starting clear batch.");
 	// Clean up dead cells caused by captures.
 	[board clearDeadCells];
-	NSLog(@"<<< - Ending clear batch.");
 	[self setInClearBatch:NO];
 	
 	[self updateControlPercentages];
