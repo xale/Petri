@@ -36,14 +36,12 @@
 	// FIXME: this bite hardcodes values
 	
 	NSUInteger cellsBitten = 1;
-	NSUInteger numberOfCellsOnBoard = [board countOfCells];
-	NSUInteger numberOfCellsControlledByPlayer = [[usingPlayer controlledCells] count];
-	double boardProportion = (double)numberOfCellsControlledByPlayer / (double)numberOfCellsOnBoard;
-	if (boardProportion >= .12)
+	NSUInteger boardProportion = [usingPlayer controlPercentage];
+	if (boardProportion >= 12)
 	{
 		cellsBitten = 2;
 	}
-	if (boardProportion >= .30)
+	if (boardProportion >= 30)
 	{
 		cellsBitten = 3;
 	}
