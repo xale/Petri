@@ -15,8 +15,8 @@
 
 - (void)setUp
 {
-	PetriPlayer* testPlayer = [[PetriMockPlayer alloc] init];
-	PetriPlayer* testPlayer2 = [[PetriMockPlayer alloc] init];
+	PetriPlayer* testPlayer = [[PetriMockPlayer alloc] initWithPlayerID:1 color:[NSColor redColor]];
+	PetriPlayer* testPlayer2 = [[PetriMockPlayer alloc] initWithPlayerID:2 color:[NSColor blueColor]];
 	PetriGameConfiguration* testGameConfiguration = [PetriGameConfiguration defaultGameConfiguration];
 	testGame = [[PetriGame alloc] initWithPlayers:[NSArray arrayWithObjects:testPlayer, testPlayer2, nil]
 								gameConfiguration:testGameConfiguration];

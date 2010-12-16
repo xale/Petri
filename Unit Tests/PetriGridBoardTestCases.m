@@ -61,7 +61,7 @@
 {
 	NSInteger x = 3;
 	NSInteger y = 3;
-	PetriPlayer* player = [[PetriMockPlayer alloc] init];
+	PetriPlayer* player = [[PetriMockPlayer alloc] initWithPlayerID:1 color:[NSColor redColor]];
 	PetriSquareGridPiece* piece = [PetriSquareGridPiece pieceWithCellCoordinates:[NSSet setWithObject:[Petri2DCoordinates coordinatesWithXCoordinate:0 yCoordinate:0]]];
 	[testGridBoard placePiece:piece withOwner:player onCell:[testGridBoard cellAtX:x Y:y]];
 	
