@@ -44,6 +44,11 @@ NSInteger nextCellID = 0;
  */
 - (void)forceClearCell:(PetriBoardCell*)cell;
 
+/*!
+ Add specified cell to the capture queue
+ 
+ @cell cell to add to the captuer queue
+ */
 - (void)queueCellForCapture:(PetriBoardCell*)cell;
 
 - (void)queueCellForCapture:(PetriBoardCell*)cell

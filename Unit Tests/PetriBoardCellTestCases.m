@@ -22,6 +22,11 @@
 	testCell = nil;
 }
 
+- (void)testClearCell
+{
+	PetriBoardCell* cellClear = [testCell copy];
+}
+
 - (void)testCellPropertyComparison
 {
 	PetriBoardCell* identicalCell = [[PetriBoardCell alloc] init];

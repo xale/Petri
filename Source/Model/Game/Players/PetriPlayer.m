@@ -13,8 +13,11 @@
 
 - (id)init
 {
-	[self doesNotRecognizeSelector:_cmd];
-	return nil;
+	if ([self isMemberOfClass:[PetriPlayer class]])
+	{
+		[self doesNotRecognizeSelector:_cmd];
+		return nil;
+	}
 }
 
 - (id)initWithPlayerID:(NSInteger)ID

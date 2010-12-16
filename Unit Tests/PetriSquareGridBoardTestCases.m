@@ -41,8 +41,8 @@
 - (void)testInitWithParameters
 {
 	NSDictionary* params = [[board class] setupParameters];
-	[[params objectForKey:@"height"] setParameterValue:[NSNumber numberWithUnsignedInt:HEIGHT]];
-	[[params objectForKey:@"width"] setParameterValue:[NSNumber numberWithUnsignedInt:WIDTH]];
+	[[params objectForKey:@"height"] setParameterValue:HEIGHT];
+	[[params objectForKey:@"width"] setParameterValue:WIDTH];
 	PetriSquareGridBoard* board2 = [PetriSquareGridBoard boardWithParameters:params];
 	STAssertTrue([board2 width]==WIDTH && [board2 height]==HEIGHT, @"Board width or height not assigned correctly.");
 }

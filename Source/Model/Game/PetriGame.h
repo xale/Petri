@@ -74,9 +74,10 @@
 /*!
  Use an item that a player possess on cells, pieces, or target players
  
+ @param item item to use
  @param cells cells to use item on
  @param pieces pieces to use item on
- @param targetPlayer players targeted by item
+ @param targetPlayers players targeted by item
  @param usingPlayer player using the item
  */
 - (void)useItem:(PetriItem*)item
@@ -88,7 +89,7 @@
 /*!
  Place piece for a specific player on a specific cell
  
- @param picee piece to place
+ @param piece piece to place
  @param pieceOwner owner of the new piece to place
  @param cell cell to place piece on
  */
