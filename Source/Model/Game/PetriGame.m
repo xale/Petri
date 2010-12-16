@@ -44,6 +44,11 @@
  */
 - (void)updateControlPercentages;
 
+/*!
+ Updates the game's "game over" state; i.e., sets \c gameOver to true if fewer than two players control cells on the board.
+ */
+- (void)updateGameOver;
+
 @end
 
 @implementation PetriGame
@@ -99,7 +104,6 @@
 
 - (void)nextTurn
 {
-	PetriPlayer* previousPlayer = currentPlayer;
 	[self willChangeValueForKey:@"currentPlayer"];
 	NSLog(@"--- * Changing turn.");
 	do
@@ -107,13 +111,6 @@
 		currentPlayer = [self nextPlayer];
 	} while ([currentPlayer countOfControlledCells] == 0);
 	[self didChangeValueForKey:@"currentPlayer"];
-	
-	if ([previousPlayer isEqual:currentPlayer])
-	{
-		[self willChangeValueForKey:@"gameOver"];
-		gameOver = YES;
-		[self didChangeValueForKey:@"gameOver"];
-	}
 	
 	[self willChangeValueForKey:@"currentPiece"];
 	currentPiece = [self nextPiece];
@@ -176,6 +173,25 @@
 	{
 		double controlPercentage = (100.0 * ((double)[player countOfControlledCells] / (double)[board countOfCells]));
 		[player setControlPercentage:(NSUInteger)lround(controlPercentage)];
+	}
+}
+
+- (void)updateGameOver
+{
+	// Check determine the number of players that still control cells on the board
+	NSUInteger remainingPlayerCount = 0;
+	for (PetriPlayer* player in [self players])
+	{
+		if ([player countOfControlledCells] > 0)
+			remainingPlayerCount++;
+	}
+	
+	// If fewer than two players still control cells, the game is over
+	if (remainingPlayerCount < 2)
+	{
+		[self willChangeValueForKey:@"gameOver"];
+		gameOver = YES;
+		[self didChangeValueForKey:@"gameOver"];
 	}
 }
 
@@ -250,6 +266,9 @@
 	
 	// Clean up any dead cells
 	[self clearDeadCells];
+	
+	// Check for end of game (via a bite-kill, for instance)
+	[self updateGameOver];
 }
 
 - (void)placePiece:(id<PetriPiece>)piece
@@ -263,8 +282,12 @@
 	[self performCapturesForCurrentPlayer];
 
 	[self clearDeadCells];
-
-	[self nextTurn];
+	
+	// Check for end of game
+	[self updateGameOver];
+	
+	if (![self isGameOver])
+		[self nextTurn];
 }
 
 @synthesize players;
