@@ -10,9 +10,12 @@
 
 @class PetriGameGroup;
 
+/*!
+ \brief An NSArrayController subclass for managing the list of users on the Game Group view.
+ */
 @interface PetriGameGroupUsersArrayController : NSArrayController
 {
-	PetriGameGroup* gameGroup;
+	PetriGameGroup* gameGroup;	/*!< A reference to the game group to which the users in the managed array belong. */
 }
 
 @property (readwrite, assign) PetriGameGroup* gameGroup;

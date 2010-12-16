@@ -19,11 +19,20 @@
  */
 @interface PetriItemStackLayer(Private)
 
+/*!
+ Creates a number of PetriItemLayers to be displayed in this stack, up to a maximum of three.
+ */
 - (NSArray*)stackOfLayersForItem:(PetriItem*)itemType
 						   count:(NSUInteger)count;
 
+/*!
+ Creates a CATextLayer formatted to display the specified count of items in the stack.
+ */
 - (CATextLayer*)stackCountLabelLayerForCount:(NSUInteger)count;
 
+/*!
+ Generates a formatted string for the specified integer number of items in the stack, to be displayed on the text label.
+ */
 - (NSString*)stackLabelStringForCount:(NSUInteger)count;
 
 @end

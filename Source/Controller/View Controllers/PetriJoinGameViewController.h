@@ -15,7 +15,7 @@
  */
 @interface PetriJoinGameViewController : PetriMainWindowViewController
 {
-	IBOutlet NSTextField* hostnameField;
+	IBOutlet NSTextField* hostnameField;	/*!< The text field used to enter the name or IP address of a host to join. */
 }
 
 /*!
