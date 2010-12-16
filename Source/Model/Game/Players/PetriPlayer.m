@@ -18,6 +18,8 @@
 		[self doesNotRecognizeSelector:_cmd];
 		return nil;
 	}
+	
+	return self;
 }
 
 - (id)initWithPlayerID:(NSInteger)ID
