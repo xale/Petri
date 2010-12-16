@@ -62,6 +62,7 @@
 		6AA738E61265FB97003ABB43 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AA738E21265FB97003ABB43 /* MainMenu.xib */; };
 		6AA738F71265FBB7003ABB43 /* PetriMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA738EB1265FBB7003ABB43 /* PetriMainWindowController.m */; };
 		6AA738FA1265FBB7003ABB43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA738F31265FBB7003ABB43 /* main.m */; };
+		6AA8481F12B9A7EA00FB9247 /* Petri.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6AA8481E12B9A7EA00FB9247 /* Petri.icns */; };
 		6AB86D0C12B86FFD00431BD1 /* PetriItemIconDisplayTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB86D0B12B86FFD00431BD1 /* PetriItemIconDisplayTransformer.m */; };
 		6ACA2E5D12888EEE002DEBE1 /* PetriMainWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA2E5C12888EEE002DEBE1 /* PetriMainWindowViewController.m */; };
 		6AE75E3F128B0A12009F6BC5 /* PetriJoinGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AE75E3E128B0A12009F6BC5 /* PetriJoinGameViewController.m */; };
@@ -232,6 +233,7 @@
 		6AA738EB1265FBB7003ABB43 /* PetriMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriMainWindowController.m; sourceTree = "<group>"; };
 		6AA738F31265FBB7003ABB43 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6AA738F41265FBB7003ABB43 /* Petri_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Petri_Prefix.pch; sourceTree = "<group>"; };
+		6AA8481E12B9A7EA00FB9247 /* Petri.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Petri.icns; sourceTree = "<group>"; };
 		6AB86D0A12B86FFD00431BD1 /* PetriItemIconDisplayTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriItemIconDisplayTransformer.h; sourceTree = "<group>"; };
 		6AB86D0B12B86FFD00431BD1 /* PetriItemIconDisplayTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PetriItemIconDisplayTransformer.m; sourceTree = "<group>"; };
 		6ACA2E5B12888EEE002DEBE1 /* PetriMainWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PetriMainWindowViewController.h; sourceTree = "<group>"; };
@@ -726,6 +728,7 @@
 		6AA738DF1265FB97003ABB43 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6AA8481E12B9A7EA00FB9247 /* Petri.icns */,
 				6A2519A012B5BB4F00195244 /* Images */,
 				6A9DE89D1275F95000020AB9 /* Petri Unit Tests-Info.plist */,
 				6AA738E01265FB97003ABB43 /* InfoPlist.strings */,
@@ -913,6 +916,7 @@
 				6AE75E7E128B171C009F6BC5 /* JoinGameView.xib in Resources */,
 				6AF7927B12B67882009FB50F /* BiteIcon.pdf in Resources */,
 				6AA67C7912B7ED7D005A3221 /* GameGroupUserListItemView.xib in Resources */,
+				6AA8481F12B9A7EA00FB9247 /* Petri.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
