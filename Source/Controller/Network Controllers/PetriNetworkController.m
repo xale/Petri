@@ -65,4 +65,5 @@
 }
 
 @synthesize gameGroup;
+
 @end

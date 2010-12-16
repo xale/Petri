@@ -17,7 +17,7 @@
  */
 @interface PetriNetworkController : NSObject
 {
-	PetriGameGroup* gameGroup;
+	PetriGameGroup* gameGroup; /*!< A reference to the Game Group observed and updated by this controller. */
 }
 
 /*!
