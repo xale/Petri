@@ -25,7 +25,7 @@
 	NSInteger width;		/*!< Width of board, as an integer number of columns. */
 	NSInteger height;		/*!< Height of board, as an integer number of rows. */
 	NSMutableSet* heads;	/*!< Store a set of heads for convenience. */
-	NSMutableArray* stagedCaptures;
+	NSMutableArray* stagedCaptures;	/*!< A queue of sets of cells, to be captured in stages, with each set captured and its additional captures computed when -stepCapturesForPlayer: is invoked. */
 }
 
 /**
