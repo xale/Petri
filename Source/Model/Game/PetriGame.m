@@ -102,6 +102,8 @@
 #pragma mark -
 #pragma mark Game-State Actions
 
+#define PetriGameBiteAwardChance	6
+
 - (void)nextTurn
 {
 	[self willChangeValueForKey:@"currentPlayer"];
@@ -115,7 +117,8 @@
 	currentPiece = [self nextPiece];
 	[self didChangeValueForKey:@"currentPiece"];
 	
-	if ((random() % 12) == 0)
+	// FIXME: hardcoded stuff
+	if ((random() % 100) < PetriGameBiteAwardChance)
 	{
 		for (PetriPlayer* player in players)
 		{
