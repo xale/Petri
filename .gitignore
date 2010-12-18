@@ -10,8 +10,9 @@ build/*
 # Generated documentation
 doc/html/*
 
-# ArgoUML autosave files
-*.zargo~
+# Class project materials
+misc/*
+public_html/*
 
 # old skool
 .svn
